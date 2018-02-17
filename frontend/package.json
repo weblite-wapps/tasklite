@@ -1,5 +1,5 @@
 {
-  "name": "log-lite",
+  "name": "test-lite",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -16,7 +16,7 @@
         "index": "./setup/dev.index.jsx"
       },
       "react": "dev",
-      "devServer": 8081,
+      "devServer": 8031,
       "devServerContentBase": "dev"
     },
     "build": {

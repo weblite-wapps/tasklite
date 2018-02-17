@@ -12,4 +12,4 @@ const certificate = fs.readFileSync(path.resolve('./src/certs/express.crt'), 'ut
 
 https
   .createServer({ key: privateKey, cert: certificate }, app)
-  .listen(3080)
+  .listen(3030)
