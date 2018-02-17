@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 
 const { Schema } = mongoose
 
-// create a schema
 const UserSchema = new Schema({
   id: String,
   name: String,
