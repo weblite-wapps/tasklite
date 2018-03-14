@@ -22,6 +22,7 @@ body {
   right: 0px;
   top: 0px;
   z-index: 30;
+  background-color: #cfcfcf;
 }
 
 .normal {
@@ -71,4 +72,9 @@ body {
 
 .Tab {
   text-transform: capitalize;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
 }

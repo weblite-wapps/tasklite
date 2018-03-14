@@ -24,10 +24,10 @@ export default function root() {
         <ConnectedRouter history={history}>
           <div className={scssClasses.container}>
             <App />
-            <Route exact path="/" component={Home} />
+            {/* <Route exact path="/" component={Home} />
             <Route path="/Add" component={Add} />
             <Route path="/Report" component={Report} />
-            <Route path="/About" component={About} />
+            <Route path="/About" component={About} /> */}
           </div>
         </ConnectedRouter>
       </MuiThemeProvider>

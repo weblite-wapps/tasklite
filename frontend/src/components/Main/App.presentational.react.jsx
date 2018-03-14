@@ -2,10 +2,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import Tabs, { Tab } from 'material-ui/Tabs'
 import { CircularProgress } from 'material-ui/Progress'
-// components
+// local modules
 import Snackbar from 'weblite-web-snackbar'
+// components
+import TaskList from '../components/List/List.presentational'
+import LevelBar from '../components/LevelBar/LevelBar.container.react'
 // css
 import scssClasses from './App.scss'
 
@@ -13,8 +15,6 @@ import scssClasses from './App.scss'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { aboutMode: false }
-    this.handleChangeTab = this._handleChangeTab.bind(this)
     this.goToAbout = this._goToAbout.bind(this)
     this.handleWappMode = this._handleWappMode.bind(this)
     this.handleNormalMode = this._handleNormalMode.bind(this)
@@ -26,16 +26,15 @@ class App extends React.Component {
     window.addEventListener('focus', () => this.props.checkToSetSecondsElapsed())
   }
 
-  _handleChangeTab(value) {
-    const { changeTab, history } = this.props
-    this.setState({ aboutMode: false })
-    if (value === 'Home') history.push('/')
-    else history.push(`/${value}`)
-    changeTab(value)
-  }
+  // _handleChangeTab(value) {
+  // const { changeTab, history } = this.props
+  // this.setState({ aboutMode: false })
+  // if (value === 'Home') history.push('/')
+  // else history.push(`/${value}`)
+  // changeTab(value)
+  // }
 
   _goToAbout() {
-    this.setState({ aboutMode: true })
     this.props.history.push('/About')
   }
 
@@ -54,32 +53,24 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoading, tabIndex } = this.props
+    const { isLoading } = this.props
     return (
-      <div className={scssClasses.root}>
-        <div
-          className={scssClasses.logoContainer}
-          onClick={this.goToAbout}
-          role="button"
-          tabIndex="0"
-        >
-          <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
-            <CircularProgress size={40} color="primary" className={scssClasses.progress} />
-            <img alt="loglite logo" src="assets/logo.jpg" className={scssClasses.logo} />
+      <div className={scssClasses.column}>
+        <div className={scssClasses.root}>
+          <div
+            className={scssClasses.logoContainer}
+            onClick={this.goToAbout}
+            role="button"
+            tabIndex="0"
+          >
+            <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
+              <CircularProgress size={40} color="primary" className={scssClasses.progress} />
+              <img alt="loglite logo" src="assets/logo.jpg" className={scssClasses.logo} />
+            </div>
           </div>
         </div>
-        <Tabs
-          value={tabIndex}
-          onChange={(event, value) => this.handleChangeTab(value)}
-          indicatorColor={this.state.aboutMode ? '#cfcfcf' : '#000000'}
-          fullWidth
-          centered
-          className={scssClasses.Tabs}
-        >
-          <Tab label="Home" value="Home" className={scssClasses.Tab} />
-          <Tab label="Add" value="Add" className={scssClasses.Tab} />
-          <Tab label="Report" value="Report" className={scssClasses.Tab} />
-        </Tabs>
+        <LevelBar />
+        <TaskList />
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
       </div>
     )
@@ -90,8 +81,6 @@ class App extends React.Component {
 App.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isLoading: PropTypes.bool.isRequired,
-  tabIndex: PropTypes.string.isRequired,
-  changeTab: PropTypes.func.isRequired,
   fetchTodayData: PropTypes.func.isRequired,
   setAPI: PropTypes.func.isRequired,
   checkToSetSecondsElapsed: PropTypes.func.isRequired,

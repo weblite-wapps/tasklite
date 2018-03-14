@@ -19,6 +19,11 @@ export default createMuiTheme({
         fontSize: '27px',
         width: '165px',
       },
+      title: {
+        fontSize: '18px',
+        textTransform: 'uppercase',
+        fontWeight: '900',
+      },
     },
     MuiButton: {
       fab: {
@@ -53,6 +58,7 @@ export default createMuiTheme({
     MuiDivider: {
       default: {
         backgroundColor: '#000000',
+        margin: '10px 30px 10px 30px',
       },
       light: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',

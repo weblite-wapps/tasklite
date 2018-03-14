@@ -1,14 +1,14 @@
 {
-  "name": "test-lite",
+  "name": "task-lite",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "webpack-dashboard --port 8061 -- buildlite -j default~dev",
-    "build": "webpack-dashboard --port 8061 -- buildlite -j default~build"
+    "dev": "webpack-dashboard --port 8041 -- buildlite -j default~dev",
+    "build": "webpack-dashboard --port 8041 -- buildlite -j default~build"
   },
   "buildlite": {
     "default": {
-      "dashboard": 8061,
+      "dashboard": 8041,
       "style": "style.css"
     },
     "dev": {

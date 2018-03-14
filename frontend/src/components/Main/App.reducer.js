@@ -27,7 +27,7 @@ import {
 
 // state
 const initialState = {
-  tabIndex: 'Home',
+  tabIndex: 'ICE BOX',
   isLoading: false,
   popoverId: '',
   runningId: '',
