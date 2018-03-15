@@ -15,7 +15,7 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 // components
 import Icon from '../components/Icon.presentational'
 // helper
-import { formattedTitle } from './List.helper'
+import { formatTitle, formatTags, remained } from './List.helper'
 // styles
 import classes from './List.scss'
 
@@ -28,7 +28,7 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const { task: { title, tags, priority } } = this.props
+    const { task: { title, tags, priority, deadline } } = this.props
 
     return (
       <React.Fragment>
@@ -38,10 +38,10 @@ class TaskList extends React.Component {
               <img src={`assets/icons/${priority}.png`} alt="priority" className={classes.priority} />
               <Typography type="subheading" style={{ marginLeft: '10px' }}>
               {
-                formattedTitle(title) === title ?
-                  <span>{formattedTitle(title)}</span> :
+                formatTitle(title) === title ?
+                  <span>{formatTitle(title)}</span> :
                   <Tooltip title={title} placement="bottom" enterDelay={300} leaveDelay={300}>
-                    <span>{formattedTitle(title)}</span>
+                    <span>{formatTitle(title)}</span>
                   </Tooltip>
               }
               </Typography>
@@ -57,7 +57,7 @@ class TaskList extends React.Component {
           </div>
           <div className={classes.text}>
             <Typography type="body2">
-              12D 17h &nbsp;| &nbsp;| {"TAGONE, TAGTWO" || tags}
+              {remained(deadline)} &nbsp;| {formatTags(tags) || "No tags!"} &nbsp;| 25%
             </Typography>
           </div>
         </List>

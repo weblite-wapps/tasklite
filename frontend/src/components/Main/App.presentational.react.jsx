@@ -53,7 +53,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { tasks, isLoading } = this.props
+    const { tasks, isLoading, tabIndex } = this.props
     return (
       <div className={scssClasses.column}>
         <div className={scssClasses.root}>
@@ -70,7 +70,8 @@ class App extends React.Component {
           </div>
         </div>
         <LevelBar />
-        {tasks.map(task => (<TaskList key={task._id} task={task} />))}
+        {tasks.filter(task => task.level === tabIndex)
+          .map(task => (<TaskList key={task._id} task={task} />))}
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
       </div>
     )
@@ -82,6 +83,7 @@ App.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  tabIndex: PropTypes.string.isRequired,
   fetchTodayData: PropTypes.func.isRequired,
   setAPI: PropTypes.func.isRequired,
   checkToSetSecondsElapsed: PropTypes.func.isRequired,
