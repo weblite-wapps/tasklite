@@ -89,3 +89,7 @@ export const dispatchSaveEndTime = (...args) => dispatch(saveEndTime(...args))
 export const CHANGE_RUNNING_ID = 'CHANGE_RUNNING_ID'
 export const changeRunningId = createAction(CHANGE_RUNNING_ID, _id => ({ _id }))
 export const dispatchChangeRunningId = (...args) => dispatch(changeRunningId(...args))
+
+export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
+export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
+export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))

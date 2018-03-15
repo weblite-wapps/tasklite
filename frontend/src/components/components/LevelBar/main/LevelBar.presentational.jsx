@@ -18,7 +18,7 @@ const LevelBar = ({ tabIndex }) => (
     </div>
     <div className={classes.textContsainer}>
       <Divider />
-      <Typography type="title">
+      <Typography variant="title">
         {tabIndex}
       </Typography>
       <Divider />

@@ -23,6 +23,7 @@ import {
   SAVE_START_TIME,
   SAVE_END_TIME,
   CHANGE_RUNNING_ID,
+  CHANGE_EXPANDING_ID,
 } from './App.action'
 
 // state
@@ -31,6 +32,7 @@ const initialState = {
   isLoading: false,
   popoverId: '',
   runningId: '',
+  expandingId: '',
   secondsElapsed: 0,
   logs: [],
   users: [],
@@ -58,6 +60,7 @@ export const runningIdView = () => R.path(['App', 'runningId'])(getState())
 export const isLoadingView = () => R.path(['App', 'isLoading'])(getState())
 export const secondsElapsedView = () => R.path(['App', 'secondsElapsed'])(getState())
 export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
+export const expandingIdView = () => R.path(['App', 'expandingId'])(getState())
 
 // reducers
 const reducers = {
@@ -147,6 +150,11 @@ const reducers = {
   }),
 
   [CHANGE_RUNNING_ID]: (state, { _id }) => R.set(runningIdLens, _id, state),
+
+  [CHANGE_EXPANDING_ID]: (state, { _id }) => ({
+    ...state,
+    expandingId: state.expandingId === _id ? '' : _id,
+  }),
 }
 
 

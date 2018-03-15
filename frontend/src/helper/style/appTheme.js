@@ -24,6 +24,14 @@ export default createMuiTheme({
         textTransform: 'uppercase',
         fontWeight: '900',
       },
+      button: {
+        color: '#919191',
+        fontSize: '12px',
+        fontWeight: '400',
+      },
+      caption : {
+        color: 'black',
+      },
     },
     MuiButton: {
       fab: {
@@ -51,12 +59,12 @@ export default createMuiTheme({
       },
     },
     MuiCircularProgress: {
-      primaryColor: {
+      colorPrimary: {
         color: 'white',
       },
     },
     MuiDivider: {
-      default: {
+      root: {
         backgroundColor: '#000000',
         margin: '5px 30px 5px 30px',
       },

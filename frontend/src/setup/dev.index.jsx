@@ -20,6 +20,10 @@ const renderLoglite = () => render(
             priority: 1,
             level: 'ICE BOX',
             functor: 'Mostafa',
+            todos: [
+              { title: 'change namespaces', completed: false },
+              { title: 'handle views and lens', completed: true },
+            ],
           },
           {
             _id: 'dkqwokdok1o23k12k3o12f4',
@@ -30,6 +34,10 @@ const renderLoglite = () => render(
             priority: 2,
             level: 'IN PROGRESS',
             functor: 'Ali',
+            todos: [
+              { title: 'handle datavase bug', completed: false },
+              { title: 'handle kind bug', completed: false },
+            ],
           },
         ]
       }

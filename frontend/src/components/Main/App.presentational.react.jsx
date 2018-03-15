@@ -6,7 +6,7 @@ import { CircularProgress } from 'material-ui/Progress'
 // local modules
 import Snackbar from 'weblite-web-snackbar'
 // components
-import TaskList from '../components/List/main/List.presentational'
+import TaskList from '../components/List/main/List.container.react'
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 // css
 import scssClasses from './App.scss'
