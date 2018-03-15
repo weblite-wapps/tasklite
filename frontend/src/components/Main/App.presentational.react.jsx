@@ -6,8 +6,8 @@ import { CircularProgress } from 'material-ui/Progress'
 // local modules
 import Snackbar from 'weblite-web-snackbar'
 // components
-import TaskList from '../components/List/List.presentational'
-import LevelBar from '../components/LevelBar/LevelBar.container.react'
+import TaskList from '../components/List/main/List.presentational'
+import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 // css
 import scssClasses from './App.scss'
 
@@ -53,7 +53,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoading } = this.props
+    const { tasks, isLoading } = this.props
     return (
       <div className={scssClasses.column}>
         <div className={scssClasses.root}>
@@ -70,7 +70,7 @@ class App extends React.Component {
           </div>
         </div>
         <LevelBar />
-        <TaskList />
+        {tasks.map(task => (<TaskList key={task._id} task={task} />))}
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
       </div>
     )
@@ -79,6 +79,7 @@ class App extends React.Component {
 
 
 App.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   isLoading: PropTypes.bool.isRequired,
   fetchTodayData: PropTypes.func.isRequired,

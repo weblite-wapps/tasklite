@@ -17,13 +17,13 @@ import scssClasses from './root.scss'
 import theme from '../helper/style/appTheme'
 
 
-export default function root() {
+export default function root(props) {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <ConnectedRouter history={history}>
           <div className={scssClasses.container}>
-            <App />
+            <App {...props} />
             {/* <Route exact path="/" component={Home} />
             <Route path="/Add" component={Add} />
             <Route path="/Report" component={Report} />

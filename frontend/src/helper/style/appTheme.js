@@ -7,9 +7,9 @@ export default createMuiTheme({
         color: '#000000',
         fontWeight: '500',
       },
-      display2: {
+      body2: {
         fontWeight: '100',
-        color: '#505050',
+        color: '#cfcfcf',
       },
       headline: {
         color: '#919191',
@@ -35,9 +35,9 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        height: '30px',
-        width: '30px',
-        marginTop: '10px',
+        height: '25px',
+        width: '25px',
+        marginTop: '0px',
       },
     },
     MuiTab: {
@@ -58,10 +58,11 @@ export default createMuiTheme({
     MuiDivider: {
       default: {
         backgroundColor: '#000000',
-        margin: '10px 30px 10px 30px',
+        margin: '5px 30px 5px 30px',
       },
       light: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        margin: '10px 30px 10px 30px',
       },
       inset: {
         marginRight: '20px',

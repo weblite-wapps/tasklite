@@ -1,0 +1,53 @@
+.text {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 30px;
+}
+
+.title {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.icon {
+  color: #919191;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 4px;
+}
+
+.button {
+  display: flex;
+  margin: 10px 5px;
+}
+
+.title {
+  margin: 0px;
+}
+
+.duration {
+  margin: 0px;
+  text-align: right;
+}
+
+.date {
+  @extend .duration;
+  color: #cfcfcf;
+  font-size: 18px;
+}
+
+.priority {
+  color: black;
+  width: 10px;
+  height: 10px;
+}

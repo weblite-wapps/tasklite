@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
 // components
-import Image from './components/Image/Image.container.react'
+import Image from '../components/Image/Image.container.react'
 // styles
 import classes from './LevelBar.scss'
 
