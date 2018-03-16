@@ -25,11 +25,11 @@ export default createMuiTheme({
         fontWeight: '900',
       },
       button: {
-        color: '#919191',
+        color: '#cfcfcf',
         fontSize: '12px',
-        fontWeight: '400',
+        fontWeight: '500',
       },
-      caption : {
+      caption: {
         color: 'black',
       },
     },
@@ -89,6 +89,12 @@ export default createMuiTheme({
     MuiListItemSecondaryAction: {
       root: {
         paddingRight: '20px',
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        width: '15px',
+        height: '15px',
       },
     },
   },

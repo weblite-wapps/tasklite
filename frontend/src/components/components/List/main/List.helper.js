@@ -1,7 +1,7 @@
 // modules
 import * as R from 'ramda'
 import differenceInSeconds from 'date-fns/difference_in_seconds'
-
+import format from 'date-fns/format'
 
 const formattedSeconds = (seconds) => {
   if (Math.floor(seconds / 60) === 0) {
@@ -30,3 +30,5 @@ export const formatTags = (tags) => {
   const joined = R.join(', ', tags)
   return R.length(joined) > 25 ? `${R.slice(0, 25, joined)}...` : joined
 }
+
+export const formatTime = time => format(time, 'DD MMM YYYY, HH:mm')

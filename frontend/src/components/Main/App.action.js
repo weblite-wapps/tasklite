@@ -93,3 +93,7 @@ export const dispatchChangeRunningId = (...args) => dispatch(changeRunningId(...
 export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
 export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
 export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))
+
+export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED'
+export const toggleCompleted = createAction(TOGGLE_COMPLETED, (_id, index) => ({ _id, index }))
+export const dispatchToggleCompleted = (...args) => dispatch(toggleCompleted(...args))

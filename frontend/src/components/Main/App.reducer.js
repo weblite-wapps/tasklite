@@ -24,6 +24,7 @@ import {
   SAVE_END_TIME,
   CHANGE_RUNNING_ID,
   CHANGE_EXPANDING_ID,
+  TOGGLE_COMPLETED,
 } from './App.action'
 
 // state
@@ -39,6 +40,36 @@ const initialState = {
   user: {},
   wis: (window.W && window.W.wisId) || '110',
   creator: false,
+  tasks: [
+    {
+      _id: 'dkqwokdok1o23k12k3o12k3',
+      title: 'refactoring loglite',
+      tags: ['refactor', 'loglite'],
+      deadline: '2018-03-11T16:59:30.866Z',
+      sentTime: '2018-03-20T16:59:30.866Z',
+      priority: 1,
+      level: 'ICE BOX',
+      functor: 'Mostafa',
+      todos: [
+        { title: 'change namespaces', completed: false },
+        { title: 'handle views and lens', completed: true },
+      ],
+    },
+    {
+      _id: 'dkqwokdok1o23k12k3o12f4',
+      title: 'handle message microservice bugs',
+      tags: ['bug', 'backend', 'weblite-web', 'servies'],
+      deadline: '2018-03-22T16:59:30.866Z',
+      sentTime: '2018-03-21T16:59:30.866Z',
+      priority: 2,
+      level: 'IN PROGRESS',
+      functor: 'Ali',
+      todos: [
+        { title: 'handle datavase bug', completed: false },
+        { title: 'handle kind bug', completed: false },
+      ],
+    },
+  ],
 }
 
 // lens
@@ -155,6 +186,9 @@ const reducers = {
     ...state,
     expandingId: state.expandingId === _id ? '' : _id,
   }),
+
+  [TOGGLE_COMPLETED]: (state, { _id, index }) => state,
+
 }
 
 

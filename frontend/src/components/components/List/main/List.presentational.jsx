@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 // import { findDOMNode } from 'react-dom'
-// import { withStyles } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import List from 'material-ui/List'
 import Collapse from 'material-ui/transitions/Collapse'
 import Typography from 'material-ui/Typography'
@@ -17,11 +17,16 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 // local modules
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import Icon from '../components/Icon.presentational'
+import Icon from '../components/Icon/Icon.presentational'
+import Todo from '../components/Todo/Todo.presentational'
+import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
 // helper
-import { formatTitle, formatTags, remained } from './List.helper'
+import { formatTitle, formatTags, formatTime, remained } from './List.helper'
 // styles
-import classes from './List.scss'
+import scssClasses from './List.scss'
+import styles from './List.style'
+
+
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -33,14 +38,15 @@ class TaskList extends React.Component {
 
   render() {
     const {
-      task: { _id, title, tags, priority, deadline }, expandingId, onExpandClick } = this.props
+      task: { _id, title, tags, priority, deadline, todos }, expandingId, onExpandClick, classes
+    } = this.props
 
     return (
       <React.Fragment>
         <List disablePadding>
-          <div className={classes.text}>
-            <div className={classes.title}>
-              <img src={`assets/icons/${priority}.png`} alt="priority" className={classes.priority} />
+          <div className={scssClasses.text}>
+            <div className={scssClasses.title}>
+              <img src={`assets/icons/${priority}.png`} alt="priority" className={scssClasses.priority} />
               <Typography variant="subheading" style={{ marginLeft: '10px' }}>
                 {
                   formatTitle(title) === title ?
@@ -51,9 +57,11 @@ class TaskList extends React.Component {
                 }
               </Typography>
             </div>
-            <div className={classes.actions}>
-              <IconButton onClick={() => onExpandClick(_id)}>
-                {_id === expandingId ? <ExpandLess /> : <ExpandMore />}
+            <div className={scssClasses.actions}>
+              <IconButton onClick={() => onExpandClick(_id)} classes={{ root: classes.IconButton }}>
+                {_id === expandingId ?
+                  <ExpandLess classes={{ root: classes.SvgIcon }} /> :
+                  <ExpandMore classes={{ root: classes.SvgIcon }} />}
               </IconButton>
               <Icon src="assets/icons/icebox.png" label="ICE BOX" id="Work One" />
               <Icon src="assets/icons/evalute.png" label="EVALUTE" id="Work One" />
@@ -61,7 +69,7 @@ class TaskList extends React.Component {
           </div>
           {
             _id !== expandingId &&
-            <div className={classes.text}>
+            <div className={scssClasses.text}>
               <Typography variant="body2">
                 {remained(deadline)}&nbsp;| {formatTags(tags) || 'No tags!'}&nbsp;| 25%
               </Typography>
@@ -71,7 +79,7 @@ class TaskList extends React.Component {
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
-            <div className={classes.collapse}>
+            <div className={scssClasses.collapse}>
               <Typography variant="button">
                 TAGS
               </Typography>
@@ -83,8 +91,16 @@ class TaskList extends React.Component {
                 DEADLINE
               </Typography>
               <Typography variant="caption">
-                {remained(deadline)}
+                {`${formatTime(deadline)} - ${remained(deadline)} remained`}
               </Typography>
+              <Divider light />
+              <Typography variant="button" style={{ marginBottom: '5px' }}>
+                SUBWORKS
+              </Typography>
+              {
+                todos.map((todo, index) => <Todo key={index} _id={_id} index={index} todo={todo} />)
+              }
+              <TextField label="New Subtask" />
             </div>
         </Collapse>
         <Divider light />
@@ -99,4 +115,4 @@ TaskList.propTypes = {
   onExpandClick: PropTypes.func.isRequired,
 }
 
-export default TaskList
+export default withStyles(styles)(TaskList)
