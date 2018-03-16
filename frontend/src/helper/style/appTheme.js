@@ -97,5 +97,17 @@ export default createMuiTheme({
         height: '15px',
       },
     },
+    MuiBadge: {
+      badge: {
+        backgroundColor: '#519ae7',
+        color: 'white',
+        top: 'kind',
+        right: '5px',
+        bottom: '10px',
+        fontSize: '0.5rem',
+        width: '15px',
+        height: '15px',
+      },
+    },
   },
 })

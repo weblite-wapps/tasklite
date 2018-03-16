@@ -39,6 +39,20 @@ const renderLoglite = () => render(
               { title: 'handle kind bug', completed: false },
             ],
           },
+          {
+            _id: 'dkqwokdok1o23k12k3o12f5',
+            title: 'handle message microservice bugs',
+            tags: ['bug', 'backend', 'weblite-web'],
+            deadline: '2018-03-22T16:59:30.866Z',
+            sentTime: '2018-03-21T16:59:30.866Z',
+            priority: 3,
+            level: 'DONE',
+            functor: 'Amirhossein',
+            todos: [
+              { title: 'handle datavase bug', completed: true },
+              { title: 'handle kind bug', completed: true },
+            ],
+          },
         ]
       }
     />

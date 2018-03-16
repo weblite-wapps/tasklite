@@ -6,10 +6,12 @@ import LevelBar from './LevelBar.presentational'
 import { tabIndexView } from '../../../Main/App.reducer'
 // actions
 import { dispatchChangeTab } from '../../../Main/App.action'
-
+// selectors
+import { getNumberOfTasksInEachLevel } from '../../../Main/App.selector'
 
 const mapStateToProps = () => ({
   tabIndex: tabIndexView(),
+  numbers: getNumberOfTasksInEachLevel()
 })
 
 const mapDispatchToProps = () => ({
