@@ -9,9 +9,9 @@ import Image from '../components/Image/Image.container.react'
 // styles
 import classes from './LevelBar.scss'
 
-const LevelBar = ({ tabIndex, numbers }) => (
+const LevelBar = ({ tabIndex, numbers, noMargin }) => (
   <React.Fragment>
-    <div className={classes.logoContainer}>
+    <div className={noMargin ? classes.noMargin : classes.logoContainer}>
       <Badge badgeContent={numbers.ICEBOX}>
         <Image src="assets/icons/icebox.png" label="ICE BOX" />
       </Badge>
@@ -39,6 +39,7 @@ const LevelBar = ({ tabIndex, numbers }) => (
 LevelBar.propTypes = {
   tabIndex: PropTypes.string.isRequired,
   numbers: PropTypes.shape({}).isRequired,
+  noMargin: PropTypes.bool.isRequired,
 }
 
 export default LevelBar

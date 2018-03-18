@@ -62,9 +62,10 @@ class TaskList extends React.Component {
                   <ExpandLess classes={{ root: classes.SvgIcon }} /> :
                   <ExpandMore classes={{ root: classes.SvgIcon }} />}
               </IconButton>
-              {tabIndex === 'IN PROGRESS' && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
+              {(tabIndex === 'IN PROGRESS' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
               {(tabIndex === 'ICE BOX' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/inprogress.png" label="IN PROGRESS" _id={_id} />}
               {tabIndex === 'IN PROGRESS' && <Icon src="assets/icons/evalute.png" label="EVALUTE" _id={_id} />}
+              {tabIndex === 'EVALUTE' && <Icon src="assets/icons/done.png" label="EVALUTE" _id={_id} />}
             </div>
           </div>
           {
@@ -99,21 +100,21 @@ class TaskList extends React.Component {
             <Typography variant="caption">
               {R.join(', ', tags) || 'No tags!'}
             </Typography>
-            <Divider light />
+            <Divider inset />
             <Typography variant="button">
               DEADLINE
             </Typography>
             <Typography variant="caption">
               {`${formatTime(deadline)} - ${remained(deadline)} remained`}
             </Typography>
-            <Divider light />
+            <Divider inset />
             <Typography variant="button">
               FUNCTOR
             </Typography>
             <Typography variant="caption">
               {functor}
             </Typography>
-            <Divider light />
+            <Divider inset />
             <Typography variant="button" style={{ marginBottom: '5px' }}>
               SUBWORKS
             </Typography>
@@ -123,7 +124,7 @@ class TaskList extends React.Component {
             {/* <TextField label="New Subtask" /> */}
           </div>
         </Collapse>
-        <Divider light />
+        <Divider inset />
       </React.Fragment>
     )
   }

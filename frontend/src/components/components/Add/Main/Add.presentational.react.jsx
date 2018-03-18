@@ -12,6 +12,7 @@ import Autocomplete from '../../../../helper/components/Autocomplete/Autocomplet
 import TagList from '../../../../helper/components/TagList/TagList.presentational.react'
 import Button from '../../../../helper/components/Button/Button.presentational.react'
 import Custom from '../components/Custom/Main/Custom.presentational.react'
+import Avatar from '../components/Avatar/Avatar.presentational.jsx'
 // helpers
 import { formatTime, areTimesOverlapping } from './Add.helper'
 import { formattedDate } from '../../../../helper/functions/date.helper'
@@ -23,7 +24,6 @@ class Add extends React.Component {
   constructor(props) {
     super(props)
     this.handleAddLog = this._handleAddLog.bind(this)
-    this.handleAddCustomLog = this._handleAddCustomLog.bind(this)
     this.handleAddTag = this._handleAddTag.bind(this)
     this.state = {
       nameIsError: false,
@@ -43,50 +43,6 @@ class Add extends React.Component {
     } else {
       this.setState({ nameIsError: true })
       snackbarMessage({ message: 'Enter name first!' })
-    }
-  }
-
-  _handleAddCustomLog() {
-    const { logs, date, startTime, endTime, title,
-      selectedTags, addCustomLog, history, changeTab } = this.props
-    if (title && date && startTime && endTime) {
-      if (isAfter(new Date(date), new Date())) {
-        this.setState({ dateIsError: true })
-        snackbarMessage({ message: 'Are you predictor?!' })
-      } else if (date === formattedDate(new Date()) && isAfter(formatTime(startTime), new Date())) {
-        this.setState({ startTimeIsError: true })
-        snackbarMessage({ message: 'Are you predictor?!' })
-      } else if (date === formattedDate(new Date()) && isAfter(formatTime(endTime), new Date())) {
-        this.setState({ endTimeIsError: true })
-        snackbarMessage({ message: 'Are you predictor?!' })
-      } else if (isAfter(formatTime(endTime), formatTime(startTime))) {
-        if (areTimesOverlapping(
-          R.filter(eachLog => (eachLog.date === date), logs),
-          formatTime(startTime), formatTime(endTime))) {
-          snackbarMessage({ message: 'Time is overlapping!' })
-        } else {
-          addCustomLog(title, selectedTags, date, startTime, endTime)
-          snackbarMessage({ message: 'Added successfully!' })
-          changeTab('Home')
-          history.push('/')
-        }
-      } else {
-        this.setState({ startTimeIsError: true })
-        this.setState({ endTimeIsError: true })
-        snackbarMessage({ message: 'StartTime is after EndTime!' })
-      }
-    } else if (!title) {
-      this.setState({ nameIsError: true })
-      snackbarMessage({ message: 'Please enter name!' })
-    } else if (!date) {
-      this.setState({ dateIsError: true })
-      snackbarMessage({ message: 'Please enter date!' })
-    } else if (!startTime) {
-      this.setState({ startTimeIsError: true })
-      snackbarMessage({ message: 'Please enter start time!' })
-    } else {
-      this.setState({ endTimeIsError: true })
-      snackbarMessage({ message: 'Please enter end time!' })
     }
   }
 
@@ -120,6 +76,15 @@ class Add extends React.Component {
           />
         </div>
         <div className={scssClasses.textField}>
+          <TextField
+            label="Fucntor"
+            value={title}
+            onChange={e => onTitleChange(e.target.value)}
+            isError={this.state.nameIsError}
+          />
+        </div>
+        <Avatar />
+        <div className={scssClasses.textField}>
           <Autocomplete
             label="Tags"
             suggestions={suggestions}
@@ -131,13 +96,17 @@ class Add extends React.Component {
           <Button label="Add" onClick={this.handleAddTag} componentName="Add" />
         </div>
         <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-        <Custom
-          onAdd={this.handleAddLog}
-          onCustomAdd={this.handleAddCustomLog}
-          dateIsError={dateIsError}
-          startTimeIsError={startTimeIsError}
-          endTimeIsError={endTimeIsError}
-        />
+        <div className={scssClasses.textField}>
+          <TextField
+            label="Priority"
+            value={title}
+            onChange={e => onTitleChange(e.target.value)}
+            isError={this.state.nameIsError}
+          />
+        </div>
+        <div className={scssClasses.button}>
+          <Button label="Create" onClick={this.handleAddTag} componentName="Add" />
+        </div>
       </div>
     )
   }

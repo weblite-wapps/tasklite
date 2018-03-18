@@ -11,10 +11,10 @@ export default ({
     backgroundColor: '#505050',
     color: 'white',
     borderRadius: '0px',
-    padding: '2px 15px',
     margin: '0px',
+    padding: '5px 20px',
     minWidth: '5px',
-    minHeight: '37px',
+    minHeight: '25px',
     textTransform: 'capitalize',
   },
   Summary: {

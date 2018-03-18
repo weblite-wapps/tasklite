@@ -4,6 +4,11 @@
   justify-content: center;
 }
 
+.noMargin {
+  @extend .logoContainer;
+  margin-top: 0px;
+}
+
 .textContsainer {
   text-align: center;
   margin-bottom: 10px;

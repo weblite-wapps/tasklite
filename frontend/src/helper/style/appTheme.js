@@ -71,11 +71,12 @@ export default createMuiTheme({
       },
       light: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        margin: '10px 60px 10px 0px',
+        margin: '10px 0px 10px 0px',
       },
       inset: {
-        marginRight: '20px',
-        marginLeft: '20px',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        margin: '10px 60px 10px 0px',
+        marginLeft: '0px',
       },
     },
     MuiListItem: {
@@ -110,13 +111,18 @@ export default createMuiTheme({
         height: '15px',
       },
     },
-
     MuiLinearProgress: {
       barColorPrimary: {
         backgroundColor: '#505050',
       },
       colorPrimary: {
         backgroundColor: '#919191',
+      },
+    },
+    MuiAvatar: {
+      root: {
+        width: '50px',
+        height: '50px',
       },
     },
   },

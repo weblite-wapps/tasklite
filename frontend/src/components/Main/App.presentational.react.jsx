@@ -3,11 +3,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { CircularProgress } from 'material-ui/Progress'
+import Collapse from 'material-ui/transitions/Collapse'
+import Divider from 'material-ui/Divider'
 // local modules
 import Snackbar from 'weblite-web-snackbar'
 // components
 import TaskList from '../components/List/main/List.container.react'
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
+import Add from '../components/Add/Main/Add.container.react'
 // css
 import scssClasses from './App.scss'
 
@@ -18,6 +21,9 @@ class App extends React.Component {
     this.goToAbout = this._goToAbout.bind(this)
     this.handleWappMode = this._handleWappMode.bind(this)
     this.handleNormalMode = this._handleNormalMode.bind(this)
+    this.state = {
+      expandMode: 'default',
+    }
   }
 
   componentDidMount() {
@@ -53,7 +59,9 @@ class App extends React.Component {
   }
 
   render() {
+    const { expandMode } = this.state
     const { tasks, isLoading, tabIndex } = this.props
+
     return (
       <div className={scssClasses.app}>
         <div className={scssClasses.appBar}>
@@ -74,15 +82,32 @@ class App extends React.Component {
             </div>
           </div>
           <div className={scssClasses.rightHand}>
-            <div>
+            <div
+              role="button"
+              tabIndex="0"
+              onClick={() => expandMode === 'add' ? this.setState({ expandMode: 'default' }) : this.setState({ expandMode: 'add' })}
+              className={scssClasses.actions}
+            >
               <img alt="add" src="assets/icons/plus.png" className={scssClasses.icon} />
             </div>
-            <div>
+            <div
+              role="button"
+              tabIndex="0"
+              onClick={() => expandMode === 'add' ? this.setState({ expandMode: 'default' }) : this.setState({ expandMode: 'filter' })}
+              className={scssClasses.actions}
+            >
               <img alt="filter" src="assets/icons/filter.png" className={scssClasses.icon} />
             </div>
           </div>
         </div>
-        <LevelBar />
+        <Collapse in={expandMode === 'add'} timeout="auto" unmountOnExit>
+          <Add />
+          <Divider light />
+        </Collapse>
+        <Collapse in={expandMode === 'filter'} timeout="auto" unmountOnExit>
+          <Divider light />
+        </Collapse>
+        <LevelBar noMargin={expandMode !== 'default'} />
         {tasks.filter(task => task.level === tabIndex)
           .map(task => (<TaskList key={task._id} task={task} />))}
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
