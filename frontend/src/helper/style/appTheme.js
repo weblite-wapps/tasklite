@@ -28,6 +28,7 @@ export default createMuiTheme({
         color: '#cfcfcf',
         fontSize: '12px',
         fontWeight: '500',
+        marginBottom: '3px',
       },
       caption: {
         color: 'black',
@@ -70,7 +71,7 @@ export default createMuiTheme({
       },
       light: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        margin: '10px 30px 10px 30px',
+        margin: '10px 60px 10px 0px',
       },
       inset: {
         marginRight: '20px',

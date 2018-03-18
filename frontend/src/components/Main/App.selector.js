@@ -9,7 +9,7 @@ const getReportSuggestions = state => state.Report.suggestions
 const getAddTags = state => state.Add.tags
 const getReportTags = state => state.Report.tags
 
-const getTasks = () => tasksView()
+const getTasks = state => state.App.tasks
 
 const getAddFilteredSuggestions = createSelector(
   [getAddSuggestions, getAddTags],

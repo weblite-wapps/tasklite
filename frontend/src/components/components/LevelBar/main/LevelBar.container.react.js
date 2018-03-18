@@ -9,9 +9,9 @@ import { dispatchChangeTab } from '../../../Main/App.action'
 // selectors
 import { getNumberOfTasksInEachLevel } from '../../../Main/App.selector'
 
-const mapStateToProps = () => ({
+const mapStateToProps = state => ({
   tabIndex: tabIndexView(),
-  numbers: getNumberOfTasksInEachLevel(),
+  numbers: getNumberOfTasksInEachLevel(state),
 })
 
 const mapDispatchToProps = () => ({

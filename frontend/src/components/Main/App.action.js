@@ -97,3 +97,7 @@ export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId
 export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED'
 export const toggleCompleted = createAction(TOGGLE_COMPLETED, (_id, index) => ({ _id, index }))
 export const dispatchToggleCompleted = (...args) => dispatch(toggleCompleted(...args))
+
+export const CHANGE_LEVEL = 'CHANGE_LEVEL'
+export const changeLevel = createAction(CHANGE_LEVEL, (_id, nextLevel) => ({ _id, nextLevel }))
+export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))

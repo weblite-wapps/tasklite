@@ -25,6 +25,7 @@ import {
   CHANGE_RUNNING_ID,
   CHANGE_EXPANDING_ID,
   TOGGLE_COMPLETED,
+  CHANGE_LEVEL,
 } from './App.action'
 
 // state
@@ -49,10 +50,12 @@ const initialState = {
       sentTime: '2018-03-20T16:59:30.866Z',
       priority: 1,
       level: 'ICE BOX',
-      functor: 'Mostafa',
+      functor: 'Mostafa Mohseni Kabir',
       todos: [
-        { title: 'change namespaces', completed: false },
+        { title: 'change namespaces', completed: true },
         { title: 'handle views and lens', completed: true },
+        { title: 'handle views and lens', completed: true },
+        { title: 'handle views and lens', completed: false },
       ],
     },
     {
@@ -63,10 +66,27 @@ const initialState = {
       sentTime: '2018-03-21T16:59:30.866Z',
       priority: 2,
       level: 'IN PROGRESS',
-      functor: 'Ali',
+      functor: 'Ali Asgary',
       todos: [
-        { title: 'handle datavase bug', completed: false },
+        { title: 'handle database bug', completed: false },
+        { title: 'handle database bug', completed: true },
+        { title: 'handle database bug', completed: false },
+        { title: 'handle kind bug', completed: true },
+      ],
+    },
+    {
+      _id: 'dkqwokdok1o23k12k3o12f7',
+      title: 'handle message microservice bugs',
+      tags: ['bug', 'backend', 'weblite-web'],
+      deadline: '2018-03-22T16:59:30.866Z',
+      sentTime: '2018-03-21T16:59:30.866Z',
+      priority: 3,
+      level: 'EVALUTE',
+      functor: 'Masoud Mohammad Salehi',
+      todos: [
+        { title: 'handle datavase bug', completed: true },
         { title: 'handle kind bug', completed: false },
+        { title: 'handle datavase bug', completed: false },
       ],
     },
     {
@@ -77,10 +97,11 @@ const initialState = {
       sentTime: '2018-03-21T16:59:30.866Z',
       priority: 3,
       level: 'DONE',
-      functor: 'Amirhossein',
+      functor: 'Amirhossein Shafie',
       todos: [
-        { title: 'handle datavase bug', completed: true },
-        { title: 'handle kind bug', completed: true },
+        { title: 'handle datavase bug', completed: false },
+        { title: 'handle kind bug', completed: false },
+        { title: 'handle datavase bug', completed: false },
       ],
     },
   ],
@@ -204,6 +225,11 @@ const reducers = {
 
   [TOGGLE_COMPLETED]: state => state,
 
+  [CHANGE_LEVEL]: (state, { _id, nextLevel }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      { ...task, level: nextLevel } : task, state.tasks),
+  }),
 }
 
 

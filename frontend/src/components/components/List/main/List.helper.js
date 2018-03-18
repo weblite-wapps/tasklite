@@ -33,5 +33,11 @@ export const formatTags = (tags) => {
 
 export const formatTime = time => format(time, 'DD MMM YYYY, HH:mm')
 
-export const getProgressBarValue = todos =>
-  (R.compose(R.length, R.filter(item => item.completed === true))(todos) / R.length(todos)) * 100
+export const getProgressBarPercent = todos =>
+  R.compose(
+    Math.round,
+    R.multiply(100),
+    R.divide(R.__, R.length(todos)),
+    R.length,
+    R.filter(item => item.completed === true),
+  )(todos)

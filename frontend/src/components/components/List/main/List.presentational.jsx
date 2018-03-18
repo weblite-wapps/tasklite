@@ -18,11 +18,11 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 // local modules
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import Icon from '../components/Icon/Icon.presentational'
+import Icon from '../components/Icon/Icon.container.react'
 import Todo from '../components/Todo/Todo.presentational'
 import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
 // helper
-import { formatTitle, formatTags, formatTime, remained, getProgressBarValue } from './List.helper'
+import { formatTitle, formatTags, formatTime, remained, getProgressBarPercent } from './List.helper'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -38,7 +38,7 @@ class TaskList extends React.Component {
 
   render() {
     const { task: { _id, title, tags, priority, deadline, todos, functor },
-      expandingId, onExpandClick, classes } = this.props
+      tabIndex, expandingId, onExpandClick, classes } = this.props
 
     return (
       <React.Fragment>
@@ -62,8 +62,9 @@ class TaskList extends React.Component {
                   <ExpandLess classes={{ root: classes.SvgIcon }} /> :
                   <ExpandMore classes={{ root: classes.SvgIcon }} />}
               </IconButton>
-              <Icon src="assets/icons/icebox.png" label="ICE BOX" id="Work One" />
-              <Icon src="assets/icons/evalute.png" label="EVALUTE" id="Work One" />
+              {tabIndex === 'IN PROGRESS' && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
+              {(tabIndex === 'ICE BOX' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/inprogress.png" label="IN PROGRESS" _id={_id} />}
+              {tabIndex === 'IN PROGRESS' && <Icon src="assets/icons/evalute.png" label="EVALUTE" _id={_id} />}
             </div>
           </div>
           {
@@ -71,7 +72,7 @@ class TaskList extends React.Component {
             <div className={scssClasses.text}>
               <Typography variant="body2">
                 {remained(deadline)}&nbsp;| {formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;
-                {`${getProgressBarValue(todos)}%`}
+                {`${getProgressBarPercent(todos)}%`}
               </Typography>
             </div>
           }
@@ -81,11 +82,11 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             <div className={scssClasses.progressPannel}>
               <Typography variant="button">
-                {`${getProgressBarValue(todos)}%`}
+                {`${getProgressBarPercent(todos)}%`}
               </Typography>
               <LinearProgress
                 variant="determinate"
-                value={getProgressBarValue(todos)}
+                value={getProgressBarPercent(todos)}
                 className={scssClasses.progress}
               />
             </div>
@@ -129,6 +130,7 @@ class TaskList extends React.Component {
 TaskList.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   task: PropTypes.shape({}).isRequired,
+  tabIndex: PropTypes.string.isRequired,
   expandingId: PropTypes.string.isRequired,
   onExpandClick: PropTypes.func.isRequired,
 }
