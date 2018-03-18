@@ -11,6 +11,7 @@ import Divider from 'material-ui/Divider'
 import Tooltip from 'material-ui/Tooltip'
 // import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
+import { LinearProgress } from 'material-ui/Progress'
 // icons
 import ExpandLess from 'material-ui-icons/ExpandLess'
 import ExpandMore from 'material-ui-icons/ExpandMore'
@@ -21,7 +22,7 @@ import Icon from '../components/Icon/Icon.presentational'
 import Todo from '../components/Todo/Todo.presentational'
 import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
 // helper
-import { formatTitle, formatTags, formatTime, remained } from './List.helper'
+import { formatTitle, formatTags, formatTime, remained, getProgressBarValue } from './List.helper'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -69,15 +70,26 @@ class TaskList extends React.Component {
             _id !== expandingId &&
             <div className={scssClasses.text}>
               <Typography variant="body2">
-                {remained(deadline)}&nbsp;| {formatTags(tags) || 'No tags!'}&nbsp;| 25%
+                {remained(deadline)}&nbsp;| {formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;
+                {`${getProgressBarValue(todos)}%`}
               </Typography>
             </div>
           }
-
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className={scssClasses.collapse}>
+            <div className={scssClasses.progressPannel}>
+              <Typography variant="button">
+                {`${getProgressBarValue(todos)}%`}
+              </Typography>
+              <LinearProgress
+                variant="determinate"
+                value={getProgressBarValue(todos)}
+                className={scssClasses.progress}
+              />
+            </div>
+
             <Typography variant="button">
               TAGS
             </Typography>
@@ -105,7 +117,7 @@ class TaskList extends React.Component {
             {
               todos.map((todo, index) => <Todo key={index} _id={_id} index={index} todo={todo} />)
             }
-            <TextField label="New Subtask" />
+            {/* <TextField label="New Subtask" /> */}
           </div>
         </Collapse>
         <Divider light />

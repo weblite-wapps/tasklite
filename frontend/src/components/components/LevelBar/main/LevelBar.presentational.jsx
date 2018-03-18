@@ -12,16 +12,16 @@ import classes from './LevelBar.scss'
 const LevelBar = ({ tabIndex, numbers }) => (
   <React.Fragment>
     <div className={classes.logoContainer}>
-      <Badge badgeContent={numbers['ICEBOX']}>
+      <Badge badgeContent={numbers.ICEBOX}>
         <Image src="assets/icons/icebox.png" label="ICE BOX" />
       </Badge>
-      <Badge badgeContent={numbers['INPROGRESS']}>
+      <Badge badgeContent={numbers.INPROGRESS}>
         <Image src="assets/icons/inprogress.png" label="IN PROGRESS" />
       </Badge>
-      <Badge badgeContent={numbers['EVALUTE']}>
+      <Badge badgeContent={numbers.EVALUTE}>
         <Image src="assets/icons/evalute.png" label="EVALUTE" />
       </Badge>
-      <Badge badgeContent={numbers['DONE']}>
+      <Badge badgeContent={numbers.DONE}>
         <Image src="assets/icons/done.png" label="DONE" />
       </Badge>
     </div>
@@ -38,6 +38,7 @@ const LevelBar = ({ tabIndex, numbers }) => (
 
 LevelBar.propTypes = {
   tabIndex: PropTypes.string.isRequired,
+  numbers: PropTypes.shape({}).isRequired,
 }
 
 export default LevelBar

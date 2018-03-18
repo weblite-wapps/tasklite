@@ -7,12 +7,12 @@ import Checkbox from 'material-ui/Checkbox'
 import classes from './Todo.scss'
 
 
-const Todo = ({ todo, onChangeCompleted}) => (
+const Todo = ({ todo, onChangeCompleted }) => (
   <div className={classes.todoContainer}>
     <Checkbox
       checked={todo.completed}
       onChange={onChangeCompleted}
-      style={{ height: '15px', width: '15px'}}
+      style={{ height: '15px', width: '15px' }}
     />
     <Typography variant="caption" style={{ marginLeft: '5px' }}>
       {todo.title}
@@ -22,6 +22,7 @@ const Todo = ({ todo, onChangeCompleted}) => (
 
 Todo.propTypes = {
   todo: PropTypes.shape({}).isRequired,
+  onChangeCompleted: PropTypes.func.isRequired,
 }
 
 export default Todo

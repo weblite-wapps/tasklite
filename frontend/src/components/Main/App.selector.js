@@ -25,15 +25,15 @@ const getReportFilteredSuggestions = createSelector(
 
 const getNumberOfTasksInEachLevel = createSelector(
   [getTasks],
-  tasks => {
+  (tasks) => {
     const groupedTasks = R.compose(R.groupBy(R.prop('level')))(tasks)
     return ({
       ICEBOX: R.length(groupedTasks['ICE BOX']) || 0,
       INPROGRESS: R.length(groupedTasks['IN PROGRESS']) || 0,
-      EVALUTE: R.length(groupedTasks['EVALUTE']) || 0,
-      DONE: R.length(groupedTasks['DONE']) || 0,
+      EVALUTE: R.length(groupedTasks.EVALUTE) || 0,
+      DONE: R.length(groupedTasks.DONE) || 0,
     })
-  }
+  },
 )
 
 

@@ -21,8 +21,10 @@ const renderLoglite = () => render(
             level: 'ICE BOX',
             functor: 'Mostafa Mohseni Kabir',
             todos: [
-              { title: 'change namespaces', completed: false },
+              { title: 'change namespaces', completed: true },
               { title: 'handle views and lens', completed: true },
+              { title: 'handle views and lens', completed: true },
+              { title: 'handle views and lens', completed: false },
             ],
           },
           {
@@ -35,8 +37,10 @@ const renderLoglite = () => render(
             level: 'IN PROGRESS',
             functor: 'Ali Asgary',
             todos: [
-              { title: 'handle datavase bug', completed: false },
-              { title: 'handle kind bug', completed: false },
+              { title: 'handle database bug', completed: false },
+              { title: 'handle database bug', completed: true },
+              { title: 'handle database bug', completed: false },
+              { title: 'handle kind bug', completed: true },
             ],
           },
           {
@@ -49,8 +53,9 @@ const renderLoglite = () => render(
             level: 'DONE',
             functor: 'Amirhossein Shafie',
             todos: [
-              { title: 'handle datavase bug', completed: true },
-              { title: 'handle kind bug', completed: true },
+              { title: 'handle datavase bug', completed: false },
+              { title: 'handle kind bug', completed: false },
+              { title: 'handle datavase bug', completed: false },
             ],
           },
         ]

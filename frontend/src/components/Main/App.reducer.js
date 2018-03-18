@@ -202,7 +202,7 @@ const reducers = {
     expandingId: state.expandingId === _id ? '' : _id,
   }),
 
-  [TOGGLE_COMPLETED]: (state, { _id, index }) => state,
+  [TOGGLE_COMPLETED]: state => state,
 
 }
 

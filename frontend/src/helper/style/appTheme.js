@@ -109,5 +109,14 @@ export default createMuiTheme({
         height: '15px',
       },
     },
+
+    MuiLinearProgress: {
+      barColorPrimary: {
+        backgroundColor: '#505050',
+      },
+      colorPrimary: {
+        backgroundColor: '#919191',
+      },
+    },
   },
 })

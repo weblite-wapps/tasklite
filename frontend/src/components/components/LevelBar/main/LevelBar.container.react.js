@@ -11,7 +11,7 @@ import { getNumberOfTasksInEachLevel } from '../../../Main/App.selector'
 
 const mapStateToProps = () => ({
   tabIndex: tabIndexView(),
-  numbers: getNumberOfTasksInEachLevel()
+  numbers: getNumberOfTasksInEachLevel(),
 })
 
 const mapDispatchToProps = () => ({

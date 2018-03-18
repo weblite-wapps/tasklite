@@ -16,36 +16,6 @@
   align-items: center;
 }
 
-.icon {
-  color: #919191;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 4px;
-}
-
-.button {
-  display: flex;
-  margin: 10px 5px;
-}
-
-.title {
-  margin: 0px;
-}
-
-.duration {
-  margin: 0px;
-  text-align: right;
-}
-
-.date {
-  @extend .duration;
-  color: #cfcfcf;
-  font-size: 18px;
-}
-
 .priority {
   color: black;
   width: 10px;
@@ -56,4 +26,17 @@
   display: flex;
   flex-direction: column;
   margin: 10px 30px;
+}
+
+.progressPannel {
+  width: 250px;
+  margin-bottom: 10px;
+}
+
+.progress {
+  max-width: 200px;
+}
+
+.percent {
+  max-width: 20px;
 }
