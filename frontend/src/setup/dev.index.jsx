@@ -19,7 +19,7 @@ const renderLoglite = () => render(
             sentTime: '2018-03-20T16:59:30.866Z',
             priority: 1,
             level: 'ICE BOX',
-            functor: 'Mostafa',
+            functor: 'Mostafa Mohseni Kabir',
             todos: [
               { title: 'change namespaces', completed: false },
               { title: 'handle views and lens', completed: true },
@@ -33,7 +33,7 @@ const renderLoglite = () => render(
             sentTime: '2018-03-21T16:59:30.866Z',
             priority: 2,
             level: 'IN PROGRESS',
-            functor: 'Ali',
+            functor: 'Ali Asgary',
             todos: [
               { title: 'handle datavase bug', completed: false },
               { title: 'handle kind bug', completed: false },
@@ -47,7 +47,7 @@ const renderLoglite = () => render(
             sentTime: '2018-03-21T16:59:30.866Z',
             priority: 3,
             level: 'DONE',
-            functor: 'Amirhossein',
+            functor: 'Amirhossein Shafie',
             todos: [
               { title: 'handle datavase bug', completed: true },
               { title: 'handle kind bug', completed: true },

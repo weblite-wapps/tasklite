@@ -27,7 +27,6 @@ import scssClasses from './List.scss'
 import styles from './List.style'
 
 
-
 class TaskList extends React.Component {
   constructor(props) {
     super(props)
@@ -37,9 +36,8 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const {
-      task: { _id, title, tags, priority, deadline, todos }, expandingId, onExpandClick, classes
-    } = this.props
+    const { task: { _id, title, tags, priority, deadline, todos, functor },
+      expandingId, onExpandClick, classes } = this.props
 
     return (
       <React.Fragment>
@@ -79,29 +77,36 @@ class TaskList extends React.Component {
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
-            <div className={scssClasses.collapse}>
-              <Typography variant="button">
-                TAGS
-              </Typography>
-              <Typography variant="caption">
-                {R.join(', ', tags) || 'No tags!'}
-              </Typography>
-              <Divider light />
-              <Typography variant="button">
-                DEADLINE
-              </Typography>
-              <Typography variant="caption">
-                {`${formatTime(deadline)} - ${remained(deadline)} remained`}
-              </Typography>
-              <Divider light />
-              <Typography variant="button" style={{ marginBottom: '5px' }}>
-                SUBWORKS
-              </Typography>
-              {
-                todos.map((todo, index) => <Todo key={index} _id={_id} index={index} todo={todo} />)
-              }
-              <TextField label="New Subtask" />
-            </div>
+          <div className={scssClasses.collapse}>
+            <Typography variant="button">
+              TAGS
+            </Typography>
+            <Typography variant="caption">
+              {R.join(', ', tags) || 'No tags!'}
+            </Typography>
+            <Divider light />
+            <Typography variant="button">
+              DEADLINE
+            </Typography>
+            <Typography variant="caption">
+              {`${formatTime(deadline)} - ${remained(deadline)} remained`}
+            </Typography>
+            <Divider light />
+            <Typography variant="button">
+              FUNCTOR
+            </Typography>
+            <Typography variant="caption">
+              {functor}
+            </Typography>
+            <Divider light />
+            <Typography variant="button" style={{ marginBottom: '5px' }}>
+              SUBWORKS
+            </Typography>
+            {
+              todos.map((todo, index) => <Todo key={index} _id={_id} index={index} todo={todo} />)
+            }
+            <TextField label="New Subtask" />
+          </div>
         </Collapse>
         <Divider light />
       </React.Fragment>
@@ -110,6 +115,7 @@ class TaskList extends React.Component {
 }
 
 TaskList.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
   onExpandClick: PropTypes.func.isRequired,

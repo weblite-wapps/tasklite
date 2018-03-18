@@ -14,15 +14,39 @@ body {
   height: 100%;
 }
 
-
-.root {
+.app {
   display: flex;
+  flex-direction: column;
+}
+
+.appBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
   left: 0px;
   right: 0px;
   top: 0px;
   z-index: 30;
   background-color: #cfcfcf;
+}
+
+.leftHand {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.rightHand {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.logoContainer {
+  width: 50px;
+  cursor: pointer;
+  outline: none;
 }
 
 .normal {
@@ -44,17 +68,18 @@ body {
   margin-left: 0px;
 }
 
-.logoContainer {
-  width: 50px;
-  cursor: pointer;
-  outline: none;
-}
 
 .logo {
-  margin-right: 5px;
-  margin-top: 5px;
-  width:40px;
-  height: 40px;
+  margin-right: 12.5px;
+  margin-top: 12.5px;
+  width:25px;
+  height: 25px;
+}
+
+.typo {
+  width:100px;
+  height: 25px;
+  margin-left: 15px;
 }
 
 .progress {
@@ -62,19 +87,8 @@ body {
   margin-top: 5px;
 }
 
-.Tabs {
-  background-color: #cfcfcf;
-  color: #505050;
-  height: 50px;
-  width: calc(100% - 50px);
-  z-index: 20;
-}
-
-.Tab {
-  text-transform: capitalize;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
+.icon {
+  width: 15px;
+  height: 15px;
+  margin: 0px 15px 0px 0px;
 }

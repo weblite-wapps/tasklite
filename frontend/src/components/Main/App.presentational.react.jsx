@@ -55,17 +55,30 @@ class App extends React.Component {
   render() {
     const { tasks, isLoading, tabIndex } = this.props
     return (
-      <div className={scssClasses.column}>
-        <div className={scssClasses.root}>
-          <div
-            className={scssClasses.logoContainer}
-            onClick={this.goToAbout}
-            role="button"
-            tabIndex="0"
-          >
-            <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
-              <CircularProgress size={40} color="primary" className={scssClasses.progress} />
-              <img alt="loglite logo" src="assets/logo.jpg" className={scssClasses.logo} />
+      <div className={scssClasses.app}>
+        <div className={scssClasses.appBar}>
+          <div className={scssClasses.leftHand}>
+            <div
+              className={scssClasses.logoContainer}
+              onClick={this.goToAbout}
+              role="button"
+              tabIndex="0"
+            >
+              <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
+                <CircularProgress size={40} color="primary" className={scssClasses.progress} />
+                <img alt="loglite logo" src="assets/toplogo.png" className={scssClasses.logo} />
+              </div>
+            </div>
+            <div>
+              <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
+            </div>
+          </div>
+          <div className={scssClasses.rightHand}>
+            <div>
+              <img alt="add" src="assets/icons/plus.png" className={scssClasses.icon} />
+            </div>
+            <div>
+              <img alt="filter" src="assets/icons/filter.png" className={scssClasses.icon} />
             </div>
           </div>
         </div>
