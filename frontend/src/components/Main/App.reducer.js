@@ -52,10 +52,10 @@ const initialState = {
       level: 'ICE BOX',
       functor: 'Mostafa Mohseni Kabir',
       todos: [
-        { title: 'change namespaces', completed: true },
-        { title: 'handle views and lens', completed: true },
-        { title: 'handle views and lens', completed: true },
-        { title: 'handle views and lens', completed: false },
+        { title: 'change namespaces', completed: true, id: 'fakjfqlcmlqkfgo' },
+        { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg2' },
+        { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg4' },
+        { title: 'handle views and lens', completed: false, id: 'fakjfqlcmlqkfg6' },
       ],
     },
     {
@@ -68,10 +68,10 @@ const initialState = {
       level: 'IN PROGRESS',
       functor: 'Ali Asgary',
       todos: [
-        { title: 'handle database bug', completed: false },
-        { title: 'handle database bug', completed: true },
-        { title: 'handle database bug', completed: false },
-        { title: 'handle kind bug', completed: true },
+        { title: 'handle database bug', completed: false, id: 'fakjfqlcml2kfgo' },
+        { title: 'handle database bug', completed: true, id: 'fakjfqlcm3qkfgo' },
+        { title: 'handle database bug', completed: false, id: 'fakjfql6mlqkfgo' },
+        { title: 'handle kind bug', completed: true, id: 'fakjfqlc1lqkfgo' },
       ],
     },
     {
@@ -84,9 +84,9 @@ const initialState = {
       level: 'EVALUTE',
       functor: 'Masoud Mohammad Salehi',
       todos: [
-        { title: 'handle datavase bug', completed: true },
-        { title: 'handle kind bug', completed: false },
-        { title: 'handle datavase bug', completed: false },
+        { title: 'handle datavase bug', completed: true, id: 'fakjfjlcmlqkfgo' },
+        { title: 'handle kind bug', completed: false, id: 'fakjwqlcmlqkfgo' },
+        { title: 'handle datavase bug', completed: false, id: 'fakqfqlcmlqkfgo' },
       ],
     },
     {
@@ -114,6 +114,7 @@ const endLens = R.lensProp('end')
 const runningIdLens = R.lensProp('runningId')
 const secondsElapsedLens = R.lensProp('secondsElapsed')
 const popoverIdLens = R.lensProp('popoverId')
+const completedLens = R.lensProp('completed')
 // views
 export const wisView = () => R.path(['App', 'wis'])(getState())
 export const creatorView = () => R.path(['App', 'creator'])(getState())
@@ -223,7 +224,15 @@ const reducers = {
     expandingId: state.expandingId === _id ? '' : _id,
   }),
 
-  [TOGGLE_COMPLETED]: state => state,
+  [TOGGLE_COMPLETED]: (state, { _id, id }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      {
+        ...task,
+        todos: R.map(todo => (todo.id === id) ?
+          R.set(completedLens, !todo.completed, todo) : todo, task.todos),
+      } : task, state.tasks),
+  }),
 
   [CHANGE_LEVEL]: (state, { _id, nextLevel }) => ({
     ...state,

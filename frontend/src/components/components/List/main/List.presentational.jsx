@@ -19,7 +19,7 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Icon from '../components/Icon/Icon.container.react'
-import Todo from '../components/Todo/Todo.presentational'
+import Todo from '../components/Todo/Todo.container.react'
 import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
 // helper
 import { formatTitle, formatTags, formatTime, remained, getProgressBarPercent } from './List.helper'
@@ -71,8 +71,10 @@ class TaskList extends React.Component {
             _id !== expandingId &&
             <div className={scssClasses.text}>
               <Typography variant="body2">
-                {remained(deadline)}&nbsp;| {formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;
-                {`${getProgressBarPercent(todos)}%`}
+                <span>{functor}&nbsp;|&nbsp;</span>
+                <span>{remained(deadline)}&nbsp;|&nbsp;</span>
+                <span>{formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;</span>
+                <span>{`${getProgressBarPercent(todos)}%`}</span>
               </Typography>
             </div>
           }
@@ -116,7 +118,7 @@ class TaskList extends React.Component {
               SUBWORKS
             </Typography>
             {
-              todos.map((todo, index) => <Todo key={index} _id={_id} index={index} todo={todo} />)
+              todos.map(todo => <Todo key={todo.id} _id={_id} todo={todo} />)
             }
             {/* <TextField label="New Subtask" /> */}
           </div>

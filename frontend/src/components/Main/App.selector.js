@@ -1,14 +1,10 @@
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
-// views
-import { tasksView } from './App.reducer'
-
 
 const getAddSuggestions = state => state.Add.suggestions
 const getReportSuggestions = state => state.Report.suggestions
 const getAddTags = state => state.Add.tags
 const getReportTags = state => state.Report.tags
-
 const getTasks = state => state.App.tasks
 
 const getAddFilteredSuggestions = createSelector(

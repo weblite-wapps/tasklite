@@ -2,16 +2,12 @@
 import { connect } from 'react-redux'
 // components
 import Todo from './Todo.presentational'
-// views
-import { expandingIdView } from '../../../../Main/App.reducer'
 // actions
-import { dispatchChangeCompleted } from '../../../../Main/App.action'
-
-
+import { dispatchToggleCompleted } from '../../../../Main/App.action'
 
 
 const mapDispatchToProps = (_, ownProps) => ({
-  onChangeCompleted: () => dispatchChangeCompleted(ownProps._id, ownProps.index),
+  onCompletedChange: () => dispatchToggleCompleted(ownProps._id, ownProps.todo.id),
 })
 
 export default connect(null, mapDispatchToProps)(Todo)
