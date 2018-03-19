@@ -41,7 +41,7 @@ class TaskList extends React.Component {
 
   _handleAddTodo() {
     const { task: { todoText }, addTodo } = this.props
-    if (R.trim(todoText)){
+    if (R.trim(todoText)) {
       this.setState({ todoTextError: false })
       addTodo(todoText)
     } else {
@@ -134,7 +134,14 @@ class TaskList extends React.Component {
               SUBWORKS
             </Typography>
             {
-              todos.map(todo => <Todo key={todo.id} _id={_id} todo={todo} />)
+              todos.map((todo, index) =>
+                <Todo
+                  key={todo.id}
+                  _id={_id}
+                  todo={todo}
+                  length={todos.length}
+                  index={index + 1}
+                />)
             }
             <div className={scssClasses.textField}>
               <TextField
@@ -144,7 +151,7 @@ class TaskList extends React.Component {
                 isError={todoTextError}
                 onChange={e => onTodoTextChange(e.target.value)}
               />
-              <Button label="Add" onClick={this.handleAddTodo} componentName="Add" />
+              <Button label="ADD" onClick={this.handleAddTodo} componentName="Add" />
             </div>
           </div>
         </Collapse>

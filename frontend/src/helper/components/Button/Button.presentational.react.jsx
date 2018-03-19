@@ -7,12 +7,11 @@ import Button from 'material-ui/Button'
 import styles from './Button.style'
 
 function CustomizedButton(props) {
-  const { componentName, label, fab, disabled, raised, onClick, classes } = props
+  const { componentName, label, variant, disabled, onClick, classes } = props
   return (
     <Button
-      fab={fab}
+      variant={variant}
       disabled={disabled}
-      raised={raised}
       onClick={onClick}
       classes={{ root: classes[componentName], raised: classes[`${componentName}Raised`] }}
     >
@@ -27,8 +26,7 @@ CustomizedButton.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   componentName: PropTypes.string,
   label: PropTypes.string,
-  fab: PropTypes.bool,
-  raised: PropTypes.bool,
+  variant: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 }
@@ -36,11 +34,10 @@ CustomizedButton.propTypes = {
 CustomizedButton.defaultProps = {
   componentName: 'default',
   children: null,
-  label: null,
-  raised: false,
+  label: '',
+  variant: 'flat',
   disabled: false,
-  fab: false,
-  onClick: null,
+  onClick: () => {},
 }
 
 export default withStyles(styles)(CustomizedButton)

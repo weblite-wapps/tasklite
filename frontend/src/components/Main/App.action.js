@@ -57,10 +57,6 @@ export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
 export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
 export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))
 
-export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED'
-export const toggleCompleted = createAction(TOGGLE_COMPLETED, (_id, id) => ({ _id, id }))
-export const dispatchToggleCompleted = (...args) => dispatch(toggleCompleted(...args))
-
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
 export const changeLevel = createAction(CHANGE_LEVEL, (_id, nextLevel) => ({ _id, nextLevel }))
 export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
@@ -69,6 +65,14 @@ export const CHANGE_TODO_TEXT = 'CHANGE_TODO_TEXT'
 export const changeTodoText = createAction(CHANGE_TODO_TEXT, (_id, value) => ({ _id, value }))
 export const dispatchChangeTodoText = (...args) => dispatch(changeTodoText(...args))
 
+export const TOGGLE_COMPLETED = 'TOGGLE_COMPLETED'
+export const toggleCompleted = createAction(TOGGLE_COMPLETED, (_id, id) => ({ _id, id }))
+export const dispatchToggleCompleted = (...args) => dispatch(toggleCompleted(...args))
+
 export const ADD_TODO = 'ADD_TODO'
 export const addTodo = createAction(ADD_TODO, (_id, value) => ({ _id, value }))
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
+
+export const DELETE_TODO = 'DELETE_TODO'
+export const deleteTodo = createAction(DELETE_TODO, (_id, id) => ({ _id, id }))
+export const dispatchDeleteTodo = (...args) => dispatch(deleteTodo(...args))

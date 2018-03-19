@@ -1,6 +1,6 @@
 // modules
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import MuiAvatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 // scssClasses
@@ -36,10 +36,10 @@ const Avatar = () => (
   </div>
 )
 
-Avatar.propTypes = {
-  // history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  // logs: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // title: PropTypes.string.isRequired,
-}
+// Avatar.propTypes = {
+// history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+// logs: PropTypes.arrayOf(PropTypes.object).isRequired,
+// title: PropTypes.string.isRequired,
+// }
 
 export default Avatar

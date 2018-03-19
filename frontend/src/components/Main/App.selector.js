@@ -45,5 +45,9 @@ const getNumberOfTasksInEachLevel = createSelector(
 )
 
 
-
-export { getAddFilteredSuggestions, getReportFilteredSuggestions, getNumberOfTasksInEachLevel, getFilteredTasks }
+export {
+  getAddFilteredSuggestions,
+  getReportFilteredSuggestions,
+  getNumberOfTasksInEachLevel,
+  getFilteredTasks,
+}

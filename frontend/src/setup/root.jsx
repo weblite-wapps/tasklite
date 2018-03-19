@@ -1,14 +1,14 @@
 // Modules
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Route } from 'react-router'
+// import { Route } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
 import { MuiThemeProvider } from 'material-ui/styles'
 // Setup
 import store, { history } from './redux'
 // Component
 import App from '../components/Main/App.container.react'
-import Add from '../components/components/Add/Main/Add.container.react'
+// import Add from '../components/components/Add/Main/Add.container.react'
 import About from '../components/components/About/About'
 // scssClasses
 import scssClasses from './root.scss'

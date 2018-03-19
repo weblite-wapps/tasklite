@@ -4,7 +4,6 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import TextField from '../../../helper/components/TextField/TextField.presentational.react'
 import Button from '../../../helper/components/Button/Button.presentational.react'
 import TagList from '../../../helper/components/TagList/TagList.presentational.react'
 import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational.react'
@@ -23,7 +22,7 @@ export default class Filter extends React.Component {
   }
 
   _handleApply() {
-    const { startDate, endDate, calculateTotalDuration } = this.props
+    const { assigneeIsError } = this.state
     if (assigneeIsError) calculateTotalDuration()
     else {
       this.setState({ assigneeIsError: true })

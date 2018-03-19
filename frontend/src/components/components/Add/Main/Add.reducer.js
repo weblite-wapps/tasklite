@@ -5,8 +5,6 @@ import { getState } from '../../../../setup/redux'
 // actions
 import {
   CHANGE_DEADLINE,
-  CHANGE_START_TIME,
-  CHANGE_END_TIME,
   LOAD_TAGS_DATA_IN_ADD,
   CHANGE_TITLE,
   CHANGE_ASSIGNEE,

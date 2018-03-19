@@ -59,4 +59,15 @@ export default ({
   ReportRaised: {
     color: 'white',
   },
+  Todo: {
+    backgroundColor: 'white',
+    color: '#cfcfcf',
+    fontSize: '8px',
+    borderRadius: '0px',
+    margin: '0px 5px',
+    padding: '0px 5px',
+    minWidth: '5px',
+    minHeight: '25px',
+    textTransform: 'capitalize',
+  },
 })

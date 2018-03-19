@@ -14,10 +14,11 @@ import {
   RESTORE_LOG,
   DELETE_LOG,
   CHANGE_EXPANDING_ID,
-  TOGGLE_COMPLETED,
   CHANGE_LEVEL,
   CHANGE_TODO_TEXT,
+  TOGGLE_COMPLETED,
   ADD_TODO,
+  DELETE_TODO,
 } from './App.action'
 
 // state
@@ -206,8 +207,17 @@ const reducers = {
     tasks: R.map(task => (task._id === _id) ?
       {
         ...task,
-        todos: R.prepend({ title: value, completed: false, id: Math.floor(Math.random() * 100000000) },
-        task.todos)
+        todos: R.prepend({
+          title: value, completed: false, id: Math.floor(Math.random() * 100000000) }, task.todos),
+      } : task, state.tasks),
+  }),
+
+  [DELETE_TODO]: (state, { _id, id }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      {
+        ...task,
+        todos: R.remove(R.findIndex(R.propEq('id', id), task.todos), 1, task.todos),
       } : task, state.tasks),
   }),
 }
