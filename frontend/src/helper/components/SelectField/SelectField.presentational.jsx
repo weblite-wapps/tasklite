@@ -71,7 +71,7 @@ SelectField.propTypes = {
   isError: PropTypes.bool,
   required: PropTypes.bool,
   label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
 }
 

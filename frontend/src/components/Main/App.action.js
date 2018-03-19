@@ -76,3 +76,7 @@ export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
 export const DELETE_TODO = 'DELETE_TODO'
 export const deleteTodo = createAction(DELETE_TODO, (_id, id) => ({ _id, id }))
 export const dispatchDeleteTodo = (...args) => dispatch(deleteTodo(...args))
+
+export const SET_SENT_TIME = 'SET_SENT_TIME'
+export const setSentTime = createAction(SET_SENT_TIME, (_id, time) => ({ _id, time }))
+export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))

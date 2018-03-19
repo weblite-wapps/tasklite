@@ -2,6 +2,8 @@
 import * as R from 'ramda'
 import differenceInSeconds from 'date-fns/difference_in_seconds'
 import format from 'date-fns/format'
+import isAfter from 'date-fns/is_after'
+
 
 const formattedSeconds = (seconds) => {
   if (Math.floor(seconds / 60) === 0) {
@@ -22,6 +24,11 @@ export const remained = (time) => {
   const seconds = differenceInSeconds(time, new Date())
   if (seconds < 0) return 'Overtime'
   return formattedSeconds(seconds)
+}
+
+export const isOnTime = (sentTime, deadline) => {
+  if (isAfter(sentTime, deadline)) return 'Delayed'
+  else return 'On Time'
 }
 
 export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name

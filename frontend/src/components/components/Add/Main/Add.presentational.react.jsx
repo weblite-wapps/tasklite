@@ -119,7 +119,7 @@ class Add extends React.Component {
 Add.propTypes = {
   title: PropTypes.string.isRequired,
   assignee: PropTypes.string.isRequired,
-  priority: PropTypes.number.isRequired,
+  priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.string.isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   queryTag: PropTypes.string.isRequired,

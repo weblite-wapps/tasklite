@@ -23,7 +23,7 @@ import Todo from '../components/Todo/Todo.container.react'
 import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
 import Button from '../../../../helper/components/Button/Button.presentational.react'
 // helper
-import { formatTitle, formatTags, formatTime, remained, getProgressBarPercent } from './List.helper'
+import { formatTitle, formatTags, formatTime, remained, isOnTime, getProgressBarPercent } from './List.helper'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -52,7 +52,7 @@ class TaskList extends React.Component {
 
   render() {
     const { todoTextError } = this.state
-    const { task: { _id, title, tags, priority, deadline, todos, assignee, todoText },
+    const { task: { _id, title, tags, priority, deadline, todos, assignee, todoText, sentTime },
       onTodoTextChange, tabIndex, expandingId, onExpandClick, classes } = this.props
 
     return (
@@ -124,6 +124,13 @@ class TaskList extends React.Component {
             </Typography>
             <Divider inset />
             <Typography variant="button">
+              SENT TIME
+            </Typography>
+            <Typography variant="caption">
+              {`${formatTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
+            </Typography>
+            <Divider inset />
+            <Typography variant="button">
               ASSIGNEE
             </Typography>
             <Typography variant="caption">
@@ -134,14 +141,14 @@ class TaskList extends React.Component {
               SUBWORKS
             </Typography>
             {
-              todos.map((todo, index) =>
+              todos.map((todo, index) => (
                 <Todo
                   key={todo.id}
                   _id={_id}
                   todo={todo}
                   length={todos.length}
                   index={index + 1}
-                />)
+                />))
             }
             <div className={scssClasses.textField}>
               <TextField

@@ -91,7 +91,7 @@ class App extends React.Component {
             >
               <img alt="add" src="assets/icons/plus.png" className={scssClasses.icon} />
             </div>
-            <span style={{ width: '10px' }} />
+            <span style={{ width: '15px' }} />
             <div
               role="button"
               tabIndex="0"

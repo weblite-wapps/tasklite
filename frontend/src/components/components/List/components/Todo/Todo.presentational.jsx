@@ -26,8 +26,8 @@ const Todo = ({ length, index, todo, onCompletedChange, onDelete }) => (
 )
 
 Todo.propTypes = {
-  length: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  length: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   todo: PropTypes.shape({}).isRequired,
   onCompletedChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

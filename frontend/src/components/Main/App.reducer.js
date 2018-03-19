@@ -19,6 +19,7 @@ import {
   TOGGLE_COMPLETED,
   ADD_TODO,
   DELETE_TODO,
+  SET_SENT_TIME,
 } from './App.action'
 
 // state
@@ -64,7 +65,7 @@ const initialState = {
       level: 'IN PROGRESS',
       assignee: 'Ali Asgary',
       todos: [
-        { title: 'handle database bug', completed: false, id: 'fakjfqlcml2kfgo' },
+        { title: 'handle database bug', completed: false, id: 'fakjfggqlcml2kfgo' },
         { title: 'handle database bug', completed: true, id: 'fakjfqlcm3qkfgo' },
         { title: 'handle database bug', completed: false, id: 'fakjfql6mlqkfgo' },
         { title: 'handle kind bug', completed: true, id: 'fakjfqlc1lqkfgo' },
@@ -74,7 +75,7 @@ const initialState = {
     },
     {
       wis: '110',
-      _id: 'dkqwokdok1o23k12k3o12f7',
+      _id: 'dkqwokdok1o23k12k3odaf12f7',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
       deadline: '2018-03-22T16:59:30.866Z',
@@ -83,7 +84,7 @@ const initialState = {
       level: 'EVALUTE',
       assignee: 'Masoud Mohammad Salehi',
       todos: [
-        { title: 'handle datavase bug', completed: true, id: 'fakjfjlcmlqkfgo' },
+        { title: 'handle datavase bug', completed: true, id: 'fakjfjlcmlqkfdasgo' },
         { title: 'handle kind bug', completed: false, id: 'fakjwqlcmlqkfgo' },
         { title: 'handle datavase bug', completed: false, id: 'fakqfqlcmlqkfgo' },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
@@ -92,7 +93,7 @@ const initialState = {
     },
     {
       wis: '110',
-      _id: 'dkqwokdok1o23k12k3o12f5',
+      _id: 'dkqwokdok1o23k12k3o1qda2f5',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
       deadline: '2018-03-22T16:59:30.866Z',
@@ -148,7 +149,7 @@ const reducers = {
     ...state,
     tasks: R.prepend(
       {
-        _id: state.tasks.length,
+        _id: state.tasks.length.toString(),
         title,
         assignee,
         tags,
@@ -159,6 +160,7 @@ const reducers = {
           { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
         ],
         todoText: '',
+        sentTime: '',
         wis: state.wis,
       },
       state.tasks),
@@ -219,6 +221,11 @@ const reducers = {
         ...task,
         todos: R.remove(R.findIndex(R.propEq('id', id), task.todos), 1, task.todos),
       } : task, state.tasks),
+  }),
+
+  [SET_SENT_TIME]: (state, { _id, time }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ? { ...task, sentTime: time } : task, state.tasks),
   }),
 }
 
