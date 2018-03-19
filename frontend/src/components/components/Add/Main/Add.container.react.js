@@ -4,11 +4,14 @@ import { connect } from 'react-redux'
 import Add from './Add.presentational.react'
 // views
 import { logsView } from '../../../Main/App.reducer'
-import { titleView, selectedTagsView, queryTagView, tagsView, dateView, startTimeView, endTimeView } from './Add.reducer'
+import { titleView, assigneeView, priorityView, deadlineView, selectedTagsView, queryTagView, tagsView } from './Add.reducer'
 // actions
-import { dispatchChangeTab, dispatchAddLog, dispatchAddCustomLog } from '../../../Main/App.action'
+import { dispatchChangeTab, dispatchAddTask } from '../../../Main/App.action'
 import {
   dispatchChangeTitle,
+  dispatchChangeAssignee,
+  dispatchChangePriority,
+  dispatchChangeDeadline,
   dispatchSetQueryInAdd,
   dispatchChangeSelectedTagsInAdd,
   dispatchAddTagInAdd,
@@ -20,23 +23,25 @@ import { getAddFilteredSuggestions } from '../../../Main/App.selector'
 const mapStateToProps = state => ({
   logs: logsView(),
   title: titleView(),
+  assignee: assigneeView(),
+  priority: priorityView(),
+  deadline: deadlineView(),
   selectedTags: selectedTagsView(),
   queryTag: queryTagView(),
   suggestions: getAddFilteredSuggestions(state),
   tags: tagsView(),
-  date: dateView(),
-  startTime: startTimeView(),
-  endTime: endTimeView(),
 })
 
 const mapDispatchToProps = () => ({
   onTitleChange: dispatchChangeTitle,
+  onAssigneeChange: dispatchChangeAssignee,
+  onPriorityChange: dispatchChangePriority,
+  onDeadlineChange: dispatchChangeDeadline,
   onQueryTagChange: dispatchSetQueryInAdd,
   onTagClick: dispatchChangeSelectedTagsInAdd,
   addTag: dispatchAddTagInAdd,
-  addLog: dispatchAddLog,
+  addTask: dispatchAddTask,
   changeTab: dispatchChangeTab,
-  addCustomLog: dispatchAddCustomLog,
 })
 
 

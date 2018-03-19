@@ -4,11 +4,13 @@ import * as R from 'ramda'
 import { getState } from '../../../../setup/redux'
 // actions
 import {
-  CHANGE_DATE,
+  CHANGE_DEADLINE,
   CHANGE_START_TIME,
   CHANGE_END_TIME,
   LOAD_TAGS_DATA_IN_ADD,
   CHANGE_TITLE,
+  CHANGE_ASSIGNEE,
+  CHANGE_PRIORITY,
   SET_QUERY_IN_ADD,
   FETCH_TAGS_IN_ADD,
   ADD_TAG_IN_ADD,
@@ -19,36 +21,36 @@ import {
 // state
 const initialState = {
   title: '',
+  assignee: '',
+  priority: 1,
+  deadline: '',
   queryTag: '',
   suggestions: [],
-  date: '',
-  startTime: '',
-  endTime: '',
   selectedTags: [],
   tags: [],
 }
 
 
 // lens
-const dateLens = R.lensProp('date')
-const startTimeLens = R.lensProp('startTime')
-const endTimeLens = R.lensProp('endTime')
 const titleLens = R.lensProp('title')
+const assigneeLens = R.lensProp('assignee')
+const priorityLens = R.lensProp('priority')
+const deadlineLens = R.lensProp('deadline')
 const queryTagLens = R.lensProp('queryTag')
 const suggestionsLens = R.lensProp('suggestions')
 // views
 export const titleView = () => R.path(['Add', 'title'])(getState())
+export const assigneeView = () => R.path(['Add', 'assignee'])(getState())
+export const priorityView = () => R.path(['Add', 'priority'])(getState())
+export const deadlineView = () => R.path(['Add', 'deadline'])(getState())
 export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
 export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
-export const dateView = () => R.path(['Add', 'date'])(getState())
-export const startTimeView = () => R.path(['Add', 'startTime'])(getState())
-export const endTimeView = () => R.path(['Add', 'endTime'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
 
 
 // reducers
 const reducers = {
-  [CHANGE_DATE]: (state, { value }) => R.set(dateLens, value, state),
+  [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
 
   [CHANGE_START_TIME]: (state, { value }) => R.set(startTimeLens, value, state),
 
@@ -59,6 +61,10 @@ const reducers = {
   }),
 
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
+
+  [CHANGE_ASSIGNEE]: (state, { value }) => R.set(assigneeLens, value, state),
+
+  [CHANGE_PRIORITY]: (state, { value }) => R.set(priorityLens, value, state),
 
   [SET_QUERY_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
 
@@ -84,10 +90,10 @@ const reducers = {
 
   [RESET_INPUTS]: state =>
     ({ ...state,
-      startTime: '',
-      endTime: '',
-      date: '',
       title: '',
+      assignee: '',
+      priority: '',
+      deadline: '',
       selectedTags: [],
       queryTag: '',
     }),

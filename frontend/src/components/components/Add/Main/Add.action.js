@@ -12,9 +12,9 @@ export const FETCH_TAGS_IN_ADD = 'FETCH_TAGS_IN_ADD'
 export const fetchTagsInAdd = createAction(FETCH_TAGS_IN_ADD, tags => ({ tags }))
 export const dispatchFetchTagsInAdd = (...args) => dispatch(fetchTagsInAdd(...args))
 
-export const CHANGE_DATE = 'CHANGE_DATE'
-export const changeDate = createAction(CHANGE_DATE, value => ({ value }))
-export const dispatchChangeDate = (...args) => dispatch(changeDate(...args))
+export const CHANGE_DEADLINE = 'CHANGE_DEADLINE'
+export const changeDeadline = createAction(CHANGE_DEADLINE, value => ({ value }))
+export const dispatchChangeDeadline = (...args) => dispatch(changeDeadline(...args))
 
 export const CHANGE_START_TIME = 'CHANGE_START_TIME'
 export const changeStartTime = createAction(CHANGE_START_TIME, value => ({ value }))
@@ -31,6 +31,14 @@ export const dispatchLoadTagsDataInAdd = (...args) => dispatch(loadTagsDataInAdd
 export const CHANGE_TITLE = 'CHANGE_TITLE'
 export const changeTitle = createAction(CHANGE_TITLE, value => ({ value }))
 export const dispatchChangeTitle = (...args) => dispatch(changeTitle(...args))
+
+export const CHANGE_ASSIGNEE = 'CHANGE_ASSIGNEE'
+export const changeAssignee = createAction(CHANGE_ASSIGNEE, value => ({ value }))
+export const dispatchChangeAssignee = (...args) => dispatch(changeAssignee(...args))
+
+export const CHANGE_PRIORITY = 'CHANGE_PRIORITY'
+export const changePriority = createAction(CHANGE_PRIORITY, value => ({ value }))
+export const dispatchChangePriority = (...args) => dispatch(changePriority(...args))
 
 export const ADD_TAG_IN_ADD = 'ADD_TAG_IN_ADD'
 export const addTagInAdd = createAction(ADD_TAG_IN_ADD)

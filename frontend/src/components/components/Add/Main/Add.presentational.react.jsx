@@ -11,11 +11,9 @@ import TextField from '../../../../helper/components/TextField/TextField.present
 import Autocomplete from '../../../../helper/components/Autocomplete/Autocomplete.presentational.react'
 import TagList from '../../../../helper/components/TagList/TagList.presentational.react'
 import Button from '../../../../helper/components/Button/Button.presentational.react'
-import Custom from '../components/Custom/Main/Custom.presentational.react'
 import Avatar from '../components/Avatar/Avatar.presentational.jsx'
-// helpers
-import { formatTime, areTimesOverlapping } from './Add.helper'
-import { formattedDate } from '../../../../helper/functions/date.helper'
+import SelectField from '../../../../helper/components/SelectField/SelectField.presentational.jsx'
+import DatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational.jsx'
 // scssClasses
 import scssClasses from './Add.scss'
 
@@ -23,26 +21,25 @@ import scssClasses from './Add.scss'
 class Add extends React.Component {
   constructor(props) {
     super(props)
-    this.handleAddLog = this._handleAddLog.bind(this)
+    this.handleAddTask = this._handleAddTask.bind(this)
     this.handleAddTag = this._handleAddTag.bind(this)
     this.state = {
-      nameIsError: false,
-      dateIsError: false,
-      startTimeIsError: false,
-      endTimeIsError: false,
+      titleIsError: false,
+      assigneeIsError: false,
+      priorityIsError: false,
+      deadlineIsError: false,
     }
   }
 
-  _handleAddLog() {
-    const { title, selectedTags, addLog, changeTab, history } = this.props
+  _handleAddTask() {
+    const { title, assignee, selectedTags, priority, deadline, addTask } = this.props
     if (title) {
-      addLog(title, selectedTags)
+      addTask(title, assignee, selectedTags, priority, new Date(deadline))
       snackbarMessage({ message: 'Added successfully!' })
-      changeTab('Home')
-      history.push('/')
+      // changeTab('Home')
     } else {
-      this.setState({ nameIsError: true })
-      snackbarMessage({ message: 'Enter name first!' })
+      this.setState({ titleIsError: true })
+      snackbarMessage({ message: 'Enter title first!' })
     }
   }
 
@@ -60,9 +57,9 @@ class Add extends React.Component {
   }
 
   render() {
-    const { dateIsError, startTimeIsError, endTimeIsError } = this.state
-    const {
-      title, onTitleChange, suggestions, queryTag, onQueryTagChange, tags, onTagClick,
+    const { titleIsError, assigneeIsError, priorityIsError, deadlineIsError } = this.state
+    const { title, onTitleChange, assignee, onAssigneeChange, priority, onPriorityChange,
+      deadline, onDeadlineChange, suggestions, queryTag, onQueryTagChange, tags, onTagClick,
     } = this.props
 
     return (
@@ -72,15 +69,15 @@ class Add extends React.Component {
             label="Title"
             value={title}
             onChange={e => onTitleChange(e.target.value)}
-            isError={this.state.nameIsError}
+            isError={this.state.titleIsError}
           />
         </div>
         <div className={scssClasses.textField}>
           <TextField
-            label="Fucntor"
-            value={title}
-            onChange={e => onTitleChange(e.target.value)}
-            isError={this.state.nameIsError}
+            label="Assignee"
+            value={assignee}
+            onChange={e => onAssigneeChange(e.target.value)}
+            isError={this.state.assigneeIsError}
           />
         </div>
         <Avatar />
@@ -97,15 +94,22 @@ class Add extends React.Component {
         </div>
         <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
         <div className={scssClasses.textField}>
-          <TextField
+          <SelectField
             label="Priority"
-            value={title}
-            onChange={e => onTitleChange(e.target.value)}
-            isError={this.state.nameIsError}
+            value={priority}
+            onChange={e => onPriorityChange(e.target.value)}
+            isError={this.state.priorityIsError}
+          />
+        </div>
+        <div className={scssClasses.textField}>
+          <DatePicker
+            value={deadline}
+            onChange={e => onDeadlineChange(e.target.value)}
+            isError={this.state.deadlineIsError}
           />
         </div>
         <div className={scssClasses.button}>
-          <Button label="Create" onClick={this.handleAddTag} componentName="Add" />
+          <Button label="Create" onClick={this.handleAddTask} componentName="Add" />
         </div>
       </div>
     )
@@ -113,23 +117,23 @@ class Add extends React.Component {
 }
 
 Add.propTypes = {
-  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
-  logs: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
+  assignee: PropTypes.string.isRequired,
+  priority: PropTypes.number.isRequired,
+  deadline: PropTypes.string.isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   queryTag: PropTypes.string.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  date: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string.isRequired,
   onTitleChange: PropTypes.func.isRequired,
+  onAssigneeChange: PropTypes.func.isRequired,
+  onPriorityChange: PropTypes.func.isRequired,
+  onDeadlineChange: PropTypes.func.isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   onTagClick: PropTypes.func.isRequired,
   addTag: PropTypes.func.isRequired,
-  addLog: PropTypes.func.isRequired,
+  addTask: PropTypes.func.isRequired,
   changeTab: PropTypes.func.isRequired,
-  addCustomLog: PropTypes.func.isRequired,
 }
 
 export default withRouter(Add)

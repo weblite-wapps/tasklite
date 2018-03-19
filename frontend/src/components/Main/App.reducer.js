@@ -10,19 +10,13 @@ import {
   SET_API,
   SET_ISLOADING,
   CHANGE_TAB,
+  SET_SECONDS_ELAPSED,
   LOAD_USERS_DATA,
   LOAD_LOGS_DATA,
   CHANGE_POPOVER_ID,
-  ADD_LOG,
-  ADD_CUSTOM_LOG,
-  ADD_LOG_TO_NEXT_DAY,
+  ADD_TASK,
   RESTORE_LOG,
   DELETE_LOG,
-  SET_SECONDS_ELAPSED,
-  INCREMENT_SECONDS_ELAPSED,
-  SAVE_START_TIME,
-  SAVE_END_TIME,
-  CHANGE_RUNNING_ID,
   CHANGE_EXPANDING_ID,
   TOGGLE_COMPLETED,
   CHANGE_LEVEL,
@@ -36,13 +30,13 @@ const initialState = {
   runningId: '',
   expandingId: '',
   secondsElapsed: 0,
-  logs: [],
   users: [],
   user: {},
   wis: (window.W && window.W.wisId) || '110',
   creator: false,
   tasks: [
     {
+      wis: '110',
       _id: 'dkqwokdok1o23k12k3o12k3',
       title: 'refactoring loglite',
       tags: ['refactor', 'loglite'],
@@ -50,15 +44,17 @@ const initialState = {
       sentTime: '2018-03-20T16:59:30.866Z',
       priority: 1,
       level: 'ICE BOX',
-      functor: 'Mostafa Mohseni Kabir',
+      assignee: 'Mostafa Mohseni Kabir',
       todos: [
         { title: 'change namespaces', completed: true, id: 'fakjfqlcmlqkfgo' },
         { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg2' },
         { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg4' },
         { title: 'handle views and lens', completed: false, id: 'fakjfqlcmlqkfg6' },
+        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
     },
     {
+      wis: '110',
       _id: 'dkqwokdok1o23k12k3o12f4',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web', 'servies'],
@@ -66,15 +62,17 @@ const initialState = {
       sentTime: '2018-03-21T16:59:30.866Z',
       priority: 2,
       level: 'IN PROGRESS',
-      functor: 'Ali Asgary',
+      assignee: 'Ali Asgary',
       todos: [
         { title: 'handle database bug', completed: false, id: 'fakjfqlcml2kfgo' },
         { title: 'handle database bug', completed: true, id: 'fakjfqlcm3qkfgo' },
         { title: 'handle database bug', completed: false, id: 'fakjfql6mlqkfgo' },
         { title: 'handle kind bug', completed: true, id: 'fakjfqlc1lqkfgo' },
+        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
     },
     {
+      wis: '110',
       _id: 'dkqwokdok1o23k12k3o12f7',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
@@ -82,14 +80,16 @@ const initialState = {
       sentTime: '2018-03-21T16:59:30.866Z',
       priority: 3,
       level: 'EVALUTE',
-      functor: 'Masoud Mohammad Salehi',
+      assignee: 'Masoud Mohammad Salehi',
       todos: [
         { title: 'handle datavase bug', completed: true, id: 'fakjfjlcmlqkfgo' },
         { title: 'handle kind bug', completed: false, id: 'fakjwqlcmlqkfgo' },
         { title: 'handle datavase bug', completed: false, id: 'fakqfqlcmlqkfgo' },
+        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
     },
     {
+      wis: '110',
       _id: 'dkqwokdok1o23k12k3o12f5',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
@@ -97,11 +97,12 @@ const initialState = {
       sentTime: '2018-03-21T16:59:30.866Z',
       priority: 3,
       level: 'DONE',
-      functor: 'Amirhossein Shafie',
+      assignee: 'Amirhossein Shafie',
       todos: [
         { title: 'handle datavase bug', completed: false },
         { title: 'handle kind bug', completed: false },
         { title: 'handle datavase bug', completed: false },
+        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
     },
   ],
@@ -145,46 +146,25 @@ const reducers = {
 
   [CHANGE_POPOVER_ID]: (state, { value }) => R.set(popoverIdLens, value, state),
 
-  [ADD_LOG]: (state, { title, tags }) => ({
+  [ADD_TASK]: (state, { title, assignee, tags, priority, deadline }) => ({
     ...state,
-    logs: R.prepend(
+    tasks: R.prepend(
       {
-        _id: state.logs.length,
+        _id: state.tasks.length,
         title,
+        assignee,
         tags,
-        times: [],
-        date: formattedDate(new Date()),
+        priority,
+        deadline,
+        level: 'ICE BOX',
+        todos: [
+          { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
+        ],
         wis: state.wis,
       },
-      state.logs),
+      state.tasks),
   }),
 
-  [ADD_CUSTOM_LOG]: (state, { title, tags, date, start, end }) =>
-    date === formattedDate(new Date()) ?
-      ({ ...state,
-        logs: R.prepend(
-          {
-            _id: state.logs.length,
-            title,
-            tags,
-            times: [{ start: formatTime(start), end: formatTime(end) }],
-            date,
-            wis: state.wis,
-          }, state.logs),
-      }) : state,
-
-  [ADD_LOG_TO_NEXT_DAY]: (state, { title, tags, end, date }) => ({
-    ...state,
-    logs: R.prepend(
-      {
-        _id: state.logs.length,
-        title,
-        tags,
-        times: [{ start: formatTime('00:00'), end }],
-        date,
-        wis: state.wis,
-      }, state.logs),
-  }),
 
   [RESTORE_LOG]: (state, { log }) => ({
     ...state,
@@ -197,27 +177,6 @@ const reducers = {
   }),
 
   [SET_SECONDS_ELAPSED]: (state, { value }) => R.set(secondsElapsedLens, value, state),
-
-  [INCREMENT_SECONDS_ELAPSED]: state =>
-    R.set(secondsElapsedLens, R.inc(state.secondsElapsed), state),
-
-  [SAVE_START_TIME]: (state, { _id }) => ({
-    ...state,
-    logs: R.map(log => (log._id === _id) ?
-      { ...log, times: R.append({ start: new Date(), end: 'running' }, log.times) } : log, state.logs),
-  }),
-
-  [SAVE_END_TIME]: (state, { _id, end }) => ({
-    ...state,
-    logs: R.map(log => (log._id === _id) ?
-      {
-        ...log,
-        times: R.map(time => (time.end === 'running') ?
-          R.set(endLens, end, time) : time, log.times),
-      } : log, state.logs),
-  }),
-
-  [CHANGE_RUNNING_ID]: (state, { _id }) => R.set(runningIdLens, _id, state),
 
   [CHANGE_EXPANDING_ID]: (state, { _id }) => ({
     ...state,

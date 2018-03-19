@@ -40,9 +40,10 @@ export const CHANGE_POPOVER_ID = 'CHANGE_POPOVER_ID'
 export const changePopoverId = createAction(CHANGE_POPOVER_ID, value => ({ value }))
 export const dispatchChangePopoverId = (...args) => dispatch(changePopoverId(...args))
 
-export const ADD_LOG = 'ADD_LOG'
-export const addLog = createAction(ADD_LOG, (title, tags) => ({ title, tags }))
-export const dispatchAddLog = (...args) => dispatch(addLog(...args))
+export const ADD_TASK = 'ADD_TASK'
+export const addTask = createAction(ADD_TASK,
+  (title, assignee, tags, priority, deadline) => ({ title, assignee, tags, priority, deadline }))
+export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
 export const ADD_CUSTOM_LOG = 'ADD_CUSTOM_LOG'
 export const addCustomLog = createAction(

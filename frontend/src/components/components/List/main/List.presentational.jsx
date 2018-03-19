@@ -37,7 +37,7 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const { task: { _id, title, tags, priority, deadline, todos, functor },
+    const { task: { _id, title, tags, priority, deadline, todos, assignee },
       tabIndex, expandingId, onExpandClick, classes } = this.props
 
     return (
@@ -72,7 +72,7 @@ class TaskList extends React.Component {
             _id !== expandingId &&
             <div className={scssClasses.text}>
               <Typography variant="body2">
-                <span>{functor}&nbsp;|&nbsp;</span>
+                <span>{assignee}&nbsp;|&nbsp;</span>
                 <span>{remained(deadline)}&nbsp;|&nbsp;</span>
                 <span>{formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;</span>
                 <span>{`${getProgressBarPercent(todos)}%`}</span>
@@ -109,10 +109,10 @@ class TaskList extends React.Component {
             </Typography>
             <Divider inset />
             <Typography variant="button">
-              FUNCTOR
+              ASSIGNEE
             </Typography>
             <Typography variant="caption">
-              {functor}
+              {assignee}
             </Typography>
             <Divider inset />
             <Typography variant="button" style={{ marginBottom: '5px' }}>

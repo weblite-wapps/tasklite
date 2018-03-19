@@ -51,7 +51,7 @@ TextField.propTypes = {
   onChange: PropTypes.func.isRequired,
 }
 
-TextField.propTypes.defaultProps = {
+TextField.defaultProps = {
   isError: false,
   required: false,
 }
