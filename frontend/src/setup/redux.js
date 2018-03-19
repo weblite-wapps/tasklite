@@ -5,14 +5,11 @@ import { routerReducer, routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createMemoryHistory'
 // reducers
 import AppReducer from '../components/Main/App.reducer'
-import HomeReducer from '../components/components/Home/Main/Home.reducer'
 import AddReducer from '../components/components/Add/Main/Add.reducer'
-import ReportReducer from '../components/components/Report/Main/Report.reducer'
+import FilterReducer from '../components/components/Filter/Filter.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
-import HomeEpic from '../components/components/Home/Main/Home.effect'
 import AddEpic from '../components/components/Add/Main/Add.effect'
-import ReportEpic from '../components/components/Report/Main/Report.effect'
 
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -26,16 +23,15 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, HomeEpic, AddEpic, ReportEpic)
+const rootEpic = combineEpics(AppEpic, AddEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 
 const store = createStore(
   combineReducers({
     App: AppReducer,
-    Home: HomeReducer,
     Add: AddReducer,
-    Report: ReportReducer,
+    Filter: FilterReducer,
     router: routerReducer,
   }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))
 

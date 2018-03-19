@@ -11,6 +11,7 @@ import Snackbar from 'weblite-web-snackbar'
 import TaskList from '../components/List/main/List.container.react'
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Main/Add.container.react'
+import Filter from '../components/Filter/Filter.container.react'
 // css
 import scssClasses from './App.scss'
 
@@ -93,7 +94,7 @@ class App extends React.Component {
             <div
               role="button"
               tabIndex="0"
-              onClick={() => expandMode === 'add' ? this.setState({ expandMode: 'default' }) : this.setState({ expandMode: 'filter' })}
+              onClick={() => expandMode === 'filter' ? this.setState({ expandMode: 'default' }) : this.setState({ expandMode: 'filter' })}
               className={scssClasses.actions}
             >
               <img alt="filter" src="assets/icons/filter.png" className={scssClasses.icon} />
@@ -105,6 +106,7 @@ class App extends React.Component {
           <Divider light />
         </Collapse>
         <Collapse in={expandMode === 'filter'} timeout="auto" unmountOnExit>
+          <Filter />
           <Divider light />
         </Collapse>
         <LevelBar noMargin={expandMode !== 'default'} />

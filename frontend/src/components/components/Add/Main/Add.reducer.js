@@ -52,10 +52,6 @@ export const tagsView = () => R.path(['Add', 'tags'])(getState())
 const reducers = {
   [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
 
-  [CHANGE_START_TIME]: (state, { value }) => R.set(startTimeLens, value, state),
-
-  [CHANGE_END_TIME]: (state, { value }) => R.set(endTimeLens, value, state),
-
   [LOAD_TAGS_DATA_IN_ADD]: (state, { tags }) => ({ ...state,
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),

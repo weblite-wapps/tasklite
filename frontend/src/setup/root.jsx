@@ -8,9 +8,7 @@ import { MuiThemeProvider } from 'material-ui/styles'
 import store, { history } from './redux'
 // Component
 import App from '../components/Main/App.container.react'
-import Home from '../components/components/Home/Main/Home.container.react'
 import Add from '../components/components/Add/Main/Add.container.react'
-import Report from '../components/components/Report/Main/Report.container.react'
 import About from '../components/components/About/About'
 // scssClasses
 import scssClasses from './root.scss'
