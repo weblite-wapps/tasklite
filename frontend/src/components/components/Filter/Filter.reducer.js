@@ -8,14 +8,14 @@ import {
   RESET_STAFF_LOGS,
   LOAD_STAFF_LOGS,
   LOAD_TAGS_DATA_IN_REPORT,
-  SET_QUERY,
+  SET_QUERY_TAG,
   FETCH_TAGS,
   ADD_TAG,
   CHANGE_SELECTED_TAGS,
   CALCULATE_TOTAL_DURATION,
   RESTORE_TOTAL_DUARTION,
   CHANGE_SELECTED_USER,
-  CHANGE_ASSIGNEE,
+  SET_QUERY_ASSIGNEE,
 } from './Filter.action'
 
 // state
@@ -23,30 +23,28 @@ const initialState = {
   staffLogs: [],
   selectedUser: '',
   queryTag: '',
-  assignee: '',
+  queryAssignee: '',
   suggestions: [],
+  assigneeSuggestions: [],
   selectedTags: [],
   tags: [],
-  totalDuration: 'Not calculated',
+  assignees: [],
 }
 
 // lens
 const selectedUserLens = R.lensProp('selectedUser')
 const queryTagLens = R.lensProp('queryTag')
-const totalDurationLens = R.lensProp('totalDuration')
-const CSVLens = R.lensProp('CSV')
-const currentPageLens = R.lensProp('currentPage')
+const queryAssigneeLens = R.lensProp('queryAssignee')
 const suggestionsLens = R.lensProp('suggestions')
-const assigneeLens = R.lensProp('assignee')
+const assigneeSuggestionsLens = R.lensProp('assigneeSuggestions')
 // views
 export const staffLogsView = () => R.path(['Filter', 'staffLogs'])(getState())
 export const selectedUserView = () => R.path(['Filter', 'selectedUser'])(getState())
 export const queryTagView = () => R.path(['Filter', 'queryTag'])(getState())
+export const queryAssigneeView = () => R.path(['Filter', 'queryAssignee'])(getState())
 export const selectedTagsView = () => R.path(['Filter', 'selectedTags'])(getState())
 export const tagsView = () => R.path(['Filter', 'tags'])(getState())
-export const totalDurationView = () => R.path(['Filter', 'totalDuration'])(getState())
-export const assigneeView = () => R.path(['Filter', 'assignee'])(getState())
-
+export const assigneesView = () => R.path(['Filter', 'assignees'])(getState())
 
 
 // reducers
@@ -70,7 +68,9 @@ const reducers = {
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
-  [SET_QUERY]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
+  [SET_QUERY_TAG]: (state, { value }) => R.set(queryTagLens, value)(state),
+
+  [SET_QUERY_ASSIGNEE]: (state, { value }) => R.set(queryAssigneeLens, value)(state),
 
   [FETCH_TAGS]: (state, { tags }) => R.set(suggestionsLens, tags, state),
 
@@ -98,8 +98,6 @@ const reducers = {
     (state, { totalDuration }) => R.set(totalDurationLens, totalDuration, state),
 
   [CHANGE_SELECTED_USER]: (state, { value }) => R.set(selectedUserLens, value)(state),
-
-  [CHANGE_ASSIGNEE]: (state, { value }) => R.set(assigneeLens, value)(state),
 }
 
 

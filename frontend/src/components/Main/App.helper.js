@@ -17,3 +17,6 @@ export const getRequest = path => request
 export const postRequest = path => request
   .post(host + path)
   .set('Access-Control-Allow-Origin', '*')
+
+export const filteredTags = (selectedTags, tags) =>
+  R.reduce(R.and, true, R.map(tag => R.contains(tag, tags), selectedTags))

@@ -52,5 +52,9 @@ IntegrationAutocomplete.propTypes = {
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
+  onAdd: PropTypes.func,
+}
+
+IntegrationAutocomplete.defaultProps = {
+  onAdd: () => {}
 }

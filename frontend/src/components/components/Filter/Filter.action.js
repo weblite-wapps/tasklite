@@ -19,9 +19,13 @@ export const LOAD_TAGS_DATA_IN_REPORT = 'LOAD_TAGS_DATA_IN_REPORT'
 export const loadTagsDataInReport = createAction(LOAD_TAGS_DATA_IN_REPORT, tags => ({ tags }))
 export const dispatchLoadTagsDataInReport = (...args) => dispatch(loadTagsDataInReport(...args))
 
-export const SET_QUERY = 'SET_QUERY'
-export const setQuery = createAction(SET_QUERY, queryTag => ({ queryTag }))
-export const dispatchSetQuery = (...args) => dispatch(setQuery(...args))
+export const SET_QUERY_TAG = 'SET_QUERY_TAG'
+export const setQueryTag = createAction(SET_QUERY_TAG, value => ({ value }))
+export const dispatchSetQueryTag = (...args) => dispatch(setQueryTag(...args))
+
+export const SET_QUERY_ASSIGNEE = 'SET_QUERY_ASSIGNEE'
+export const setQueryAssignee = createAction(SET_QUERY_ASSIGNEE, value => ({ value }))
+export const dispatchSetQueryAssignee = (...args) => dispatch(setQueryAssignee(...args))
 
 export const FETCH_TAGS = 'FETCH_TAGS'
 export const fetchTags = createAction(FETCH_TAGS, tags => ({ tags }))
@@ -35,10 +39,6 @@ export const CHANGE_SELECTED_TAGS = 'CHANGE_SELECTED_TAGS'
 export const changeSelectedTags = createAction(CHANGE_SELECTED_TAGS, tag => ({ tag }))
 export const dispatchChangeSelectedTags = (...args) => dispatch(changeSelectedTags(...args))
 
-export const CALCULATE_TOTAL_DURATION = 'CALCULATE_TOTAL_DURATION'
-export const calculateTotalDuration = createAction(CALCULATE_TOTAL_DURATION)
-export const dispatchCalculateTotalDuration = (...args) => dispatch(calculateTotalDuration(...args))
-
 export const RESTORE_TOTAL_DUARTION = 'RESTORE_TOTAL_DUARTION'
 export const restoreTotalDuration = createAction(
   RESTORE_TOTAL_DUARTION,
@@ -49,7 +49,3 @@ export const dispatchRestoreTotalDuration = (...args) => dispatch(restoreTotalDu
 export const CHANGE_SELECTED_USER = 'CHANGE_SELECTED_USER'
 export const changeSelectedUser = createAction(CHANGE_SELECTED_USER, value => ({ value }))
 export const dispatchChangeSelectedUser = (...args) => dispatch(changeSelectedUser(...args))
-
-export const CHANGE_ASSIGNEE = 'CHANGE_ASSIGNEE'
-export const changeAssignee = createAction(CHANGE_ASSIGNEE, value => ({ value }))
-export const dispatchChangeAssignee = (...args) => dispatch(changeAssignee(...args))

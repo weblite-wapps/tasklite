@@ -45,15 +45,21 @@ export default class Filter extends React.Component {
   }
 
   render() {
-    const { tags, suggestions, onTagClick, queryTag, onQueryTagChange, assignee, onAssigneeChange } = this.props
+    const { tags, suggestions, onTagClick, queryTag, onQueryTagChange,
+      assigneeSuggestions, queryAssignee, onQueryAssigneeChange,
+    } = this.props
+
     return (
       <div className={scssClasses.container}>
         <div className={scssClasses.textField}>
-          <TextField
+          <Autocomplete
             label="Assignee"
-            value={assignee}
-            onChange={e => onAssigneeChange(e.target.value)}
-            isError={this.state.assigneeIsError}
+            suggestions={assigneeSuggestions}
+            inputValue={queryAssignee}
+            onInputValueChange={e => onQueryAssigneeChange(e.target.value)}
+            onSelect={value => onQueryAssigneeChange(value)}
+            // isError={this.state.assigneeIsError}
+            // onAdd={this.handleAddTag}
           />
         </div>
         <div className={scssClasses.textField}>
@@ -77,13 +83,12 @@ export default class Filter extends React.Component {
 }
 
 Filter.propTypes = {
-  assignee: PropTypes.string.isRequired,
+  queryAssignee: PropTypes.string.isRequired,
   queryTag: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onAssigneeChange: PropTypes.func.isRequired,
+  onQueryAssigneeChange: PropTypes.func.isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   onTagClick: PropTypes.func.isRequired,
   addTag: PropTypes.func.isRequired,
-  calculateTotalDuration: PropTypes.func.isRequired,
 }

@@ -1,11 +1,15 @@
+// modules
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
+// helpers
+import { filteredTags } from './App.helper'
 
 const getAddSuggestions = state => state.Add.suggestions
 const getReportSuggestions = state => state.Filter.suggestions
 const getAddTags = state => state.Add.tags
-const getReportTags = state => state.Filter.tags
 const getTasks = state => state.App.tasks
+const getAssignee = state => state.Filter.queryAssignee
+const getFilterTags = state => state.Filter.selectedTags
 
 const getAddFilteredSuggestions = createSelector(
   [getAddSuggestions, getAddTags],
@@ -14,13 +18,21 @@ const getAddFilteredSuggestions = createSelector(
 )
 
 const getReportFilteredSuggestions = createSelector(
-  [getReportSuggestions, getReportTags],
+  [getReportSuggestions, getFilterTags],
   (suggestions, tags) => suggestions.filter(suggestion =>
     R.reduce(R.and, true, R.map(tag => tag.label !== suggestion.label, tags))),
 )
 
+const getFilteredTasks = createSelector(
+  [getTasks, getAssignee, getFilterTags],
+  (tasks, queryAssignee, selectedTags) => R.compose(
+    R.filter(task => filteredTags(selectedTags, task.tags)),
+    R.filter(task => task.assignee.toLowerCase().includes(queryAssignee.toLowerCase())),
+  )(tasks),
+)
+
 const getNumberOfTasksInEachLevel = createSelector(
-  [getTasks],
+  [getFilteredTasks],
   (tasks) => {
     const groupedTasks = R.compose(R.groupBy(R.prop('level')))(tasks)
     return ({
@@ -33,4 +45,5 @@ const getNumberOfTasksInEachLevel = createSelector(
 )
 
 
-export { getAddFilteredSuggestions, getReportFilteredSuggestions, getNumberOfTasksInEachLevel }
+
+export { getAddFilteredSuggestions, getReportFilteredSuggestions, getNumberOfTasksInEachLevel, getFilteredTasks }
