@@ -12,7 +12,7 @@ import {
   CHANGE_POPOVER_ID,
   ADD_TASK,
   RESTORE_LOG,
-  DELETE_LOG,
+  DELETE_TASK,
   CHANGE_EXPANDING_ID,
   CHANGE_LEVEL,
   CHANGE_TODO_TEXT,
@@ -172,9 +172,9 @@ const reducers = {
     logs: R.adjust(R.assoc('_id', log._id), 0, state.logs),
   }),
 
-  [DELETE_LOG]: (state, { _id }) => ({
+  [DELETE_TASK]: (state, { _id }) => ({
     ...state,
-    logs: R.remove(R.findIndex(R.propEq('_id', _id))(state.logs), 1, state.logs),
+    tasks: R.remove(R.findIndex(R.propEq('_id', _id))(state.tasks), 1, state.tasks),
   }),
 
   [CHANGE_EXPANDING_ID]: (state, { _id }) => ({

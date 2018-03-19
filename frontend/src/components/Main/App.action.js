@@ -49,9 +49,9 @@ export const RESTORE_LOG = 'RESTORE_LOG'
 export const restoreLog = createAction(RESTORE_LOG, log => ({ log }))
 export const dispatchRestoreLog = (...args) => dispatch(restoreLog(...args))
 
-export const DELETE_LOG = 'DELETE_LOG'
-export const deleteLog = createAction(DELETE_LOG, _id => ({ _id }))
-export const dispatchDeleteLog = (...args) => dispatch(deleteLog(...args))
+export const DELETE_TASK = 'DELETE_TASK'
+export const deleteTask = createAction(DELETE_TASK, _id => ({ _id }))
+export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
 export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
 export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))

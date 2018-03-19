@@ -28,7 +28,7 @@ export const remained = (time) => {
 
 export const isOnTime = (sentTime, deadline) => {
   if (isAfter(sentTime, deadline)) return 'Delayed'
-  else return 'On Time'
+  return 'On Time'
 }
 
 export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name
