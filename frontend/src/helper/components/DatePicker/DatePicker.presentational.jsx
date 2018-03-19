@@ -3,20 +3,19 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 // helpers
-import styles from './DatePicker.style'
+import scssClasses from './DatePicker.scss'
+import styles from '../../../helper/style/appStyle'
 
-function DatePicker(props) {
-  const { isError, value, onChange, classes } = props
-
-  return (
-    <form className={classes.container} noValidate>
+const DatePicker = ({ isError, value, onChange, classes }) => (
+  <div className={scssClasses.textField}>
+    <form className={classes.datePickerContainer} noValidate>
       <TextField
         id="date"
         label="Deadline"
         type="date"
         value={value}
         onChange={onChange}
-        className={classes.textField}
+        className={classes.datePickerTextField}
         required
         error={isError}
         InputProps={{
@@ -30,8 +29,8 @@ function DatePicker(props) {
           }}
       />
     </form>
-  )
-}
+  </div>
+)
 
 DatePicker.propTypes = {
   classes: PropTypes.shape({}).isRequired,
@@ -39,6 +38,5 @@ DatePicker.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 }
-
 
 export default withStyles(styles)(DatePicker)

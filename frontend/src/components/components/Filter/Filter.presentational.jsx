@@ -4,9 +4,9 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import Button from '../../../helper/components/Button/Button.presentational.react'
-import TagList from '../../../helper/components/TagList/TagList.presentational.react'
-import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational.react'
+import Button from '../../../helper/components/Button/Button.presentational'
+import TagList from '../../../helper/components/TagList/TagList.presentational'
+import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational'
 // css
 import scssClasses from './Filter.scss'
 
@@ -61,6 +61,7 @@ export default class Filter extends React.Component {
             // onAdd={this.handleAddTag}
           />
         </div>
+
         <div className={scssClasses.textField}>
           <Autocomplete
             label="Tags"
@@ -72,7 +73,9 @@ export default class Filter extends React.Component {
           />
           <Button label="Add" onClick={this.handleAddTag} componentName="Add" />
         </div>
+
         <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+
         <div className={scssClasses.button}>
           <Button label="Apply" onClick={this.handleApply} componentName="Add" />
         </div>
@@ -86,6 +89,7 @@ Filter.propTypes = {
   queryTag: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // assigneeSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryAssigneeChange: PropTypes.func.isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   onTagClick: PropTypes.func.isRequired,

@@ -13,7 +13,7 @@ export default () => ({
     color: 'white',
     borderRadius: '0px',
     padding: '5px 10px',
-    margin: '5px',
+    margin: '10px 0px',
     minWidth: '5px',
     minHeight: '25px',
     textTransform: 'capitalize',

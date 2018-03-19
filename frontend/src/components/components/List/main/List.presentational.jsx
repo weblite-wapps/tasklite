@@ -19,12 +19,13 @@ import ExpandMore from 'material-ui-icons/ExpandMore'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Icon from '../components/Icon/Icon.container.react'
-import Todo from '../components/Todo/Todo.container.react'
-import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
-import Button from '../../../../helper/components/Button/Button.presentational.react'
+import TextField from '../../../../helper/components/TextField/TextField.presentational'
+import Button from '../../../../helper/components/Button/Button.presentational'
 import Popover from '../components/Popover/Popover.presentational'
+import SubInfo from '../components/SubInfo/SubInfo.presentational'
 // helper
-import { formatTitle, formatTags, formatTime, remained, isOnTime, getProgressBarPercent } from './List.helper'
+import { formatTitle, formatTags, getProgressBarPercent } from './List.helper'
+import { getRemained } from '../../../../helper/functions/time.helper'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -104,7 +105,7 @@ class TaskList extends React.Component {
                   <ExpandMore classes={{ root: classes.SvgIcon }} />}
               </IconButton>
               {(tabIndex === 'IN PROGRESS' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
-              {(tabIndex === 'ICE BOX' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/inprogress.png" label="IN PROGRESS" _id={_id} />}
+              {(tabIndex === 'ICE BOX' || tabIndex === 'EVALUTE') && <Icon src="assets/icons/inp.png" label="IN PROGRESS" _id={_id} />}
               {tabIndex === 'IN PROGRESS' && <Icon src="assets/icons/evalute.png" label="EVALUTE" _id={_id} />}
               {tabIndex === 'EVALUTE' && <Icon src="assets/icons/done.png" label="EVALUTE" _id={_id} />}
             </div>
@@ -114,7 +115,7 @@ class TaskList extends React.Component {
             <div className={scssClasses.text}>
               <Typography variant="body2">
                 <span>{assignee}&nbsp;|&nbsp;</span>
-                <span>{remained(deadline)}&nbsp;|&nbsp;</span>
+                <span>{getRemained(deadline)}&nbsp;|&nbsp;</span>
                 <span>{formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;</span>
                 <span>{`${getProgressBarPercent(todos)}%`}</span>
               </Typography>
@@ -135,49 +136,15 @@ class TaskList extends React.Component {
               />
             </div>
 
-            <Typography variant="button">
-              TAGS
-            </Typography>
-            <Typography variant="caption">
-              {R.join(', ', tags) || 'No tags!'}
-            </Typography>
-            <Divider inset />
-            <Typography variant="button">
-              DEADLINE
-            </Typography>
-            <Typography variant="caption">
-              {`${formatTime(deadline)} - ${remained(deadline)} remained`}
-            </Typography>
-            <Divider inset />
-            <Typography variant="button">
-              SENT TIME
-            </Typography>
-            <Typography variant="caption">
-              {`${formatTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
-            </Typography>
-            <Divider inset />
-            <Typography variant="button">
-              ASSIGNEE
-            </Typography>
-            <Typography variant="caption">
-              {assignee}
-            </Typography>
-            <Divider inset />
-            <Typography variant="button" style={{ marginBottom: '5px' }}>
-              SUBWORKS
-            </Typography>
-            {
-              todos.map((todo, index) => (
-                <Todo
-                  key={todo.id}
-                  _id={_id}
-                  todo={todo}
-                  length={todos.length}
-                  index={index + 1}
-                />))
-            }
+            <SubInfo label="TAGS" tags={tags} />
+            <SubInfo label="DEADLINE" deadline={deadline} />
+            <SubInfo label="SENT TIME" sentTime={sentTime} />
+            <SubInfo label="ASSIGNEE" assignee={assignee} />
+            <SubInfo label="SUBWORKS" todos={todos} _id={_id} />
+
             <div className={scssClasses.textField}>
               <TextField
+                withButton
                 label="New Subtask"
                 fullWidth={false}
                 value={todoText}

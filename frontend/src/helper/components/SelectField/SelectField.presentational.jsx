@@ -5,65 +5,48 @@ import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 // scssClasses
 import scssClasses from './SelectField.scss'
-// constants
-const styles = {
-  textFieldInkbar: {
-    '&:after': {
-      backgroundColor: '#919191',
-    },
-  },
-  textFieldFormLabel: {
-    color: '#919191',
-  },
-}
-
+import styles from '../../../helper/style/appStyle'
+// const
 const options = [
-  {
-    value: 1,
-    label: 'high',
-  },
-  {
-    value: 2,
-    label: 'middle',
-  },
-  {
-    value: 3,
-    label: 'low',
-  },
+  { value: 1, label: 'high' },
+  { value: 2, label: 'middle' },
+  { value: 3, label: 'low' },
 ]
 
 const SelectField = ({ classes, isError, required, label, value, onChange }) => (
-  <TextField
-    select
-    label={label}
-    value={value}
-    fullWidth
-    error={isError}
-    helperText={required && 'required'}
-    onChange={onChange}
-    InputProps={{
-      classes: {
-        focused: classes.textFieldInkbar,
-      },
-    }}
-    InputLabelProps={{
-      shrink: true,
-      className: classes.textFieldFormLabel,
-    }}
-    SelectProps={{
-      native: true,
-      MenuProps: {
-        className: scssClasses.menu,
-      },
-    }}
-    margin="normal"
-  >
-    {options.map(option => (
-      <option key={option.value} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </TextField>
+  <div className={scssClasses.textField}>
+    <TextField
+      select
+      label={label}
+      value={value}
+      fullWidth
+      error={isError}
+      helperText={required && 'required'}
+      onChange={onChange}
+      InputProps={{
+        classes: {
+          focused: classes.textFieldInkbar,
+        },
+      }}
+      InputLabelProps={{
+        shrink: true,
+        className: classes.textFieldFormLabel,
+      }}
+      SelectProps={{
+        native: true,
+        MenuProps: {
+          className: scssClasses.menu,
+        },
+      }}
+      margin="normal"
+    >
+      {options.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </TextField>
+  </div>
 )
 
 SelectField.propTypes = {

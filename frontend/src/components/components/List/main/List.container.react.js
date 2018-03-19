@@ -23,12 +23,12 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = (_, { task: { _id } }) => ({
   onExpandClick: dispatchChangeExpnadingId,
   onTodoTextChange: value => dispatchChangeTodoText(_id, value),
+  changePopoverId: dispatchChangePopoverId,
+  deleteTask: () => dispatchDeleteTask(_id),
   addTodo: (value) => {
     dispatchAddTodo(_id, value)
     dispatchChangeTodoText(_id, '')
   },
-  changePopoverId: dispatchChangePopoverId,
-  deleteTask: () => dispatchDeleteTask(_id),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

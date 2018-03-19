@@ -16,7 +16,7 @@ import {
   CHANGE_EXPANDING_ID,
   CHANGE_LEVEL,
   CHANGE_TODO_TEXT,
-  TOGGLE_COMPLETED,
+  TOGGLE_TODO,
   ADD_TODO,
   DELETE_TODO,
   SET_SENT_TIME,
@@ -102,9 +102,9 @@ const initialState = {
       level: 'DONE',
       assignee: 'Amirhossein Shafie',
       todos: [
-        { title: 'handle datavase bug', completed: false },
-        { title: 'handle kind bug', completed: false },
-        { title: 'handle datavase bug', completed: false },
+        { title: 'handle datavase bug', completed: false, id: 'fakjffjlcmlqgfgo' },
+        { title: 'handle kind bug', completed: false, id: 'fakjfjalcmlqgfgo' },
+        { title: 'handle datavase bug', completed: false, id: 'fakjfjlchmlqgfgo' },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
       todoText: '',
@@ -182,7 +182,7 @@ const reducers = {
     expandingId: state.expandingId === _id ? '' : _id,
   }),
 
-  [TOGGLE_COMPLETED]: (state, { _id, id }) => ({
+  [TOGGLE_TODO]: (state, { _id, id }) => ({
     ...state,
     tasks: R.map(task => (task._id === _id) ?
       {

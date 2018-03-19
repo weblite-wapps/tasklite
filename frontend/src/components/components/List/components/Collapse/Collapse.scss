@@ -1,0 +1,26 @@
+.collapse {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 30px;
+}
+
+.progressPannel {
+  width: 250px;
+  margin-bottom: 15px;
+}
+
+.progress {
+  max-width: 200px;
+}
+
+.textField {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 10px;
+  width: 250px;
+}
+
+.button {
+  display: flex;
+  margin: 10px 5px;
+}

@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // components
-import TagShape from '../TagShape/TagShape.presentational.react'
+import TagShape from '../TagShape/TagShape.presentational'
 // scssClasses
 import scssClasses from './TagList.scss'
 

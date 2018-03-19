@@ -6,8 +6,8 @@ import Icon from './Icon.presentational'
 import { dispatchChangeLevel } from '../../../../Main/App.action'
 
 
-const mapDispatchToProps = () => ({
-  onChangeLevel: dispatchChangeLevel,
+const mapDispatchToProps = ({ _id, label }) => ({
+  onChangeLevel: () => dispatchChangeLevel(_id, label),
 })
 
 export default connect(null, mapDispatchToProps)(Icon)

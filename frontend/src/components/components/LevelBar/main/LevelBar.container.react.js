@@ -14,8 +14,6 @@ const mapStateToProps = state => ({
   numbers: getNumberOfTasksInEachLevel(state),
 })
 
-const mapDispatchToProps = () => ({
-  onTabClick: dispatchChangeTab,
-})
+const mapDispatchToProps = () => ({ onTabClick: dispatchChangeTab })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LevelBar)

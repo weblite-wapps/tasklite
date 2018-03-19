@@ -4,13 +4,8 @@ import PropTypes from 'prop-types'
 // styles
 import classes from './Icon.scss'
 
-const Icon = ({ src, label, _id, onChangeLevel }) => (
-  <div
-    role="button"
-    tabIndex="0"
-    onClick={() => onChangeLevel(_id, label)}
-    className={classes.container}
-  >
+const Icon = ({ src, label, onChangeLevel }) => (
+  <div role="button" tabIndex="0" onClick={onChangeLevel} className={classes.container}>
     <img src={src} alt={label} className={classes.icon} />
   </div>
 )
@@ -18,7 +13,6 @@ const Icon = ({ src, label, _id, onChangeLevel }) => (
 Icon.propTypes = {
   src: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
   onChangeLevel: PropTypes.func.isRequired,
 }
 

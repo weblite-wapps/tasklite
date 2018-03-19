@@ -4,24 +4,20 @@ import PropTypes from 'prop-types'
 import Typography from 'material-ui/Typography'
 import Checkbox from 'material-ui/Checkbox'
 // components
-import Button from '../../../../../helper/components/Button/Button.presentational.react'
+import Button from '../../../../../helper/components/Button/Button.presentational'
 // styles
 import classes from './Todo.scss'
 
 
-const Todo = ({ length, index, todo, onCompletedChange, onDelete }) => (
+const Todo = ({ length, index, todo: { completed, title }, onCompletedChange, onDelete }) => (
   <div className={classes.todoContainer}>
     <Checkbox
-      checked={todo.completed}
+      checked={completed}
       onChange={onCompletedChange}
       style={{ height: '15px', width: '15px' }}
     />
-    <Typography variant="caption" style={{ marginLeft: '5px' }}>
-      {todo.title}
-    </Typography>
-    {
-      length !== index && <Button label="DELETE" onClick={onDelete} componentName="Todo" />
-    }
+    <Typography variant="caption" style={{ marginLeft: '5px' }}>{title}</Typography>
+    {length !== index && <Button label="DELETE" onClick={onDelete} componentName="Todo" />}
   </div>
 )
 

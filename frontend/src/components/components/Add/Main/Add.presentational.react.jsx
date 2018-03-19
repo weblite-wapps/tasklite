@@ -3,17 +3,16 @@ import React from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import isAfter from 'date-fns/is_after'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
-import Autocomplete from '../../../../helper/components/Autocomplete/Autocomplete.presentational.react'
-import TagList from '../../../../helper/components/TagList/TagList.presentational.react'
-import Button from '../../../../helper/components/Button/Button.presentational.react'
-import Avatar from '../components/Avatar/Avatar.presentational.jsx'
-import SelectField from '../../../../helper/components/SelectField/SelectField.presentational.jsx'
-import DatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational.jsx'
+import TextField from '../../../../helper/components/TextField/TextField.presentational'
+import Autocomplete from '../../../../helper/components/Autocomplete/Autocomplete.presentational'
+import TagList from '../../../../helper/components/TagList/TagList.presentational'
+import Button from '../../../../helper/components/Button/Button.presentational'
+import Avatar from '../components/Avatar/Avatar.presentational'
+import SelectField from '../../../../helper/components/SelectField/SelectField.presentational'
+import DatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational'
 // scssClasses
 import scssClasses from './Add.scss'
 
@@ -64,23 +63,22 @@ class Add extends React.Component {
 
     return (
       <div className={scssClasses.container}>
-        <div className={scssClasses.textField}>
-          <TextField
-            label="Title"
-            value={title}
-            onChange={e => onTitleChange(e.target.value)}
-            isError={this.state.titleIsError}
-          />
-        </div>
-        <div className={scssClasses.textField}>
-          <TextField
-            label="Assignee"
-            value={assignee}
-            onChange={e => onAssigneeChange(e.target.value)}
-            isError={this.state.assigneeIsError}
-          />
-        </div>
+        <TextField
+          label="Title"
+          value={title}
+          onChange={e => onTitleChange(e.target.value)}
+          isError={titleIsError}
+        />
+
+        <TextField
+          label="Assignee"
+          value={assignee}
+          onChange={e => onAssigneeChange(e.target.value)}
+          isError={assigneeIsError}
+        />
+
         <Avatar />
+
         <div className={scssClasses.textField}>
           <Autocomplete
             label="Tags"
@@ -92,22 +90,22 @@ class Add extends React.Component {
           />
           <Button label="Add" onClick={this.handleAddTag} componentName="Add" />
         </div>
+
         <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-        <div className={scssClasses.textField}>
-          <SelectField
-            label="Priority"
-            value={priority}
-            onChange={e => onPriorityChange(e.target.value)}
-            isError={this.state.priorityIsError}
-          />
-        </div>
-        <div className={scssClasses.textField}>
-          <DatePicker
-            value={deadline}
-            onChange={e => onDeadlineChange(e.target.value)}
-            isError={this.state.deadlineIsError}
-          />
-        </div>
+
+        <SelectField
+          label="Priority"
+          value={priority}
+          onChange={e => onPriorityChange(e.target.value)}
+          isError={priorityIsError}
+        />
+
+        <DatePicker
+          value={deadline}
+          onChange={e => onDeadlineChange(e.target.value)}
+          isError={deadlineIsError}
+        />
+
         <div className={scssClasses.button}>
           <Button label="Create" onClick={this.handleAddTask} componentName="Add" />
         </div>
@@ -133,7 +131,7 @@ Add.propTypes = {
   onTagClick: PropTypes.func.isRequired,
   addTag: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
-  changeTab: PropTypes.func.isRequired,
+  // changeTab: PropTypes.func.isRequired,
 }
 
 export default withRouter(Add)

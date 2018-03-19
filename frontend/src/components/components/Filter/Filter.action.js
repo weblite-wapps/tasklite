@@ -43,13 +43,6 @@ export const CHANGE_SELECTED_TAGS = 'CHANGE_SELECTED_TAGS'
 export const changeSelectedTags = createAction(CHANGE_SELECTED_TAGS, tag => ({ tag }))
 export const dispatchChangeSelectedTags = (...args) => dispatch(changeSelectedTags(...args))
 
-export const RESTORE_TOTAL_DUARTION = 'RESTORE_TOTAL_DUARTION'
-export const restoreTotalDuration = createAction(
-  RESTORE_TOTAL_DUARTION,
-  totalDuration => ({ totalDuration }),
-)
-export const dispatchRestoreTotalDuration = (...args) => dispatch(restoreTotalDuration(...args))
-
 export const CHANGE_SELECTED_USER = 'CHANGE_SELECTED_USER'
 export const changeSelectedUser = createAction(CHANGE_SELECTED_USER, value => ({ value }))
 export const dispatchChangeSelectedUser = (...args) => dispatch(changeSelectedUser(...args))
