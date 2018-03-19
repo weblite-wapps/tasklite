@@ -16,11 +16,12 @@ import { LinearProgress } from 'material-ui/Progress'
 import ExpandLess from 'material-ui-icons/ExpandLess'
 import ExpandMore from 'material-ui-icons/ExpandMore'
 // local modules
-// import { snackbarMessage } from 'weblite-web-snackbar'
+import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Icon from '../components/Icon/Icon.container.react'
 import Todo from '../components/Todo/Todo.container.react'
 import TextField from '../../../../helper/components/TextField/TextField.presentational.react'
+import Button from '../../../../helper/components/Button/Button.presentational.react'
 // helper
 import { formatTitle, formatTags, formatTime, remained, getProgressBarPercent } from './List.helper'
 // styles
@@ -31,14 +32,28 @@ import styles from './List.style'
 class TaskList extends React.Component {
   constructor(props) {
     super(props)
+    this.handleAddTodo = this._handleAddTodo.bind(this)
     this.state = {
       // anchorEl: null,
+      todoTextError: false,
+    }
+  }
+
+  _handleAddTodo() {
+    const { task: { todoText }, addTodo } = this.props
+    if (R.trim(todoText)){
+      this.setState({ todoTextError: false })
+      addTodo(todoText)
+    } else {
+      this.setState({ todoTextError: true })
+      snackbarMessage({ message: 'Write something first!' })
     }
   }
 
   render() {
-    const { task: { _id, title, tags, priority, deadline, todos, assignee },
-      tabIndex, expandingId, onExpandClick, classes } = this.props
+    const { todoTextError } = this.state
+    const { task: { _id, title, tags, priority, deadline, todos, assignee, todoText },
+      onTodoTextChange, tabIndex, expandingId, onExpandClick, classes } = this.props
 
     return (
       <React.Fragment>
@@ -121,10 +136,19 @@ class TaskList extends React.Component {
             {
               todos.map(todo => <Todo key={todo.id} _id={_id} todo={todo} />)
             }
-            {/* <TextField label="New Subtask" /> */}
+            <div className={scssClasses.textField}>
+              <TextField
+                label="New Subtask"
+                fullWidth={false}
+                value={todoText}
+                isError={todoTextError}
+                onChange={e => onTodoTextChange(e.target.value)}
+              />
+              <Button label="Add" onClick={this.handleAddTodo} componentName="Add" />
+            </div>
           </div>
         </Collapse>
-        <Divider inset />
+        <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />
       </React.Fragment>
     )
   }
@@ -136,6 +160,8 @@ TaskList.propTypes = {
   tabIndex: PropTypes.string.isRequired,
   expandingId: PropTypes.string.isRequired,
   onExpandClick: PropTypes.func.isRequired,
+  onTodoTextChange: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(TaskList)

@@ -31,6 +31,10 @@ export const FETCH_TAGS = 'FETCH_TAGS'
 export const fetchTags = createAction(FETCH_TAGS, tags => ({ tags }))
 export const dispatchFetchTags = (...args) => dispatch(fetchTags(...args))
 
+export const FETCH_ASSIGNEES = 'FETCH_ASSIGNEES'
+export const fetchAssignees = createAction(FETCH_ASSIGNEES, assignees => ({ assignees }))
+export const dispatchFetchAssignees = (...args) => dispatch(fetchAssignees(...args))
+
 export const ADD_TAG = 'ADD_TAG'
 export const addTag = createAction(ADD_TAG)
 export const dispatchAddTag = (...args) => dispatch(addTag(...args))

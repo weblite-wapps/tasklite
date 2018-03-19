@@ -78,6 +78,11 @@ export default createMuiTheme({
         margin: '10px 60px 10px 0px',
         marginLeft: '0px',
       },
+      absolute: {
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        margin: '10px 30px 10px 0px',
+        marginLeft: '0px',
+      },
     },
     MuiListItem: {
       default: {

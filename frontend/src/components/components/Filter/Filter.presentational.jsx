@@ -33,7 +33,7 @@ export default class Filter extends React.Component {
 
   _handleAddTag() {
     const { queryTag, tags, addTag } = this.props
-    if (queryTag) {
+    if (R.trim(queryTag)) {
       if (R.findIndex(R.propEq('label', R.toLower(queryTag)), tags) < 0) {
         addTag()
       } else {

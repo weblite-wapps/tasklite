@@ -2,15 +2,11 @@
 import * as R from 'ramda'
 // local modules
 import { getState } from '../../setup/redux'
-// helpers
-import { formatTime } from './App.helper'
-import { formattedDate } from '../../helper/functions/date.helper'
 // actions
 import {
   SET_API,
   SET_ISLOADING,
   CHANGE_TAB,
-  SET_SECONDS_ELAPSED,
   LOAD_USERS_DATA,
   LOAD_LOGS_DATA,
   CHANGE_POPOVER_ID,
@@ -20,6 +16,8 @@ import {
   CHANGE_EXPANDING_ID,
   TOGGLE_COMPLETED,
   CHANGE_LEVEL,
+  CHANGE_TODO_TEXT,
+  ADD_TODO,
 } from './App.action'
 
 // state
@@ -52,6 +50,7 @@ const initialState = {
         { title: 'handle views and lens', completed: false, id: 'fakjfqlcmlqkfg6' },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
+      todoText: '',
     },
     {
       wis: '110',
@@ -70,6 +69,7 @@ const initialState = {
         { title: 'handle kind bug', completed: true, id: 'fakjfqlc1lqkfgo' },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
+      todoText: '',
     },
     {
       wis: '110',
@@ -87,6 +87,7 @@ const initialState = {
         { title: 'handle datavase bug', completed: false, id: 'fakqfqlcmlqkfgo' },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
+      todoText: '',
     },
     {
       wis: '110',
@@ -104,6 +105,7 @@ const initialState = {
         { title: 'handle datavase bug', completed: false },
         { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
       ],
+      todoText: '',
     },
   ],
 }
@@ -111,9 +113,6 @@ const initialState = {
 // lens
 const isLoadingLens = R.lensProp('isLoading')
 const tabIndexLens = R.lensProp('tabIndex')
-const endLens = R.lensProp('end')
-const runningIdLens = R.lensProp('runningId')
-const secondsElapsedLens = R.lensProp('secondsElapsed')
 const popoverIdLens = R.lensProp('popoverId')
 const completedLens = R.lensProp('completed')
 // views
@@ -124,9 +123,7 @@ export const userNameView = () => R.path(['App', 'user', 'name'])(getState())
 export const logsView = () => R.path(['App', 'logs'])(getState())
 export const usersView = () => R.path(['App', 'users'])(getState())
 export const popoverIdView = () => R.path(['App', 'popoverId'])(getState())
-export const runningIdView = () => R.path(['App', 'runningId'])(getState())
 export const isLoadingView = () => R.path(['App', 'isLoading'])(getState())
-export const secondsElapsedView = () => R.path(['App', 'secondsElapsed'])(getState())
 export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
 export const expandingIdView = () => R.path(['App', 'expandingId'])(getState())
 export const tasksView = () => R.path(['App', 'tasks'])(getState())
@@ -160,6 +157,7 @@ const reducers = {
         todos: [
           { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
         ],
+        todoText: '',
         wis: state.wis,
       },
       state.tasks),
@@ -175,8 +173,6 @@ const reducers = {
     ...state,
     logs: R.remove(R.findIndex(R.propEq('_id', _id))(state.logs), 1, state.logs),
   }),
-
-  [SET_SECONDS_ELAPSED]: (state, { value }) => R.set(secondsElapsedLens, value, state),
 
   [CHANGE_EXPANDING_ID]: (state, { _id }) => ({
     ...state,
@@ -197,6 +193,22 @@ const reducers = {
     ...state,
     tasks: R.map(task => (task._id === _id) ?
       { ...task, level: nextLevel } : task, state.tasks),
+  }),
+
+  [CHANGE_TODO_TEXT]: (state, { _id, value }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      { ...task, todoText: value } : task, state.tasks),
+  }),
+
+  [ADD_TODO]: (state, { _id, value }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      {
+        ...task,
+        todos: R.prepend({ title: value, completed: false, id: Math.floor(Math.random() * 100000000) },
+        task.todos)
+      } : task, state.tasks),
   }),
 }
 

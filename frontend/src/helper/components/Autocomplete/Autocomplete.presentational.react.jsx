@@ -56,5 +56,5 @@ IntegrationAutocomplete.propTypes = {
 }
 
 IntegrationAutocomplete.defaultProps = {
-  onAdd: () => {}
+  onAdd: () => {},
 }

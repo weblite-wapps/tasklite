@@ -18,7 +18,7 @@ const styles = () => ({
 
 
 function TextField(props) {
-  const { isError, required, label, value, onChange, classes } = props
+  const { isError, required, fullWidth, label, value, onChange, classes } = props
 
   return (
     <MuiTextField
@@ -28,16 +28,10 @@ function TextField(props) {
       helperText={required && 'required'}
       error={isError}
       required={required}
-      fullWidth
+      fullWidth={fullWidth}
       multiline
-      InputProps={{
-          classes: {
-            focused: classes.textFieldInkbar,
-          },
-        }}
-      InputLabelProps={{
-        className: classes.textFieldFormLabel,
-        }}
+      InputProps={{ classes: { focused: classes.textFieldInkbar } }}
+      InputLabelProps={{ className: classes.textFieldFormLabel }}
     />
   )
 }
@@ -46,6 +40,7 @@ TextField.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   isError: PropTypes.bool,
   required: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -54,6 +49,7 @@ TextField.propTypes = {
 TextField.defaultProps = {
   isError: false,
   required: false,
+  fullWidth: true,
 }
 
 

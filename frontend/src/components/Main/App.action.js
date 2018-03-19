@@ -45,20 +45,6 @@ export const addTask = createAction(ADD_TASK,
   (title, assignee, tags, priority, deadline) => ({ title, assignee, tags, priority, deadline }))
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
-export const ADD_CUSTOM_LOG = 'ADD_CUSTOM_LOG'
-export const addCustomLog = createAction(
-  ADD_CUSTOM_LOG,
-  (title, tags, date, start, end) => ({ title, tags, date, start, end }),
-)
-export const dispatchAddCustomLog = (...args) => dispatch(addCustomLog(...args))
-
-export const ADD_LOG_TO_NEXT_DAY = 'ADD_LOG_TO_NEXT_DAY'
-export const addLogToNextDay = createAction(
-  ADD_LOG_TO_NEXT_DAY,
-  (title, tags, end, date) => ({ title, tags, end, date }),
-)
-export const dispatchAddLogToNextDay = (...args) => dispatch(addLogToNextDay(...args))
-
 export const RESTORE_LOG = 'RESTORE_LOG'
 export const restoreLog = createAction(RESTORE_LOG, log => ({ log }))
 export const dispatchRestoreLog = (...args) => dispatch(restoreLog(...args))
@@ -66,30 +52,6 @@ export const dispatchRestoreLog = (...args) => dispatch(restoreLog(...args))
 export const DELETE_LOG = 'DELETE_LOG'
 export const deleteLog = createAction(DELETE_LOG, _id => ({ _id }))
 export const dispatchDeleteLog = (...args) => dispatch(deleteLog(...args))
-
-export const SET_SECONDS_ELAPSED = 'SET_SECONDS_ELAPSED'
-export const setSecondsElapsed = createAction(SET_SECONDS_ELAPSED, value => ({ value }))
-export const dispatchSetSecondsElapsed = (...args) => dispatch(setSecondsElapsed(...args))
-
-export const INCREMENT_SECONDS_ELAPSED = 'INCREMENT_SECONDS_ELAPSED'
-export const incrementSecondsElapsed = createAction(INCREMENT_SECONDS_ELAPSED)
-export const dispatchIncrementSecondsElapsed = (...args) =>
-  dispatch(incrementSecondsElapsed(...args))
-
-export const SAVE_START_TIME = 'SAVE_START_TIME'
-export const saveStartTime = createAction(SAVE_START_TIME, (_id, start) => ({ _id, start }))
-export const dispatchSaveStartTime = (...args) => dispatch(saveStartTime(...args))
-
-export const SAVE_END_TIME = 'SAVE_END_TIME'
-export const saveEndTime = createAction(
-  SAVE_END_TIME,
-  (_id, end) => ({ _id, end }),
-)
-export const dispatchSaveEndTime = (...args) => dispatch(saveEndTime(...args))
-
-export const CHANGE_RUNNING_ID = 'CHANGE_RUNNING_ID'
-export const changeRunningId = createAction(CHANGE_RUNNING_ID, _id => ({ _id }))
-export const dispatchChangeRunningId = (...args) => dispatch(changeRunningId(...args))
 
 export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
 export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
@@ -102,3 +64,11 @@ export const dispatchToggleCompleted = (...args) => dispatch(toggleCompleted(...
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
 export const changeLevel = createAction(CHANGE_LEVEL, (_id, nextLevel) => ({ _id, nextLevel }))
 export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
+
+export const CHANGE_TODO_TEXT = 'CHANGE_TODO_TEXT'
+export const changeTodoText = createAction(CHANGE_TODO_TEXT, (_id, value) => ({ _id, value }))
+export const dispatchChangeTodoText = (...args) => dispatch(changeTodoText(...args))
+
+export const ADD_TODO = 'ADD_TODO'
+export const addTodo = createAction(ADD_TODO, (_id, value) => ({ _id, value }))
+export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))

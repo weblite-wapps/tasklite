@@ -10,10 +10,9 @@ import {
   LOAD_TAGS_DATA_IN_REPORT,
   SET_QUERY_TAG,
   FETCH_TAGS,
+  FETCH_ASSIGNEES,
   ADD_TAG,
   CHANGE_SELECTED_TAGS,
-  CALCULATE_TOTAL_DURATION,
-  RESTORE_TOTAL_DUARTION,
   CHANGE_SELECTED_USER,
   SET_QUERY_ASSIGNEE,
 } from './Filter.action'
@@ -74,6 +73,8 @@ const reducers = {
 
   [FETCH_TAGS]: (state, { tags }) => R.set(suggestionsLens, tags, state),
 
+  [FETCH_ASSIGNEES]: (state, { assignees }) => R.set(assigneeSuggestionsLens, assignees, state),
+
   [ADD_TAG]: state => ({ ...state,
     selectedTags: R.append(R.toLower(state.queryTag), state.selectedTags),
     tags: R.append(
@@ -91,11 +92,6 @@ const reducers = {
     tags: R.map(eachTag => (eachTag._id === tag._id) ?
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
-
-  [CALCULATE_TOTAL_DURATION]: state => R.set(totalDurationLens, 'calculating', state),
-
-  [RESTORE_TOTAL_DUARTION]:
-    (state, { totalDuration }) => R.set(totalDurationLens, totalDuration, state),
 
   [CHANGE_SELECTED_USER]: (state, { value }) => R.set(selectedUserLens, value)(state),
 }
