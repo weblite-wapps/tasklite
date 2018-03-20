@@ -2,22 +2,17 @@
 import React from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import TextField from '../../../../helper/components/TextField/TextField.presentational'
-import Autocomplete from '../../../../helper/components/Autocomplete/Autocomplete.presentational'
-import TagList from '../../../../helper/components/TagList/TagList.presentational'
-import Button from '../../../../helper/components/Button/Button.presentational'
 import Avatar from '../components/Avatar/Avatar.presentational'
-import SelectField from '../../../../helper/components/SelectField/SelectField.presentational'
-import DatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational'
+// helpers
+import { getTextField, getTagPanel, getSelectField, getDatePicker, getButton } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
 
 
-class Add extends React.Component {
+export default class Add extends React.Component {
   constructor(props) {
     super(props)
     this.handleAddTask = this._handleAddTask.bind(this)
@@ -57,58 +52,16 @@ class Add extends React.Component {
 
   render() {
     const { titleIsError, assigneeIsError, priorityIsError, deadlineIsError } = this.state
-    const { title, onTitleChange, assignee, onAssigneeChange, priority, onPriorityChange,
-      deadline, onDeadlineChange, suggestions, queryTag, onQueryTagChange, tags, onTagClick,
-    } = this.props
 
     return (
       <div className={scssClasses.container}>
-        <TextField
-          label="Title"
-          value={title}
-          onChange={e => onTitleChange(e.target.value)}
-          isError={titleIsError}
-        />
-
-        <TextField
-          label="Assignee"
-          value={assignee}
-          onChange={e => onAssigneeChange(e.target.value)}
-          isError={assigneeIsError}
-        />
-
+        {getTextField({ ...this.props }, 'Title', titleIsError)}
+        {getTextField({ ...this.props }, 'Assignee', assigneeIsError)}
         <Avatar />
-
-        <div className={scssClasses.textField}>
-          <Autocomplete
-            label="Tags"
-            suggestions={suggestions}
-            inputValue={queryTag}
-            onInputValueChange={e => onQueryTagChange(e.target.value)}
-            onSelect={value => onQueryTagChange(value)}
-            onAdd={this.handleAddTag}
-          />
-          <Button label="Add" onClick={this.handleAddTag} componentName="Add" />
-        </div>
-
-        <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-
-        <SelectField
-          label="Priority"
-          value={priority}
-          onChange={e => onPriorityChange(e.target.value)}
-          isError={priorityIsError}
-        />
-
-        <DatePicker
-          value={deadline}
-          onChange={e => onDeadlineChange(e.target.value)}
-          isError={deadlineIsError}
-        />
-
-        <div className={scssClasses.button}>
-          <Button label="Create" onClick={this.handleAddTask} componentName="Add" />
-        </div>
+        {getTagPanel({ ...this.props }, 'Tags', 'Add', this.handleAddTag)}
+        {getSelectField({ ...this.props }, 'Priority', priorityIsError)}
+        {getDatePicker({ ...this.props }, deadlineIsError)}
+        {getButton('Create', this.handleAddTask, 'Add')}
       </div>
     )
   }
@@ -121,17 +74,14 @@ Add.propTypes = {
   deadline: PropTypes.string.isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   queryTag: PropTypes.string.isRequired,
-  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onTitleChange: PropTypes.func.isRequired,
-  onAssigneeChange: PropTypes.func.isRequired,
-  onPriorityChange: PropTypes.func.isRequired,
-  onDeadlineChange: PropTypes.func.isRequired,
-  onQueryTagChange: PropTypes.func.isRequired,
-  onTagClick: PropTypes.func.isRequired,
+  // onTitleChange: PropTypes.func.isRequired,
+  // onAssigneeChange: PropTypes.func.isRequired,
+  // onPriorityChange: PropTypes.func.isRequired,
+  // onDeadlineChange: PropTypes.func.isRequired,
+  // onQueryTagChange: PropTypes.func.isRequired,
+  // onTagClick: PropTypes.func.isRequired,
   addTag: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
-  // changeTab: PropTypes.func.isRequired,
 }
-
-export default withRouter(Add)

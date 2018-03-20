@@ -6,7 +6,6 @@ import { findDOMNode } from 'react-dom'
 import { withStyles } from 'material-ui/styles'
 import List from 'material-ui/List'
 import Collapse from 'material-ui/transitions/Collapse'
-import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
 import MuiButton from 'material-ui/Button'
 // local modules
@@ -27,9 +26,7 @@ class TaskList extends React.Component {
     super(props)
     this.handleAddTodo = this._handleAddTodo.bind(this)
     this.handleOpenPopover = this._handleOpenPopover.bind(this)
-    this.handleClose = this._handleClose.bind(this)
     this.handleYep = this._handleYep.bind(this)
-    this.handleNop = this._handleNop.bind(this)
     this.state = {
       anchorEl: null,
       todoTextError: false,
@@ -53,10 +50,6 @@ class TaskList extends React.Component {
     changePopoverId(_id)
   }
 
-  _handleClose() {
-    this.props.changePopoverId('')
-  }
-
   _handleYep() {
     const { changePopoverId, deleteTask } = this.props
     changePopoverId('')
@@ -64,26 +57,22 @@ class TaskList extends React.Component {
     deleteTask()
   }
 
-  _handleNop() {
-    this.props.changePopoverId('')
-  }
-
   render() {
-    const { todoTextError } = this.state
-    const { task: { _id, title, tags, priority, deadline, todos, assignee, todoText, sentTime },
-      onTodoTextChange, tabIndex, expandingId, onExpandClick, popoverId, classes } = this.props
+    const { todoTextError, anchorEl } = this.state
+    const { task: { _id, todos, todoText },
+      onTodoTextChange, expandingId, popoverId, changePopoverId, classes } = this.props
 
     return (
       <React.Fragment>
         <List disablePadding>
-          {getTitleAndButtons(_id, expandingId, title, priority, onExpandClick, tabIndex)}
-          {getBriefInfo(_id, expandingId, assignee, deadline, tags, todos)}
+          {getTitleAndButtons({ ...this.props })}
+          {getBriefInfo({ ...this.props })}
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className={scssClasses.collapse}>
             {getProgressPanel(todos)}
-            {getSubInfo(tags, deadline, sentTime, assignee, todos, _id)}
+            {getSubInfo({ ...this.props })}
 
             <div className={scssClasses.textField}>
               <TextField
@@ -110,10 +99,10 @@ class TaskList extends React.Component {
               </MuiButton>
               <Popover
                 popoverIsOpen={_id === popoverId}
-                anchorEl={this.state.anchorEl}
-                onClose={this.handleClose}
+                anchorEl={anchorEl}
+                onClose={() => changePopoverId('')}
                 onYep={this.handleYep}
-                onNop={this.handleNop}
+                onNop={() => changePopoverId('')}
               />
             </div>
           </div>
@@ -127,10 +116,8 @@ class TaskList extends React.Component {
 TaskList.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   task: PropTypes.shape({}).isRequired,
-  tabIndex: PropTypes.string.isRequired,
   expandingId: PropTypes.string.isRequired,
   popoverId: PropTypes.string.isRequired,
-  onExpandClick: PropTypes.func.isRequired,
   onTodoTextChange: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,

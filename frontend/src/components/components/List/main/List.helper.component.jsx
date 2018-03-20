@@ -1,5 +1,6 @@
 // modules
 import React from 'react'
+import PropTypes from 'prop-types'
 import Tooltip from 'material-ui/Tooltip'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
@@ -13,7 +14,9 @@ import { getRemained } from '../../../../helper/functions/time.helper'
 import scssClasses from './List.scss'
 
 
-export const getTitleAndButtons = (_id, expandingId, title, priority, onExpandClick, tabIndex) => (
+export const getTitleAndButtons = ({
+  task: { _id, title, priority }, expandingId, onExpandClick, tabIndex,
+}) => (
   <div className={scssClasses.text}>
     <div className={scssClasses.title}>
       <img src={`assets/icons/${priority}.png`} alt="priority" className={scssClasses.priority} />
@@ -37,7 +40,7 @@ export const getTitleAndButtons = (_id, expandingId, title, priority, onExpandCl
   </div>
 )
 
-export const getBriefInfo = (_id, expandingId, assignee, deadline, tags, todos) => (
+export const getBriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expandingId }) => (
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
@@ -63,7 +66,7 @@ export const getProgressPanel = todos => (
   </div>
 )
 
-export const getSubInfo = (tags, deadline, sentTime, assignee, todos, _id) => (
+export const getSubInfo = ({ task: { _id, tags, deadline, sentTime, assignee, todos } }) => (
   <React.Fragment>
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
@@ -72,3 +75,19 @@ export const getSubInfo = (tags, deadline, sentTime, assignee, todos, _id) => (
     <SubInfo label="SUBWORKS" todos={todos} _id={_id} />
   </React.Fragment>
 )
+
+getTitleAndButtons.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  expandingId: PropTypes.string.isRequired,
+  onExpandClick: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string.isRequired,
+}
+
+getBriefInfo.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  expandingId: PropTypes.string.isRequired,
+}
+
+getSubInfo.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+}
