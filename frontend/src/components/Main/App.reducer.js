@@ -20,11 +20,13 @@ import {
   ADD_TODO,
   DELETE_TODO,
   SET_SENT_TIME,
+  CHANGE_EXPAND_MODE,
 } from './App.action'
 
 // state
 const initialState = {
   tabIndex: 'ICE BOX',
+  expandMode: 'default',
   isLoading: false,
   popoverId: '',
   runningId: '',
@@ -117,6 +119,7 @@ const isLoadingLens = R.lensProp('isLoading')
 const tabIndexLens = R.lensProp('tabIndex')
 const popoverIdLens = R.lensProp('popoverId')
 const completedLens = R.lensProp('completed')
+const expandModeLens = R.lensProp('expandMode')
 // views
 export const wisView = () => R.path(['App', 'wis'])(getState())
 export const creatorView = () => R.path(['App', 'creator'])(getState())
@@ -129,6 +132,7 @@ export const isLoadingView = () => R.path(['App', 'isLoading'])(getState())
 export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
 export const expandingIdView = () => R.path(['App', 'expandingId'])(getState())
 export const tasksView = () => R.path(['App', 'tasks'])(getState())
+export const expandModeView = () => R.path(['App', 'expandMode'])(getState())
 
 // reducers
 const reducers = {
@@ -227,6 +231,8 @@ const reducers = {
     ...state,
     tasks: R.map(task => (task._id === _id) ? { ...task, sentTime: time } : task, state.tasks),
   }),
+
+  [CHANGE_EXPAND_MODE]: (state, { newMode }) => R.set(expandModeLens, newMode, state),
 }
 
 

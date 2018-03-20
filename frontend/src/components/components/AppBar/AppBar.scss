@@ -1,0 +1,78 @@
+.appBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  z-index: 30;
+  background-color: #cfcfcf;
+}
+
+.leftHand {
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.rightHand {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.logoContainer {
+  width: 50px;
+  cursor: pointer;
+  outline: none;
+}
+
+.normal {
+  display: flex;
+  flex-direction: row;
+  background-color: #000000;
+  width: 100px;
+  height: 50px;
+  z-index: 15;
+  margin-left: -50px;
+  -webkit-transition: 0.2s ease 0.5s;
+  -moz-transition: 0.2s ease 0.5s;
+  -o-transition: 0.2s ease 0.5s;
+  transition: 0.2s ease 0.5s;
+}
+
+.loading {
+  @extend .normal;
+  margin-left: 0px;
+}
+
+
+.logo {
+  margin-right: 12.5px;
+  margin-top: 12.5px;
+  width:25px;
+  height: 25px;
+}
+
+.typo {
+  width:100px;
+  height: 25px;
+  margin-left: 15px;
+}
+
+.progress {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+}
+
+.actions {
+  outline: none;
+  cursor: pointer;
+}

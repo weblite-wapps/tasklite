@@ -80,3 +80,7 @@ export const dispatchDeleteTodo = (...args) => dispatch(deleteTodo(...args))
 export const SET_SENT_TIME = 'SET_SENT_TIME'
 export const setSentTime = createAction(SET_SENT_TIME, (_id, time) => ({ _id, time }))
 export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))
+
+export const CHANGE_EXPAND_MODE = 'CHANGE_EXPAND_MODE'
+export const changeExpandMode = createAction(CHANGE_EXPAND_MODE, newMode => ({ newMode }))
+export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(...args))
