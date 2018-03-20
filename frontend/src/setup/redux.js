@@ -8,7 +8,7 @@ import AppReducer from '../components/Main/App.reducer'
 import AddReducer from '../components/components/Add/Main/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
 // epics
-import AppEpic from '../components/Main/App.effect'
+// import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Main/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 
@@ -24,7 +24,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic)
+const rootEpic = combineEpics(AddEpic, ListEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 
