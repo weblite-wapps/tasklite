@@ -11,11 +11,8 @@ import MuiButton from 'material-ui/Button'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import TextField from '../../../../helper/components/TextField/TextField.presentational'
-import Button from '../../../../helper/components/Button/Button.presentational'
-import Popover from '../components/Popover/Popover.presentational'
 // helper
-import { getTitleAndButtons, getBriefInfo, getProgressPanel, getSubInfo } from './List.helper.component'
+import { getTitleAndButtons, getBriefInfo, getProgressPanel, getSubInfo, getTextFieldAndButton, getDeleteButton } from './List.helper.component'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -73,38 +70,8 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             {getProgressPanel(todos)}
             {getSubInfo({ ...this.props })}
-
-            <div className={scssClasses.textField}>
-              <TextField
-                withButton
-                label="New Subtask"
-                fullWidth={false}
-                value={todoText}
-                isError={todoTextError}
-                onChange={e => onTodoTextChange(e.target.value)}
-              />
-              <Button label="ADD" onClick={this.handleAddTodo} componentName="Add" />
-            </div>
-
-            <div className={scssClasses.button}>
-              <MuiButton
-                ref={(node) => {
-                  this.button = node
-                }}
-                onClick={this.handleOpenPopover}
-                classes={{ raised: classes.Button }}
-                variant="raised"
-              >
-                Delete
-              </MuiButton>
-              <Popover
-                popoverIsOpen={_id === popoverId}
-                anchorEl={anchorEl}
-                onClose={() => changePopoverId('')}
-                onYep={this.handleYep}
-                onNop={() => changePopoverId('')}
-              />
-            </div>
+            {getTextFieldAndButton({ ...this.props }, todoTextError, this.handleAddTodo)}
+            {getDeleteButton({ ...this.props }, classes, anchorEl, this.handleOpenPopover, this.handleYep)}
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />

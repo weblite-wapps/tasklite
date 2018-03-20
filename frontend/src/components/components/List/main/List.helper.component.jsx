@@ -4,9 +4,14 @@ import PropTypes from 'prop-types'
 import Tooltip from 'material-ui/Tooltip'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
+import MuiButton from 'material-ui/Button'
+
 // components
-import ActionButtons from '../components/ActionButtons/ActionButtons.presentational'
+import ActionButtons from '../components/ActionButtons/main/ActionButtons.presentational'
 import SubInfo from '../components/SubInfo/SubInfo.presentational'
+import Popover from '../components/Popover/Popover.presentational'
+import TextField from '../../../../helper/components/TextField/TextField.presentational'
+import Button from '../../../../helper/components/Button/Button.presentational'
 // helpers
 import { formatTitle, formatTags, getProgressBarPercent } from './List.helper'
 import { getRemained } from '../../../../helper/functions/time.helper'
@@ -76,6 +81,44 @@ export const getSubInfo = ({ task: { _id, tags, deadline, sentTime, assignee, to
   </React.Fragment>
 )
 
+export const getTextFieldAndButton = ({
+  task: { todoText }, onTodoTextChange }, todoTextError, handleAddTodo) => (
+    <div className={scssClasses.textField}>
+      <TextField
+        withButton
+        label="New Subtask"
+        fullWidth={false}
+        value={todoText}
+        isError={todoTextError}
+        onChange={e => onTodoTextChange(e.target.value)}
+      />
+      <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
+    </div>
+)
+
+export const getDeleteButton = ({ task: { _id }, popoverId, changePopoverId },
+  classes, anchorEl, handleOpenPopover, handleYep) => (
+    <div className={scssClasses.button}>
+      <MuiButton
+        ref={(node) => {
+          this.button = node
+        }}
+        onClick={handleOpenPopover}
+        classes={{ raised: classes.Button }}
+        variant="raised"
+      >
+        Delete
+      </MuiButton>
+      <Popover
+        popoverIsOpen={_id === popoverId}
+        anchorEl={anchorEl}
+        onClose={() => changePopoverId('')}
+        onYep={handleYep}
+        onNop={() => changePopoverId('')}
+      />
+    </div>
+)
+
 getTitleAndButtons.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
@@ -90,4 +133,9 @@ getBriefInfo.propTypes = {
 
 getSubInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
+}
+
+getTextFieldAndButton.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  onTodoTextChange: PropTypes.func.isRequired,
 }

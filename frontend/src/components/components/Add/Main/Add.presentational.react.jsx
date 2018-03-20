@@ -7,7 +7,8 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Avatar from '../components/Avatar/Avatar.presentational'
 // helpers
-import { getTextField, getTagPanel, getSelectField, getDatePicker, getButton } from './Add.helper.component'
+import { getTagPanel, getButton } from '../../../Main/App.helper.component'
+import { getTextField, getSelectField, getDatePicker } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
 
@@ -58,10 +59,10 @@ export default class Add extends React.Component {
         {getTextField({ ...this.props }, 'Title', titleIsError)}
         {getTextField({ ...this.props }, 'Assignee', assigneeIsError)}
         <Avatar />
-        {getTagPanel({ ...this.props }, 'Tags', 'Add', this.handleAddTag)}
-        {getSelectField({ ...this.props }, 'Priority', priorityIsError)}
+        {getTagPanel({ ...this.props }, this.handleAddTag)}
+        {getSelectField({ ...this.props }, priorityIsError)}
         {getDatePicker({ ...this.props }, deadlineIsError)}
-        {getButton('Create', this.handleAddTask, 'Add')}
+        {getButton(this.handleAddTask)}
       </div>
     )
   }

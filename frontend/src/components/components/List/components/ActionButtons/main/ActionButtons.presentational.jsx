@@ -7,10 +7,10 @@ import IconButton from 'material-ui/IconButton'
 import ExpandLess from 'material-ui-icons/ExpandLess'
 import ExpandMore from 'material-ui-icons/ExpandMore'
 // components
-import Icon from '../Icon/Icon.container.react'
+import Icon from '../components/Icon/Icon.container.react'
 // styles
 import scssClasses from './ActionButtons.scss'
-import styles from '../../main/List.style'
+import styles from '../../../main/List.style'
 
 
 const ActionButtons = ({ classes, tabIndex, expandingId, _id, onExpandClick }) => (
