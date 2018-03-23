@@ -16,11 +16,10 @@ export const getActionButton = (expandMode, changeExpandMode, label, src) => (
   </div>
 )
 
-export const getLeftHand = isLoading => (
+export const getLeftSide = isLoading => (
   <div className={scssClasses.leftHand}>
     <div
       className={scssClasses.logoContainer}
-      // onClick={this.goToAbout}
       role="button"
       tabIndex="0"
     >

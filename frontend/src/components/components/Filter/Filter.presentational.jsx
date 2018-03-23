@@ -47,7 +47,7 @@ export default class Filter extends React.Component {
       <div className={scssClasses.container}>
         {getAutocomplete({ ...this.props })}
         {getTagPanel({ ...this.props }, this.handleAddTag)}
-        {getButton(this.handleApply)}
+        {getButton(this.handleApply, 'Apply')}
       </div>
     )
   }

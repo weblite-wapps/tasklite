@@ -24,9 +24,9 @@ export const getTaskList = (tasks, tabIndex) => (
     .map(task => <TaskList key={task._id} task={task} />)
 )
 
-export const getButton = handleAddTask => (
+export const getButton = (handleAddTask, label) => (
   <div className={scssClasses.button}>
-    <Button label="Create" onClick={handleAddTask} componentName="Add" />
+    <Button label={label} onClick={handleAddTask} componentName="Add" />
   </div>
 )
 

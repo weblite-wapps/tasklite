@@ -62,7 +62,7 @@ export default class Add extends React.Component {
         {getTagPanel({ ...this.props }, this.handleAddTag)}
         {getSelectField({ ...this.props }, priorityIsError)}
         {getDatePicker({ ...this.props }, deadlineIsError)}
-        {getButton(this.handleAddTask)}
+        {getButton(this.handleAddTask, 'Create')}
       </div>
     )
   }
