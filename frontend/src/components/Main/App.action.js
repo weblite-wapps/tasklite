@@ -32,9 +32,9 @@ export const FETCH_ADMIN_DATA = 'FETCH_ADMIN_DATA'
 export const fetchAdminData = createAction(FETCH_ADMIN_DATA)
 export const dispatchFetchAdminData = (...args) => dispatch(fetchAdminData(...args))
 
-export const LOAD_LOGS_DATA = 'LOAD_LOGS_DATA'
-export const loadLogsData = createAction(LOAD_LOGS_DATA, logs => ({ logs }))
-export const dispatchLoadLogsData = (...args) => dispatch(loadLogsData(...args))
+export const LOAD_TASKS_DATA = 'LOAD_TASKS_DATA'
+export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({ tasks }))
+export const dispatchLoadTasksData = (...args) => dispatch(loadTasksData(...args))
 
 export const CHANGE_POPOVER_ID = 'CHANGE_POPOVER_ID'
 export const changePopoverId = createAction(CHANGE_POPOVER_ID, value => ({ value }))
@@ -45,9 +45,9 @@ export const addTask = createAction(ADD_TASK,
   (title, assignee, tags, priority, deadline) => ({ title, assignee, tags, priority, deadline }))
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
-export const RESTORE_LOG = 'RESTORE_LOG'
-export const restoreLog = createAction(RESTORE_LOG, log => ({ log }))
-export const dispatchRestoreLog = (...args) => dispatch(restoreLog(...args))
+export const RESTORE_TASK = 'RESTORE_TASK'
+export const restoreTask = createAction(RESTORE_TASK, task => ({ task }))
+export const dispatchRestoreTask = (...args) => dispatch(restoreTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
 export const deleteTask = createAction(DELETE_TASK, _id => ({ _id }))

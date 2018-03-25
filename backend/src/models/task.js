@@ -7,12 +7,15 @@ const TaskSchema = new Schema({
   title: String,
   tags: [String],
   priority: String,
+  deadline: Date,
+  sentTime: Date,
+  level: String,
+  assigneeId: String,
+  assigneeName: String,
   todos: [{
-    title: Date,
+    title: String,
     completed: Boolean,
   }],
-  assigneeId: String,
-  assignerId: String,
   wis: String,
 })
 

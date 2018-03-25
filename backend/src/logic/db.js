@@ -27,6 +27,9 @@ export const saveUser = async user => new User(user)
 export const saveTask = async task => new Task(task)
   .save()
 
+export const saveTag = async tag => new Tag(tag)
+  .save()
+
 export const countUser = async query => User
   .find(query)
   .count()
@@ -36,9 +39,6 @@ export const countTags = async query => Tag
   .find(query)
   .count()
   .exec()
-
-export const saveTag = async tag => new Tag(tag)
-  .save()
 
 export const updateTag = async (query, updateObject) => Tag
   .update(query, updateObject)

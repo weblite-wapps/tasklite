@@ -4,11 +4,10 @@ import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { formatTime, getRequest, postRequest } from './App.helper'
-import { formattedDate, getToday, getStartDayOfWeek, getStartDayOfMonth } from '../../helper/functions/date.helper'
+import { formattedDate } from '../../helper/functions/date.helper'
 // actions
 import { RESET_INPUTS, dispatchLoadTagsDataInAdd } from '../components/Add/Main/Add.action'
-import { addPage } from '../components/Report/Main/Report.action'
-import { REFETCH_TOTAL_DURATION, dispatchLoadTotalDurations } from '../components/Home/Main/Home.action'
+// import { REFETCH_TOTAL_DURATION, dispatchLoadTotalDurations } from '../components/Home/Main/Home.action'
 import {
   FETCH_TODAY_DATA,
   ADD_LOG_TO_NEXT_DAY,
@@ -27,7 +26,7 @@ import {
 } from './App.action'
 // views
 import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
-import { currentPageView, selectedUserView } from '../components/Report/Main/Report.reducer'
+// import { currentPageView, selectedUserView } from '../components/Report/Main/Report.reducer'
 
 
 const fetchUsersEpic = action$ =>
@@ -53,16 +52,12 @@ const initialFetchEpic = action$ =>
         wis: wisView(),
         userId: userIdView(),
         username: userNameView(),
-        today: getToday(),
-        startOfWeek: getStartDayOfWeek(),
-        startOfMonth: getStartDayOfMonth(),
       })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .do(({ body: { logs } }) => dispatchLoadLogsData(logs))
+    .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
-    .do(({ body: { totalDurations } }) => dispatchLoadTotalDurations(totalDurations))
-    .map(() => addPage(formattedDate(currentPageView()), selectedUserView()))
     .do(() => window.W && window.W.start())
+    .ignoreElements()
 
 const addLogToNextDayEpic = action$ =>
   action$.ofType(ADD_LOG_TO_NEXT_DAY)
@@ -78,12 +73,12 @@ const addLogToNextDayEpic = action$ =>
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .map(({ body }) => restoreLog(body))
 
-const deleteLogEpic = action$ =>
-  action$.ofType(DELETE_LOG)
-    .mergeMap(action => postRequest('/deleteLog')
-      .query({ _id: action.payload._id })
-      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .mapTo({ type: REFETCH_TOTAL_DURATION })
+// const deleteLogEpic = action$ =>
+//   action$.ofType(DELETE_LOG)
+//     .mergeMap(action => postRequest('/deleteLog')
+//       .query({ _id: action.payload._id })
+//       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+//     .mapTo({ type: REFETCH_TOTAL_DURATION })
 
 const saveStartTimeEpic = action$ =>
   action$.ofType(SAVE_START_TIME)
@@ -99,19 +94,19 @@ const saveStartTimeEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
-const saveEndTimeEpic = action$ =>
-  action$.ofType(SAVE_END_TIME)
-    .pluck('payload')
-    .do(() => dispatchChangeRunningId(''))
-    .do(() => dispatchSetIsLoading(true))
-    .mergeMap(payload => postRequest('/saveEndTime')
-      .send({
-        endTime: payload.end,
-        _id: payload._id,
-      })
-      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .do(() => dispatchSetIsLoading(false))
-    .mapTo({ type: REFETCH_TOTAL_DURATION })
+// const saveEndTimeEpic = action$ =>
+//   action$.ofType(SAVE_END_TIME)
+//     .pluck('payload')
+//     .do(() => dispatchChangeRunningId(''))
+//     .do(() => dispatchSetIsLoading(true))
+//     .mergeMap(payload => postRequest('/saveEndTime')
+//       .send({
+//         endTime: payload.end,
+//         _id: payload._id,
+//       })
+//       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+//     .do(() => dispatchSetIsLoading(false))
+//     .mapTo({ type: REFETCH_TOTAL_DURATION })
 
 const resetEpic = action$ =>
   action$.ofType(RESTORE_LOG)
@@ -123,8 +118,8 @@ export default combineEpics(
   saveUsersEpic,
   initialFetchEpic,
   addLogToNextDayEpic,
-  deleteLogEpic,
+  // deleteLogEpic,
   saveStartTimeEpic,
-  saveEndTimeEpic,
+  // saveEndTimeEpic,
   resetEpic,
 )

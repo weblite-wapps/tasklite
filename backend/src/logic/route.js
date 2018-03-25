@@ -18,32 +18,18 @@ import {
 } from './db'
 // helpers
 import { sumLogs, formattedSeconds, modifiedQuery, getBarChartData,
-  getJSON, defaultQueryGenerator } from './helper'
+  getJSON } from './helper'
 // const
 const logger = console.log
 
 
 app.get('/initialFetch', (req, res) =>
   Promise.all([
-    fetchTasks({ ...defaultQueryGenerator(req.query), date: req.query.today }),
-    fetchTags({ ...defaultQueryGenerator(req.query) }),
-    fetchTasks({ ...defaultQueryGenerator(req.query), date: req.query.today }),
-    fetchTasks({
-      ...defaultQueryGenerator(req.query),
-      $and: [{ date: { $gte: req.query.startOfWeek } }, { date: { $lte: req.query.today } }],
-    }),
-    fetchTasks({
-      ...defaultQueryGenerator(req.query),
-      $and: [{ date: { $gte: req.query.startOfMonth } }, { date: { $lte: req.query.today } }],
-    }),
+    fetchTasks(req.query),
+    fetchTags(req.query),
   ]).then(success => res.json({
     tasks: success[0],
     tags: success[1],
-    totalDurations: {
-      today: formattedSeconds(sumLogs(success[2]), 'Home'),
-      thisWeek: formattedSeconds(sumLogs(success[3]), 'Home'),
-      thisMonth: formattedSeconds(sumLogs(success[4]), 'Home'),
-    },
   })).catch(logger))
 
 

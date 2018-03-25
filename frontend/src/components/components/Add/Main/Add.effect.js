@@ -7,7 +7,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 import { formatTime, getRequest, postRequest } from './Add.helper'
 import { formattedDate } from '../../../../helper/functions/date.helper'
 // actions
-import { ADD_LOG, ADD_CUSTOM_LOG, restoreLog } from '../../../Main/App.action'
+import { ADD_TASK, restoreTask } from '../../../Main/App.action'
 import { SET_QUERY_IN_ADD, fetchTagsInAdd, loadTagsDataInAdd, resetInputs } from './Add.action'
 // views
 import { wisView, userIdView } from '../../../Main/App.reducer'
@@ -25,15 +25,19 @@ const effectSearchTagsEpic = action$ =>
     .map(({ body }) => fetchTagsInAdd(body))
 
 const addLogEpic = action$ =>
-  action$.ofType(ADD_LOG)
+  action$.ofType(ADD_TASK)
     .pluck('payload')
     .mergeMap(payload => Promise.all([
-      postRequest('/saveLog')
+      postRequest('/saveTask')
         .send({
           title: payload.title,
+          assignee: payload.assignee,
           tags: payload.tags,
-          times: [],
-          date: formattedDate(new Date()),
+          priority: payload.priority,
+          deadline: payload.deadline,
+          sentTime: '',
+          todos: [{ title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' }],
+          level: 'ICE BOX',
           userId: userIdView(),
           wis: wisView(),
         })
@@ -47,36 +51,10 @@ const addLogEpic = action$ =>
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
     ]))
     .mergeMap(success =>
-      [restoreLog(success[0].body), loadTagsDataInAdd(success[1].body)])
+      [restoreTask(success[0].body), loadTagsDataInAdd(success[1].body)])
 
-const addCustomLogEpic = action$ =>
-  action$.ofType(ADD_CUSTOM_LOG)
-    .pluck('payload')
-    .mergeMap(payload => Promise.all([
-      postRequest('/saveCustomLog')
-        .send({
-          title: payload.title,
-          tags: payload.tags,
-          times: [{ start: formatTime(payload.start), end: formatTime(payload.end) }],
-          date: payload.date,
-          userId: userIdView(),
-          wis: wisView(),
-        })
-        .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
-      postRequest('/saveTags')
-        .send({
-          tags: payload.tags,
-          userId: userIdView(),
-          wis: wisView(),
-        })
-        .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
-    ]))
-    .mergeMap(success => [
-      success[0].text === 'added successfully!' ? resetInputs() : restoreLog(success[0].body),
-      loadTagsDataInAdd(success[1].body)])
 
 export default combineEpics(
   effectSearchTagsEpic,
   addLogEpic,
-  addCustomLogEpic,
 )

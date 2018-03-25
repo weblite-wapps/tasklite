@@ -8,10 +8,10 @@ import {
   SET_ISLOADING,
   CHANGE_TAB,
   LOAD_USERS_DATA,
-  LOAD_LOGS_DATA,
+  LOAD_TASKS_DATA,
   CHANGE_POPOVER_ID,
   ADD_TASK,
-  RESTORE_LOG,
+  RESTORE_TASK,
   DELETE_TASK,
   CHANGE_EXPANDING_ID,
   CHANGE_LEVEL,
@@ -145,7 +145,7 @@ const reducers = {
   [LOAD_USERS_DATA]: (state, { users }) =>
     ({ ...state, users: R.uniq(R.concat(state.users, users)) }),
 
-  [LOAD_LOGS_DATA]: (state, { logs }) => ({ ...state, logs: R.concat(state.logs, logs) }),
+  [LOAD_TASKS_DATA]: (state, { tasks }) => ({ ...state, tasks: R.concat(state.tasks, tasks) }),
 
   [CHANGE_POPOVER_ID]: (state, { value }) => R.set(popoverIdLens, value, state),
 
@@ -171,9 +171,9 @@ const reducers = {
   }),
 
 
-  [RESTORE_LOG]: (state, { log }) => ({
+  [RESTORE_TASK]: (state, { task }) => ({
     ...state,
-    logs: R.adjust(R.assoc('_id', log._id), 0, state.logs),
+    tasks: R.adjust(R.assoc('_id', task._id), 0, state.tasks),
   }),
 
   [DELETE_TASK]: (state, { _id }) => ({
