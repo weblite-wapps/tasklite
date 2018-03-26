@@ -7,8 +7,8 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Avatar from '../components/Avatar/Avatar.presentational'
 // helpers
-import { getTagPanel, getButton } from '../../../Main/App.helper.component'
-import { getTextField, getSelectField, getDatePicker } from './Add.helper.component'
+import { TagPanel, Button } from '../../../Main/App.helper.component'
+import { TextField, SelectField, DatePicker } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
 
@@ -56,13 +56,13 @@ export default class Add extends React.Component {
 
     return (
       <div className={scssClasses.container}>
-        {getTextField({ ...this.props }, 'Title', titleIsError)}
-        {getTextField({ ...this.props }, 'Assignee', assigneeIsError)}
+        <TextField {...this.props} label="Title" isError={titleIsError} />
+        <TextField {...this.props} label="Assignee" isError={assigneeIsError} />
         <Avatar />
-        {getTagPanel({ ...this.props }, this.handleAddTag)}
-        {getSelectField({ ...this.props }, priorityIsError)}
-        {getDatePicker({ ...this.props }, deadlineIsError)}
-        {getButton(this.handleAddTask, 'Create')}
+        <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
+        <SelectField {...this.props} isError={priorityIsError} />
+        <DatePicker {...this.props} isError={deadlineIsError} />
+        <Button label="Create" handleAction={this.handleAddTask} />
       </div>
     )
   }

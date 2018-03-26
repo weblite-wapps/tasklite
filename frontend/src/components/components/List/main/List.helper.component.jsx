@@ -5,7 +5,6 @@ import Tooltip from 'material-ui/Tooltip'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
 import MuiButton from 'material-ui/Button'
-
 // components
 import ActionButtons from '../components/ActionButtons/main/ActionButtons.presentational'
 import SubInfo from '../components/SubInfo/SubInfo.presentational'
@@ -19,7 +18,7 @@ import { getRemained } from '../../../../helper/functions/time.helper'
 import scssClasses from './List.scss'
 
 
-export const getTitleAndButtons = ({
+export const TitleAndLevelButtons = ({
   task: { _id, title, priority }, expandingId, onExpandClick, tabIndex,
 }) => (
   <div className={scssClasses.text}>
@@ -45,7 +44,7 @@ export const getTitleAndButtons = ({
   </div>
 )
 
-export const getBriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expandingId }) => (
+export const BriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expandingId }) => (
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
@@ -58,7 +57,7 @@ export const getBriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, e
 )
 
 
-export const getProgressPanel = todos => (
+export const ProgressPanel = ({ todos }) => (
   <div className={scssClasses.progressPannel}>
     <Typography variant="button">
       {`${getProgressBarPercent(todos)}%`}
@@ -71,7 +70,7 @@ export const getProgressPanel = todos => (
   </div>
 )
 
-export const getSubInfo = ({ task: { _id, tags, deadline, sentTime, assignee, todos } }) => (
+export const FurtherInfo = ({ task: { _id, tags, deadline, sentTime, assignee, todos } }) => (
   <React.Fragment>
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
@@ -81,8 +80,8 @@ export const getSubInfo = ({ task: { _id, tags, deadline, sentTime, assignee, to
   </React.Fragment>
 )
 
-export const getTextFieldAndButton = ({
-  task: { todoText }, onTodoTextChange }, todoTextError, handleAddTodo) => (
+export const AddTodo = ({
+  task: { todoText }, onTodoTextChange, todoTextError, handleAddTodo }) => (
     <div className={scssClasses.textField}>
       <TextField
         withButton
@@ -96,8 +95,8 @@ export const getTextFieldAndButton = ({
     </div>
 )
 
-export const getDeleteButton = ({ task: { _id }, popoverId, changePopoverId },
-  classes, anchorEl, handleOpenPopover, handleYep) => (
+export const DeleteButton = ({ task: { _id }, popoverId, changePopoverId, classes, anchorEl,
+  handleOpenPopover, handleYep }) => (
     <div className={scssClasses.button}>
       <MuiButton
         ref={(node) => {
@@ -119,23 +118,29 @@ export const getDeleteButton = ({ task: { _id }, popoverId, changePopoverId },
     </div>
 )
 
-getTitleAndButtons.propTypes = {
+TitleAndLevelButtons.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
   onExpandClick: PropTypes.func.isRequired,
   tabIndex: PropTypes.string.isRequired,
 }
 
-getBriefInfo.propTypes = {
+BriefInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
 }
 
-getSubInfo.propTypes = {
+ProgressPanel.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
+FurtherInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
 }
 
-getTextFieldAndButton.propTypes = {
+AddTodo.propTypes = {
   task: PropTypes.shape({}).isRequired,
+  todoTextError: PropTypes.bool.isRequired,
+  handleAddTodo: PropTypes.func.isRequired,
   onTodoTextChange: PropTypes.func.isRequired,
 }

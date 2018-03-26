@@ -2,14 +2,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // components
-import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational'
+import CustomizedAutocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational'
 // scssClasses
 import scssClasses from './Filter.scss'
 
 
-const getAutocomplete = ({ assigneeSuggestions, queryAssignee, onQueryAssigneeChange }) => (
+const Autocomplete = ({ assigneeSuggestions, queryAssignee, onQueryAssigneeChange }) => (
   <div className={scssClasses.textField}>
-    <Autocomplete
+    <CustomizedAutocomplete
       label="Assignee"
       suggestions={assigneeSuggestions}
       inputValue={queryAssignee}
@@ -21,10 +21,10 @@ const getAutocomplete = ({ assigneeSuggestions, queryAssignee, onQueryAssigneeCh
   </div>
 )
 
-getAutocomplete.propTypes = {
+Autocomplete.propTypes = {
   queryAssignee: PropTypes.string.isRequired,
   assigneeSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryAssigneeChange: PropTypes.func.isRequired,
 }
 
-export default getAutocomplete
+export default Autocomplete

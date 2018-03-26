@@ -1,59 +1,74 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import Collapse from 'material-ui/transitions/Collapse'
+import MuiCollapse from 'material-ui/transitions/Collapse'
 import Divider from 'material-ui/Divider'
 // components
-import TaskList from '../components/List/main/List.container.react'
+import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
-import Button from '../../helper/components/Button/Button.presentational'
+import CustomizedButton from '../../helper/components/Button/Button.presentational'
 import TagList from '../../helper/components/TagList/TagList.presentational'
 // scssClasses
 import scssClasses from './App.scss'
 
 
-export const getCollapse = (expandMode, label, children) => (
-  <Collapse in={expandMode === label} timeout="auto" unmountOnExit>
+export const Collapse = ({ expandMode, label, children }) => (
+  <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
     <Divider light />
-  </Collapse>
+  </MuiCollapse>
 )
 
-export const getTaskList = (tasks, tabIndex) => (
+export const TaskList = ({ tasks, tabIndex }) => (
   tasks.filter(task => task.level === tabIndex)
-    .map(task => <TaskList key={task._id} task={task} />)
+    .map(task => <CustomizedTaskList key={task._id} task={task} />)
 )
 
-export const getButton = (handleAddTask, label) => (
+export const Button = ({ label, handleAction }) => (
   <div className={scssClasses.button}>
-    <Button label={label} onClick={handleAddTask} componentName="Add" />
+    <CustomizedButton label={label} onClick={handleAction} componentName="Add" />
   </div>
 )
 
-export const getTagPanel = (
-  { suggestions, queryTag, onQueryTagChange, tags, onTagClick }, handleAddTag,
-) => (
-  <React.Fragment>
-    <div className={scssClasses.textField}>
-      <Autocomplete
-        label="Tags"
-        suggestions={suggestions}
-        inputValue={queryTag}
-        onInputValueChange={e => onQueryTagChange(e.target.value)}
-        onSelect={value => onQueryTagChange(value)}
-        onAdd={handleAddTag}
-      />
-      <Button label="ADD" onClick={handleAddTag} componentName="Add" />
-    </div>
-    <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-  </React.Fragment>
+export const TagPanel = (
+  { suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
+    <React.Fragment>
+      <div className={scssClasses.textField}>
+        <Autocomplete
+          label="Tags"
+          suggestions={suggestions}
+          inputValue={queryTag}
+          onInputValueChange={e => onQueryTagChange(e.target.value)}
+          onSelect={value => onQueryTagChange(value)}
+          onAdd={handleAddTag}
+        />
+        <CustomizedButton label="ADD" onClick={handleAddTag} componentName="Add" />
+      </div>
+      <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+    </React.Fragment>
 )
 
+Collapse.propTypes = {
+  expandMode: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
 
-getTagPanel.propTypes = {
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tabIndex: PropTypes.string.isRequired,
+}
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  handleAction: PropTypes.func.isRequired,
+}
+
+TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   onTagClick: PropTypes.func.isRequired,
+  handleAddTag: PropTypes.func.isRequired,
 }

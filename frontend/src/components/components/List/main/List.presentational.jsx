@@ -12,7 +12,7 @@ import MuiButton from 'material-ui/Button'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 // helper
-import { getTitleAndButtons, getBriefInfo, getProgressPanel, getSubInfo, getTextFieldAndButton, getDeleteButton } from './List.helper.component'
+import { TitleAndLevelButtons, BriefInfo, ProgressPanel, FurtherInfo, AddTodo, DeleteButton } from './List.helper.component'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -62,16 +62,26 @@ class TaskList extends React.Component {
     return (
       <React.Fragment>
         <List disablePadding>
-          {getTitleAndButtons({ ...this.props })}
-          {getBriefInfo({ ...this.props })}
+          <TitleAndLevelButtons {...this.props} />
+          <BriefInfo {...this.props} />
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className={scssClasses.collapse}>
-            {getProgressPanel(todos)}
-            {getSubInfo({ ...this.props })}
-            {getTextFieldAndButton({ ...this.props }, todoTextError, this.handleAddTodo)}
-            {getDeleteButton({ ...this.props }, classes, anchorEl, this.handleOpenPopover, this.handleYep)}
+            <ProgressPanel todos={todos} />
+            <FurtherInfo {...this.props} />
+            <AddTodo
+              {...this.props}
+              todoTextError={todoTextError}
+              handleAddTodo={this.handleAddTodo}
+            />
+            <DeleteButton
+              {...this.props}
+              classes={classes}
+              anchorEl={anchorEl}
+              handleOpenPopover={this.handleOpenPopover}
+              handleYep={this.handleYep}
+            />
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />
