@@ -21,7 +21,7 @@ const SubInfo = ({ label, tags, deadline, sentTime, assignee, todos, _id }) => (
       {assignee && assignee}
       {todos && todos.map((todo, index) => (
         <Todo
-          key={todo.id}
+          key={todo._id}
           _id={_id}
           todo={todo}
           length={todos.length}
@@ -36,7 +36,10 @@ const SubInfo = ({ label, tags, deadline, sentTime, assignee, todos, _id }) => (
 SubInfo.propTypes = {
   label: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
-  deadline: PropTypes.string,
+  deadline: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   sentTime: PropTypes.string,
   assignee: PropTypes.string,
   todos: PropTypes.arrayOf(PropTypes.shape({})),

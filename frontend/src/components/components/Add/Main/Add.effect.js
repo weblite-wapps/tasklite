@@ -24,17 +24,17 @@ const effectSearchTagsEpic = action$ =>
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .map(({ body }) => fetchTagsInAdd(body))
 
-const addLogEpic = action$ =>
+const addTaskEpic = action$ =>
   action$.ofType(ADD_TASK)
     .pluck('payload')
-    .mergeMap(payload => Promise.all([
+    .mergeMap(({ title, assignee, tags, priority, deadline }) => Promise.all([
       postRequest('/saveTask')
         .send({
-          title: payload.title,
-          assignee: payload.assignee,
-          tags: payload.tags,
-          priority: payload.priority,
-          deadline: payload.deadline,
+          title,
+          assignee,
+          tags,
+          priority,
+          deadline,
           sentTime: '',
           todos: [{ title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' }],
           level: 'ICE BOX',
@@ -44,7 +44,7 @@ const addLogEpic = action$ =>
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
       postRequest('/saveTags')
         .send({
-          tags: payload.tags,
+          tags,
           userId: userIdView(),
           wis: wisView(),
         })
@@ -56,5 +56,5 @@ const addLogEpic = action$ =>
 
 export default combineEpics(
   effectSearchTagsEpic,
-  addLogEpic,
+  addTaskEpic,
 )

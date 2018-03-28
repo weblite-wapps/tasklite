@@ -23,14 +23,10 @@ import { sumLogs, formattedSeconds, modifiedQuery, getBarChartData,
 const logger = console.log
 
 
-app.get('/initialFetch', (req, res) =>
-  Promise.all([
-    fetchTasks(req.query),
-    fetchTags(req.query),
-  ]).then(success => res.json({
-    tasks: success[0],
-    tags: success[1],
-  })).catch(logger))
+app.get('/initialFetch', ({ query }, res) =>
+  Promise.all([fetchTasks(query), fetchTags(query)])
+    .then(success => res.json({ tasks: R.reverse(success[0]), tags: success[1] }))
+    .catch(logger))
 
 
 app.get('/fetchUsers', (req, res) =>
@@ -47,7 +43,7 @@ app.get('/fetchTasks', (req, res) =>
 
 app.get('/fetchTags', (req, res) =>
   fetchTags({ wis: req.query.wis, userId: req.query.userId })
-    .then(tasks => res.json(tasks))
+    .then(tags => res.json(tags))
     .catch(logger))
 
 
@@ -93,24 +89,6 @@ app.post('/deleteTask', (req, res) =>
   deleteTask({ _id: mongoose.Types.ObjectId(req.query._id) })
     .then(() => res.send('deleted successfully!'))
     .catch(logger))
-
-
-app.get('/fetchTotalDurations', (req, res) =>
-  Promise.all([
-    fetchTasks({ ...defaultQueryGenerator(req.query), date: req.query.today }),
-    fetchTasks({
-      ...defaultQueryGenerator(req.query),
-      $and: [{ date: { $gte: req.query.startOfWeek } }, { date: { $lte: req.query.today } }],
-    }),
-    fetchTasks({
-      ...defaultQueryGenerator(req.query),
-      $and: [{ date: { $gte: req.query.startOfMonth } }, { date: { $lte: req.query.today } }],
-    }),
-  ]).then(success => res.json({
-    today: formattedSeconds(sumLogs(success[0]), 'Home'),
-    thisWeek: formattedSeconds(sumLogs(success[1]), 'Home'),
-    thisMonth: formattedSeconds(sumLogs(success[2]), 'Home'),
-  })).catch(logger))
 
 
 app.get('/calculateTotalDuration', (req, res) => {

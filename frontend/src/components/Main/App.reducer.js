@@ -39,6 +39,7 @@ const initialState = {
   tasks: [
     {
       wis: '110',
+      userId: '110',
       _id: 'dkqwokdok1o23k12k3o12k3',
       title: 'refactoring loglite',
       tags: ['refactor', 'loglite'],
@@ -48,16 +49,17 @@ const initialState = {
       level: 'ICE BOX',
       assignee: 'Mostafa Mohseni Kabir',
       todos: [
-        { title: 'change namespaces', completed: true, id: 'fakjfqlcmlqkfgo' },
-        { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg2' },
-        { title: 'handle views and lens', completed: true, id: 'fakjfqlcmlqkfg4' },
-        { title: 'handle views and lens', completed: false, id: 'fakjfqlcmlqkfg6' },
-        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
+        { title: 'change namespaces', completed: true, _id: 'fakjfqlcmlqkfgo' },
+        { title: 'handle views and lens', completed: true, _id: 'fakjfqlcmlqkfg2' },
+        { title: 'handle views and lens', completed: true, _id: 'fakjfqlcmlqkfg4' },
+        { title: 'handle views and lens', completed: false, _id: 'fakjfqlcmlqkfg6' },
+        { title: 'done', completed: false, _id: 'fakjfjlcmlqgfgo' },
       ],
       todoText: '',
     },
     {
       wis: '110',
+      userId: '110',
       _id: 'dkqwokdok1o23k12k3o12f4',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web', 'servies'],
@@ -67,16 +69,17 @@ const initialState = {
       level: 'IN PROGRESS',
       assignee: 'Ali Asgary',
       todos: [
-        { title: 'handle database bug', completed: false, id: 'fakjfggqlcml2kfgo' },
-        { title: 'handle database bug', completed: true, id: 'fakjfqlcm3qkfgo' },
-        { title: 'handle database bug', completed: false, id: 'fakjfql6mlqkfgo' },
-        { title: 'handle kind bug', completed: true, id: 'fakjfqlc1lqkfgo' },
-        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
+        { title: 'handle database bug', completed: false, _id: 'fakjfggqlcml2kfgo' },
+        { title: 'handle database bug', completed: true, _id: 'fakjfqlcm3qkfgo' },
+        { title: 'handle database bug', completed: false, _id: 'fakjfql6mlqkfgo' },
+        { title: 'handle kind bug', completed: true, _id: 'fakjfqlc1lqkfgo' },
+        { title: 'done', completed: false, _id: 'fakjfjlcmlqgfgo' },
       ],
       todoText: '',
     },
     {
       wis: '110',
+      userId: '110',
       _id: 'dkqwokdok1o23k12k3odaf12f7',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
@@ -86,15 +89,16 @@ const initialState = {
       level: 'EVALUTE',
       assignee: 'Masoud Mohammad Salehi',
       todos: [
-        { title: 'handle datavase bug', completed: true, id: 'fakjfjlcmlqkfdasgo' },
-        { title: 'handle kind bug', completed: false, id: 'fakjwqlcmlqkfgo' },
-        { title: 'handle datavase bug', completed: false, id: 'fakqfqlcmlqkfgo' },
-        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
+        { title: 'handle datavase bug', completed: true, _id: 'fakjfjlcmlqkfdasgo' },
+        { title: 'handle kind bug', completed: false, _id: 'fakjwqlcmlqkfgo' },
+        { title: 'handle datavase bug', completed: false, _id: 'fakqfqlcmlqkfgo' },
+        { title: 'done', completed: false, _id: 'fakjfjlcmlqgfgo' },
       ],
       todoText: '',
     },
     {
       wis: '110',
+      userId: '110',
       _id: 'dkqwokdok1o23k12k3o1qda2f5',
       title: 'handle message microservice bugs',
       tags: ['bug', 'backend', 'weblite-web'],
@@ -104,10 +108,10 @@ const initialState = {
       level: 'DONE',
       assignee: 'Amirhossein Shafie',
       todos: [
-        { title: 'handle datavase bug', completed: false, id: 'fakjffjlcmlqgfgo' },
-        { title: 'handle kind bug', completed: false, id: 'fakjfjalcmlqgfgo' },
-        { title: 'handle datavase bug', completed: false, id: 'fakjfjlchmlqgfgo' },
-        { title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' },
+        { title: 'handle datavase bug', completed: false, _id: 'fakjffjlcmlqgfgo' },
+        { title: 'handle kind bug', completed: false, _id: 'fakjfjalcmlqgfgo' },
+        { title: 'handle datavase bug', completed: false, _id: 'fakjfjlchmlqgfgo' },
+        { title: 'done', completed: false, _id: 'fakjfjlcmlqgfgo' },
       ],
       todoText: '',
     },
@@ -145,7 +149,13 @@ const reducers = {
   [LOAD_USERS_DATA]: (state, { users }) =>
     ({ ...state, users: R.uniq(R.concat(state.users, users)) }),
 
-  [LOAD_TASKS_DATA]: (state, { tasks }) => ({ ...state, tasks: R.concat(state.tasks, tasks) }),
+  [LOAD_TASKS_DATA]: (state, { tasks }) => ({
+    ...state,
+    tasks: R.compose(
+      R.concat(R.__, state.tasks),
+      R.map(task => R.assoc('todoText', '', task)),
+    )(tasks)
+  }),
 
   [CHANGE_POPOVER_ID]: (state, { value }) => R.set(popoverIdLens, value, state),
 
@@ -173,7 +183,10 @@ const reducers = {
 
   [RESTORE_TASK]: (state, { task }) => ({
     ...state,
-    tasks: R.adjust(R.assoc('_id', task._id), 0, state.tasks),
+    tasks: R.compose(
+      R.adjust(R.assoc('todoText', ''), 0),
+      R.adjust(R.assoc('_id', task._id), 0),
+    )(state.tasks)
   }),
 
   [DELETE_TASK]: (state, { _id }) => ({
@@ -214,7 +227,7 @@ const reducers = {
       {
         ...task,
         todos: R.prepend({
-          title: value, completed: false, id: Math.floor(Math.random() * 100000000) }, task.todos),
+          title: value, completed: false, _id: task.todos.length.toString() }, task.todos),
       } : task, state.tasks),
   }),
 
