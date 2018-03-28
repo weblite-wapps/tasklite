@@ -81,41 +81,43 @@ export const FurtherInfo = ({ task: { _id, tags, deadline, sentTime, assignee, t
 )
 
 export const AddTodo = ({
-  task: { todoText }, onTodoTextChange, todoTextError, handleAddTodo }) => (
-    <div className={scssClasses.textField}>
-      <TextField
-        withButton
-        label="New Subtask"
-        fullWidth={false}
-        value={todoText}
-        isError={todoTextError}
-        onChange={e => onTodoTextChange(e.target.value)}
-      />
-      <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
-    </div>
+  task: { todoText }, onTodoTextChange, todoTextError, handleAddTodo,
+}) => (
+  <div className={scssClasses.textField}>
+    <TextField
+      withButton
+      label="New Subtask"
+      fullWidth={false}
+      value={todoText}
+      isError={todoTextError}
+      onChange={e => onTodoTextChange(e.target.value)}
+    />
+    <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
+  </div>
 )
 
-export const DeleteButton = ({ task: { _id }, popoverId, changePopoverId, classes, anchorEl,
-  handleOpenPopover, handleYep }) => (
-    <div className={scssClasses.button}>
-      <MuiButton
-        ref={(node) => {
-          this.button = node
-        }}
-        onClick={handleOpenPopover}
-        classes={{ raised: classes.Button }}
-        variant="raised"
-      >
-        Delete
-      </MuiButton>
-      <Popover
-        popoverIsOpen={_id === popoverId}
-        anchorEl={anchorEl}
-        onClose={() => changePopoverId('')}
-        onYep={handleYep}
-        onNop={() => changePopoverId('')}
-      />
-    </div>
+export const DeleteButton = ({
+  task: { _id }, popoverId, changePopoverId, classes, anchorEl, handleOpenPopover, handleYep
+}) => (
+  <div className={scssClasses.button}>
+    <MuiButton
+      ref={(node) => {
+        this.button = node
+      }}
+      onClick={handleOpenPopover}
+      classes={{ raised: classes.Button }}
+      variant="raised"
+    >
+      Delete
+    </MuiButton>
+    <Popover
+      popoverIsOpen={_id === popoverId}
+      anchorEl={anchorEl}
+      onClose={() => changePopoverId('')}
+      onYep={handleYep}  // TODO: it should be handled in effect
+      onNop={() => changePopoverId('')}
+    />
+  </div>
 )
 
 TitleAndLevelButtons.propTypes = {

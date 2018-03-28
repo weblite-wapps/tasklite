@@ -1,7 +1,6 @@
 // Modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withRouter } from 'react-router'
 // local modules
 import Snackbar from 'weblite-web-snackbar'
 // components
@@ -15,10 +14,9 @@ import { Collapse, TaskList } from './App.helper.component'
 import scssClasses from './App.scss'
 
 
-class App extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props)
-    // this.goToAbout = this._goToAbout.bind(this)
     this.handleWappMode = this._handleWappMode.bind(this)
     this.handleNormalMode = this._handleNormalMode.bind(this)
   }
@@ -28,18 +26,6 @@ class App extends React.Component {
     else this.handleNormalMode()
     window.addEventListener('focus', () => this.props.checkToSetSecondsElapsed())
   }
-
-  // _handleChangeTab(value) {
-  // const { changeTab, history } = this.props
-  // this.setState({ aboutMode: false })
-  // if (value === 'Home') history.push('/')
-  // else history.push(`/${value}`)
-  // changeTab(value)
-  // }
-
-  // _goToAbout() {
-  //   this.props.history.push('/About')
-  // }
 
   _handleWappMode() {
     const { setAPI, fetchTodayData } = this.props
@@ -56,30 +42,22 @@ class App extends React.Component {
   }
 
   render() {
-    const { tasks, tabIndex, expandMode } = this.props
-
     return (
       <div className={scssClasses.app}>
         <AppBar />
-        <Collapse expandMode={expandMode} label="add"><Add /></Collapse>
-        <Collapse expandMode={expandMode} label="filter"><Filter /></Collapse>
-        <LevelBar noMargin={expandMode !== 'default'} />
-        <TaskList tasks={tasks} tabIndex={tabIndex} />
+        <Collapse {...this.props} label="add"><Add /></Collapse>
+        <Collapse {...this.props} label="filter"><Filter /></Collapse>
+        <LevelBar noMargin={this.props.expandMode !== 'default'} />
+        <TaskList {...this.props} />
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
       </div>
     )
   }
 }
 
-
 App.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-  tabIndex: PropTypes.string.isRequired,
   expandMode: PropTypes.string.isRequired,
   fetchTodayData: PropTypes.func.isRequired,
   setAPI: PropTypes.func.isRequired,
   checkToSetSecondsElapsed: PropTypes.func.isRequired,
 }
-
-export default withRouter(App)

@@ -70,15 +70,10 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
-            <AddTodo
-              {...this.props}
-              todoTextError={todoTextError}
-              handleAddTodo={this.handleAddTodo}
-            />
+            <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
             <DeleteButton
               {...this.props}
-              classes={classes}
-              anchorEl={anchorEl}
+              {...this.state}
               handleOpenPopover={this.handleOpenPopover}
               handleYep={this.handleYep}
             />

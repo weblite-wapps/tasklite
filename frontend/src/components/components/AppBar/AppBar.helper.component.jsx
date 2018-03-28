@@ -1,11 +1,12 @@
 // modules
 import React from 'react'
+import PropTypes from 'prop-types'
 import { CircularProgress } from 'material-ui/Progress'
 // scssClasses
 import scssClasses from './AppBar.scss'
 
 
-export const getActionButton = (expandMode, changeExpandMode, label, src) => (
+export const ActionButton = ({ expandMode, changeExpandMode, label, src }) => (
   <div
     role="button"
     tabIndex="0"
@@ -16,7 +17,15 @@ export const getActionButton = (expandMode, changeExpandMode, label, src) => (
   </div>
 )
 
-export const getLeftSide = isLoading => (
+ActionButton.propTypes = {
+  expandMode: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+  changeExpandMode: PropTypes.func.isRequired,
+}
+
+
+export const LeftSide = ({ isLoading }) => (
   <div className={scssClasses.leftHand}>
     <div
       className={scssClasses.logoContainer}
@@ -31,3 +40,7 @@ export const getLeftSide = isLoading => (
     <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
   </div>
 )
+
+LeftSide.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+}

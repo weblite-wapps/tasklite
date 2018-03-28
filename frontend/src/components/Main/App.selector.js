@@ -48,6 +48,6 @@ const getNumberOfTasksInEachLevel = createSelector(
 export {
   getAddFilteredSuggestions,
   getReportFilteredSuggestions,
-  getNumberOfTasksInEachLevel,
   getFilteredTasks,
+  getNumberOfTasksInEachLevel,
 }

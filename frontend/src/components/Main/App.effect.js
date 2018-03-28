@@ -23,6 +23,7 @@ import {
   dispatchFetchAdminData,
   dispatchChangeRunningId,
   dispatchSetIsLoading,
+  dispatchChangePopoverId,
 } from './App.action'
 // views
 import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
@@ -74,11 +75,14 @@ const addLogToNextDayEpic = action$ =>
     .map(({ body }) => restoreLog(body))
 
 // const deleteLogEpic = action$ =>
-//   action$.ofType(DELETE_LOG)
-//     .mergeMap(action => postRequest('/deleteLog')
+//   action$.ofType(DELETE_TASK)
+//     .mergeMap(action => postRequest('/deleteTask')
 //       .query({ _id: action.payload._id })
 //       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+//     .do(() => snackbarMessage({ message: 'Deleted successfully !' }))
+//     .do(() => dispatchChangePopoverId(''))
 //     .mapTo({ type: REFETCH_TOTAL_DURATION })
+
 
 const saveStartTimeEpic = action$ =>
   action$.ofType(SAVE_START_TIME)

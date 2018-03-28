@@ -19,16 +19,35 @@ export const Collapse = ({ expandMode, label, children }) => (
   </MuiCollapse>
 )
 
+Collapse.propTypes = {
+  expandMode: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
+
 export const TaskList = ({ tasks, tabIndex }) => (
   tasks.filter(task => task.level === tabIndex)
     .map(task => <CustomizedTaskList key={task._id} task={task} />)
 )
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tabIndex: PropTypes.string.isRequired,
+}
+
 
 export const Button = ({ label, handleAction }) => (
   <div className={scssClasses.button}>
     <CustomizedButton label={label} onClick={handleAction} componentName="Add" />
   </div>
 )
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  handleAction: PropTypes.func.isRequired,
+}
+
 
 export const TagPanel = (
   { suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
@@ -47,22 +66,6 @@ export const TagPanel = (
       <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
     </React.Fragment>
 )
-
-Collapse.propTypes = {
-  expandMode: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-}
-
-TaskList.propTypes = {
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tabIndex: PropTypes.string.isRequired,
-}
-
-Button.propTypes = {
-  label: PropTypes.string.isRequired,
-  handleAction: PropTypes.func.isRequired,
-}
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
