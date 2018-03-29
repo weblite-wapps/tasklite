@@ -1,19 +1,6 @@
 import * as R from 'ramda'
-import setMinutes from 'date-fns/set_minutes'
-import setHours from 'date-fns/set_hours'
-import areRangesOverlapping from 'date-fns/are_ranges_overlapping'
-// components
-import host from '../../../../setup/config'
-// const
-const request = require('superagent')
+import { setHours, setMinutes, areRangesOverlapping } from 'date-fns'
 
-export const getRequest = path => request
-  .get(host + path)
-  .set('Access-Control-Allow-Origin', '*')
-
-export const postRequest = path => request
-  .post(host + path)
-  .set('Access-Control-Allow-Origin', '*')
 
 export const formatTime = time =>
   setHours(setMinutes(new Date(), R.slice(3, 5, time)), R.slice(0, 2, time))

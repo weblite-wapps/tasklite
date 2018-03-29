@@ -44,6 +44,10 @@ export const updateTag = async (query, updateObject) => Tag
   .update(query, updateObject)
   .exec()
 
+export const updateTask = async (query, updateObject) => Task
+  .update(query, updateObject)
+  .exec()
+
 export const deleteTask = async query => Task
   .remove(query)
   .exec()

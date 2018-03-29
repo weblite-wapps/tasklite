@@ -18,6 +18,7 @@ import {
   CHANGE_TODO_TEXT,
   TOGGLE_TODO,
   ADD_TODO,
+  RESTORE_TODO,
   DELETE_TODO,
   SET_SENT_TIME,
   CHANGE_EXPAND_MODE,
@@ -154,7 +155,7 @@ const reducers = {
     tasks: R.compose(
       R.concat(R.__, state.tasks),
       R.map(task => R.assoc('todoText', '', task)),
-    )(tasks)
+    )(tasks),
   }),
 
   [CHANGE_POPOVER_ID]: (state, { value }) => R.set(popoverIdLens, value, state),
@@ -186,7 +187,7 @@ const reducers = {
     tasks: R.compose(
       R.adjust(R.assoc('todoText', ''), 0),
       R.adjust(R.assoc('_id', task._id), 0),
-    )(state.tasks)
+    )(state.tasks),
   }),
 
   [DELETE_TASK]: (state, { _id }) => ({
@@ -199,12 +200,12 @@ const reducers = {
     expandingId: state.expandingId === _id ? '' : _id,
   }),
 
-  [TOGGLE_TODO]: (state, { _id, id }) => ({
+  [TOGGLE_TODO]: (state, { _id, todoId }) => ({
     ...state,
     tasks: R.map(task => (task._id === _id) ?
       {
         ...task,
-        todos: R.map(todo => (todo.id === id) ?
+        todos: R.map(todo => (todo._id === todoId) ?
           R.set(completedLens, !todo.completed, todo) : todo, task.todos),
       } : task, state.tasks),
   }),
@@ -231,12 +232,21 @@ const reducers = {
       } : task, state.tasks),
   }),
 
-  [DELETE_TODO]: (state, { _id, id }) => ({
+  [RESTORE_TODO]: (state, { task: { _id, todos } }) => ({
     ...state,
     tasks: R.map(task => (task._id === _id) ?
       {
         ...task,
-        todos: R.remove(R.findIndex(R.propEq('id', id), task.todos), 1, task.todos),
+        todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
+      } : task, state.tasks),
+  }),
+
+  [DELETE_TODO]: (state, { _id, todoId }) => ({
+    ...state,
+    tasks: R.map(task => (task._id === _id) ?
+      {
+        ...task,
+        todos: R.remove(R.findIndex(R.propEq('_id', todoId), task.todos), 1, task.todos),
       } : task, state.tasks),
   }),
 

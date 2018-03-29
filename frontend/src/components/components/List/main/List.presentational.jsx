@@ -23,7 +23,6 @@ class TaskList extends React.Component {
     super(props)
     this.handleAddTodo = this._handleAddTodo.bind(this)
     this.handleOpenPopover = this._handleOpenPopover.bind(this)
-    this.handleYep = this._handleYep.bind(this)
     this.state = {
       anchorEl: null,
       todoTextError: false,
@@ -47,17 +46,8 @@ class TaskList extends React.Component {
     changePopoverId(_id)
   }
 
-  _handleYep() {
-    const { changePopoverId, deleteTask } = this.props
-    changePopoverId('')
-    snackbarMessage({ message: 'Deleted successfully !' })
-    deleteTask()
-  }
-
   render() {
-    const { todoTextError, anchorEl } = this.state
-    const { task: { _id, todos, todoText },
-      onTodoTextChange, expandingId, popoverId, changePopoverId, classes } = this.props
+    const { task: { _id, todos }, expandingId } = this.props
 
     return (
       <React.Fragment>
@@ -75,7 +65,6 @@ class TaskList extends React.Component {
               {...this.props}
               {...this.state}
               handleOpenPopover={this.handleOpenPopover}
-              handleYep={this.handleYep}
             />
           </div>
         </Collapse>

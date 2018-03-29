@@ -6,9 +6,9 @@ import Todo from './Todo.presentational'
 import { dispatchToggleTodo, dispatchDeleteTodo } from '../../../../Main/App.action'
 
 
-const mapDispatchToProps = (_, { _id, todo: { id } }) => ({
-  onCompletedChange: () => dispatchToggleTodo(_id, id),
-  onDelete: () => dispatchDeleteTodo(_id, id),
+const mapDispatchToProps = (_, { _id, todo }) => ({
+  onCompletedChange: () => dispatchToggleTodo(_id, todo._id),
+  onDelete: () => dispatchDeleteTodo(_id, todo._id),
 })
 
 export default connect(null, mapDispatchToProps)(Todo)

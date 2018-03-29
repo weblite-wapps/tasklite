@@ -4,7 +4,8 @@ import 'rxjs'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
-import { formatTime, getRequest, postRequest } from './Add.helper'
+import { getRequest, postRequest } from '../../../../helper/functions/request.helper'
+import { formatTime } from './Add.helper'
 import { formattedDate } from '../../../../helper/functions/date.helper'
 // actions
 import { ADD_TASK, restoreTask } from '../../../Main/App.action'
@@ -36,7 +37,7 @@ const addTaskEpic = action$ =>
           priority,
           deadline,
           sentTime: '',
-          todos: [{ title: 'done', completed: false, id: 'fakjfjlcmlqgfgo' }],
+          todos: [{ title: 'done', completed: false }],
           level: 'ICE BOX',
           userId: userIdView(),
           wis: wisView(),

@@ -97,7 +97,7 @@ export const AddTodo = ({
 )
 
 export const DeleteButton = ({
-  task: { _id }, popoverId, changePopoverId, classes, anchorEl, handleOpenPopover, handleYep
+  task: { _id }, popoverId, changePopoverId, classes, anchorEl, handleOpenPopover, deleteTask,
 }) => (
   <div className={scssClasses.button}>
     <MuiButton
@@ -114,7 +114,7 @@ export const DeleteButton = ({
       popoverIsOpen={_id === popoverId}
       anchorEl={anchorEl}
       onClose={() => changePopoverId('')}
-      onYep={handleYep}  // TODO: it should be handled in effect
+      onYep={deleteTask}
       onNop={() => changePopoverId('')}
     />
   </div>

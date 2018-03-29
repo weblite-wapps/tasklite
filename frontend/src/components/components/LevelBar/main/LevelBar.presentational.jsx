@@ -10,7 +10,7 @@ import scssClasses from './LevelBar.scss'
 
 const LevelBar = ({ tabIndex, numbers, noMargin }) => (
   <React.Fragment>
-    <div className={noMargin ? scssClasses.noMargin : scssClasses.logoContainer}>
+    <div className={noMargin ? scssClasses.noMargin : scssClasses.levelBarContainer}>
       <LevelIcon src="assets/icons/icebox.png" label="ICE BOX" badgeContent={numbers.ICEBOX} />
       <LevelIcon src="assets/icons/inp.png" label="IN PROGRESS" badgeContent={numbers.INPROGRESS} />
       <LevelIcon src="assets/icons/evalute.png" label="EVALUTE" badgeContent={numbers.EVALUTE} />

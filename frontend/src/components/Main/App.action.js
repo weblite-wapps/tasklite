@@ -66,15 +66,19 @@ export const changeTodoText = createAction(CHANGE_TODO_TEXT, (_id, value) => ({ 
 export const dispatchChangeTodoText = (...args) => dispatch(changeTodoText(...args))
 
 export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const toggleTodo = createAction(TOGGLE_TODO, (_id, id) => ({ _id, id }))
+export const toggleTodo = createAction(TOGGLE_TODO, (_id, todoId) => ({ _id, todoId }))
 export const dispatchToggleTodo = (...args) => dispatch(toggleTodo(...args))
 
 export const ADD_TODO = 'ADD_TODO'
 export const addTodo = createAction(ADD_TODO, (_id, value) => ({ _id, value }))
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
 
+export const RESTORE_TODO = 'RESTORE_TODO'
+export const restoreTodo = createAction(RESTORE_TODO, task => ({ task }))
+export const dispatchRestoreTodo = (...args) => dispatch(restoreTodo(...args))
+
 export const DELETE_TODO = 'DELETE_TODO'
-export const deleteTodo = createAction(DELETE_TODO, (_id, id) => ({ _id, id }))
+export const deleteTodo = createAction(DELETE_TODO, (_id, todoId) => ({ _id, todoId }))
 export const dispatchDeleteTodo = (...args) => dispatch(deleteTodo(...args))
 
 export const SET_SENT_TIME = 'SET_SENT_TIME'

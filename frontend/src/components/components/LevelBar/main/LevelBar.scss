@@ -1,11 +1,11 @@
-.logoContainer {
-  margin-top: 10px;
+.levelBarContainer {
+  margin-top: 65px;
   display: flex;
   justify-content: center;
 }
 
 .noMargin {
-  @extend .logoContainer;
+  @extend .levelBarContainer;
   margin-top: 0px;
 }
 
