@@ -12,7 +12,7 @@ import Popover from '../components/Popover/Popover.presentational'
 import TextField from '../../../../helper/components/TextField/TextField.presentational'
 import Button from '../../../../helper/components/Button/Button.presentational'
 // helpers
-import { formatTitle, formatTags, getProgressBarPercent } from './List.helper'
+import { formatTitle, formatTags, getProgressBarPercent, checkToShow } from './List.helper'
 import { getRemained } from '../../../../helper/functions/time.helper'
 // styles
 import scssClasses from './List.scss'
@@ -49,10 +49,10 @@ export const BriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expa
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
-      <span>{assignee}&nbsp;|&nbsp;</span>
-      <span>{getRemained(deadline)}&nbsp;|&nbsp;</span>
-      <span>{formatTags(tags) || 'No tags!'}&nbsp;|&nbsp;</span>
-      <span>{`${getProgressBarPercent(todos)}%`}</span>
+      {checkToShow('assignee') && <span>{assignee}</span>}
+      {checkToShow('deadline') && <span>&nbsp;|&nbsp;{getRemained(deadline)}</span>}
+      {/* {checkToShow('tags') && <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags!'}</span>} */}
+      {checkToShow('percent') && <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>}
     </Typography>
   </div>
 )
@@ -89,7 +89,7 @@ export const FurtherInfo = ({
     <SubInfo label="DEADLINE" deadline={deadline} />
     {(level === 'EVALUTE' || level === 'DONE') && <SubInfo label="SENT TIME" sentTime={sentTime} />}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
-    <SubInfo label="SUBWORKS" todos={todos} _id={_id} />
+    <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
   </React.Fragment>
 )
 

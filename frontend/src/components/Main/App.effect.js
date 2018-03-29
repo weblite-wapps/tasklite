@@ -7,11 +7,10 @@ import { getRequest, postRequest } from '../../helper/functions/request.helper'
 import { formattedDate } from '../../helper/functions/date.helper'
 import { formatTime } from './App.helper'
 // actions
-import { RESET_INPUTS, dispatchLoadTagsDataInAdd } from '../components/Add/Main/Add.action'
+import { dispatchLoadTagsDataInAdd } from '../components/Add/Main/Add.action'
 // import { REFETCH_TOTAL_DURATION, dispatchLoadTotalDurations } from '../components/Home/Main/Home.action'
 import {
   FETCH_TODAY_DATA,
-  RESTORE_TASK,
   DELETE_TASK,
   FETCH_ADMIN_DATA,
   loadUsersData,
@@ -27,6 +26,14 @@ import {
 import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
 // import { currentPageView, selectedUserView } from '../components/Report/Main/Report.reducer'
 
+const saveUsersEpic = action$ =>
+  action$.ofType(FETCH_TODAY_DATA)
+    .mergeMap(() => postRequest('/saveUser')
+      .send({ wis: wisView(), userId: userIdView(), username: userNameView() })
+      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+    .do(({ body }) => body && dispatchLoadUsersData([body]))
+    .map(dispatchFetchAdminData)
+
 
 const fetchUsersEpic = action$ =>
   action$.ofType(FETCH_ADMIN_DATA)
@@ -36,13 +43,6 @@ const fetchUsersEpic = action$ =>
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .map(({ body }) => loadUsersData((body)))
 
-const saveUsersEpic = action$ =>
-  action$.ofType(FETCH_TODAY_DATA)
-    .mergeMap(() => postRequest('/saveUser')
-      .send({ wis: wisView(), userId: userIdView(), username: userNameView() })
-      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .do(({ body }) => body && dispatchLoadUsersData([body]))
-    .map(dispatchFetchAdminData)
 
 const initialFetchEpic = action$ =>
   action$.ofType(FETCH_TODAY_DATA)
@@ -57,19 +57,6 @@ const initialFetchEpic = action$ =>
     .do(() => window.W && window.W.start())
     .ignoreElements()
 
-// const addLogToNextDayEpic = action$ =>
-//   action$.ofType(ADD_LOG_TO_NEXT_DAY)
-//     .mergeMap(action => postRequest('/insertLogToNextDay')
-//       .send({
-//         title: action.payload.title,
-//         tags: action.payload.tags,
-//         times: [{ start: formatTime('00:00'), end: action.payload.end }],
-//         date: action.payload.date,
-//         id: userIdView(),
-//         wis: wisView(),
-//       })
-//       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-//     .map(({ body }) => restoreLog(body))
 
 const deleteTaskEpic = action$ =>
   action$.ofType(DELETE_TASK)
@@ -109,9 +96,7 @@ const deleteTaskEpic = action$ =>
 //     .do(() => dispatchSetIsLoading(false))
 //     .mapTo({ type: REFETCH_TOTAL_DURATION })
 
-const resetEpic = action$ =>
-  action$.ofType(RESTORE_TASK)
-    .mapTo({ type: RESET_INPUTS })
+
 
 
 export default combineEpics(
@@ -122,5 +107,4 @@ export default combineEpics(
   deleteTaskEpic,
   // saveStartTimeEpic,
   // saveEndTimeEpic,
-  resetEpic,
 )

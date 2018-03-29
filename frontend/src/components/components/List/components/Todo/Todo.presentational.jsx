@@ -9,19 +9,31 @@ import Button from '../../../../../helper/components/Button/Button.presentationa
 import classes from './Todo.scss'
 
 
-const Todo = ({ length, index, todo: { completed, title }, onCompletedChange, onDelete }) => (
+const Todo = ({
+  level, length, index, todo: { completed, title }, onCompletedChange, onDelete,
+}) => (
   <div className={classes.todoContainer}>
     <Checkbox
+      disabled={level !== 'IN PROGRESS'}
       checked={completed}
       onChange={onCompletedChange}
       style={{ height: '15px', width: '15px' }}
     />
     <Typography variant="caption" style={{ marginLeft: '5px' }}>{title}</Typography>
-    {length !== index && <Button label="DELETE" onClick={onDelete} componentName="Todo" />}
+    {
+      length !== index &&
+      <Button
+        label="DELETE"
+        onClick={onDelete}
+        componentName="Todo"
+        disabled={level === 'EVALUTE' || level === 'DONE'}
+      />
+    }
   </div>
 )
 
 Todo.propTypes = {
+  level: PropTypes.string.isRequired,
   length: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
   todo: PropTypes.shape({}).isRequired,

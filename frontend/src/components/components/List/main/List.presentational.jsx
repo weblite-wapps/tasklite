@@ -47,7 +47,7 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const { task: { _id, todos }, expandingId } = this.props
+    const { task: { _id, todos, level }, expandingId } = this.props
 
     return (
       <React.Fragment>
@@ -60,7 +60,9 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
-            <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
+            { (level === 'ICE BOX' || level === 'IN PROGRESS') &&
+              <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
+            }
             <DeleteButton
               {...this.props}
               {...this.state}

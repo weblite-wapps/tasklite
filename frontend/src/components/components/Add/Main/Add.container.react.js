@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Add from './Add.presentational.react'
 // views
-import { logsView } from '../../../Main/App.reducer'
+import { usersView } from '../../../Main/App.reducer'
 import { titleView, assigneeView, priorityView, deadlineView, selectedTagsView, queryTagView, tagsView } from './Add.reducer'
 // actions
 import { dispatchChangeTab, dispatchAddTask } from '../../../Main/App.action'
@@ -21,7 +21,7 @@ import { getAddFilteredSuggestions } from '../../../Main/App.selector'
 
 
 const mapStateToProps = state => ({
-  logs: logsView(),
+  users: usersView(),
   title: titleView(),
   assignee: assigneeView(),
   priority: priorityView(),

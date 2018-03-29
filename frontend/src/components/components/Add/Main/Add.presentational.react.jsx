@@ -58,7 +58,7 @@ export default class Add extends React.Component {
       <div className={scssClasses.container}>
         <TextField {...this.props} label="Title" isError={titleIsError} />
         <TextField {...this.props} label="Assignee" isError={assigneeIsError} />
-        <Avatar />
+        <Avatar {...this.props} /> 
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <SelectField {...this.props} isError={priorityIsError} />
         <DatePicker {...this.props} isError={deadlineIsError} />

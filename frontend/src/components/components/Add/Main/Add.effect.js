@@ -5,13 +5,11 @@ import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { getRequest, postRequest } from '../../../../helper/functions/request.helper'
-import { formatTime } from './Add.helper'
-import { formattedDate } from '../../../../helper/functions/date.helper'
 // actions
 import { ADD_TASK, restoreTask } from '../../../Main/App.action'
-import { SET_QUERY_IN_ADD, fetchTagsInAdd, loadTagsDataInAdd, resetInputs } from './Add.action'
+import { SET_QUERY_IN_ADD, fetchTagsInAdd, loadTagsDataInAdd, dispatchResetInputs } from './Add.action'
 // views
-import { wisView, userIdView } from '../../../Main/App.reducer'
+import { wisView, userIdView, RESTORE_TASK } from '../../../Main/App.reducer'
 
 
 const effectSearchTagsEpic = action$ =>
@@ -51,6 +49,7 @@ const addTaskEpic = action$ =>
         })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
     ]))
+    .do(() => dispatchResetInputs())
     .mergeMap(success =>
       [restoreTask(success[0].body), loadTagsDataInAdd(success[1].body)])
 
