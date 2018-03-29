@@ -29,13 +29,22 @@ Logo.propTypes = {
 export const TabBar = props => (
   <div className={scssClasses.tabBar}>
     <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
-    <div className={scssClasses.iconsContainer}>
-      <ActionButton {...props} label="add" src="assets/icons/plus.png" />
-      <span style={{ width: '15px' }} />
-      <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
-    </div>
+    {
+      props.creator && (
+        <div className={scssClasses.iconsContainer}>
+          <ActionButton {...props} label="add" src="assets/icons/plus.png" />
+          <span style={{ width: '15px' }} />
+          <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
+        </div>
+      )
+    }
   </div>
 )
+
+TabBar.propTypes = {
+  creator: PropTypes.bool.isRequired,
+}
+
 
 const ActionButton = ({ expandMode, changeExpandMode, label, src }) => (
   <div

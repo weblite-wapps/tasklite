@@ -19,7 +19,7 @@ import scssClasses from './List.scss'
 
 
 export const TitleAndLevelButtons = ({
-  task: { _id, title, priority }, expandingId, onExpandClick, tabIndex,
+  task: { _id, title, priority }, expandingId, onExpandClick,
 }) => (
   <div className={scssClasses.text}>
     <div className={scssClasses.title}>
@@ -34,15 +34,16 @@ export const TitleAndLevelButtons = ({
         }
       </Typography>
     </div>
-
-    <ActionButtons
-      _id={_id}
-      expandingId={expandingId}
-      onExpandClick={onExpandClick}
-      tabIndex={tabIndex}
-    />
+    <ActionButtons _id={_id} expandingId={expandingId} onExpandClick={onExpandClick} />
   </div>
 )
+
+TitleAndLevelButtons.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  expandingId: PropTypes.string.isRequired,
+  onExpandClick: PropTypes.func.isRequired,
+}
+
 
 export const BriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expandingId }) => (
   _id !== expandingId &&
@@ -55,6 +56,11 @@ export const BriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expa
     </Typography>
   </div>
 )
+
+BriefInfo.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  expandingId: PropTypes.string.isRequired,
+}
 
 
 export const ProgressPanel = ({ todos }) => (
@@ -70,15 +76,27 @@ export const ProgressPanel = ({ todos }) => (
   </div>
 )
 
-export const FurtherInfo = ({ task: { _id, tags, deadline, sentTime, assignee, todos } }) => (
+ProgressPanel.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+}
+
+
+export const FurtherInfo = ({
+  task: { _id, tags, deadline, level, sentTime, assignee, todos },
+}) => (
   <React.Fragment>
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
-    <SubInfo label="SENT TIME" sentTime={sentTime} />
+    {(level === 'EVALUTE' || level === 'DONE') && <SubInfo label="SENT TIME" sentTime={sentTime} />}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo label="SUBWORKS" todos={todos} _id={_id} />
   </React.Fragment>
 )
+
+FurtherInfo.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+}
+
 
 export const AddTodo = ({
   task: { todoText }, onTodoTextChange, todoTextError, handleAddTodo,
@@ -95,6 +113,14 @@ export const AddTodo = ({
     <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
   </div>
 )
+
+AddTodo.propTypes = {
+  task: PropTypes.shape({}).isRequired,
+  todoTextError: PropTypes.bool.isRequired,
+  handleAddTodo: PropTypes.func.isRequired,
+  onTodoTextChange: PropTypes.func.isRequired,
+}
+
 
 export const DeleteButton = ({
   task: { _id }, popoverId, changePopoverId, classes, anchorEl, handleOpenPopover, deleteTask,
@@ -119,30 +145,3 @@ export const DeleteButton = ({
     />
   </div>
 )
-
-TitleAndLevelButtons.propTypes = {
-  task: PropTypes.shape({}).isRequired,
-  expandingId: PropTypes.string.isRequired,
-  onExpandClick: PropTypes.func.isRequired,
-  tabIndex: PropTypes.string.isRequired,
-}
-
-BriefInfo.propTypes = {
-  task: PropTypes.shape({}).isRequired,
-  expandingId: PropTypes.string.isRequired,
-}
-
-ProgressPanel.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
-
-FurtherInfo.propTypes = {
-  task: PropTypes.shape({}).isRequired,
-}
-
-AddTodo.propTypes = {
-  task: PropTypes.shape({}).isRequired,
-  todoTextError: PropTypes.bool.isRequired,
-  handleAddTodo: PropTypes.func.isRequired,
-  onTodoTextChange: PropTypes.func.isRequired,
-}
