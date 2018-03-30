@@ -17,7 +17,7 @@ import {
   ADD_TAG_IN_ADD,
   ADD_USER_IN_ADD,
   CHANGE_SELECTED_TAGS_IN_ADD,
-  CHANGE_SELECTED_USERS_IN_ADD,
+  CHANGE_SELECTED_USER_IN_ADD,
   RESET_INPUTS,
 } from './Add.action'
 
@@ -31,7 +31,7 @@ const initialState = {
   tagSuggestions: [],
   userSuggestions: [],
   selectedTags: [],
-  selectedUsers: [],
+  selectedUser: '',
   tags: [],
   users: [],
 }
@@ -46,6 +46,7 @@ const queryTagLens = R.lensProp('queryTag')
 const queryUserLens = R.lensProp('queryUser')
 const tagSuggestionsLens = R.lensProp('tagSuggestions')
 const userSuggestionsLens = R.lensProp('userSuggestions')
+const usersLens = R.lensProp('users')
 // views
 export const titleView = () => R.path(['Add', 'title'])(getState())
 export const assigneeView = () => R.path(['Add', 'assignee'])(getState())
@@ -54,7 +55,7 @@ export const deadlineView = () => R.path(['Add', 'deadline'])(getState())
 export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
 export const queryUserView = () => R.path(['Add', 'queryUser'])(getState())
 export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
-export const selectedUsersView = () => R.path(['Add', 'selectedUsers'])(getState())
+export const selectedUserView = () => R.path(['Add', 'selectedUser'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
 export const usersView = () => R.path(['Add', 'users'])(getState())
 
@@ -66,9 +67,7 @@ const reducers = {
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
-  [LOAD_USERS_DATA_IN_ADD]: (state, { users }) => ({ ...state,
-    users: R.map(user => R.assoc('isSelected', false, user), users),
-  }),
+  [LOAD_USERS_DATA_IN_ADD]: (state, { users }) => R.set(usersLens, users, state),
 
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 
@@ -95,12 +94,8 @@ const reducers = {
   }),
 
   [ADD_USER_IN_ADD]: state => ({ ...state,
-    selectedUsers: R.append(R.toLower(state.queryUser), state.selectedUsers),
-    users: R.append(
-      { name: R.toLower(state.queryUser),
-        _id: state.users.length,
-        isSelected: true },
-      state.users),
+    selectedUser: R.toLower(state.queryUser),
+    users: R.append({ name: R.toLower(state.queryUser), _id: state.users.length }, state.users),
     queryUser: '',
   }),
 
@@ -112,12 +107,8 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_SELECTED_USERS_IN_ADD]: (state, { user }) => ({ ...state,
-    selectedUsers: user.isSelected ?
-      R.remove(R.indexOf(user.name, state.selectedUsers), 1, state.selectedUsers) :
-      R.append(user.name, state.selectedUsers),
-    users: R.map(eachUser => (eachUser._id === user._id) ?
-      { ...eachUser, isSelected: !eachUser.isSelected } : eachUser, state.users),
+  [CHANGE_SELECTED_USER_IN_ADD]: (state, { user }) => ({ ...state,
+    selectedUser: user.name,
   }),
 
   [RESET_INPUTS]: state =>

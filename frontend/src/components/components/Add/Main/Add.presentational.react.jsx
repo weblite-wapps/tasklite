@@ -4,8 +4,6 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
-// components
-import Avatar from '../components/Avatar/Avatar.presentational'
 // helpers
 import { TagPanel, UserPanel, Button } from '../../../Main/App.helper.component'
 import { TextField, SelectField, DatePicker } from './Add.helper.component'
@@ -28,9 +26,9 @@ export default class Add extends React.Component {
   }
 
   _handleAddTask() {
-    const { title, assignee, selectedTags, priority, deadline, addTask } = this.props
+    const { title, selectedUser, selectedTags, priority, deadline, addTask } = this.props
     if (title) {
-      addTask(title, assignee, selectedTags, priority, new Date(deadline))
+      addTask(title, selectedUser, selectedTags, priority, new Date(deadline))
       snackbarMessage({ message: 'Added successfully!' })
       // changeTab('Home')
     } else {
@@ -61,6 +59,7 @@ export default class Add extends React.Component {
         snackbarMessage({ message: 'repetitive user!' })
       }
     } else {
+      this.setState({ assigneeIsError: true })
       snackbarMessage({ message: 'select or write user first!' })
     }
   }
@@ -70,10 +69,8 @@ export default class Add extends React.Component {
 
     return (
       <div className={scssClasses.container}>
-        <TextField {...this.props} label="Title" isError={titleIsError} />
-        <UserPanel {...this.props} handleAddUser={this.handleAddUser} />
-        {/* <TextField {...this.props} label="Assignee" isError={assigneeIsError} />
-        <Avatar {...this.props} /> */}
+        <TextField {...this.props} isError={titleIsError} />
+        <UserPanel {...this.props} handleAddUser={this.handleAddUser} isError={assigneeIsError} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <SelectField {...this.props} isError={priorityIsError} />
         <DatePicker {...this.props} isError={deadlineIsError} />
@@ -85,19 +82,15 @@ export default class Add extends React.Component {
 
 Add.propTypes = {
   title: PropTypes.string.isRequired,
-  assignee: PropTypes.string.isRequired,
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.string.isRequired,
+  selectedUser: PropTypes.string.isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   queryTag: PropTypes.string.isRequired,
-  // suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  queryUser: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // onTitleChange: PropTypes.func.isRequired,
-  // onAssigneeChange: PropTypes.func.isRequired,
-  // onPriorityChange: PropTypes.func.isRequired,
-  // onDeadlineChange: PropTypes.func.isRequired,
-  // onQueryTagChange: PropTypes.func.isRequired,
-  // onTagClick: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
   addTag: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
 }

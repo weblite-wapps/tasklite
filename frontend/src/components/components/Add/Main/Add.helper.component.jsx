@@ -7,22 +7,19 @@ import CustomizedSelectField from '../../../../helper/components/SelectField/Sel
 import CustomizedDatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational'
 
 
-export const TextField = ({ isError, label, title, onTitleChange, assignee, onAssigneeChange }) => (
+export const TextField = ({ isError, title, onTitleChange }) => (
   <CustomizedTextField
-    label={label}
-    value={label === 'Title' ? title : assignee}
-    onChange={e => label === 'Title' ? onTitleChange(e.target.value) : onAssigneeChange(e.target.value)}
+    label="Title"
+    value={title}
+    onChange={e => onTitleChange(e.target.value)}
     isError={isError}
   />
 )
 
 TextField.propTypes = {
   isError: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  assignee: PropTypes.string.isRequired,
   onTitleChange: PropTypes.func.isRequired,
-  onAssigneeChange: PropTypes.func.isRequired,
 }
 
 

@@ -65,10 +65,10 @@ export const changeSelectedTagsInAdd = createAction(CHANGE_SELECTED_TAGS_IN_ADD,
 export const dispatchChangeSelectedTagsInAdd = (...args) =>
   dispatch(changeSelectedTagsInAdd(...args))
 
-export const CHANGE_SELECTED_USERS_IN_ADD = 'CHANGE_SELECTED_USERS_IN_ADD'
-export const changeSelectedUsersInAdd = createAction(CHANGE_SELECTED_USERS_IN_ADD, user => ({ user }))
-export const dispatchChangeSelectedUsersInAdd = (...args) =>
-  dispatch(changeSelectedUsersInAdd(...args))
+export const CHANGE_SELECTED_USER_IN_ADD = 'CHANGE_SELECTED_USER_IN_ADD'
+export const changeSelectedUserInAdd = createAction(CHANGE_SELECTED_USER_IN_ADD, user => ({ user }))
+export const dispatchChangeSelectedUserInAdd = (...args) =>
+  dispatch(changeSelectedUserInAdd(...args))
 
 export const RESET_INPUTS = 'RESET_INPUTS'
 export const resetInputs = createAction(RESET_INPUTS)

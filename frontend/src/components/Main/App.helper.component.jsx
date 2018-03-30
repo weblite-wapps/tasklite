@@ -8,7 +8,7 @@ import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
 import CustomizedButton from '../../helper/components/Button/Button.presentational'
 import TagList from '../../helper/components/TagList/TagList.presentational'
-import Avatar from '../components/Add/components/Avatar/Avatar.presentational'
+import Avatar from '../components/Add/components/Avatar/Avatar.container.react'
 // scssClasses
 import scssClasses from './App.scss'
 
@@ -79,10 +79,11 @@ TagPanel.propTypes = {
 
 
 export const UserPanel = (
-  { userSuggestions, queryUser, onQueryUserChange, users, onUserClick, handleAddUser }) => (
+  { isError, userSuggestions, queryUser, onQueryUserChange, handleAddUser }) => (
     <React.Fragment>
       <div className={scssClasses.textField}>
         <Autocomplete
+          isError={isError}
           label="Assignee"
           suggestions={userSuggestions}
           mode="user"
@@ -93,15 +94,14 @@ export const UserPanel = (
         />
         <CustomizedButton label="ADD" onClick={handleAddUser} componentName="Add" />
       </div>
-      <Avatar users={users} onUserClick={user => onUserClick(user)} />
+      <Avatar />
     </React.Fragment>
 )
 
 UserPanel.propTypes = {
+  isError: PropTypes.bool.isRequired,
   queryUser: PropTypes.string.isRequired,
   userSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryUserChange: PropTypes.func.isRequired,
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onUserClick: PropTypes.func.isRequired,
   handleAddUser: PropTypes.func.isRequired,
 }

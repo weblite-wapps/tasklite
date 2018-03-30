@@ -6,7 +6,7 @@ import scssClasses from './Autocomplete.scss'
 
 
 const CustomizedAutocomplete = ({
-  label, suggestions, mode, inputValue, onInputValueChange, onSelect, onAdd,
+  isError, label, suggestions, mode, inputValue, onInputValueChange, onSelect, onAdd,
 }) => (
   <Autocomplete
     getItemValue={item => mode === 'user' ? item.name : item.label}
@@ -23,6 +23,7 @@ const CustomizedAutocomplete = ({
             {...kind}
             type="text"
             required
+            className={isError ? scssClasses.error : null}
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
                 onAdd()
@@ -44,6 +45,7 @@ const CustomizedAutocomplete = ({
 )
 
 CustomizedAutocomplete.propTypes = {
+  isError: PropTypes.bool,
   label: PropTypes.string.isRequired,
   mode: PropTypes.string,
   inputValue: PropTypes.string.isRequired,
@@ -54,6 +56,7 @@ CustomizedAutocomplete.propTypes = {
 }
 
 CustomizedAutocomplete.defaultProps = {
+  isError: false,
   mode: 'tag',
 }
 

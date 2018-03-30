@@ -8,13 +8,13 @@ import Typography from 'material-ui/Typography'
 import scssClasses from './Avatar.scss'
 
 
-const Avatar = ({ classes, users, onUserClick }) => (
+const Avatar = ({ users, selectedUser, onUserClick }) => (
   <div className={scssClasses.container}>
     {
       users.map(user => (
         <div className={scssClasses.column} key={user._id}>
           <MuiAvatar
-            style={{ backgroundColor: user.isSelected ? '#4CAF50' : '#cfcfcf '}}
+            style={{ backgroundColor: user.name === selectedUser ? '#4CAF50' : '#cfcfcf' }}
             className={scssClasses.avatar}
             onClick={() => onUserClick(user)}
             role="button"
@@ -22,7 +22,7 @@ const Avatar = ({ classes, users, onUserClick }) => (
           >
             {R.head(user.name)}
           </MuiAvatar>
-          <Typography variant="body1" align="center" style={{ marginBottom : '5px' }}>
+          <Typography variant="body1" align="center" style={{ marginBottom: '5px' }}>
             {user.name}
           </Typography>
         </div>
@@ -33,6 +33,7 @@ const Avatar = ({ classes, users, onUserClick }) => (
 
 Avatar.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedUser: PropTypes.string.isRequired,
   onUserClick: PropTypes.func.isRequired,
 }
 
