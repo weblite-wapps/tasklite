@@ -6,14 +6,14 @@ import scssClasses from './Autocomplete.scss'
 
 
 const CustomizedAutocomplete = ({
-  label, suggestions, inputValue, onInputValueChange, onSelect, onAdd,
+  label, suggestions, mode, inputValue, onInputValueChange, onSelect, onAdd,
 }) => (
   <Autocomplete
-    getItemValue={item => item.label}
+    getItemValue={item => mode === 'user' ? item.name : item.label}
     items={suggestions}
     renderItem={(item, isHighlighted) => (
       <div style={{ background: isHighlighted ? 'lightgray' : 'white' }} key={item._id}>
-        {item.label}
+        {mode === 'user' ? item.name : item.label}
       </div>
     )}
     renderInput={
@@ -45,11 +45,16 @@ const CustomizedAutocomplete = ({
 
 CustomizedAutocomplete.propTypes = {
   label: PropTypes.string.isRequired,
+  mode: PropTypes.string,
   inputValue: PropTypes.string.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onInputValueChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onAdd: PropTypes.func.isRequired,
+}
+
+CustomizedAutocomplete.defaultProps = {
+  mode: 'tag',
 }
 
 export default CustomizedAutocomplete

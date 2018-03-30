@@ -8,6 +8,7 @@ import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
 import CustomizedButton from '../../helper/components/Button/Button.presentational'
 import TagList from '../../helper/components/TagList/TagList.presentational'
+import Avatar from '../components/Add/components/Avatar/Avatar.presentational'
 // scssClasses
 import scssClasses from './App.scss'
 
@@ -50,12 +51,12 @@ Button.propTypes = {
 
 
 export const TagPanel = (
-  { suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
+  { tagSuggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
     <React.Fragment>
       <div className={scssClasses.textField}>
         <Autocomplete
           label="Tags"
-          suggestions={suggestions}
+          suggestions={tagSuggestions}
           inputValue={queryTag}
           onInputValueChange={e => onQueryTagChange(e.target.value)}
           onSelect={value => onQueryTagChange(value)}
@@ -69,9 +70,38 @@ export const TagPanel = (
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
-  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tagSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTagClick: PropTypes.func.isRequired,
   handleAddTag: PropTypes.func.isRequired,
+}
+
+
+export const UserPanel = (
+  { userSuggestions, queryUser, onQueryUserChange, users, onUserClick, handleAddUser }) => (
+    <React.Fragment>
+      <div className={scssClasses.textField}>
+        <Autocomplete
+          label="Assignee"
+          suggestions={userSuggestions}
+          mode="user"
+          inputValue={queryUser}
+          onInputValueChange={e => onQueryUserChange(e.target.value)}
+          onSelect={value => onQueryUserChange(value)}
+          onAdd={handleAddUser}
+        />
+        <CustomizedButton label="ADD" onClick={handleAddUser} componentName="Add" />
+      </div>
+      <Avatar users={users} onUserClick={user => onUserClick(user)} />
+    </React.Fragment>
+)
+
+UserPanel.propTypes = {
+  queryUser: PropTypes.string.isRequired,
+  userSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onQueryUserChange: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onUserClick: PropTypes.func.isRequired,
+  handleAddUser: PropTypes.func.isRequired,
 }

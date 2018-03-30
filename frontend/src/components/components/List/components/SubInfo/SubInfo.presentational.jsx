@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider'
 // components
 import Todo from '../Todo/Todo.container.react'
 // helper
-import { formatTime, getRemained, isOnTime } from '../../../../../helper/functions/time.helper'
+import { formattedTime, getRemained, isOnTime } from '../../../../../helper/functions/time.helper'
 
 const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id }) => (
   <React.Fragment>
@@ -16,8 +16,8 @@ const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id 
     </Typography>
     <Typography variant="caption">
       {tags && R.join(', ', tags)}
-      {deadline && `${formatTime(deadline)} - ${getRemained(deadline)} remained`}
-      {sentTime && `${formatTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
+      {deadline && `${formattedTime(deadline)} - ${getRemained(deadline)} remained`}
+      {sentTime && `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
       {assignee && assignee}
       {todos && todos.map((todo, index) => (
         <Todo

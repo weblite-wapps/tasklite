@@ -9,6 +9,7 @@ import Tag from '../models/tag'
 export const fetchUsers = async query => User
   .find(query)
   .sort({ name: 1 })
+  .limit(4)
   .exec()
 
 export const fetchTasks = async query => Task

@@ -1,11 +1,13 @@
 // modules
 import * as R from 'ramda'
-import setMinutes from 'date-fns/set_minutes'
-import setHours from 'date-fns/set_hours'
+import { setHours, setMinutes, setSeconds } from 'date-fns'
 
 
 export const formatTime = time =>
-  setHours(setMinutes(new Date(), R.slice(3, 5, time)), R.slice(0, 2, time))
+  setHours(
+    setMinutes(
+      setSeconds(
+        new Date(), R.slice(6, 8, time)), R.slice(3, 5, time)), R.slice(0, 2, time))
 
 
 export const filteredTags = (selectedTags, tags) =>

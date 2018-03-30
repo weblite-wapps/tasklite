@@ -13,7 +13,7 @@ import TextField from '../../../../helper/components/TextField/TextField.present
 import Button from '../../../../helper/components/Button/Button.presentational'
 // helpers
 import { formatTitle, formatTags, getProgressBarPercent, checkToShow } from './List.helper'
-import { getRemained } from '../../../../helper/functions/time.helper'
+import { getRemained, getPassedTime } from '../../../../helper/functions/time.helper'
 // styles
 import scssClasses from './List.scss'
 
@@ -45,12 +45,13 @@ TitleAndLevelButtons.propTypes = {
 }
 
 
-export const BriefInfo = ({ task: { _id, assignee, deadline, tags, todos }, expandingId }) => (
+export const BriefInfo = ({ task: { _id, assignee, deadline, sentTime, tags, todos }, expandingId }) => (
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
       {checkToShow('assignee') && <span>{assignee}</span>}
       {checkToShow('deadline') && <span>&nbsp;|&nbsp;{getRemained(deadline)}</span>}
+      {checkToShow('sentTime') && <span>&nbsp;|&nbsp;{getPassedTime(sentTime)}</span>}
       {/* {checkToShow('tags') && <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags!'}</span>} */}
       {checkToShow('percent') && <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>}
     </Typography>

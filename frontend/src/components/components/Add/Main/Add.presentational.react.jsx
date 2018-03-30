@@ -7,7 +7,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Avatar from '../components/Avatar/Avatar.presentational'
 // helpers
-import { TagPanel, Button } from '../../../Main/App.helper.component'
+import { TagPanel, UserPanel, Button } from '../../../Main/App.helper.component'
 import { TextField, SelectField, DatePicker } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
@@ -18,6 +18,7 @@ export default class Add extends React.Component {
     super(props)
     this.handleAddTask = this._handleAddTask.bind(this)
     this.handleAddTag = this._handleAddTag.bind(this)
+    this.handleAddUser = this._handleAddUser.bind(this)
     this.state = {
       titleIsError: false,
       assigneeIsError: false,
@@ -51,14 +52,28 @@ export default class Add extends React.Component {
     }
   }
 
+  _handleAddUser() {
+    const { queryUser, users, addUser } = this.props
+    if (R.trim(queryUser)) {
+      if (R.findIndex(R.propEq('name', R.toLower(queryUser)), users) < 0) {
+        addUser()
+      } else {
+        snackbarMessage({ message: 'repetitive user!' })
+      }
+    } else {
+      snackbarMessage({ message: 'select or write user first!' })
+    }
+  }
+
   render() {
     const { titleIsError, assigneeIsError, priorityIsError, deadlineIsError } = this.state
 
     return (
       <div className={scssClasses.container}>
         <TextField {...this.props} label="Title" isError={titleIsError} />
-        <TextField {...this.props} label="Assignee" isError={assigneeIsError} />
-        <Avatar {...this.props} /> 
+        <UserPanel {...this.props} handleAddUser={this.handleAddUser} />
+        {/* <TextField {...this.props} label="Assignee" isError={assigneeIsError} />
+        <Avatar {...this.props} /> */}
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <SelectField {...this.props} isError={priorityIsError} />
         <DatePicker {...this.props} isError={deadlineIsError} />

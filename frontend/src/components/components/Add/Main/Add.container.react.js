@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Add from './Add.presentational.react'
 // views
-import { usersView } from '../../../Main/App.reducer'
-import { titleView, assigneeView, priorityView, deadlineView, selectedTagsView, queryTagView, tagsView } from './Add.reducer'
+import { titleView, assigneeView, priorityView, deadlineView, selectedTagsView, selectedUsersView, queryTagView, queryUserView, tagsView, usersView } from './Add.reducer'
 // actions
 import { dispatchChangeTab, dispatchAddTask } from '../../../Main/App.action'
 import {
@@ -12,24 +11,30 @@ import {
   dispatchChangeAssignee,
   dispatchChangePriority,
   dispatchChangeDeadline,
-  dispatchSetQueryInAdd,
+  dispatchSetQueryTagInAdd,
+  dispatchSetQueryUserInAdd,
   dispatchChangeSelectedTagsInAdd,
+  dispatchChangeSelectedUsersInAdd,
   dispatchAddTagInAdd,
+  dispatchAddUserInAdd,
 } from './Add.action'
 // selector
-import { getAddFilteredSuggestions } from '../../../Main/App.selector'
+import { getAddFilteredTagSuggestions, getAddFilteredUserSuggestions } from '../../../Main/App.selector'
 
 
 const mapStateToProps = state => ({
-  users: usersView(),
   title: titleView(),
   assignee: assigneeView(),
   priority: priorityView(),
   deadline: deadlineView(),
   selectedTags: selectedTagsView(),
+  selectedUsers: selectedUsersView(),
   queryTag: queryTagView(),
-  suggestions: getAddFilteredSuggestions(state),
+  queryUser: queryUserView(),
+  tagSuggestions: getAddFilteredTagSuggestions(state),
+  userSuggestions: getAddFilteredUserSuggestions(state),
   tags: tagsView(),
+  users: usersView(),
 })
 
 const mapDispatchToProps = () => ({
@@ -37,9 +42,12 @@ const mapDispatchToProps = () => ({
   onAssigneeChange: dispatchChangeAssignee,
   onPriorityChange: dispatchChangePriority,
   onDeadlineChange: dispatchChangeDeadline,
-  onQueryTagChange: dispatchSetQueryInAdd,
+  onQueryTagChange: dispatchSetQueryTagInAdd,
+  onQueryUserChange: dispatchSetQueryUserInAdd,
   onTagClick: dispatchChangeSelectedTagsInAdd,
+  onUserClick: dispatchChangeSelectedUsersInAdd,
   addTag: dispatchAddTagInAdd,
+  addUser: dispatchAddUserInAdd,
   addTask: dispatchAddTask,
   changeTab: dispatchChangeTab,
 })

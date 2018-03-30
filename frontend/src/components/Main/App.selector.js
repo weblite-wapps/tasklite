@@ -2,37 +2,46 @@
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
 // helpers
-import { filteredTags } from './App.helper'
+// import { filteredTags } from './App.helper'
 
-const getAddSuggestions = state => state.Add.suggestions
-const getReportSuggestions = state => state.Filter.suggestions
+const getAddTagSuggestions = state => state.Add.tagSuggestions
+const getAddUserSuggestions = state => state.Add.userSuggestions
+// const getReportSuggestions = state => state.Filter.suggestions
 const getAddTags = state => state.Add.tags
+const getAddUsers = state => state.Add.users
 const getTasks = state => state.App.tasks
-const getAssignee = state => state.Filter.queryAssignee
-const getFilterTags = state => state.Filter.selectedTags
+// const getUsers = state => state.Add.queryUser
+// const getFilterTags = state => state.Filter.selectedTags
 
-const getAddFilteredSuggestions = createSelector(
-  [getAddSuggestions, getAddTags],
+const getAddFilteredTagSuggestions = createSelector(
+  [getAddTagSuggestions, getAddTags],
   (suggestions, tags) => suggestions.filter(suggestion =>
     R.reduce(R.and, true, R.map(tag => tag.label !== suggestion.label, tags))),
 )
 
-const getReportFilteredSuggestions = createSelector(
-  [getReportSuggestions, getFilterTags],
-  (suggestions, tags) => suggestions.filter(suggestion =>
-    R.reduce(R.and, true, R.map(tag => tag.label !== suggestion.label, tags))),
+const getAddFilteredUserSuggestions = createSelector(
+  [getAddUserSuggestions, getAddUsers],
+  (suggestions, users) => suggestions.filter(suggestion =>
+    R.reduce(R.and, true, R.map(user => user.name !== suggestion.name, users))),
 )
 
-const getFilteredTasks = createSelector(
-  [getTasks, getAssignee, getFilterTags],
-  (tasks, queryAssignee, selectedTags) => R.compose(
-    R.filter(task => filteredTags(selectedTags, task.tags)),
-    R.filter(task => task.assignee.toLowerCase().includes(queryAssignee.toLowerCase())),
-  )(tasks),
-)
+// const getReportFilteredSuggestions = createSelector(
+//   [getReportSuggestions, getFilterTags],
+//   (suggestions, tags) => suggestions.filter(suggestion =>
+//     R.reduce(R.and, true, R.map(tag => tag.label !== suggestion.label, tags))),
+// )
+
+// const getFilteredTasks = createSelector(
+//   [getTasks, getAssignee, getFilterTags],
+//   (tasks, queryAssignee, selectedTags) => R.compose(
+//     R.filter(task => filteredTags(selectedTags, task.tags)),
+//     R.filter(task => task.assignee.toLowerCase().includes(queryAssignee.toLowerCase())),
+//   )(tasks),
+// )
 
 const getNumberOfTasksInEachLevel = createSelector(
-  [getFilteredTasks],
+  // [getFilteredTasks],
+  [getTasks],
   (tasks) => {
     const groupedTasks = R.compose(R.groupBy(R.prop('level')))(tasks)
     return ({
@@ -46,8 +55,9 @@ const getNumberOfTasksInEachLevel = createSelector(
 
 
 export {
-  getAddFilteredSuggestions,
-  getReportFilteredSuggestions,
-  getFilteredTasks,
+  getAddFilteredTagSuggestions,
+  getAddFilteredUserSuggestions,
+  // getReportFilteredSuggestions,
+  // getFilteredTasks,
   getNumberOfTasksInEachLevel,
 }

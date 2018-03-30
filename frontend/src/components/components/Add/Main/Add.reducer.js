@@ -6,26 +6,34 @@ import { getState } from '../../../../setup/redux'
 import {
   CHANGE_DEADLINE,
   LOAD_TAGS_DATA_IN_ADD,
+  LOAD_USERS_DATA_IN_ADD,
   CHANGE_TITLE,
   CHANGE_ASSIGNEE,
   CHANGE_PRIORITY,
-  SET_QUERY_IN_ADD,
+  SET_QUERY_TAG_IN_ADD,
+  SET_QUERY_USER_IN_ADD,
   FETCH_TAGS_IN_ADD,
+  FETCH_USERS_IN_ADD,
   ADD_TAG_IN_ADD,
+  ADD_USER_IN_ADD,
   CHANGE_SELECTED_TAGS_IN_ADD,
+  CHANGE_SELECTED_USERS_IN_ADD,
   RESET_INPUTS,
 } from './Add.action'
 
 // state
 const initialState = {
   title: '',
-  assignee: '',
   priority: 1,
   deadline: '',
   queryTag: '',
-  suggestions: [],
+  queryUser: '',
+  tagSuggestions: [],
+  userSuggestions: [],
   selectedTags: [],
+  selectedUsers: [],
   tags: [],
+  users: [],
 }
 
 
@@ -35,16 +43,20 @@ const assigneeLens = R.lensProp('assignee')
 const priorityLens = R.lensProp('priority')
 const deadlineLens = R.lensProp('deadline')
 const queryTagLens = R.lensProp('queryTag')
-const suggestionsLens = R.lensProp('suggestions')
+const queryUserLens = R.lensProp('queryUser')
+const tagSuggestionsLens = R.lensProp('tagSuggestions')
+const userSuggestionsLens = R.lensProp('userSuggestions')
 // views
 export const titleView = () => R.path(['Add', 'title'])(getState())
 export const assigneeView = () => R.path(['Add', 'assignee'])(getState())
 export const priorityView = () => R.path(['Add', 'priority'])(getState())
 export const deadlineView = () => R.path(['Add', 'deadline'])(getState())
 export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
+export const queryUserView = () => R.path(['Add', 'queryUser'])(getState())
 export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
+export const selectedUsersView = () => R.path(['Add', 'selectedUsers'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
-
+export const usersView = () => R.path(['Add', 'users'])(getState())
 
 // reducers
 const reducers = {
@@ -54,15 +66,23 @@ const reducers = {
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
+  [LOAD_USERS_DATA_IN_ADD]: (state, { users }) => ({ ...state,
+    users: R.map(user => R.assoc('isSelected', false, user), users),
+  }),
+
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 
   [CHANGE_ASSIGNEE]: (state, { value }) => R.set(assigneeLens, value, state),
 
   [CHANGE_PRIORITY]: (state, { value }) => R.set(priorityLens, value, state),
 
-  [SET_QUERY_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
+  [SET_QUERY_TAG_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
 
-  [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(suggestionsLens, tags, state),
+  [SET_QUERY_USER_IN_ADD]: (state, { queryUser }) => R.set(queryUserLens, queryUser)(state),
+
+  [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(tagSuggestionsLens, tags, state),
+
+  [FETCH_USERS_IN_ADD]: (state, { users }) => R.set(userSuggestionsLens, users, state),
 
   [ADD_TAG_IN_ADD]: state => ({ ...state,
     selectedTags: R.append(R.toLower(state.queryTag), state.selectedTags),
@@ -74,6 +94,16 @@ const reducers = {
     queryTag: '',
   }),
 
+  [ADD_USER_IN_ADD]: state => ({ ...state,
+    selectedUsers: R.append(R.toLower(state.queryUser), state.selectedUsers),
+    users: R.append(
+      { name: R.toLower(state.queryUser),
+        _id: state.users.length,
+        isSelected: true },
+      state.users),
+    queryUser: '',
+  }),
+
   [CHANGE_SELECTED_TAGS_IN_ADD]: (state, { tag }) => ({ ...state,
     selectedTags: tag.isSelected ?
       R.remove(R.indexOf(tag.label, state.selectedTags), 1, state.selectedTags) :
@@ -82,14 +112,23 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
+  [CHANGE_SELECTED_USERS_IN_ADD]: (state, { user }) => ({ ...state,
+    selectedUsers: user.isSelected ?
+      R.remove(R.indexOf(user.name, state.selectedUsers), 1, state.selectedUsers) :
+      R.append(user.name, state.selectedUsers),
+    users: R.map(eachUser => (eachUser._id === user._id) ?
+      { ...eachUser, isSelected: !eachUser.isSelected } : eachUser, state.users),
+  }),
+
   [RESET_INPUTS]: state =>
     ({ ...state,
       title: '',
-      assignee: '',
       priority: '',
       deadline: '',
       selectedTags: [],
+      selectedUsers: [],
       queryTag: '',
+      queryUser: '',
     }),
 }
 

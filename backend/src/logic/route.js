@@ -47,7 +47,7 @@ app.get('/fetchTags', ({ query: { wis, userId } }, res) =>
     .catch(logger))
 
 
-app.get('/serachTags', ({ query: { wis, userId, label } }, res) =>
+app.get('/searchTags', ({ query: { wis, userId, label } }, res) =>
   fetchTags({ wis, userId, label: { $regex: `.*${label}.*` } })
     .then(tags => res.json(tags))
     .catch(logger))
@@ -67,6 +67,12 @@ app.post('/saveUser', ({ body: { wis, userId, username } }, res) => {
 app.post('/saveTask', (req, res) =>
   saveTask(req.body)
     .then(task => res.send(task))
+    .catch(logger))
+
+
+app.get('/searchUsers', ({ query: { wis, name } }, res) =>
+  fetchUsers({ wis, name: { $regex: `.*${name}.*` } })
+    .then(users => res.json(users))
     .catch(logger))
 
 

@@ -1,7 +1,5 @@
 // modules
-import differenceInSeconds from 'date-fns/difference_in_seconds'
-import format from 'date-fns/format'
-import isAfter from 'date-fns/is_after'
+import { differenceInSeconds, format, isAfter } from 'date-fns'
 
 
 const formattedSeconds = (seconds) => {
@@ -25,9 +23,8 @@ export const getRemained = (time) => {
   return formattedSeconds(seconds)
 }
 
-export const formatTime = time => format(time, 'DD MMM YYYY, HH:mm')
+export const getPassedTime = time => formattedSeconds(differenceInSeconds(new Date(), time))
 
-export const isOnTime = (sentTime, deadline) => {
-  if (isAfter(sentTime, deadline)) return 'Delayed'
-  return 'On Time'
-}
+export const formattedTime = time => format(time, 'DD MMM YYYY, HH:mm')
+
+export const isOnTime = (sentTime, deadline) => isAfter(sentTime, deadline) ? 'Delayed' : 'On Time'
