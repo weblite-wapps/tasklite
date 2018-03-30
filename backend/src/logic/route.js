@@ -98,7 +98,7 @@ app.post('/deleteTask', (req, res) =>
 
 
 app.post('/changeLevel', ({ body }, res) =>
-  updateTask({ _id: mongoose.Types.ObjectId(body._id) }, { $set: { nextLevel: body.nextLevel } })
+  updateTask({ _id: mongoose.Types.ObjectId(body._id) }, { $set: { level: body.nextLevel } })
     .then(() => res.send(body))
     .catch(logger))
 

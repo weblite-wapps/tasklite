@@ -3,6 +3,7 @@ import { combineEpics } from 'redux-observable'
 import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
+import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
 import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Main/Add.action'
@@ -43,10 +44,7 @@ const fetchUsersEpic = action$ =>
 const initialFetchEpic = action$ =>
   action$.ofType(FETCH_TODAY_DATA)
     .mergeMap(() => getRequest('/initialFetch')
-      .query({
-        wis: wisView(),
-        userId: userIdView(),
-      })
+      .query(getQuery())
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))

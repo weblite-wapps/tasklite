@@ -46,18 +46,18 @@ const effectSearchUsersEpic = action$ =>
 const addTaskEpic = action$ =>
   action$.ofType(ADD_TASK)
     .pluck('payload')
-    .mergeMap(({ title, assignee, tags, priority, deadline }) => Promise.all([
+    .mergeMap(({ title, selectedUser, tags, priority, deadline }) => Promise.all([
       postRequest('/saveTask')
         .send({
           title,
-          assignee,
+          assignee: selectedUser.name,
           tags,
           priority,
           deadline,
           sentTime: '',
           todos: [{ title: 'done', completed: false }],
           level: 'ICE BOX',
-          userId: userIdView(),
+          userId: selectedUser.id,
           wis: wisView(),
         })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),

@@ -4,15 +4,13 @@ import PropTypes from 'prop-types'
 import Tooltip from 'material-ui/Tooltip'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
-import MuiButton from 'material-ui/Button'
 // components
 import ActionButtons from '../components/ActionButtons/main/ActionButtons.presentational'
 import SubInfo from '../components/SubInfo/SubInfo.presentational'
-import Popover from '../components/Popover/Popover.presentational'
 import TextField from '../../../../helper/components/TextField/TextField.presentational'
 import Button from '../../../../helper/components/Button/Button.presentational'
 // helpers
-import { formatTitle, formatTags, getProgressBarPercent, checkToShow } from './List.helper'
+import { formatTitle, getProgressBarPercent, checkToShow } from './List.helper'
 import { getRemained, getPassedTime } from '../../../../helper/functions/time.helper'
 // styles
 import scssClasses from './List.scss'
@@ -45,7 +43,7 @@ TitleAndLevelButtons.propTypes = {
 }
 
 
-export const BriefInfo = ({ task: { _id, assignee, deadline, sentTime, tags, todos }, expandingId }) => (
+export const BriefInfo = ({ task: { _id, assignee, deadline, sentTime, todos }, expandingId }) => (
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
@@ -100,19 +98,21 @@ FurtherInfo.propTypes = {
 
 
 export const AddTodo = ({
-  task: { todoText }, onTodoTextChange, todoTextError, handleAddTodo,
+  task: { level, todoText }, onTodoTextChange, todoTextError, handleAddTodo,
 }) => (
-  <div className={scssClasses.textField}>
-    <TextField
-      withButton
-      label="New Subtask"
-      fullWidth={false}
-      value={todoText}
-      isError={todoTextError}
-      onChange={e => onTodoTextChange(e.target.value)}
-    />
-    <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
-  </div>
+  (level === 'ICE BOX' || level === 'IN PROGRESS') ? (
+    <div className={scssClasses.textField}>
+      <TextField
+        withButton
+        label="New Subtask"
+        fullWidth={false}
+        value={todoText}
+        isError={todoTextError}
+        onChange={e => onTodoTextChange(e.target.value)}
+      />
+      <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
+    </div>
+  ) : null
 )
 
 AddTodo.propTypes = {
@@ -121,28 +121,3 @@ AddTodo.propTypes = {
   handleAddTodo: PropTypes.func.isRequired,
   onTodoTextChange: PropTypes.func.isRequired,
 }
-
-
-export const DeleteButton = ({
-  task: { _id }, popoverId, changePopoverId, classes, anchorEl, handleOpenPopover, deleteTask,
-}) => (
-  <div className={scssClasses.button}>
-    <MuiButton
-      ref={(node) => {
-        this.button = node
-      }}
-      onClick={handleOpenPopover}
-      classes={{ raised: classes.Button }}
-      variant="raised"
-    >
-      Delete
-    </MuiButton>
-    <Popover
-      popoverIsOpen={_id === popoverId}
-      anchorEl={anchorEl}
-      onClose={() => changePopoverId('')}
-      onYep={deleteTask}
-      onNop={() => changePopoverId('')}
-    />
-  </div>
-)

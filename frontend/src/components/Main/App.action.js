@@ -42,7 +42,8 @@ export const dispatchChangePopoverId = (...args) => dispatch(changePopoverId(...
 
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(ADD_TASK,
-  (title, assignee, tags, priority, deadline) => ({ title, assignee, tags, priority, deadline }))
+  (title, selectedUser, tags, priority, deadline) =>
+    ({ title, selectedUser, tags, priority, deadline }))
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
 export const RESTORE_TASK = 'RESTORE_TASK'

@@ -14,7 +14,7 @@ const Avatar = ({ users, selectedUser, onUserClick }) => (
       users.map(user => (
         <div className={scssClasses.column} key={user._id}>
           <MuiAvatar
-            style={{ backgroundColor: user.name === selectedUser ? '#4CAF50' : '#cfcfcf' }}
+            style={{ backgroundColor: user.id === selectedUser.id ? '#4CAF50' : '#cfcfcf' }}
             className={scssClasses.avatar}
             onClick={() => onUserClick(user)}
             role="button"
@@ -33,7 +33,7 @@ const Avatar = ({ users, selectedUser, onUserClick }) => (
 
 Avatar.propTypes = {
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedUser: PropTypes.string.isRequired,
+  selectedUser: PropTypes.shape({}).isRequired,
   onUserClick: PropTypes.func.isRequired,
 }
 

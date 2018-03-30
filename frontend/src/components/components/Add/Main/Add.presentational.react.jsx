@@ -4,8 +4,10 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
+// components
+import Avatar from '../components/Avatar/Avatar.container.react'
 // helpers
-import { TagPanel, UserPanel, Button } from '../../../Main/App.helper.component'
+import { TagPanel, Button } from '../../../Main/App.helper.component'
 import { TextField, SelectField, DatePicker } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
@@ -16,10 +18,8 @@ export default class Add extends React.Component {
     super(props)
     this.handleAddTask = this._handleAddTask.bind(this)
     this.handleAddTag = this._handleAddTag.bind(this)
-    this.handleAddUser = this._handleAddUser.bind(this)
     this.state = {
       titleIsError: false,
-      assigneeIsError: false,
       priorityIsError: false,
       deadlineIsError: false,
     }
@@ -50,27 +50,13 @@ export default class Add extends React.Component {
     }
   }
 
-  _handleAddUser() {
-    const { queryUser, users, addUser } = this.props
-    if (R.trim(queryUser)) {
-      if (R.findIndex(R.propEq('name', R.toLower(queryUser)), users) < 0) {
-        addUser()
-      } else {
-        snackbarMessage({ message: 'repetitive user!' })
-      }
-    } else {
-      this.setState({ assigneeIsError: true })
-      snackbarMessage({ message: 'select or write user first!' })
-    }
-  }
-
   render() {
-    const { titleIsError, assigneeIsError, priorityIsError, deadlineIsError } = this.state
+    const { titleIsError, priorityIsError, deadlineIsError } = this.state
 
     return (
       <div className={scssClasses.container}>
+        <Avatar />
         <TextField {...this.props} isError={titleIsError} />
-        <UserPanel {...this.props} handleAddUser={this.handleAddUser} isError={assigneeIsError} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <SelectField {...this.props} isError={priorityIsError} />
         <DatePicker {...this.props} isError={deadlineIsError} />
@@ -84,13 +70,10 @@ Add.propTypes = {
   title: PropTypes.string.isRequired,
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.string.isRequired,
-  selectedUser: PropTypes.string.isRequired,
+  selectedUser: PropTypes.shape({}).isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   queryTag: PropTypes.string.isRequired,
-  queryUser: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  users: PropTypes.arrayOf(PropTypes.object).isRequired,
   addTag: PropTypes.func.isRequired,
-  addUser: PropTypes.func.isRequired,
   addTask: PropTypes.func.isRequired,
 }

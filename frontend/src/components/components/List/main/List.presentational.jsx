@@ -11,8 +11,9 @@ import MuiButton from 'material-ui/Button'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
+import Popover from '../components/Popover/Popover.presentational'
 // helper
-import { TitleAndLevelButtons, BriefInfo, ProgressPanel, FurtherInfo, AddTodo, DeleteButton } from './List.helper.component'
+import { TitleAndLevelButtons, BriefInfo, ProgressPanel, FurtherInfo, AddTodo } from './List.helper.component'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
@@ -47,7 +48,9 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const { task: { _id, todos, level }, expandingId } = this.props
+    const {
+      classes, task: { _id, todos }, popoverId, expandingId, deleteTask, changePopoverId,
+    } = this.props
 
     return (
       <React.Fragment>
@@ -60,14 +63,24 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
-            { (level === 'ICE BOX' || level === 'IN PROGRESS') &&
-              <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
-            }
-            <DeleteButton
-              {...this.props}
-              {...this.state}
-              handleOpenPopover={this.handleOpenPopover}
-            />
+            <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
+            <div className={scssClasses.button}>
+              <MuiButton
+                ref={(node) => { this.button = node }}
+                onClick={this.handleOpenPopover}
+                classes={{ raised: classes.Button }}
+                variant="raised"
+              >
+                Delete
+              </MuiButton>
+              <Popover
+                popoverIsOpen={_id === popoverId}
+                anchorEl={this.state.anchorEl}
+                onClose={() => changePopoverId('')}
+                onYep={deleteTask}
+                onNop={() => changePopoverId('')}
+              />
+            </div>
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />
