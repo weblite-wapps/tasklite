@@ -22,7 +22,7 @@ const initialState = {
   priority: 1,
   deadline: '',
   queryTag: '',
-  tagSuggestions: [],
+  suggestions: [],
   selectedTags: [],
   selectedUser: {},
   tags: [],
@@ -34,7 +34,7 @@ const titleLens = R.lensProp('title')
 const priorityLens = R.lensProp('priority')
 const deadlineLens = R.lensProp('deadline')
 const queryTagLens = R.lensProp('queryTag')
-const tagSuggestionsLens = R.lensProp('tagSuggestions')
+const suggestionsLens = R.lensProp('suggestions')
 // views
 export const titleView = () => R.path(['Add', 'title'])(getState())
 export const priorityView = () => R.path(['Add', 'priority'])(getState())
@@ -58,7 +58,7 @@ const reducers = {
 
   [SET_QUERY_TAG_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
 
-  [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(tagSuggestionsLens, tags, state),
+  [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(suggestionsLens, tags, state),
 
   [ADD_TAG_IN_ADD]: state => ({ ...state,
     selectedTags: R.append(R.toLower(state.queryTag), state.selectedTags),

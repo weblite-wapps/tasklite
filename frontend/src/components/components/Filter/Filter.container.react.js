@@ -3,29 +3,26 @@ import { connect } from 'react-redux'
 // components
 import Filter from './Filter.presentational'
 // views
-import { queryTagView, queryAssigneeView, tagsView } from './Filter.reducer'
+import { queryTagView, tagsView, selectedTagsView } from './Filter.reducer'
 // actions
 import {
   dispatchSetQueryTag,
-  dispatchSetQueryAssignee,
   dispatchChangeSelectedTags,
   dispatchAddTag,
 } from './Filter.action'
 // selector
-import { getReportFilteredSuggestions } from '../../Main/App.selector'
+import { getFilteredSuggestions } from './Filter.selector'
 
 
 const mapStateToProps = state => ({
+  selectedTags: selectedTagsView(),
   queryTag: queryTagView(),
+  suggestions: getFilteredSuggestions(state),
   tags: tagsView(),
-  suggestions: getReportFilteredSuggestions(state),
-  assigneeSuggestions: getReportFilteredSuggestions(state),
-  queryAssignee: queryAssigneeView(),
 })
 
 const mapDispatchToProps = () => ({
   onQueryTagChange: dispatchSetQueryTag,
-  onQueryAssigneeChange: dispatchSetQueryAssignee,
   onTagClick: dispatchChangeSelectedTags,
   addTag: dispatchAddTag,
 })

@@ -103,6 +103,12 @@ app.post('/changeLevel', ({ body }, res) =>
     .catch(logger))
 
 
+app.post('/setSentTime', ({ body: { _id, sentTime } }, res) =>
+  updateTask({ _id: mongoose.Types.ObjectId(_id) }, { $set: { sentTime } })
+    .then(() => res.send('sent time set!'))
+    .catch(logger))
+
+
 app.post('/toggleTodo', ({ body: { _id, todoId, task } }, res) =>
   updateTask({ _id: mongoose.Types.ObjectId(_id), 'todos._id': todoId }, { $set: { 'todos.$.completed': getToggledValue(task, todoId) } })
     .then(() => res.send('toggled successfully!'))

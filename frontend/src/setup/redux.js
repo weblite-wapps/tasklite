@@ -11,6 +11,7 @@ import FilterReducer from '../components/components/Filter/Filter.reducer'
 import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Main/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
+import FilterEpic from '../components/components/Filter/Filter.effect'
 
 
 // Create a history of your choosing (we're using a browser history in this case)
@@ -24,7 +25,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic)
+const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic, FilterEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 

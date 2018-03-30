@@ -15,7 +15,7 @@ import {
   dispatchAddTagInAdd,
 } from './Add.action'
 // selector
-import { getAddFilteredTagSuggestions } from '../../../Main/App.selector'
+import { getFilteredSuggestions } from './Add.selector'
 
 
 const mapStateToProps = state => ({
@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
   selectedTags: selectedTagsView(),
   selectedUser: selectedUserView(),
   queryTag: queryTagView(),
-  tagSuggestions: getAddFilteredTagSuggestions(state),
+  suggestions: getFilteredSuggestions(state),
   tags: tagsView(),
 })
 

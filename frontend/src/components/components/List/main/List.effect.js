@@ -30,7 +30,12 @@ const changeLevelEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => snackbarMessage({ message: `Dropped to ${body.nextLevel}` }))
     .filter(({ body }) => body.nextLevel === 'EVALUTE')
-    .map(({ body }) => setSentTime(body._id, new Date()))
+    .do(({ body }) => setSentTime(body._id, new Date()))
+    .mergeMap(({ body: { _id } }) => postRequest('/setSentTime')
+      .send({ _id, sentTime: new Date() })
+      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+    .ignoreElements()
+
 
 const toggleTodoEpic = action$ =>
   action$.ofType(TOGGLE_TODO)

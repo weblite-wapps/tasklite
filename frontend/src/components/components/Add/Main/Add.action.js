@@ -4,14 +4,6 @@ import { dispatch } from '../../../../setup/redux'
 
 
 // actions
-export const SET_QUERY_TAG_IN_ADD = 'SET_QUERY_TAG_IN_ADD'
-export const setQueryTagInAdd = createAction(SET_QUERY_TAG_IN_ADD, queryTag => ({ queryTag }))
-export const dispatchSetQueryTagInAdd = (...args) => dispatch(setQueryTagInAdd(...args))
-
-export const FETCH_TAGS_IN_ADD = 'FETCH_TAGS_IN_ADD'
-export const fetchTagsInAdd = createAction(FETCH_TAGS_IN_ADD, tags => ({ tags }))
-export const dispatchFetchTagsInAdd = (...args) => dispatch(fetchTagsInAdd(...args))
-
 export const CHANGE_DEADLINE = 'CHANGE_DEADLINE'
 export const changeDeadline = createAction(CHANGE_DEADLINE, value => ({ value }))
 export const dispatchChangeDeadline = (...args) => dispatch(changeDeadline(...args))
@@ -23,6 +15,14 @@ export const dispatchChangeStartTime = (...args) => dispatch(changeStartTime(...
 export const CHANGE_END_TIME = 'CHANGE_END_TIME'
 export const changeEndTime = createAction(CHANGE_END_TIME, value => ({ value }))
 export const dispatchChangeEndTime = (...args) => dispatch(changeEndTime(...args))
+
+export const SET_QUERY_TAG_IN_ADD = 'SET_QUERY_TAG_IN_ADD'
+export const setQueryTagInAdd = createAction(SET_QUERY_TAG_IN_ADD, queryTag => ({ queryTag }))
+export const dispatchSetQueryTagInAdd = (...args) => dispatch(setQueryTagInAdd(...args))
+
+export const FETCH_TAGS_IN_ADD = 'FETCH_TAGS_IN_ADD'
+export const fetchTagsInAdd = createAction(FETCH_TAGS_IN_ADD, tags => ({ tags }))
+export const dispatchFetchTagsInAdd = (...args) => dispatch(fetchTagsInAdd(...args))
 
 export const LOAD_TAGS_DATA_IN_ADD = 'LOAD_TAGS_DATA_IN_ADD'
 export const loadTagsDataInAdd = createAction(LOAD_TAGS_DATA_IN_ADD, tags => ({ tags }))

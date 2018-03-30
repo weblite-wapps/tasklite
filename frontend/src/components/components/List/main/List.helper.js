@@ -28,7 +28,6 @@ export const checkToShow = (info) => {
     case 'assignee': return creator
     case 'deadline': return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
     case 'sentTime': return tabIndex === 'EVALUTE'
-    // case 'tags': return tabIndex !== 'EVALUTE'
     case 'percent': return tabIndex === 'IN PROGRESS'
     default: return false
   }

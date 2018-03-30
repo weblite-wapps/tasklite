@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { TagPanel, Button } from '../../Main/App.helper.component'
-import Autocomplete from './Filter.helper.component'
+import Avatar from '../Add/components/Avatar/Avatar.container.react'
 // css
 import scssClasses from './Filter.scss'
 
@@ -45,7 +45,7 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className={scssClasses.container}>
-        <Autocomplete {...this.props} />
+        <Avatar />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <Button label="Apply" handleAction={this.handleApply} />
       </div>
@@ -54,13 +54,7 @@ export default class Filter extends React.Component {
 }
 
 Filter.propTypes = {
-  // queryAssignee: PropTypes.string.isRequired,
   queryTag: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // assigneeSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // onQueryAssigneeChange: PropTypes.func.isRequired,
-  // onQueryTagChange: PropTypes.func.isRequired,
-  // onTagClick: PropTypes.func.isRequired,
   addTag: PropTypes.func.isRequired,
 }

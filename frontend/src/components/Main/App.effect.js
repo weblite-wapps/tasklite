@@ -7,6 +7,7 @@ import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
 import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Main/Add.action'
+import { dispatchLoadTagsDataInFilter } from '../components/Filter/Filter.action'
 import {
   FETCH_TODAY_DATA,
   DELETE_TASK,
@@ -48,6 +49,7 @@ const initialFetchEpic = action$ =>
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
+    .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
     .do(() => window.W && window.W.start())
     .ignoreElements()
 

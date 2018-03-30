@@ -50,12 +50,12 @@ Button.propTypes = {
 
 
 export const TagPanel = (
-  { tagSuggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
+  { suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
     <React.Fragment>
       <div className={scssClasses.textField}>
         <Autocomplete
           label="Tags"
-          suggestions={tagSuggestions}
+          suggestions={suggestions}
           inputValue={queryTag}
           onInputValueChange={e => onQueryTagChange(e.target.value)}
           onSelect={value => onQueryTagChange(value)}
@@ -69,7 +69,7 @@ export const TagPanel = (
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
-  tagSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTagClick: PropTypes.func.isRequired,

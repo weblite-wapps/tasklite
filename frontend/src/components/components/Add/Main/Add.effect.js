@@ -9,9 +9,9 @@ import { getRequest, postRequest } from '../../../../helper/functions/request.he
 import { ADD_TASK, restoreTask } from '../../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
-  SET_QUERY_USER_IN_ADD,
+  // SET_QUERY_USER_IN_ADD,
   fetchTagsInAdd,
-  fetchUsersInAdd,
+  // fetchUsersInAdd,
   loadTagsDataInAdd,
   dispatchResetInputs,
 } from './Add.action'
@@ -31,16 +31,16 @@ const effectSearchTagsEpic = action$ =>
     .map(({ body }) => fetchTagsInAdd(body))
 
 
-const effectSearchUsersEpic = action$ =>
-  action$.ofType(SET_QUERY_USER_IN_ADD)
-    .pluck('payload')
-    .filter(({ queryUser }) => queryUser.trim() !== '')
-    .debounceTime(250)
-    .mergeMap(({ queryUser }) =>
-      getRequest('/searchUsers')
-        .query({ wis: wisView(), name: queryUser })
-        .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .map(({ body }) => fetchUsersInAdd(body))
+// const effectSearchUsersEpic = action$ =>
+//   action$.ofType(SET_QUERY_USER_IN_ADD)
+//     .pluck('payload')
+//     .filter(({ queryUser }) => queryUser.trim() !== '')
+//     .debounceTime(250)
+//     .mergeMap(({ queryUser }) =>
+//       getRequest('/searchUsers')
+//         .query({ wis: wisView(), name: queryUser })
+//         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+//     .map(({ body }) => fetchUsersInAdd(body))
 
 
 const addTaskEpic = action$ =>
@@ -75,6 +75,6 @@ const addTaskEpic = action$ =>
 
 export default combineEpics(
   effectSearchTagsEpic,
-  effectSearchUsersEpic,
+  // effectSearchUsersEpic,
   addTaskEpic,
 )
