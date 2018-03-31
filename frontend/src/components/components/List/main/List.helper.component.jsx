@@ -49,7 +49,7 @@ export const BriefInfo = ({
   _id !== expandingId &&
   <div className={scssClasses.text}>
     <Typography variant="body2">
-      {checkToShow('assignee') && <span>{assignee}</span>}
+      {checkToShow('assignee') && <span>{assignee}&nbsp;|&nbsp;</span>}
       {checkToShow('deadline') && <span>{getRemained(deadline)}</span>}
       {checkToShow('sentTime') && <span>{getPassedTime(sentTime)} ago</span>}
       <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags!'}</span>

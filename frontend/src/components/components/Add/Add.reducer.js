@@ -1,7 +1,7 @@
 // modules
 import * as R from 'ramda'
 // local modules
-import { getState } from '../../../../setup/redux'
+import { getState } from '../../../setup/redux'
 // actions
 import {
   CHANGE_DEADLINE,

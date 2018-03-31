@@ -2,9 +2,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // components
-import CustomizedTextField from '../../../../helper/components/TextField/TextField.presentational'
-import CustomizedSelectField from '../../../../helper/components/SelectField/SelectField.presentational'
-import CustomizedDatePicker from '../../../../helper/components/DatePicker/DatePicker.presentational'
+import CustomizedTextField from '../../../helper/components/TextField/TextField.presentational'
+import CustomizedSelectField from '../../../helper/components/SelectField/SelectField.presentational'
+import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
 
 
 export const TextField = ({ isError, title, onTitleChange }) => (

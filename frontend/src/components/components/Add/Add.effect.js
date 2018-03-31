@@ -4,9 +4,9 @@ import 'rxjs'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
-import { getRequest, postRequest } from '../../../../helper/functions/request.helper'
+import { getRequest, postRequest } from '../../../helper/functions/request.helper'
 // actions
-import { ADD_TASK, restoreTask } from '../../../Main/App.action'
+import { ADD_TASK, restoreTask } from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
   // SET_QUERY_USER_IN_ADD,
@@ -16,7 +16,7 @@ import {
   dispatchResetInputs,
 } from './Add.action'
 // views
-import { wisView, userIdView } from '../../../Main/App.reducer'
+import { wisView, userIdView } from '../../Main/App.reducer'
 
 
 const effectSearchTagsEpic = action$ =>
@@ -29,18 +29,6 @@ const effectSearchTagsEpic = action$ =>
         .query({ wis: wisView(), userId: userIdView(), label: queryTag })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .map(({ body }) => fetchTagsInAdd(body))
-
-
-// const effectSearchUsersEpic = action$ =>
-//   action$.ofType(SET_QUERY_USER_IN_ADD)
-//     .pluck('payload')
-//     .filter(({ queryUser }) => queryUser.trim() !== '')
-//     .debounceTime(250)
-//     .mergeMap(({ queryUser }) =>
-//       getRequest('/searchUsers')
-//         .query({ wis: wisView(), name: queryUser })
-//         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-//     .map(({ body }) => fetchUsersInAdd(body))
 
 
 const addTaskEpic = action$ =>

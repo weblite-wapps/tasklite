@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // components
-import Avatar from '../components/Avatar/Avatar.container.react'
+import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
-import { TagPanel, Button } from '../../../Main/App.helper.component'
+import { TagPanel, Button } from '../../Main/App.helper.component'
 import { TextField, SelectField, DatePicker } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
@@ -55,7 +55,7 @@ export default class Add extends React.Component {
 
     return (
       <div className={scssClasses.container}>
-        <Avatar />
+        <Avatar {...this.props} />
         <TextField {...this.props} isError={titleIsError} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
         <SelectField {...this.props} isError={priorityIsError} />

@@ -6,7 +6,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
-import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Main/Add.action'
+import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../components/Filter/Filter.action'
 import {
   FETCH_TODAY_DATA,

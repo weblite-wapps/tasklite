@@ -4,8 +4,8 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
-import { TagPanel, Button } from '../../Main/App.helper.component'
-import Avatar from '../Add/components/Avatar/Avatar.container.react'
+import { TagPanel } from '../../Main/App.helper.component'
+import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // css
 import scssClasses from './Filter.scss'
 
@@ -13,20 +13,7 @@ import scssClasses from './Filter.scss'
 export default class Filter extends React.Component {
   constructor(props) {
     super(props)
-    this.handleApply = this._handleApply.bind(this)
     this.handleAddTag = this._handleAddTag.bind(this)
-    this.state = {
-      assigneeIsError: false,
-    }
-  }
-
-  _handleApply() {
-    const { assigneeIsError } = this.state
-    if (assigneeIsError) calculateTotalDuration()
-    else {
-      this.setState({ assigneeIsError: true })
-      snackbarMessage({ message: 'Choose assignee!' })
-    }
   }
 
   _handleAddTag() {
@@ -45,9 +32,8 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className={scssClasses.container}>
-        <Avatar />
+        <Avatar {...this.props} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
-        <Button label="Apply" handleAction={this.handleApply} />
       </div>
     )
   }

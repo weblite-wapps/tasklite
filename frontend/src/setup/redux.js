@@ -5,11 +5,11 @@ import { routerReducer, routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createMemoryHistory'
 // reducers
 import AppReducer from '../components/Main/App.reducer'
-import AddReducer from '../components/components/Add/Main/Add.reducer'
+import AddReducer from '../components/components/Add/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
-import AddEpic from '../components/components/Add/Main/Add.effect'
+import AddEpic from '../components/components/Add/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 import FilterEpic from '../components/components/Filter/Filter.effect'
 

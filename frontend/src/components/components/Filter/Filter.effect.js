@@ -6,10 +6,10 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 import { getRequest } from '../../../helper/functions/request.helper'
 // actions
 // import { dispatchSetIsLoading } from '../../../Main/App.action'
-import { LOAD_TAGS_DATA_IN_ADD } from '../../../components/components/Add/Main/Add.action'
+import { LOAD_TAGS_DATA_IN_ADD } from '../../../components/components/Add/Add.action'
 import {
-  SET_QUERY_TAG,
-  fetchTags,
+  SET_QUERY_TAG_IN_FILTER,
+  fetchTagsInFilter,
   loadTagsDataInFilter,
 } from './Filter.action'
 // views
@@ -17,7 +17,7 @@ import { wisView, userIdView } from '../../Main/App.reducer'
 
 
 const effectSearchTagsEpic = action$ =>
-  action$.ofType(SET_QUERY_TAG)
+  action$.ofType(SET_QUERY_TAG_IN_FILTER)
     .pluck('payload')
     .filter(({ queryTag }) => queryTag.trim() !== '')
     .debounceTime(250)
@@ -25,7 +25,7 @@ const effectSearchTagsEpic = action$ =>
       getRequest('/searchTags')
         .query({ wis: wisView(), userId: userIdView(), label: queryTag })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .map(({ body }) => fetchTags(body))
+    .map(({ body }) => fetchTagsInFilter(body))
 
 
 const loadTagsDataEpic = action$ =>

@@ -12,9 +12,5 @@ export const formatTime = time =>
         new Date(), R.slice(6, 8, time)), R.slice(3, 5, time)), R.slice(0, 2, time))
 
 
-export const filteredTags = (selectedTags, tags) =>
-  R.reduce(R.and, true, R.map(tag => R.contains(tag, tags), selectedTags))
-
-
 export const getQuery = () =>
   creatorView() ? { wis: wisView() } : { wis: wisView(), userId: userIdView() }

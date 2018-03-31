@@ -6,7 +6,7 @@ import Snackbar from 'weblite-web-snackbar'
 // components
 import AppBar from '../components/AppBar/AppBar.container.react'
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
-import Add from '../components/Add/Main/Add.container.react'
+import Add from '../components/Add/Add.container.react'
 import Filter from '../components/Filter/Filter.container.react'
 // helpers
 import { Collapse, TaskList } from './App.helper.component'
