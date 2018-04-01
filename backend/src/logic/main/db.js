@@ -1,8 +1,7 @@
 // models
 import Task from '../../models/task'
 import Tag from '../../models/tag'
-// helpers
-import { getLimit } from './helper'
+
 
 export const fetchTasks = async query => Task
   .find(query)

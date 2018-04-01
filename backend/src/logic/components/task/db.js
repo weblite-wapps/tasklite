@@ -2,11 +2,15 @@
 import Task from '../../../models/task'
 
 
-export const fetchTasks = async ({ query, skipLength }) => Task
+export const loadMorefetchTasks = async ({ query, skipLength }) => Task
   .find(query)
   .sort({ deadline: 1 })
   .limit(5)
   .skip(Number(skipLength))
+  .exec()
+
+export const fetchTasks = async query => Task
+  .find(query)
   .exec()
 
 export const saveTask = async task => new Task(task)

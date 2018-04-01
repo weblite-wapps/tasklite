@@ -1,6 +1,7 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
+import FlipMove from 'react-flip-move'
 import MuiCollapse from 'material-ui/transitions/Collapse'
 import Divider from 'material-ui/Divider'
 // components
@@ -27,8 +28,16 @@ Collapse.propTypes = {
 
 
 export const TaskList = ({ tasks, tabIndex }) => (
-  tasks.filter(task => task.level === tabIndex)
-    .map(task => <CustomizedTaskList key={task._id} task={task} />)
+  <FlipMove
+    typeName={null}
+    duration={500}
+    staggerDelayBy={150}
+    enterAnimation="elevator"
+    leaveAnimation={false}
+  >
+    {tasks.filter(task => task.level === tabIndex)
+      .map(task => <CustomizedTaskList key={task._id} task={task} />)}
+  </FlipMove>
 )
 
 TaskList.propTypes = {

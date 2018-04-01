@@ -1,6 +1,7 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
+import FlipMove from 'react-flip-move'
 import * as R from 'ramda'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
@@ -19,16 +20,24 @@ const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id 
       {deadline && `${formattedTime(deadline)} - ${getRemained(deadline)} remained`}
       {sentTime && `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
       {assignee && assignee}
-      {todos && todos.map((todo, index) => (
-        <Todo
-          key={todo._id}
-          level={level}
-          _id={_id}
-          todo={todo}
-          length={todos.length}
-          index={index + 1}
-        />))
-      }
+      <FlipMove
+        typeName={null}
+        duration={500}
+        staggerDelayBy={150}
+        enterAnimation="elevator"
+        leaveAnimation={false}
+      >
+        {todos && todos.map((todo, index) => (
+          <Todo
+            key={todo._id}
+            level={level}
+            _id={_id}
+            todo={todo}
+            length={todos.length}
+            index={index + 1}
+          />))
+        }
+      </FlipMove>
     </Typography>
     <Divider inset />
   </React.Fragment>

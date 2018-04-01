@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 // components
 import app from '../../../setup/server'
 // db helpers
-import { fetchTasks, saveTask, updateTask, deleteTask } from './db'
+import { loadMorefetchTasks, fetchTasks, saveTask, updateTask, deleteTask } from './db'
 // helpers
 import { getToggledValue } from './helper'
 // const
@@ -36,10 +36,10 @@ app.post('/toggleTodo', ({ body: { _id, todoId, task } }, res) =>
     .then(() => res.send('toggled successfully!'))
     .catch(logger))
 
-app.post('/addTodo', ({ body }, res) =>
-  updateTask({ _id: mongoose.Types.ObjectId(body._id) },
-    { $push: { todos: { $each: [{ title: body.value, completed: false }], $position: 0 } } })
-    .then(() => fetchTasks({ _id: mongoose.Types.ObjectId(body._id) }))
+app.post('/addTodo', ({ body: { _id, value } }, res) =>
+  updateTask({ _id: mongoose.Types.ObjectId(_id) },
+    { $push: { todos: { $each: [{ title: value, completed: false }], $position: 0 } } })
+    .then(() => fetchTasks({ _id: mongoose.Types.ObjectId(_id) }))
     .then(task => res.send(task))
     .catch(logger))
 
@@ -49,6 +49,6 @@ app.post('/deleteTodo', ({ body: { _id, todoId } }, res) =>
     .catch(logger))
 
 app.get('/loadMore', ({ query }, res) =>
-  fetchTasks(query)
+  loadMorefetchTasks(query)
     .then(tasks => res.json(tasks))
     .catch(logger))
