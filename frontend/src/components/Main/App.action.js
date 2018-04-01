@@ -94,3 +94,7 @@ export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))
 export const CHANGE_EXPAND_MODE = 'CHANGE_EXPAND_MODE'
 export const changeExpandMode = createAction(CHANGE_EXPAND_MODE, newMode => ({ newMode }))
 export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(...args))
+
+export const LOAD_NUMBER_OF_TASKS = 'LOAD_NUMBER_OF_TASKS'
+export const loadNumberOfTasks = createAction(LOAD_NUMBER_OF_TASKS, value => ({ value }))
+export const dispatchLoadNumberOfTasks = (...args) => dispatch(loadNumberOfTasks(...args))

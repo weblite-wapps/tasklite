@@ -19,6 +19,7 @@ import {
   dispatchFetchAdminData,
   dispatchSetIsLoading,
   dispatchChangePopoverId,
+  dispatchLoadNumberOfTasks,
 } from './App.action'
 // views
 import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
@@ -51,6 +52,7 @@ const initialFetchEpic = action$ =>
     .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
+    .do(({ body: { numberOfTasks } }) => dispatchLoadNumberOfTasks(numberOfTasks))
     .do(() => window.W && window.W.start())
     .ignoreElements()
 

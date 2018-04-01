@@ -22,6 +22,7 @@ import {
   DELETE_TODO,
   SET_SENT_TIME,
   CHANGE_EXPAND_MODE,
+  LOAD_NUMBER_OF_TASKS,
 } from './App.action'
 
 // state
@@ -38,6 +39,7 @@ const initialState = {
   wis: (window.W && window.W.wisId) || '110',
   creator: false,
   tasks: [],
+  totalNumberOfTasks: {},
 }
 
 // lens
@@ -46,6 +48,7 @@ const tabIndexLens = R.lensProp('tabIndex')
 const popoverIdLens = R.lensProp('popoverId')
 const completedLens = R.lensProp('completed')
 const expandModeLens = R.lensProp('expandMode')
+const totalNumberOfTasksLens = R.lensProp('totalNumberOfTasks')
 // views
 export const wisView = () => R.path(['App', 'wis'])(getState())
 export const creatorView = () => R.path(['App', 'creator'])(getState())
@@ -59,6 +62,7 @@ export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
 export const expandingIdView = () => R.path(['App', 'expandingId'])(getState())
 export const tasksView = () => R.path(['App', 'tasks'])(getState())
 export const expandModeView = () => R.path(['App', 'expandMode'])(getState())
+export const totalNumberOfTasksView = () => R.path(['App', 'totalNumberOfTasks'])(getState())
 
 // reducers
 const reducers = {
@@ -74,7 +78,7 @@ const reducers = {
   [LOAD_TASKS_DATA]: (state, { tasks }) => ({
     ...state,
     tasks: R.compose(
-      R.concat(R.__, state.tasks),
+      R.concat(state.tasks, R.__),
       R.map(task => R.assoc('todoText', '', task)),
     )(tasks),
   }),
@@ -175,6 +179,8 @@ const reducers = {
   }),
 
   [CHANGE_EXPAND_MODE]: (state, { newMode }) => R.set(expandModeLens, newMode, state),
+
+  [LOAD_NUMBER_OF_TASKS]: (state, { value }) => R.set(totalNumberOfTasksLens, value, state),
 }
 
 
