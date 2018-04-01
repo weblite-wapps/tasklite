@@ -4,7 +4,7 @@ import https from 'https'
 import fs from 'fs'
 import app from './server'
 import './mongodb'
-import '../logic/route'
+import '../logic/main/route'
 
 
 const privateKey = fs.readFileSync(path.resolve('./src/certs/express.key'), 'utf8')

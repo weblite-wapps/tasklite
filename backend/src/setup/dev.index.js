@@ -2,7 +2,7 @@
 import http from 'http'
 import app from './server'
 import './mongodb'
-import '../logic/route'
+import '../logic/main/route'
 
 
 http
