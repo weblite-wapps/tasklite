@@ -8,13 +8,13 @@ import LevelIcon from '../components/LevelIcon/LevelIcon.container.react'
 // styles
 import scssClasses from './LevelBar.scss'
 
-const LevelBar = ({ tabIndex, numbers, noMargin }) => (
+const LevelBar = ({ tabIndex, noMargin }) => (
   <React.Fragment>
     <div className={noMargin ? scssClasses.noMargin : scssClasses.levelBarContainer}>
-      <LevelIcon src="assets/icons/icebox.png" label="ICE BOX" badgeContent={numbers.ICEBOX} />
-      <LevelIcon src="assets/icons/inp.png" label="IN PROGRESS" badgeContent={numbers.INPROGRESS} />
-      <LevelIcon src="assets/icons/evalute.png" label="EVALUTE" badgeContent={numbers.EVALUTE} />
-      <LevelIcon src="assets/icons/done.png" label="DONE" badgeContent={numbers.DONE} />
+      <LevelIcon src="assets/icons/icebox.png" label="ICE BOX" />
+      <LevelIcon src="assets/icons/inp.png" label="IN PROGRESS" />
+      <LevelIcon src="assets/icons/evalute.png" label="EVALUTE" />
+      <LevelIcon src="assets/icons/done.png" label="DONE" />
     </div>
 
     <div className={scssClasses.textContainer}>
@@ -27,7 +27,6 @@ const LevelBar = ({ tabIndex, numbers, noMargin }) => (
 
 LevelBar.propTypes = {
   tabIndex: PropTypes.string.isRequired,
-  numbers: PropTypes.shape({}).isRequired,
   noMargin: PropTypes.bool.isRequired,
 }
 

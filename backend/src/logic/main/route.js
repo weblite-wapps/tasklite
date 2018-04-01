@@ -12,6 +12,15 @@ const logger = console.log
 
 
 app.get('/initialFetch', ({ query }, res) =>
-  Promise.all([fetchTasks(query), fetchTags(query)])
-    .then(success => res.json({ tasks: R.reverse(success[0]), tags: success[1] }))
+  Promise.all([
+    fetchTasks({ ...query, level: 'ICE BOX' }),
+    fetchTasks({ ...query, level: 'IN PROGRESS' }),
+    fetchTasks({ ...query, level: 'EVALUTE' }),
+    fetchTasks({ ...query, level: 'DONE' }),
+    fetchTags(query),
+  ])
+    .then(success => res.json({
+      tasks: R.unnest([success[0], success[1], success[2], success[3]]),
+      tags: success[4],
+    }))
     .catch(logger))

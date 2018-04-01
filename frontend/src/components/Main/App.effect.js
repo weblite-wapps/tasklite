@@ -12,6 +12,7 @@ import {
   FETCH_TODAY_DATA,
   DELETE_TASK,
   FETCH_ADMIN_DATA,
+  LOAD_MORE,
   loadUsersData,
   dispatchLoadTasksData,
   dispatchLoadUsersData,
@@ -60,9 +61,21 @@ const deleteTaskEpic = action$ =>
     .mergeMap(action => postRequest('/deleteTask')
       .query({ _id: action.payload._id })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
-    .do(() => dispatchSetIsLoading(true))
+    .do(() => dispatchSetIsLoading(false))
     .do(() => snackbarMessage({ message: 'Deleted successfully !' }))
     .do(() => dispatchChangePopoverId(''))
+    .ignoreElements()
+
+
+const loadMoreEpic = action$ =>
+  action$.ofType(LOAD_MORE)
+    .pluck('payload')
+    .do(() => dispatchSetIsLoading(true))
+    .mergeMap(({ skipLength, tabIndex }) => getRequest('/loadMore')
+      .query({ query: { ...getQuery(), level: tabIndex }, skipLength })
+      .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
+    .do(() => dispatchSetIsLoading(false))
+    .do(({ body }) => dispatchLoadTasksData(body))
     .ignoreElements()
 
 
@@ -71,4 +84,5 @@ export default combineEpics(
   saveUsersEpic,
   initialFetchEpic,
   deleteTaskEpic,
+  loadMoreEpic,
 )

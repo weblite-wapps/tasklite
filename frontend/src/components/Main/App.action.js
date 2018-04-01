@@ -16,6 +16,11 @@ export const FETCH_TODAY_DATA = 'FETCH_TODAY_DATA'
 export const fetchTodayData = createAction(FETCH_TODAY_DATA)
 export const dispatchFetchTodayData = (...args) => dispatch(fetchTodayData(...args))
 
+export const LOAD_MORE = 'LOAD_MORE'
+export const loadMore = createAction(LOAD_MORE,
+  (skipLength, tabIndex) => ({ skipLength, tabIndex }))
+export const dispatchLoadMore = (...args) => dispatch(loadMore(...args))
+
 export const SET_ISLOADING = 'SET_ISLOADING'
 export const setIsLoading = createAction(SET_ISLOADING, value => ({ value }))
 export const dispatchSetIsLoading = (...args) => dispatch(setIsLoading(...args))
@@ -89,11 +94,3 @@ export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))
 export const CHANGE_EXPAND_MODE = 'CHANGE_EXPAND_MODE'
 export const changeExpandMode = createAction(CHANGE_EXPAND_MODE, newMode => ({ newMode }))
 export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(...args))
-
-export const SET_QUERY_TAG = 'SET_QUERY_TAG'
-export const setQueryTag = createAction(SET_QUERY_TAG, queryTag => ({ queryTag }))
-export const dispatchSetQueryTag = (...args) => dispatch(setQueryTag(...args))
-
-export const FETCH_TAGS = 'FETCH_TAGS'
-export const fetchTags = createAction(FETCH_TAGS, tags => ({ tags }))
-export const dispatchFetchTags = (...args) => dispatch(fetchTags(...args))

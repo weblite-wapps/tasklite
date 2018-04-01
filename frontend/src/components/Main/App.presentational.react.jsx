@@ -9,7 +9,7 @@ import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Add.container.react'
 import Filter from '../components/Filter/Filter.container.react'
 // helpers
-import { Collapse, TaskList } from './App.helper.component'
+import { Collapse, TaskList, LoadMore } from './App.helper.component'
 // css
 import scssClasses from './App.scss'
 
@@ -49,6 +49,7 @@ export default class App extends React.Component {
         <Collapse {...this.props} label="filter"><Filter /></Collapse>
         <LevelBar noMargin={this.props.expandMode !== 'default'} />
         <TaskList {...this.props} />
+        <LoadMore {...this.props} />
         <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
       </div>
     )

@@ -5,7 +5,9 @@ import PropTypes from 'prop-types'
 import CustomizedTextField from '../../../helper/components/TextField/TextField.presentational'
 import CustomizedSelectField from '../../../helper/components/SelectField/SelectField.presentational'
 import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
-
+import CustomizedButton from '../../../helper/components/Button/Button.presentational'
+// styles
+import scssClasses from './Add.scss'
 
 export const TextField = ({ isError, title, onTitleChange }) => (
   <CustomizedTextField
@@ -51,4 +53,16 @@ DatePicker.propTypes = {
   isError: PropTypes.bool.isRequired,
   deadline: PropTypes.string.isRequired,
   onDeadlineChange: PropTypes.func.isRequired,
+}
+
+
+export const Button = ({ label, handleAction }) => (
+  <div className={scssClasses.button}>
+    <CustomizedButton label={label} onClick={handleAction} componentName="Add" />
+  </div>
+)
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  handleAction: PropTypes.func.isRequired,
 }

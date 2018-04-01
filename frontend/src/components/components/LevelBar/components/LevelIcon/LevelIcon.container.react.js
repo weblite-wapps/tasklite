@@ -6,9 +6,13 @@ import LevelIcon from './LevelIcon.presentational'
 import { tabIndexView } from '../../../../Main/App.reducer'
 // actions
 import { dispatchChangeTab } from '../../../../Main/App.action'
+// selectors
+import { getNumberOfTasksInEachLevel } from '../../../../Main/App.selector'
 
-
-const mapStateToProps = () => ({ tabIndex: tabIndexView() })
+const mapStateToProps = state => ({
+  tabIndex: tabIndexView(),
+  numbers: getNumberOfTasksInEachLevel(state),
+})
 
 const mapDispatchToProps = () => ({ onTabClick: dispatchChangeTab })
 

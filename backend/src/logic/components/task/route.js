@@ -1,6 +1,5 @@
 // modules
 import mongoose from 'mongoose'
-import * as R from 'ramda'
 // components
 import app from '../../../setup/server'
 // db helpers
@@ -10,11 +9,6 @@ import { getToggledValue } from './helper'
 // const
 const logger = console.log
 
-
-app.get('/fetchTasks', ({ query: { wis, userId, date } }, res) =>
-  fetchTasks({ wis, userId, date })
-    .then(tasks => res.json(R.reverse(tasks)))
-    .catch(logger))
 
 app.post('/saveTask', (req, res) =>
   saveTask(req.body)
@@ -52,4 +46,9 @@ app.post('/addTodo', ({ body }, res) =>
 app.post('/deleteTodo', ({ body: { _id, todoId } }, res) =>
   updateTask({ _id: mongoose.Types.ObjectId(_id) }, { $pull: { todos: { _id: todoId } } })
     .then(() => res.send('deleted successfully!'))
+    .catch(logger))
+
+app.get('/loadMore', ({ query }, res) =>
+  fetchTasks(query)
+    .then(tasks => res.json(tasks))
     .catch(logger))

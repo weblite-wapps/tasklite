@@ -37,15 +37,24 @@ TaskList.propTypes = {
 }
 
 
-export const Button = ({ label, handleAction }) => (
+export const LoadMore = ({ numbers, tabIndex, onLoadMore }) => (
   <div className={scssClasses.button}>
-    <CustomizedButton label={label} onClick={handleAction} componentName="Add" />
+    {
+      numbers[tabIndex] === 2 ? (
+        <CustomizedButton
+          label="Load More"
+          onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
+          componentName="Add"
+        />
+      ) : null
+    }
   </div>
 )
 
-Button.propTypes = {
-  label: PropTypes.string.isRequired,
-  handleAction: PropTypes.func.isRequired,
+LoadMore.propTypes = {
+  numbers: PropTypes.shape({}).isRequired,
+  tabIndex: PropTypes.string.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
 }
 
 

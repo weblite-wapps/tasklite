@@ -5,8 +5,8 @@ import Badge from 'material-ui/Badge'
 // styles
 import classes from './LevelIcon.scss'
 
-const LevelIcon = ({ badgeContent, tabIndex, src, label, onTabClick }) => (
-  <Badge badgeContent={badgeContent}>
+const LevelIcon = ({ numbers, tabIndex, src, label, onTabClick }) => (
+  <Badge badgeContent={numbers[label]}>
     <div role="button" tabIndex="0" onClick={() => onTabClick(label)} className={classes.container}>
       <img
         src={src}
@@ -18,7 +18,7 @@ const LevelIcon = ({ badgeContent, tabIndex, src, label, onTabClick }) => (
 )
 
 LevelIcon.propTypes = {
-  badgeContent: PropTypes.number.isRequired,
+  numbers: PropTypes.shape({}).isRequired,
   tabIndex: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

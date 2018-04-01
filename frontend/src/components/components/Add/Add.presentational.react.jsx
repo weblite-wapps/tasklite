@@ -7,8 +7,8 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
-import { TagPanel, Button } from '../../Main/App.helper.component'
-import { TextField, SelectField, DatePicker } from './Add.helper.component'
+import { TagPanel } from '../../Main/App.helper.component'
+import { TextField, SelectField, DatePicker, Button } from './Add.helper.component'
 // scssClasses
 import scssClasses from './Add.scss'
 
