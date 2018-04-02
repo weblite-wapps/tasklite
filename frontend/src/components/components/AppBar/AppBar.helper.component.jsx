@@ -31,42 +31,44 @@ Logo.propTypes = {
 }
 
 
-export const TabBar = props => (
-  <div className={scssClasses.tabBar}>
-    <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
-    <div className={scssClasses.iconsContainer}>
-      {
-        props.creator && !props.aboutMode &&
-          <React.Fragment>
-            <IconButton onClick={() => props.changeExpandMode('sort')}>
-              <SortIcon style={{ width: '25px', height: '25px' }} />
-            </IconButton>
-            <span style={{ width: '15px' }} />
-            <ActionButton {...props} label="add" src="assets/icons/plus.png" />
-            <span style={{ width: '15px' }} />
-            <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
-          </React.Fragment>
-      }
-      {
-        props.aboutMode &&
-          <IconButton onClick={() => props.setAboutMode(false)}>
-            <ExitIcon style={{ width: '25px', height: '25px' }} />
-          </IconButton>
-      }
-    </div>
-  </div>
-)
+export const TabBar = (props) => {
+  const { creator, aboutMode, expandMode, changeExpandMode, setAboutMode } = props
 
-TabBar.propTypes = {
-  mode: PropTypes.string.isRequired,
-  creator: PropTypes.bool.isRequired,
-  aboutMode: PropTypes.bool.isRequired,
-  changeExpandMode: PropTypes.func.isRequired,
-  setAboutMode: PropTypes.func.isRequired,
+  return (
+    <div className={scssClasses.tabBar}>
+      <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
+      <div className={scssClasses.iconsContainer}>
+        {
+          creator && !aboutMode &&
+            <React.Fragment>
+              <IconButton
+                onClick={() => expandMode === 'sort' ? changeExpandMode('default') : changeExpandMode('sort')}
+              >
+                <SortIcon style={{ width: '25px', height: '25px' }} />
+              </IconButton>
+              <span style={{ width: '15px' }} />
+              <ActionButton {...props} label="add" src="assets/icons/plus.png" />
+              <span style={{ width: '15px' }} />
+              <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
+            </React.Fragment>
+        }
+        {
+          aboutMode &&
+            <IconButton onClick={() => setAboutMode(false)}>
+              <ExitIcon style={{ width: '25px', height: '25px' }} />
+            </IconButton>
+        }
+      </div>
+    </div>
+  )
 }
 
-TabBar.defaultProps = {
-  mode: '',
+TabBar.propTypes = {
+  creator: PropTypes.bool.isRequired,
+  aboutMode: PropTypes.bool.isRequired,
+  expandMode: PropTypes.string.isRequired,
+  changeExpandMode: PropTypes.func.isRequired,
+  setAboutMode: PropTypes.func.isRequired,
 }
 
 

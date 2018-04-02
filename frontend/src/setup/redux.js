@@ -7,6 +7,7 @@ import createHistory from 'history/createMemoryHistory'
 import AppReducer from '../components/Main/App.reducer'
 import AddReducer from '../components/components/Add/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
+import SortReducer from '../components/components/Sort/Sort.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Add.effect'
@@ -34,6 +35,7 @@ const store = createStore(
     App: AppReducer,
     Add: AddReducer,
     Filter: FilterReducer,
+    Sort: SortReducer,
     router: routerReducer,
   }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))
 

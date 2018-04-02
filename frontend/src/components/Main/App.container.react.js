@@ -7,11 +7,11 @@ import { tabIndexView, expandModeView, numbersObjectView } from './App.reducer'
 // actions
 import { dispatchChangeTab, dispatchSetApi, dispatchFetchTodayData, dispatchCheckToSetSecondsElapsed, dispatchLoadMore } from './App.action'
 // selectors
-import { getFilteredTasks } from '../components/Filter/Filter.selector'
+import { getSortedTasks } from '../components/Sort/Sort.selector'
 import { getNumberOfTasksInEachLevel } from './App.selector'
 
 const mapStateToProps = state => ({
-  tasks: getFilteredTasks(state),
+  tasks: getSortedTasks(state),
   tabIndex: tabIndexView(),
   expandMode: expandModeView(),
   numbers: getNumberOfTasksInEachLevel(state),
