@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import App from './App.presentational.react'
 // views
-import { tabIndexView, expandModeView, totalNumberOfTasksView } from './App.reducer'
+import { tabIndexView, expandModeView, numbersObjectView } from './App.reducer'
 // actions
 import { dispatchChangeTab, dispatchSetApi, dispatchFetchTodayData, dispatchCheckToSetSecondsElapsed, dispatchLoadMore } from './App.action'
 // selectors
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   tabIndex: tabIndexView(),
   expandMode: expandModeView(),
   numbers: getNumberOfTasksInEachLevel(state),
-  totalNumberOfTasks: totalNumberOfTasksView(),
+  numbersObject: numbersObjectView(),
 })
 
 const mapDispatchToProps = () => ({

@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import Icon from './Icon.presentational'
 // actions
 import { dispatchChangeLevel } from '../../../../../../Main/App.action'
+// helpers
+import { getLevel } from './Icon.helper'
 
 
 const mapDispatchToProps = (_, { _id, label }) => ({
-  onChangeLevel: () => dispatchChangeLevel(_id, label),
+  onChangeLevel: () => dispatchChangeLevel(_id, getLevel(_id), label),
 })
 
 export default connect(null, mapDispatchToProps)(Icon)

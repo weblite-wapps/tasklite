@@ -23,11 +23,16 @@ import {
   SET_SENT_TIME,
   CHANGE_EXPAND_MODE,
   LOAD_NUMBER_OF_TASKS,
+  SET_ABOUT_MODE,
+  UPDATE_NUMBERS_OBJECT,
 } from './App.action'
+// helpers
+import { getUpdatedNumbersObject } from './App.helper'
 
 // state
 const initialState = {
   tabIndex: 'ICE BOX',
+  aboutMode: false,
   expandMode: 'default',
   isLoading: false,
   popoverId: '',
@@ -39,7 +44,7 @@ const initialState = {
   wis: (window.W && window.W.wisId) || '110',
   creator: false,
   tasks: [],
-  totalNumberOfTasks: {},
+  numbersObject: {},
 }
 
 // lens
@@ -48,7 +53,8 @@ const tabIndexLens = R.lensProp('tabIndex')
 const popoverIdLens = R.lensProp('popoverId')
 const completedLens = R.lensProp('completed')
 const expandModeLens = R.lensProp('expandMode')
-const totalNumberOfTasksLens = R.lensProp('totalNumberOfTasks')
+const numbersObjectLens = R.lensProp('numbersObject')
+const aboutModeLens = R.lensProp('aboutMode')
 // views
 export const wisView = () => R.path(['App', 'wis'])(getState())
 export const creatorView = () => R.path(['App', 'creator'])(getState())
@@ -62,7 +68,8 @@ export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
 export const expandingIdView = () => R.path(['App', 'expandingId'])(getState())
 export const tasksView = () => R.path(['App', 'tasks'])(getState())
 export const expandModeView = () => R.path(['App', 'expandMode'])(getState())
-export const totalNumberOfTasksView = () => R.path(['App', 'totalNumberOfTasks'])(getState())
+export const numbersObjectView = () => R.path(['App', 'numbersObject'])(getState())
+export const aboutModeView = () => R.path(['App', 'aboutMode'])(getState())
 
 // reducers
 const reducers = {
@@ -180,7 +187,12 @@ const reducers = {
 
   [CHANGE_EXPAND_MODE]: (state, { newMode }) => R.set(expandModeLens, newMode, state),
 
-  [LOAD_NUMBER_OF_TASKS]: (state, { value }) => R.set(totalNumberOfTasksLens, value, state),
+  [LOAD_NUMBER_OF_TASKS]: (state, { value }) => R.set(numbersObjectLens, value, state),
+
+  [SET_ABOUT_MODE]: (state, { value }) => R.set(aboutModeLens, value, state),
+
+  [UPDATE_NUMBERS_OBJECT]: (state, { currentLevel, nextLevel }) =>
+    R.set(numbersObjectLens, getUpdatedNumbersObject(currentLevel, nextLevel), state),
 }
 
 

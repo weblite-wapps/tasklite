@@ -64,7 +64,8 @@ export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id
 export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))
 
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
-export const changeLevel = createAction(CHANGE_LEVEL, (_id, nextLevel) => ({ _id, nextLevel }))
+export const changeLevel = createAction(CHANGE_LEVEL,
+  (_id, currentLevel, nextLevel) => ({ _id, currentLevel, nextLevel }))
 export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
 
 export const CHANGE_TODO_TEXT = 'CHANGE_TODO_TEXT'
@@ -98,3 +99,12 @@ export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(.
 export const LOAD_NUMBER_OF_TASKS = 'LOAD_NUMBER_OF_TASKS'
 export const loadNumberOfTasks = createAction(LOAD_NUMBER_OF_TASKS, value => ({ value }))
 export const dispatchLoadNumberOfTasks = (...args) => dispatch(loadNumberOfTasks(...args))
+
+export const SET_ABOUT_MODE = 'SET_ABOUT_MODE'
+export const setAboutMode = createAction(SET_ABOUT_MODE, value => ({ value }))
+export const dispatchSetAboutMode = (...args) => dispatch(setAboutMode(...args))
+
+export const UPDATE_NUMBERS_OBJECT = 'UPDATE_NUMBERS_OBJECT'
+export const updateNumbersObject = createAction(
+  UPDATE_NUMBERS_OBJECT, (currentLevel, nextLevel) => ({ currentLevel, nextLevel }))
+export const dispatchUpdateNumbersObject = (...args) => dispatch(updateNumbersObject(...args))

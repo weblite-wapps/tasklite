@@ -2,6 +2,7 @@
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
+import { push } from 'react-router-redux'
 // helpers
 import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
@@ -13,6 +14,7 @@ import {
   DELETE_TASK,
   FETCH_ADMIN_DATA,
   LOAD_MORE,
+  SET_ABOUT_MODE,
   loadUsersData,
   dispatchLoadTasksData,
   dispatchLoadUsersData,
@@ -81,10 +83,16 @@ const loadMoreEpic = action$ =>
     .ignoreElements()
 
 
+const setAboutModeEpic = action$ =>
+  action$.ofType(SET_ABOUT_MODE)
+    .map(() => push('/About'))
+
+
 export default combineEpics(
   fetchUsersEpic,
   saveUsersEpic,
   initialFetchEpic,
   deleteTaskEpic,
   loadMoreEpic,
+  setAboutModeEpic,
 )

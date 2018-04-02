@@ -13,6 +13,7 @@ import {
   setSentTime,
   dispatchSetIsLoading,
   dispatchRestoreTodo,
+  dispatchUpdateNumbersObject,
 } from '../../../Main/App.action'
 // helpers
 import { postRequest } from '../../../../helper/functions/request.helper'
@@ -23,9 +24,10 @@ import { tasksView } from '../../../Main/App.reducer'
 const changeLevelEpic = action$ =>
   action$.ofType(CHANGE_LEVEL)
     .pluck('payload')
+    .do(({ currentLevel, nextLevel }) => dispatchUpdateNumbersObject(currentLevel, nextLevel))
     .do(() => dispatchSetIsLoading(true))
-    .mergeMap(({ _id, nextLevel }) => postRequest('/changeLevel')
-      .send({ _id, nextLevel })
+    .mergeMap(({ _id, currentLevel, nextLevel }) => postRequest('/changeLevel')
+      .send({ _id, currentLevel, nextLevel })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => snackbarMessage({ message: `Dropped to ${body.nextLevel}` }))

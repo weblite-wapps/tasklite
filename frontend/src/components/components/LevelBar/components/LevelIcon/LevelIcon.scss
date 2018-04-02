@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.passive:hover {
+  background-color: #919191;
+}
+
 .active {
   @extend .passive;
   background-color: #515151;

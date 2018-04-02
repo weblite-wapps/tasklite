@@ -6,9 +6,10 @@ import { CircularProgress } from 'material-ui/Progress'
 import scssClasses from './AppBar.scss'
 
 
-export const Logo = ({ isLoading }) => (
+export const Logo = ({ isLoading, setAboutMode }) => (
   <React.Fragment>
     <div
+      onClick={() => setAboutMode(true)}
       className={scssClasses.logoContainer}
       role="button"
       tabIndex="0"
@@ -18,12 +19,12 @@ export const Logo = ({ isLoading }) => (
         <img alt="loglite logo" src="assets/toplogo.png" className={scssClasses.logo} />
       </div>
     </div>
-
   </React.Fragment>
 )
 
 Logo.propTypes = {
   isLoading: PropTypes.bool.isRequired,
+  setAboutMode: PropTypes.func.isRequired,
 }
 
 export const TabBar = props => (

@@ -7,11 +7,16 @@ import scssClasses from './About.scss'
 
 export default () => (
   <div className={scssClasses.container}>
-    <img alt="loglite about" src="assets/about.jpg" align="middle" />
-    <Typography type="subheading" align="center" gutterBottom>
-      Version 1.1.0
+    <img
+      alt="tasklite about"
+      src="assets/typo.png"
+      align="middle"
+      className={scssClasses.image}
+    />
+    <Typography variant="display1" align="center" gutterBottom>
+      Version 1.0.0
     </Typography>
-    <Typography type="subheading" align="center" gutterBottom>
+    <Typography variant="display1" align="center" gutterBottom>
       All right reserved
     </Typography>
   </div>

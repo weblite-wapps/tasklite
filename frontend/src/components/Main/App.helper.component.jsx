@@ -46,10 +46,10 @@ TaskList.propTypes = {
 }
 
 
-export const LoadMore = ({ totalNumberOfTasks, numbers, tabIndex, onLoadMore }) => (
+export const LoadMore = ({ numbersObject, numbers, tabIndex, onLoadMore }) => (
   <div className={scssClasses.button}>
     {
-      totalNumberOfTasks[tabIndex] > numbers[tabIndex] ? (
+      numbersObject[tabIndex] > numbers[tabIndex] ? (
         <CustomizedButton
           label="Load More"
           onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
@@ -61,7 +61,7 @@ export const LoadMore = ({ totalNumberOfTasks, numbers, tabIndex, onLoadMore }) 
 )
 
 LoadMore.propTypes = {
-  totalNumberOfTasks: PropTypes.shape({}).isRequired,
+  numbersObject: PropTypes.shape({}).isRequired,
   numbers: PropTypes.shape({}).isRequired,
   tabIndex: PropTypes.string.isRequired,
   onLoadMore: PropTypes.func.isRequired,

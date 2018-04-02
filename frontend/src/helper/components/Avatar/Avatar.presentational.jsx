@@ -2,14 +2,16 @@
 import React from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
 import MuiAvatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
 // scssClasses
 import scssClasses from './Avatar.scss'
+import styles from './Avatar.style'
 
 
-const Avatar = ({ users, selectedUser, onUserClick }) => (
+const Avatar = ({ classes, users, selectedUser, onUserClick }) => (
   <div className={scssClasses.container}>
     <div className={scssClasses.text}>
       <Typography variant="body1" align="center" style={{ color: '#919191' }}>
@@ -22,8 +24,7 @@ const Avatar = ({ users, selectedUser, onUserClick }) => (
         users.map(user => (
           <div className={scssClasses.column} key={user._id}>
             <MuiAvatar
-              style={{ backgroundColor: user.id === selectedUser.id ? '#4CAF50' : '#cfcfcf' }}
-              className={scssClasses.avatar}
+              className={user.id === selectedUser.id ? classes.active : classes.passive}
               onClick={() => onUserClick(user)}
               role="button"
               tabIndex="0"
@@ -41,9 +42,10 @@ const Avatar = ({ users, selectedUser, onUserClick }) => (
 )
 
 Avatar.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedUser: PropTypes.shape({}).isRequired,
   onUserClick: PropTypes.func.isRequired,
 }
 
-export default Avatar
+export default withStyles(styles)(Avatar)
