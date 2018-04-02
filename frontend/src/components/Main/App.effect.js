@@ -83,9 +83,11 @@ const loadMoreEpic = action$ =>
     .ignoreElements()
 
 
-const setAboutModeEpic = action$ =>
+const setAboutModeEpic = (action$, { dispatch }) =>
   action$.ofType(SET_ABOUT_MODE)
-    .map(() => push('/About'))
+    .pluck('payload')
+    .do(({ value }) => value ? dispatch(push('/About')) : dispatch(push('/')))
+    .ignoreElements()
 
 
 export default combineEpics(

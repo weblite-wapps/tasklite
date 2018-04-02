@@ -7,6 +7,7 @@ import { MuiThemeProvider } from 'material-ui/styles'
 // Setup
 import store, { history } from './redux'
 // Component
+import AppBar from '../components/components/AppBar/AppBar.container.react'
 import App from '../components/Main/App.container.react'
 import About from '../components/components/About/About'
 // scssClasses
@@ -20,6 +21,7 @@ export default function root() {
       <MuiThemeProvider theme={theme}>
         <ConnectedRouter history={history}>
           <div className={scssClasses.container}>
+            <AppBar />
             <Route exact path="/" component={App} />
             <Route path="/About" component={About} />
           </div>

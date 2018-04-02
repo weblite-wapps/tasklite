@@ -47,6 +47,7 @@ export default createMuiTheme({
         height: '25px',
         width: '25px',
         marginTop: '0px',
+        color: '#000000',
       },
     },
     MuiTab: {

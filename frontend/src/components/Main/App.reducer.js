@@ -36,7 +36,6 @@ const initialState = {
   expandMode: 'default',
   isLoading: false,
   popoverId: '',
-  runningId: '',
   expandingId: '',
   secondsElapsed: 0,
   users: [],
@@ -85,6 +84,7 @@ const reducers = {
   [LOAD_TASKS_DATA]: (state, { tasks }) => ({
     ...state,
     tasks: R.compose(
+      R.uniq(),
       R.concat(state.tasks, R.__),
       R.map(task => R.assoc('todoText', '', task)),
     )(tasks),

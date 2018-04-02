@@ -2,6 +2,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CircularProgress } from 'material-ui/Progress'
+import IconButton from 'material-ui/IconButton'
+import SortIcon from 'material-ui-icons/Sort'
+import ExitIcon from 'material-ui-icons/ExitToApp'
 // scssClasses
 import scssClasses from './AppBar.scss'
 
@@ -27,23 +30,43 @@ Logo.propTypes = {
   setAboutMode: PropTypes.func.isRequired,
 }
 
+
 export const TabBar = props => (
   <div className={scssClasses.tabBar}>
     <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
-    {
-      props.creator && (
-        <div className={scssClasses.iconsContainer}>
-          <ActionButton {...props} label="add" src="assets/icons/plus.png" />
-          <span style={{ width: '15px' }} />
-          <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
-        </div>
-      )
-    }
+    <div className={scssClasses.iconsContainer}>
+      {
+        props.creator && !props.aboutMode &&
+          <React.Fragment>
+            <IconButton onClick={() => props.changeExpandMode('sort')}>
+              <SortIcon style={{ width: '25px', height: '25px' }} />
+            </IconButton>
+            <span style={{ width: '15px' }} />
+            <ActionButton {...props} label="add" src="assets/icons/plus.png" />
+            <span style={{ width: '15px' }} />
+            <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
+          </React.Fragment>
+      }
+      {
+        props.aboutMode &&
+          <IconButton onClick={() => props.setAboutMode(false)}>
+            <ExitIcon style={{ width: '25px', height: '25px' }} />
+          </IconButton>
+      }
+    </div>
   </div>
 )
 
 TabBar.propTypes = {
+  mode: PropTypes.string.isRequired,
   creator: PropTypes.bool.isRequired,
+  aboutMode: PropTypes.bool.isRequired,
+  changeExpandMode: PropTypes.func.isRequired,
+  setAboutMode: PropTypes.func.isRequired,
+}
+
+TabBar.defaultProps = {
+  mode: '',
 }
 
 
