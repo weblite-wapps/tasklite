@@ -39,13 +39,16 @@ export const TabBar = (props) => {
       <img alt="loglite logo" src="assets/typo.png" className={scssClasses.typo} />
       <div className={scssClasses.iconsContainer}>
         {
+          !aboutMode &&
+            <IconButton
+              onClick={() => expandMode === 'sort' ? changeExpandMode('default') : changeExpandMode('sort')}
+            >
+              <SortIcon style={{ width: '25px', height: '25px' }} />
+            </IconButton>
+        }
+        {
           creator && !aboutMode &&
             <React.Fragment>
-              <IconButton
-                onClick={() => expandMode === 'sort' ? changeExpandMode('default') : changeExpandMode('sort')}
-              >
-                <SortIcon style={{ width: '25px', height: '25px' }} />
-              </IconButton>
               <span style={{ width: '15px' }} />
               <ActionButton {...props} label="add" src="assets/icons/plus.png" />
               <span style={{ width: '15px' }} />
