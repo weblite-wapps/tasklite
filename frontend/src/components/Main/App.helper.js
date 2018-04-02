@@ -2,7 +2,7 @@
 import * as R from 'ramda'
 import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
-import { wisView, userIdView, creatorView, numbersObjectView } from './App.reducer'
+import { wisView, userIdView, creatorView, numbersObjectView, tasksView } from './App.reducer'
 
 
 export const formatTime = time =>
@@ -18,3 +18,9 @@ export const getQuery = () =>
 
 export const getUpdatedNumbersObject = (currentLevel, nextLevel) =>
   R.evolve({ [currentLevel]: R.dec, [nextLevel]: R.inc }, numbersObjectView())
+
+
+export const getLevel = _id => R.compose(
+  R.prop('level'),
+  R.find(R.propEq('_id', _id)),
+)(tasksView())

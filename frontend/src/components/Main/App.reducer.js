@@ -120,7 +120,7 @@ const reducers = {
     )(state.tasks),
   }),
 
-  [DELETE_TASK]: (state, { _id }) => ({
+  [DELETE_TASK]: (state, { task: { _id } }) => ({
     ...state,
     tasks: R.remove(R.findIndex(R.propEq('_id', _id))(state.tasks), 1, state.tasks),
   }),

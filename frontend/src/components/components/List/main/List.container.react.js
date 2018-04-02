@@ -20,14 +20,14 @@ const mapStateToProps = () => ({
   popoverId: popoverIdView(),
 })
 
-const mapDispatchToProps = (_, { task: { _id } }) => ({
+const mapDispatchToProps = (_, { task }) => ({
   onExpandClick: dispatchChangeExpnadingId,
-  onTodoTextChange: value => dispatchChangeTodoText(_id, value),
+  onTodoTextChange: value => dispatchChangeTodoText(task._id, value),
   changePopoverId: dispatchChangePopoverId,
-  deleteTask: () => dispatchDeleteTask(_id),
+  deleteTask: () => dispatchDeleteTask(task),
   addTodo: (value) => {
-    dispatchAddTodo(_id, value)
-    dispatchChangeTodoText(_id, '')
+    dispatchAddTodo(task._id, value)
+    dispatchChangeTodoText(task._id, '')
   },
 })
 

@@ -56,7 +56,7 @@ export const restoreTask = createAction(RESTORE_TASK, task => ({ task }))
 export const dispatchRestoreTask = (...args) => dispatch(restoreTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
-export const deleteTask = createAction(DELETE_TASK, _id => ({ _id }))
+export const deleteTask = createAction(DELETE_TASK, task => ({ task }))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
 export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'

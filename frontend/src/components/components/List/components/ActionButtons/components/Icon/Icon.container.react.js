@@ -5,7 +5,7 @@ import Icon from './Icon.presentational'
 // actions
 import { dispatchChangeLevel } from '../../../../../../Main/App.action'
 // helpers
-import { getLevel } from './Icon.helper'
+import { getLevel } from '../../../../../../Main/App.helper'
 
 
 const mapDispatchToProps = (_, { _id, label }) => ({

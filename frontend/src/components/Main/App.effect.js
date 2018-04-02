@@ -22,6 +22,7 @@ import {
   dispatchSetIsLoading,
   dispatchChangePopoverId,
   dispatchLoadNumberOfTasks,
+  dispatchUpdateNumbersObject,
 } from './App.action'
 // views
 import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
@@ -61,9 +62,11 @@ const initialFetchEpic = action$ =>
 
 const deleteTaskEpic = action$ =>
   action$.ofType(DELETE_TASK)
+    .pluck('payload')
+    .do(({ task }) => dispatchUpdateNumbersObject(task.level, 'kind'))
     .do(() => dispatchSetIsLoading(true))
-    .mergeMap(action => postRequest('/deleteTask')
-      .query({ _id: action.payload._id })
+    .mergeMap(({ task: { _id } }) => postRequest('/deleteTask')
+      .query({ _id })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(() => dispatchSetIsLoading(false))
     .do(() => snackbarMessage({ message: 'Deleted successfully !' }))
