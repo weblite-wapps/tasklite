@@ -24,21 +24,20 @@ export default class App extends React.Component {
   componentDidMount() {
     if (window.W && window.W.wisId) this.handleWappMode()
     else this.handleNormalMode()
-    window.addEventListener('focus', () => this.props.checkToSetSecondsElapsed())
   }
 
   _handleWappMode() {
-    const { setAPI, fetchTodayData } = this.props
+    const { setAPI, fetchInitialData } = this.props
     window.W.loadData().then(({ creator, user }) => {
       setAPI(creator, user)
-      fetchTodayData()
+      fetchInitialData()
     })
   }
 
   _handleNormalMode() {
-    const { setAPI, fetchTodayData } = this.props
+    const { setAPI, fetchInitialData } = this.props
     setAPI(true, { name: 'Ali', id: '110' })
-    fetchTodayData()
+    fetchInitialData()
   }
 
   render() {
@@ -58,7 +57,6 @@ export default class App extends React.Component {
 
 App.propTypes = {
   expandMode: PropTypes.string.isRequired,
-  fetchTodayData: PropTypes.func.isRequired,
+  fetchInitialData: PropTypes.func.isRequired,
   setAPI: PropTypes.func.isRequired,
-  checkToSetSecondsElapsed: PropTypes.func.isRequired,
 }

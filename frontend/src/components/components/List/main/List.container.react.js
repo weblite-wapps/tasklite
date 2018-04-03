@@ -3,15 +3,11 @@ import { connect } from 'react-redux'
 // components
 import List from './List.presentational'
 // views
-import { expandingIdView, tabIndexView, popoverIdView } from '../../../Main/App.reducer'
+import { tabIndexView } from '../../../Main/App.reducer'
+import { expandingIdView, popoverIdView } from './List.reducer'
 // actions
-import {
-  dispatchChangeExpnadingId,
-  dispatchChangeTodoText,
-  dispatchAddTodo,
-  dispatchDeleteTask,
-  dispatchChangePopoverId,
-} from '../../../Main/App.action'
+import { dispatchChangeTodoText, dispatchAddTodo, dispatchDeleteTask } from '../../../Main/App.action'
+import { dispatchChangeExpnadingId, dispatchChangePopoverId } from './List.action'
 
 
 const mapStateToProps = () => ({

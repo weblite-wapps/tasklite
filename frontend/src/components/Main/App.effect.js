@@ -2,25 +2,22 @@
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
-import { push } from 'react-router-redux'
 // helpers
 import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
 import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../components/Filter/Filter.action'
+import { LOAD_MORE, dispatchChangePopoverId } from '../components/List/main/List.action'
 import {
-  FETCH_TODAY_DATA,
+  FETCH_INITIAL_DATA,
   DELETE_TASK,
   FETCH_ADMIN_DATA,
-  LOAD_MORE,
-  SET_ABOUT_MODE,
   loadUsersData,
   dispatchLoadTasksData,
   dispatchLoadUsersData,
   dispatchFetchAdminData,
   dispatchSetIsLoading,
-  dispatchChangePopoverId,
   dispatchLoadNumberOfTasks,
   dispatchUpdateNumbersObject,
 } from './App.action'
@@ -29,7 +26,7 @@ import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
 
 
 const saveUsersEpic = action$ =>
-  action$.ofType(FETCH_TODAY_DATA)
+  action$.ofType(FETCH_INITIAL_DATA)
     .mergeMap(() => postRequest('/saveUser')
       .send({ wis: wisView(), userId: userIdView(), username: userNameView() })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
@@ -48,7 +45,7 @@ const fetchUsersEpic = action$ =>
 
 
 const initialFetchEpic = action$ =>
-  action$.ofType(FETCH_TODAY_DATA)
+  action$.ofType(FETCH_INITIAL_DATA)
     .mergeMap(() => getRequest('/initialFetch')
       .query(getQuery())
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
@@ -86,18 +83,10 @@ const loadMoreEpic = action$ =>
     .ignoreElements()
 
 
-const setAboutModeEpic = (action$, { dispatch }) =>
-  action$.ofType(SET_ABOUT_MODE)
-    .pluck('payload')
-    .do(({ value }) => value ? dispatch(push('/About')) : dispatch(push('/')))
-    .ignoreElements()
-
-
 export default combineEpics(
   fetchUsersEpic,
   saveUsersEpic,
   initialFetchEpic,
   deleteTaskEpic,
   loadMoreEpic,
-  setAboutModeEpic,
 )

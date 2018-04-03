@@ -3,23 +3,13 @@ import { createAction } from 'redux-actions'
 import { dispatch } from '../../setup/redux'
 
 // actions
-export const CHECK_TO_SET_SECONDS_ELAPSED = 'CHECK_TO_SET_SECONDS_ELAPSED'
-export const checkToSetSecondsElapsed = createAction(CHECK_TO_SET_SECONDS_ELAPSED)
-export const dispatchCheckToSetSecondsElapsed = (...args) =>
-  dispatch(checkToSetSecondsElapsed(...args))
-
 export const SET_API = 'SET_API'
 export const setAPI = createAction(SET_API, (creator, user) => ({ creator, user }))
 export const dispatchSetApi = (...args) => dispatch(setAPI(...args))
 
-export const FETCH_TODAY_DATA = 'FETCH_TODAY_DATA'
-export const fetchTodayData = createAction(FETCH_TODAY_DATA)
-export const dispatchFetchTodayData = (...args) => dispatch(fetchTodayData(...args))
-
-export const LOAD_MORE = 'LOAD_MORE'
-export const loadMore = createAction(LOAD_MORE,
-  (skipLength, tabIndex) => ({ skipLength, tabIndex }))
-export const dispatchLoadMore = (...args) => dispatch(loadMore(...args))
+export const FETCH_INITIAL_DATA = 'FETCH_INITIAL_DATA'
+export const fetchInitialData = createAction(FETCH_INITIAL_DATA)
+export const dispatchFetchInitialData = (...args) => dispatch(fetchInitialData(...args))
 
 export const SET_ISLOADING = 'SET_ISLOADING'
 export const setIsLoading = createAction(SET_ISLOADING, value => ({ value }))
@@ -41,10 +31,6 @@ export const LOAD_TASKS_DATA = 'LOAD_TASKS_DATA'
 export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({ tasks }))
 export const dispatchLoadTasksData = (...args) => dispatch(loadTasksData(...args))
 
-export const CHANGE_POPOVER_ID = 'CHANGE_POPOVER_ID'
-export const changePopoverId = createAction(CHANGE_POPOVER_ID, value => ({ value }))
-export const dispatchChangePopoverId = (...args) => dispatch(changePopoverId(...args))
-
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(ADD_TASK,
   (title, selectedUser, tags, priority, deadline) =>
@@ -58,10 +44,6 @@ export const dispatchRestoreTask = (...args) => dispatch(restoreTask(...args))
 export const DELETE_TASK = 'DELETE_TASK'
 export const deleteTask = createAction(DELETE_TASK, task => ({ task }))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
-
-export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
-export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
-export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))
 
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
 export const changeLevel = createAction(CHANGE_LEVEL,
@@ -92,17 +74,9 @@ export const SET_SENT_TIME = 'SET_SENT_TIME'
 export const setSentTime = createAction(SET_SENT_TIME, (_id, time) => ({ _id, time }))
 export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))
 
-export const CHANGE_EXPAND_MODE = 'CHANGE_EXPAND_MODE'
-export const changeExpandMode = createAction(CHANGE_EXPAND_MODE, newMode => ({ newMode }))
-export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(...args))
-
 export const LOAD_NUMBER_OF_TASKS = 'LOAD_NUMBER_OF_TASKS'
 export const loadNumberOfTasks = createAction(LOAD_NUMBER_OF_TASKS, value => ({ value }))
 export const dispatchLoadNumberOfTasks = (...args) => dispatch(loadNumberOfTasks(...args))
-
-export const SET_ABOUT_MODE = 'SET_ABOUT_MODE'
-export const setAboutMode = createAction(SET_ABOUT_MODE, value => ({ value }))
-export const dispatchSetAboutMode = (...args) => dispatch(setAboutMode(...args))
 
 export const UPDATE_NUMBERS_OBJECT = 'UPDATE_NUMBERS_OBJECT'
 export const updateNumbersObject = createAction(

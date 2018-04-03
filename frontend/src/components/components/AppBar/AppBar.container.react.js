@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 // components
 import AppBar from './AppBar.presentational'
 // views
-import { isLoadingView, expandModeView, creatorView, aboutModeView } from '../../Main/App.reducer'
+import { isLoadingView, creatorView } from '../../Main/App.reducer'
+import { expandModeView, aboutModeView } from './AppBar.reducer'
 // actions
-import { dispatchChangeExpandMode, dispatchSetAboutMode } from '../../Main/App.action'
+import { dispatchChangeExpandMode, dispatchSetAboutMode } from './AppBar.action'
 
 
 const mapStateToProps = () => ({

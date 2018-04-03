@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 // components
 import App from './App.presentational.react'
 // views
-import { tabIndexView, expandModeView, numbersObjectView } from './App.reducer'
+import { tabIndexView, numbersObjectView } from './App.reducer'
+import { expandModeView } from '../components/AppBar/AppBar.reducer'
 // actions
-import { dispatchChangeTab, dispatchSetApi, dispatchFetchTodayData, dispatchCheckToSetSecondsElapsed, dispatchLoadMore } from './App.action'
+import { dispatchChangeTab, dispatchSetApi, dispatchFetchInitialData } from './App.action'
+import { dispatchLoadMore } from '../components/List/main/List.action'
 // selectors
 import { getSortedTasks } from '../components/Sort/Sort.selector'
 import { getNumberOfTasksInEachLevel } from './App.selector'
@@ -21,8 +23,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = () => ({
   changeTab: dispatchChangeTab,
   setAPI: dispatchSetApi,
-  fetchTodayData: dispatchFetchTodayData,
-  checkToSetSecondsElapsed: dispatchCheckToSetSecondsElapsed,
+  fetchInitialData: dispatchFetchInitialData,
   onLoadMore: (skipLength, tabIndex) => dispatchLoadMore(skipLength, tabIndex),
 })
 
