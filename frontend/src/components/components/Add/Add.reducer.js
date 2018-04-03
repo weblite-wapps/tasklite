@@ -28,7 +28,6 @@ const initialState = {
   tags: [],
 }
 
-
 // lens
 const titleLens = R.lensProp('title')
 const priorityLens = R.lensProp('priority')
@@ -48,13 +47,13 @@ export const tagsView = () => R.path(['Add', 'tags'])(getState())
 const reducers = {
   [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
 
-  [LOAD_TAGS_DATA_IN_ADD]: (state, { tags }) => ({ ...state,
-    tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
-  }),
-
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 
   [CHANGE_PRIORITY]: (state, { value }) => R.set(priorityLens, value, state),
+
+  [LOAD_TAGS_DATA_IN_ADD]: (state, { tags }) => ({ ...state,
+    tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
+  }),
 
   [SET_QUERY_TAG_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
 

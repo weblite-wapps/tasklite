@@ -1,6 +1,7 @@
 // views
 import { tabIndexView, creatorView } from '../../../../../Main/App.reducer'
 
+
 export const checkToShow = (level) => {
   const tabIndex = tabIndexView()
   const creator = creatorView()

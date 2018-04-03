@@ -4,7 +4,7 @@ import * as R from 'ramda'
 // selectors
 import { getFilteredTasks } from '../Filter/Filter.selector'
 // helpers
-import { formattedDate } from '../../../helper/functions/date.helper'
+import { formattedDate } from '../../../helper/functions/time.helper'
 
 
 const getSortByDeadline = state => state.Sort.sortByDeadline

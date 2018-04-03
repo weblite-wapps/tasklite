@@ -16,25 +16,27 @@ import { getRemained, getPassedTime } from '../../../../helper/functions/time.he
 import scssClasses from './List.scss'
 
 
-export const TitleAndLevelButtons = ({
-  task: { _id, title, priority }, expandingId, onExpandClick,
-}) => (
-  <div className={scssClasses.text}>
-    <div className={scssClasses.title}>
-      <img src={`assets/icons/${priority}.png`} alt="priority" className={scssClasses.priority} />
-      <Typography variant="subheading" style={{ marginLeft: '10px' }}>
-        {
-          formatTitle(title) === title ?
-            <span>{formatTitle(title)}</span> :
-            <Tooltip title={title} placement="bottom" enterDelay={300} leaveDelay={300}>
-              <span>{formatTitle(title)}</span>
-            </Tooltip>
-        }
-      </Typography>
+export const TitleAndLevelButtons = (props) => {
+  const { task: { title, priority } } = props
+
+  return (
+    <div className={scssClasses.text}>
+      <div className={scssClasses.title}>
+        <img src={`assets/icons/${priority}.png`} alt="priority" className={scssClasses.priority} />
+        <Typography variant="subheading" style={{ marginLeft: '10px' }}>
+          {
+            formatTitle(title) === title ?
+              <span>{formatTitle(title)}</span> :
+              <Tooltip title={title} placement="bottom" enterDelay={300} leaveDelay={300}>
+                <span>{formatTitle(title)}</span>
+              </Tooltip>
+          }
+        </Typography>
+      </div>
+      <ActionButtons {...props} />
     </div>
-    <ActionButtons _id={_id} expandingId={expandingId} onExpandClick={onExpandClick} />
-  </div>
-)
+  )
+}
 
 TitleAndLevelButtons.propTypes = {
   task: PropTypes.shape({}).isRequired,
@@ -66,9 +68,7 @@ BriefInfo.propTypes = {
 
 export const ProgressPanel = ({ todos }) => (
   <div className={scssClasses.progressPannel}>
-    <Typography variant="button">
-      {`${getProgressBarPercent(todos)}%`}
-    </Typography>
+    <Typography variant="button"> {`${getProgressBarPercent(todos)}%`} </Typography>
     <LinearProgress
       variant="determinate"
       value={getProgressBarPercent(todos)}

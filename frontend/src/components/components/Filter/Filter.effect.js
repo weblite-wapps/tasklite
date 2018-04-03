@@ -5,13 +5,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { getRequest } from '../../../helper/functions/request.helper'
 // actions
-// import { dispatchSetIsLoading } from '../../../Main/App.action'
-import { LOAD_TAGS_DATA_IN_ADD } from '../../../components/components/Add/Add.action'
-import {
-  SET_QUERY_TAG_IN_FILTER,
-  fetchTagsInFilter,
-  loadTagsDataInFilter,
-} from './Filter.action'
+import { SET_QUERY_TAG_IN_FILTER, fetchTagsInFilter } from './Filter.action'
 // views
 import { wisView, userIdView } from '../../Main/App.reducer'
 
@@ -28,12 +22,6 @@ const effectSearchTagsEpic = action$ =>
     .map(({ body }) => fetchTagsInFilter(body))
 
 
-const loadTagsDataEpic = action$ =>
-  action$.ofType(LOAD_TAGS_DATA_IN_ADD)
-    .map(action => loadTagsDataInFilter(action.payload.tags))
-
-
 export default combineEpics(
   effectSearchTagsEpic,
-  loadTagsDataEpic,
 )

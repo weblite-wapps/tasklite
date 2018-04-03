@@ -8,7 +8,7 @@ import MuiPopover from 'material-ui/Popover'
 // css
 import styles from '../../../../../helper/components/Button/Button.style'
 
-const Popover = ({ classes, popoverIsOpen, anchorEl, onClose, onYep, onNop }) => (
+const Popover = ({ classes, popoverIsOpen, anchorEl, onClose, onYep }) => (
   <MuiPopover
     open={popoverIsOpen}
     onClose={onClose}
@@ -18,7 +18,7 @@ const Popover = ({ classes, popoverIsOpen, anchorEl, onClose, onYep, onNop }) =>
   >
     <Typography type="subheading" style={{ margin: '5px' }}>Are you sure?</Typography>
     <Button variant="raised" onClick={onYep} classes={{ raised: classes.WorkList }}>Yep</Button>
-    <Button variant="raised" onClick={onNop} classes={{ raised: classes.WorkList }}>Nop</Button>
+    <Button variant="raised" onClick={onClose} classes={{ raised: classes.WorkList }}>Nop</Button>
   </MuiPopover>
 )
 
@@ -28,7 +28,6 @@ Popover.propTypes = {
   anchorEl: PropTypes.shape({}),
   onClose: PropTypes.func.isRequired,
   onYep: PropTypes.func.isRequired,
-  onNop: PropTypes.func.isRequired,
 }
 
 Popover.defaultProps = {

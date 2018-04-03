@@ -1,7 +1,7 @@
 // modules
 import React from 'react'
 import Typography from 'material-ui/Typography'
-// sccsClasses
+// styles
 import scssClasses from './About.scss'
 
 

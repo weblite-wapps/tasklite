@@ -23,26 +23,14 @@ const SelectField = ({ classes, isError, required, label, value, onChange }) => 
       error={isError}
       helperText={required && 'required'}
       onChange={onChange}
-      InputProps={{
-        classes: {
-          focused: classes.textFieldInkbar,
-        },
-      }}
-      InputLabelProps={{
-        shrink: true,
-        className: classes.textFieldFormLabel,
-      }}
-      SelectProps={{
-        native: true,
-        MenuProps: {
-          className: scssClasses.menu,
-        },
-      }}
+      InputProps={{ classes: { focused: classes.textFieldInkbar } }}
+      InputLabelProps={{ shrink: true, className: classes.textFieldFormLabel }}
+      SelectProps={{ native: true, MenuProps: { className: scssClasses.menu } }}
       margin="normal"
     >
       {options.map(option => (
-        <option key={option.value} value={option.value}>
-          {option.label}
+        <option key={option.label} value={option.value}>
+          { option.label }
         </option>
       ))}
     </TextField>

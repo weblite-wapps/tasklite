@@ -3,10 +3,7 @@ import * as R from 'ramda'
 // local modules
 import { getState } from '../../../setup/redux'
 // actions
-import {
-  CHANGE_SORT_BY_DEADLINE,
-  CHANGE_SORT_BY_PRIORITY,
-} from './Sort.action'
+import { CHANGE_SORT_BY_DEADLINE, CHANGE_SORT_BY_PRIORITY } from './Sort.action'
 
 // state
 const initialState = {

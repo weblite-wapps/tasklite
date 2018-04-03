@@ -15,7 +15,7 @@ import scssClasses from './ActionButtons.scss'
 import styles from '../../../main/List.style'
 
 
-const ActionButtons = ({ classes, expandingId, _id, onExpandClick }) => (
+const ActionButtons = ({ classes, expandingId, task: { _id }, onExpandClick }) => (
   <div className={scssClasses.actions}>
     <IconButton onClick={() => onExpandClick(_id)} classes={{ root: classes.IconButton }}>
       {
@@ -35,7 +35,7 @@ const ActionButtons = ({ classes, expandingId, _id, onExpandClick }) => (
 ActionButtons.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
+  task: PropTypes.shape({}).isRequired,
   onExpandClick: PropTypes.func.isRequired,
 }
 

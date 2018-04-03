@@ -20,5 +20,4 @@ const mapDispatchToProps = () => ({
   setAboutMode: dispatchSetAboutMode,
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(AppBar)

@@ -9,7 +9,7 @@ import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
 import { TagPanel } from '../../Main/App.helper.component'
 import { TextField, SelectField, DatePicker, Button } from './Add.helper.component'
-// scssClasses
+// styles
 import scssClasses from './Add.scss'
 
 

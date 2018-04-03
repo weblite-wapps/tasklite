@@ -14,7 +14,6 @@ import AddEpic from '../components/components/Add/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 import FilterEpic from '../components/components/Filter/Filter.effect'
 
-
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
 

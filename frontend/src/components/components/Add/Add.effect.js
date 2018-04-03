@@ -9,9 +9,7 @@ import { getRequest, postRequest } from '../../../helper/functions/request.helpe
 import { ADD_TASK, restoreTask } from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
-  // SET_QUERY_USER_IN_ADD,
   fetchTagsInAdd,
-  // fetchUsersInAdd,
   loadTagsDataInAdd,
   dispatchResetInputs,
 } from './Add.action'
@@ -50,11 +48,7 @@ const addTaskEpic = action$ =>
         })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
       postRequest('/saveTags')
-        .send({
-          tags,
-          userId: userIdView(),
-          wis: wisView(),
-        })
+        .send({ tags, userId: userIdView(), wis: wisView() })
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
     ]))
     .do(() => dispatchResetInputs())
@@ -63,6 +57,5 @@ const addTaskEpic = action$ =>
 
 export default combineEpics(
   effectSearchTagsEpic,
-  // effectSearchUsersEpic,
   addTaskEpic,
 )

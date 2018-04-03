@@ -10,11 +10,7 @@ import scssClasses from './TagList.scss'
 const TagList = ({ tags, onTagClick }) => (
   <div className={scssClasses.container}>
     {tags.map(tag => (
-      <TagShape
-        onTagClick={() => onTagClick(tag)}
-        key={tag._id}
-        tag={tag}
-      />
+      <TagShape key={tag._id} tag={tag} onTagClick={() => onTagClick(tag)} />
      ))}
   </div>
 )

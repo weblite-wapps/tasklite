@@ -8,11 +8,6 @@ import { fetchTags, countTags, saveTag, updateTag } from './db'
 const logger = console.log
 
 
-// app.get('/fetchTags', ({ query: { wis, userId } }, res) =>
-//   fetchTags({ wis, userId })
-//     .then(tags => res.json(tags))
-//     .catch(logger))
-
 app.get('/searchTags', ({ query: { wis, userId, label } }, res) =>
   fetchTags({ wis, userId, label: { $regex: `.*${label}.*` } })
     .then(tags => res.json(tags))

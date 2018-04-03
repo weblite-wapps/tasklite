@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // helpers
 import RadioGroup from './Sort.helper.component'
-// css
+// styles
 import scssClasses from './Sort.scss'
 
 

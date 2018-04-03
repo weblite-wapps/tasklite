@@ -6,7 +6,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { TagPanel } from '../../Main/App.helper.component'
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
-// css
+// styles
 import scssClasses from './Filter.scss'
 
 

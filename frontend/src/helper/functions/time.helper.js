@@ -28,3 +28,5 @@ export const getPassedTime = time => formattedSeconds(differenceInSeconds(new Da
 export const formattedTime = time => format(time, 'DD MMM YYYY, HH:mm')
 
 export const isOnTime = (sentTime, deadline) => isAfter(sentTime, deadline) ? 'Delayed' : 'On Time'
+
+export const formattedDate = date => format(date, 'YYYY-MM-DD')

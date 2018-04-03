@@ -3,11 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Button from 'material-ui/Button'
-// css
+// styles
 import styles from './Button.style'
 
-function CustomizedButton(props) {
-  const { componentName, label, variant, disabled, onClick, classes } = props
+
+const CustomizedButton = (props) => {
+  const { classes, componentName, label, variant, disabled, onClick } = props
+
   return (
     <Button
       variant={variant}
@@ -15,8 +17,8 @@ function CustomizedButton(props) {
       onClick={onClick}
       classes={{ root: classes[componentName], raised: classes[`${componentName}Raised`] }}
     >
-      {props.children}
-      {label}
+      { props.children }
+      { label }
     </Button>
   )
 }

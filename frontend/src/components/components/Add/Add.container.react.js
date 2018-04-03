@@ -41,8 +41,7 @@ const mapDispatchToProps = () => ({
   addTag: dispatchAddTagInAdd,
   addTask: dispatchAddTask,
   changeTab: dispatchChangeTab,
-  onUserClick: user => dispatchChangeSelectedUserInAdd(user),
+  onUserClick: dispatchChangeSelectedUserInAdd,
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)

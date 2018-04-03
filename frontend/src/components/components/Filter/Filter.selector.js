@@ -26,10 +26,3 @@ export const getFilteredTasks = createSelector(
     R.filter(task => selectedUser.name ? task.assignee === selectedUser.name : true),
   )(tasks),
 )
-
-
-// export const getAddFilteredUserSuggestions = createSelector(
-//   [getAddUserSuggestions, getAddUsers],
-//   (suggestions, users) => suggestions.filter(suggestion =>
-//     R.reduce(R.and, true, R.map(user => user.name !== suggestion.name, users))),
-// )

@@ -6,13 +6,13 @@ import Checkbox from 'material-ui/Checkbox'
 // components
 import Button from '../../../../../helper/components/Button/Button.presentational'
 // styles
-import classes from './Todo.scss'
+import scssClasses from './Todo.scss'
 
 
 const Todo = ({
   level, length, index, todo: { completed, title }, onCompletedChange, onDelete,
 }) => (
-  <div className={classes.todoContainer}>
+  <div className={scssClasses.todoContainer}>
     <Checkbox
       disabled={level !== 'IN PROGRESS'}
       checked={completed}

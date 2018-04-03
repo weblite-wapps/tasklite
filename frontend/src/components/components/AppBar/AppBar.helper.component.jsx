@@ -3,9 +3,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
+// icons
 import SortIcon from 'material-ui-icons/Sort'
 import ExitIcon from 'material-ui-icons/ExitToApp'
-// scssClasses
+// styles
 import scssClasses from './AppBar.scss'
 
 
@@ -50,9 +51,9 @@ export const TabBar = (props) => {
           creator && !aboutMode &&
             <React.Fragment>
               <span style={{ width: '15px' }} />
-              <ActionButton {...props} label="add" src="assets/icons/plus.png" />
+              <AdminButton {...props} label="add" src="assets/icons/plus.png" />
               <span style={{ width: '15px' }} />
-              <ActionButton {...props} label="filter" src="assets/icons/filter.png" />
+              <AdminButton {...props} label="filter" src="assets/icons/filter.png" />
             </React.Fragment>
         }
         {
@@ -75,18 +76,18 @@ TabBar.propTypes = {
 }
 
 
-const ActionButton = ({ expandMode, changeExpandMode, label, src }) => (
+const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
   <div
     role="button"
     tabIndex="0"
     onClick={() => expandMode === label ? changeExpandMode('default') : changeExpandMode(label)}
     className={scssClasses.imageContainer}
   >
-    <img alt={label} src={src} className={scssClasses.image} />
+    <img className={scssClasses.image} alt={label} src={src} />
   </div>
 )
 
-ActionButton.propTypes = {
+AdminButton.propTypes = {
   expandMode: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,

@@ -8,6 +8,7 @@ import LevelIcon from '../components/LevelIcon/LevelIcon.container.react'
 // styles
 import scssClasses from './LevelBar.scss'
 
+
 const LevelBar = ({ tabIndex, noMargin }) => (
   <React.Fragment>
     <div className={noMargin ? scssClasses.noMargin : scssClasses.levelBarContainer}>

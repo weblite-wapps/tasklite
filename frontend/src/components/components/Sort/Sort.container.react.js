@@ -18,5 +18,4 @@ const mapDispatchToProps = () => ({
   changeSortByPriority: dispatchChangeSortByPriority,
 })
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(Sort)

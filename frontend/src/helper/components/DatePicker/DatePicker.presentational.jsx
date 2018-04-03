@@ -6,7 +6,8 @@ import TextField from 'material-ui/TextField'
 import scssClasses from './DatePicker.scss'
 import styles from '../../../helper/style/appStyle'
 
-const DatePicker = ({ isError, value, onChange, classes }) => (
+
+const DatePicker = ({ classes, isError, value, onChange }) => (
   <div className={scssClasses.textField}>
     <form className={classes.datePickerContainer} noValidate>
       <TextField
@@ -18,15 +19,8 @@ const DatePicker = ({ isError, value, onChange, classes }) => (
         className={classes.datePickerTextField}
         required
         error={isError}
-        InputProps={{
-            classes: {
-              focused: classes.textFieldInkbar,
-            },
-          }}
-        InputLabelProps={{
-          className: classes.textFieldFormLabel,
-          shrink: true,
-          }}
+        InputProps={{ classes: { focused: classes.textFieldInkbar } }}
+        InputLabelProps={{ className: classes.textFieldFormLabel, shrink: true }}
       />
     </form>
   </div>

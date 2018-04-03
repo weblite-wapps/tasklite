@@ -9,6 +9,7 @@ import CustomizedButton from '../../../helper/components/Button/Button.presentat
 // styles
 import scssClasses from './Add.scss'
 
+
 export const TextField = ({ isError, title, onTitleChange }) => (
   <CustomizedTextField
     label="Title"

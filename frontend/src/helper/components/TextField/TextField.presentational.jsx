@@ -8,7 +8,7 @@ import scssClasses from './TextField.scss'
 import styles from '../../../helper/style/appStyle'
 
 
-const TextField = ({ withButton, isError, required, fullWidth, label, value, onChange, classes }) =>
+const TextField = ({ classes, withButton, isError, required, fullWidth, label, value, onChange }) =>
   (
     withButton ? (
       <MuiTextField

@@ -11,20 +11,16 @@ import scssClasses from './TagShape.scss'
 const TagShape = ({ tag: { label, isSelected }, onTagClick }) => (
   <div className={scssClasses.container} onClick={onTagClick} role="button" tabIndex="0">
     <div className={isSelected ? scssClasses.selected : scssClasses.default}>
-      <Typography type="body1">
-        {label}
-      </Typography>
+      <Typography type="body1">{ label }</Typography>
     </div>
     <div className={scssClasses.icon}>
-      {
-        isSelected ? <Remove /> : <Add />
-      }
+      {isSelected ? <Remove /> : <Add />}
     </div>
   </div>
 )
 
 TagShape.propTypes = {
-  tag: PropTypes.shape({ isSelected: PropTypes.bool, label: PropTypes.string }).isRequired,
+  tag: PropTypes.shape({}).isRequired,
   onTagClick: PropTypes.func.isRequired,
 }
 

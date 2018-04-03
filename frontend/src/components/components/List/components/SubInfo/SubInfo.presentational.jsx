@@ -35,8 +35,7 @@ const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id 
             todo={todo}
             length={todos.length}
             index={index + 1}
-          />))
-        }
+          />))}
       </FlipMove>
     </Typography>
     <Divider inset />

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Radio from 'material-ui/Radio'
+// icons
 import RadioButtonUncheckedIcon from 'material-ui-icons/RadioButtonUnchecked'
 import RadioButtonCheckedIcon from 'material-ui-icons/RadioButtonChecked'
 // scssClasses
@@ -45,5 +46,3 @@ RadioGroup.propTypes = {
 }
 
 export default withStyles(styles)(RadioGroup)
-
-// export const nothing = null

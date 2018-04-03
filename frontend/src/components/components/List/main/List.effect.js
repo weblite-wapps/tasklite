@@ -1,7 +1,7 @@
 // modules
 import { combineEpics } from 'redux-observable'
-import 'rxjs'
 import * as R from 'ramda'
+import 'rxjs'
 // local modules
 import { snackbarMessage } from 'weblite-web-snackbar'
 // actions
@@ -49,6 +49,7 @@ const toggleTodoEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
+
 const addTodoEpic = action$ =>
   action$.ofType(ADD_TODO)
     .pluck('payload')
@@ -60,6 +61,7 @@ const addTodoEpic = action$ =>
     .do(({ body }) => dispatchRestoreTodo(body[0]))
     .ignoreElements()
 
+
 const removeTodoEpic = action$ =>
   action$.ofType(DELETE_TODO)
     .pluck('payload')
@@ -69,6 +71,7 @@ const removeTodoEpic = action$ =>
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
+
 
 export default combineEpics(
   changeLevelEpic,

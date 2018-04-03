@@ -22,17 +22,17 @@ const Avatar = ({ classes, users, selectedUser, onUserClick }) => (
     <div className={scssClasses.row}>
       {
         users.map(user => (
-          <div className={scssClasses.column} key={user._id}>
+          <div key={user._id} className={scssClasses.column}>
             <MuiAvatar
               className={user.id === selectedUser.id ? classes.active : classes.passive}
               onClick={() => onUserClick(user)}
               role="button"
               tabIndex="0"
             >
-              {R.head(user.name)}
+              { R.head(user.name) }
             </MuiAvatar>
             <Typography variant="body1" align="center" style={{ marginBottom: '5px' }}>
-              {user.name}
+              { user.name }
             </Typography>
           </div>
         ))

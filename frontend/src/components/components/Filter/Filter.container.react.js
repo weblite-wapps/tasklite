@@ -29,8 +29,7 @@ const mapDispatchToProps = () => ({
   onQueryTagChange: dispatchSetQueryTagInFilter,
   onTagClick: dispatchChangeSelectedTagsInFilter,
   addTag: dispatchAddTagInFilter,
-  onUserClick: user => dispatchChangeSelectedUserInFilter(user),
+  onUserClick: dispatchChangeSelectedUserInFilter,
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)
