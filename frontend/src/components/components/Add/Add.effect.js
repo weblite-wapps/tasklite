@@ -5,13 +5,18 @@ import 'rxjs'
 import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import { getRequest, postRequest } from '../../../helper/functions/request.helper'
+import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
-import { ADD_TASK, restoreTask } from '../../Main/App.action'
+import { ADD_TASK, restoreTask, dispatchAddTask } from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
+  HANDLE_ADD_TAG,
+  HANDLE_ADD_TASK,
   fetchTagsInAdd,
   loadTagsDataInAdd,
   dispatchResetInputs,
+  dispatchAddTagInAdd,
+  dispatchChangeIsError,
 } from './Add.action'
 // views
 import { wisView, userIdView } from '../../Main/App.reducer'
@@ -55,7 +60,28 @@ const addTaskEpic = action$ =>
     .mergeMap(success => [restoreTask(success[0].body), loadTagsDataInAdd(success[1].body)])
 
 
+const effectHandleAddTag = action$ =>
+  action$.ofType(HANDLE_ADD_TAG)
+    .map(() => ({ ...checkBeforeAddTag() }))
+    .do(({ permission }) => permission && dispatchAddTagInAdd())
+    .do(({ permission, message }) => !permission && snackbarMessage({ message }))
+    .ignoreElements()
+
+
+const effectHandleAddTask = action$ =>
+  action$.ofType(HANDLE_ADD_TASK)
+    .pluck('payload')
+    .map(payload => ({ ...payload, ...checkBeforeAddTask() }))
+    .do(({ message }) => snackbarMessage({ message }))
+    .do(({ isError }) => dispatchChangeIsError(isError))
+    .do(({ title, selectedUser, selectedTags, priority, deadline, permission }) => permission &&
+      dispatchAddTask(title, selectedUser, selectedTags, priority, deadline))
+    .ignoreElements()
+
+
 export default combineEpics(
   effectSearchTagsEpic,
   addTaskEpic,
+  effectHandleAddTag,
+  effectHandleAddTask,
 )

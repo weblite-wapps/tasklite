@@ -12,6 +12,7 @@ import { dispatchLoadMore } from '../components/List/main/List.action'
 import { getSortedTasks } from '../components/Sort/Sort.selector'
 import { getNumberOfTasksInEachLevel } from './App.selector'
 
+
 const mapStateToProps = state => ({
   tasks: getSortedTasks(state),
   tabIndex: tabIndexView(),

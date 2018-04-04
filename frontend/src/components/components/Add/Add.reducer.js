@@ -14,6 +14,7 @@ import {
   CHANGE_SELECTED_TAGS_IN_ADD,
   CHANGE_SELECTED_USER_IN_ADD,
   RESET_INPUTS,
+  CHANGE_IS_ERROR,
 } from './Add.action'
 
 // state
@@ -26,6 +27,7 @@ const initialState = {
   selectedTags: [],
   selectedUser: {},
   tags: [],
+  isError: { selectedUser: false, title: false, deadline: false },
 }
 
 // lens
@@ -34,6 +36,7 @@ const priorityLens = R.lensProp('priority')
 const deadlineLens = R.lensProp('deadline')
 const queryTagLens = R.lensProp('queryTag')
 const suggestionsLens = R.lensProp('suggestions')
+const isErrorLens = R.lensProp('isError')
 // views
 export const titleView = () => R.path(['Add', 'title'])(getState())
 export const priorityView = () => R.path(['Add', 'priority'])(getState())
@@ -42,6 +45,7 @@ export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
 export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
 export const selectedUserView = () => R.path(['Add', 'selectedUser'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
+export const isErrorView = () => R.path(['Add', 'isError'])(getState())
 
 // reducers
 const reducers = {
@@ -90,6 +94,8 @@ const reducers = {
       selectedUser: {},
       queryTag: '',
     }),
+
+  [CHANGE_IS_ERROR]: (state, { value }) => R.set(isErrorLens, value, state),
 }
 
 

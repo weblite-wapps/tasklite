@@ -57,3 +57,19 @@ export const dispatchChangeSelectedUserInAdd = (...args) =>
 export const RESET_INPUTS = 'RESET_INPUTS'
 export const resetInputs = createAction(RESET_INPUTS)
 export const dispatchResetInputs = (...args) => dispatch(resetInputs(...args))
+
+export const CHANGE_IS_ERROR = 'CHANGE_IS_ERROR'
+export const changeIsError = createAction(CHANGE_IS_ERROR, value => ({ value }))
+export const dispatchChangeIsError = (...args) => dispatch(changeIsError(...args))
+
+
+// effects
+export const HANDLE_ADD_TAG = 'HANDLE_ADD_TAG'
+export const handleAddTag = createAction(HANDLE_ADD_TAG)
+export const dispatchHandleAddTag = (...args) => dispatch(handleAddTag(...args))
+
+export const HANDLE_ADD_TASK = 'HANDLE_ADD_TASK'
+export const handleAddTask = createAction(HANDLE_ADD_TASK,
+  (title, selectedUser, selectedTags, priority, deadline) =>
+    ({ title, selectedUser, selectedTags, priority, deadline }))
+export const dispatchHandleAddTask = (...args) => dispatch(handleAddTask(...args))

@@ -69,22 +69,23 @@ LoadMore.propTypes = {
 }
 
 
-export const TagPanel = (
-  { suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag }) => (
-    <React.Fragment>
-      <div className={scssClasses.textField}>
-        <Autocomplete
-          label="Tags"
-          suggestions={suggestions}
-          inputValue={queryTag}
-          onInputValueChange={e => onQueryTagChange(e.target.value)}
-          onSelect={value => onQueryTagChange(value)}
-          onAdd={handleAddTag}
-        />
-        <CustomizedButton label="ADD" onClick={handleAddTag} componentName="Add" />
-      </div>
-      <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-    </React.Fragment>
+export const TagPanel = ({
+  suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag,
+}) => (
+  <React.Fragment>
+    <div className={scssClasses.textField}>
+      <Autocomplete
+        label="Tags"
+        suggestions={suggestions}
+        inputValue={queryTag}
+        onInputValueChange={e => onQueryTagChange(e.target.value)}
+        onSelect={value => onQueryTagChange(value)}
+        onAdd={handleAddTag}
+      />
+      <CustomizedButton label="ADD" onClick={handleAddTag} componentName="Add" />
+    </div>
+    <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+  </React.Fragment>
 )
 
 TagPanel.propTypes = {

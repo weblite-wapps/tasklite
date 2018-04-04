@@ -26,19 +26,13 @@ class TaskList extends React.Component {
     this.handleOpenPopover = this._handleOpenPopover.bind(this)
     this.state = {
       anchorEl: null,
-      todoTextError: false,
     }
   }
 
   _handleAddTodo() {
     const { task: { todoText }, addTodo } = this.props
-    if (R.trim(todoText)) {
-      this.setState({ todoTextError: false })
-      addTodo(todoText)
-    } else {
-      this.setState({ todoTextError: true })
-      snackbarMessage({ message: 'Write something first!' })
-    }
+    if (R.trim(todoText)) addTodo(todoText)
+    else snackbarMessage({ message: 'Write something first!' })
   }
 
   _handleOpenPopover() {
@@ -63,7 +57,7 @@ class TaskList extends React.Component {
           <div className={scssClasses.collapse}>
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
-            <AddTodo {...this.props} {...this.state} handleAddTodo={this.handleAddTodo} />
+            <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
             <div className={scssClasses.button}>
               <MuiButton
                 ref={(node) => { this.button = node }}

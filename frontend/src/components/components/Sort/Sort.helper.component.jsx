@@ -14,7 +14,7 @@ import styles from './Sort.style'
 
 const RadioGroup = ({ classes, label, checked, onChange }) => (
   <div className={scssClasses.radioGroupContainer}>
-    <Typography variant="caption" style={{ marginBottom: '10px' }}>
+    <Typography variant="body1" style={{ marginBottom: '10px', color: '#919191' }}>
       {label}: {checked}
     </Typography>
     <Radio

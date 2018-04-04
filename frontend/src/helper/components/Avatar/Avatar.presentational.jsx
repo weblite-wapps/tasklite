@@ -11,14 +11,11 @@ import scssClasses from './Avatar.scss'
 import styles from './Avatar.style'
 
 
-const Avatar = ({ classes, users, selectedUser, onUserClick }) => (
+const Avatar = ({ classes, isError, users, selectedUser, onUserClick }) => (
   <div className={scssClasses.container}>
-    <div className={scssClasses.text}>
-      <Typography variant="body1" align="center" style={{ color: '#919191' }}>
-        Assignee
-      </Typography>
-      <Divider light />
-    </div>
+    <Typography variant="body1" className={classes.text}>
+      Assignee
+    </Typography>
     <div className={scssClasses.row}>
       {
         users.map(user => (
@@ -38,14 +35,20 @@ const Avatar = ({ classes, users, selectedUser, onUserClick }) => (
         ))
       }
     </div>
+    <Divider className={isError ? classes.error : classes.default} />
   </div>
 )
 
 Avatar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
+  isError: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedUser: PropTypes.shape({}).isRequired,
   onUserClick: PropTypes.func.isRequired,
+}
+
+Avatar.defaultProps = {
+  isError: false,
 }
 
 export default withStyles(styles)(Avatar)

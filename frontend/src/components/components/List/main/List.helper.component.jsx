@@ -100,7 +100,7 @@ FurtherInfo.propTypes = {
 
 
 export const AddTodo = ({
-  task: { level, todoText }, onTodoTextChange, todoTextError, handleAddTodo,
+  task: { level, todoText }, onTodoTextChange, handleAddTodo,
 }) => (
   (level === 'ICE BOX' || level === 'IN PROGRESS') ? (
     <div className={scssClasses.textField}>
@@ -109,7 +109,6 @@ export const AddTodo = ({
         label="New Subtask"
         fullWidth={false}
         value={todoText}
-        isError={todoTextError}
         onChange={e => onTodoTextChange(e.target.value)}
       />
       <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
@@ -119,7 +118,6 @@ export const AddTodo = ({
 
 AddTodo.propTypes = {
   task: PropTypes.shape({}).isRequired,
-  todoTextError: PropTypes.bool.isRequired,
   handleAddTodo: PropTypes.func.isRequired,
   onTodoTextChange: PropTypes.func.isRequired,
 }
