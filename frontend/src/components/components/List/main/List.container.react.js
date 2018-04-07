@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import List from './List.presentational'
 // views
-import { tabIndexView } from '../../../Main/App.reducer'
+import { tabIndexView, creatorView } from '../../../Main/App.reducer'
 import { expandingIdView, popoverIdView } from './List.reducer'
 // actions
 import { dispatchChangeTodoText, dispatchAddTodo, dispatchDeleteTask } from '../../../Main/App.action'
@@ -14,6 +14,7 @@ const mapStateToProps = () => ({
   tabIndex: tabIndexView(),
   expandingId: expandingIdView(),
   popoverId: popoverIdView(),
+  creator: creatorView(),
 })
 
 const mapDispatchToProps = (_, { task }) => ({

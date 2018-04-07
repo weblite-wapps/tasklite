@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CircularProgress } from 'material-ui/Progress'
 import IconButton from 'material-ui/IconButton'
+import Tooltip from 'material-ui/Tooltip'
 // icons
 import SortIcon from 'material-ui-icons/Sort'
 import ExitIcon from 'material-ui-icons/ExitToApp'
@@ -33,7 +34,9 @@ Logo.propTypes = {
 
 
 export const TabBar = (props) => {
-  const { creator, aboutMode, expandMode, changeExpandMode, setAboutMode } = props
+  const {
+    classes, creator, aboutMode, setAboutMode, sortByDeadline, toggleSortByDeadline,
+  } = props
 
   return (
     <div className={scssClasses.tabBar}>
@@ -41,11 +44,16 @@ export const TabBar = (props) => {
       <div className={scssClasses.iconsContainer}>
         {
           !aboutMode &&
-            <IconButton
-              onClick={() => expandMode === 'sort' ? changeExpandMode('default') : changeExpandMode('sort')}
-            >
-              <SortIcon style={{ width: '25px', height: '25px' }} />
+          <Tooltip
+            enterDelay={300}
+            leaveDelay={300}
+            placement="bottom"
+            title={sortByDeadline ? 'Sort By Priority' : 'Sort By Deadline'}
+          >
+            <IconButton onClick={toggleSortByDeadline}>
+              <SortIcon className={sortByDeadline ? classes.sorted : classes.default} />
             </IconButton>
+          </Tooltip>
         }
         {
           creator && !aboutMode &&
@@ -68,10 +76,11 @@ export const TabBar = (props) => {
 }
 
 TabBar.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
   creator: PropTypes.bool.isRequired,
   aboutMode: PropTypes.bool.isRequired,
-  expandMode: PropTypes.string.isRequired,
-  changeExpandMode: PropTypes.func.isRequired,
+  sortByDeadline: PropTypes.bool.isRequired,
+  toggleSortByDeadline: PropTypes.func.isRequired,
   setAboutMode: PropTypes.func.isRequired,
 }
 
