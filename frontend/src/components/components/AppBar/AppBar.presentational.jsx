@@ -1,13 +1,18 @@
 // modules
 import React from 'react'
+import { withStyles } from 'material-ui/styles'
 // helpers
 import { Logo, TabBar } from './AppBar.helper.component'
 // styles
 import scssClasses from './AppBar.scss'
+import styles from './AppBar.style'
 
-export default props => (
+
+const AppBar = props => (
   <div className={scssClasses.container}>
     <Logo {...props} />
     <TabBar {...props} />
   </div>
 )
+
+export default withStyles(styles)(AppBar)

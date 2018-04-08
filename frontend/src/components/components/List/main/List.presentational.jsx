@@ -43,7 +43,8 @@ class TaskList extends React.Component {
 
   render() {
     const {
-      classes, task: { _id, todos }, popoverId, expandingId, deleteTask, changePopoverId,
+      classes, creator, task: { _id, level, todos }, popoverId,
+      expandingId, deleteTask, changePopoverId,
     } = this.props
 
     return (
@@ -58,23 +59,26 @@ class TaskList extends React.Component {
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
-            <div className={scssClasses.button}>
-              <MuiButton
-                ref={(node) => { this.button = node }}
-                onClick={this.handleOpenPopover}
-                classes={{ raised: classes.Button }}
-                variant="raised"
-              >
-                Delete
-              </MuiButton>
-              <Popover
-                popoverIsOpen={_id === popoverId}
-                anchorEl={this.state.anchorEl}
-                onClose={() => changePopoverId('')}
-                onYep={deleteTask}
-                onNop={() => changePopoverId('')}
-              />
-            </div>
+            {
+              creator && level === 'ICE BOX' &&
+              <div className={scssClasses.button}>
+                <MuiButton
+                  ref={(node) => { this.button = node }}
+                  onClick={this.handleOpenPopover}
+                  classes={{ raised: classes.Button }}
+                  variant="raised"
+                >
+                  Delete
+                </MuiButton>
+                <Popover
+                  popoverIsOpen={_id === popoverId}
+                  anchorEl={this.state.anchorEl}
+                  onClose={() => changePopoverId('')}
+                  onYep={deleteTask}
+                  onNop={() => changePopoverId('')}
+                />
+              </div>
+            }
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />
@@ -85,6 +89,7 @@ class TaskList extends React.Component {
 
 TaskList.propTypes = {
   classes: PropTypes.shape({}).isRequired,
+  creator: PropTypes.bool.isRequired,
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
   popoverId: PropTypes.string.isRequired,

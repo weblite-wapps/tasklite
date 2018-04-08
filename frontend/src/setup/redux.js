@@ -8,7 +8,6 @@ import AppReducer from '../components/Main/App.reducer'
 import AddReducer from '../components/components/Add/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
 import ListReducer from '../components/components/List/main/List.reducer'
-import SortReducer from '../components/components/Sort/Sort.reducer'
 import AppBarReducer from '../components/components/AppBar/AppBar.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
@@ -37,7 +36,6 @@ const store = createStore(
     Add: AddReducer,
     Filter: FilterReducer,
     List: ListReducer,
-    Sort: SortReducer,
     AppBar: AppBarReducer,
     router: routerReducer,
   }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))

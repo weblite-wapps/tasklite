@@ -9,8 +9,7 @@ import { expandModeView } from '../components/AppBar/AppBar.reducer'
 import { dispatchChangeTab, dispatchSetApi, dispatchFetchInitialData } from './App.action'
 import { dispatchLoadMore } from '../components/List/main/List.action'
 // selectors
-import { getSortedTasks } from '../components/Sort/Sort.selector'
-import { getNumberOfTasksInEachLevel } from './App.selector'
+import { getNumberOfTasksInEachLevel, getSortedTasks } from './App.selector'
 
 
 const mapStateToProps = state => ({

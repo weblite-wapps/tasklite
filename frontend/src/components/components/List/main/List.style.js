@@ -2,6 +2,7 @@ export default () => ({
   IconButton: {
     width: '25px',
     height: '25px',
+    color: '#919191',
   },
   SvgIcon: {
     width: '25px',

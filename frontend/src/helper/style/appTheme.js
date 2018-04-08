@@ -85,6 +85,11 @@ export default createMuiTheme({
         marginLeft: '0px',
       },
     },
+    MuiList: {
+      root: {
+        margin: '5px 0px 0px 0px',
+      },
+    },
     MuiListItem: {
       default: {
         paddingTop: '0px',
