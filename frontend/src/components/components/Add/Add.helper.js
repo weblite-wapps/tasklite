@@ -19,7 +19,7 @@ export const checkBeforeAddTask = () => {
     })
   } else if (!titleView()) {
     return ({
-      isError: { selectedUser: true, title: true, deadline: false },
+      isError: { selectedUser: false, title: true, deadline: false },
       message: 'Enter title first!',
       permission: false,
     })

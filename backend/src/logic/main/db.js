@@ -5,7 +5,7 @@ import Tag from '../../models/tag'
 
 export const fetchTasks = async query => Task
   .find(query)
-  .sort({ deadline: 1 })
+  .sort({ created_at: -1 })
   .limit(5)
   .exec()
 

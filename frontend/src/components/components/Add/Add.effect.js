@@ -48,6 +48,7 @@ const addTaskEpic = action$ =>
           sentTime: '',
           todos: [{ title: 'done', completed: false }],
           level: 'ICE BOX',
+          created_at: new Date(),
           userId: selectedUser.id,
           wis: wisView(),
         })

@@ -109,6 +109,12 @@ export const AddTodo = ({
         label="New Subtask"
         fullWidth={false}
         value={todoText}
+        onKeyPress={(ev) => {
+          if (ev.key === 'Enter') {
+            handleAddTodo()
+            ev.preventDefault()
+          }
+        }}
         onChange={e => onTodoTextChange(e.target.value)}
       />
       <Button label="ADD" onClick={handleAddTodo} componentName="Add" />

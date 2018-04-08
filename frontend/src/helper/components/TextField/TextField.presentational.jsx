@@ -8,13 +8,16 @@ import scssClasses from './TextField.scss'
 import styles from '../../../helper/style/appStyle'
 
 
-const TextField = ({ classes, withButton, isError, required, fullWidth, label, value, onChange }) =>
+const TextField = ({
+  classes, withButton, isError, required, fullWidth, label, value, onChange, onKeyPress,
+}) =>
   (
     withButton ? (
       <MuiTextField
         label={label}
         value={value}
         onChange={onChange}
+        onKeyPress={onKeyPress}
         helperText={required && 'required'}
         error={isError}
         required={required}
@@ -29,6 +32,7 @@ const TextField = ({ classes, withButton, isError, required, fullWidth, label, v
           label={label}
           value={value}
           onChange={onChange}
+          onKeyPress={onKeyPress}
           helperText={required && 'required'}
           error={isError}
           required={required}
@@ -51,6 +55,7 @@ TextField.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func,
 }
 
 TextField.defaultProps = {
@@ -58,6 +63,7 @@ TextField.defaultProps = {
   isError: false,
   required: false,
   fullWidth: true,
+  onKeyPress: () => {},
 }
 
 

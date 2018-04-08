@@ -16,6 +16,7 @@ const TaskSchema = new Schema({
     title: String,
     completed: Boolean,
   }],
+  created_at: Date,
   userId: String,
   wis: String,
 })
