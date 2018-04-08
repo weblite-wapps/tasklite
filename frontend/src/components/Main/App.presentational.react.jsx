@@ -7,7 +7,6 @@ import Snackbar from 'weblite-web-snackbar'
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Add.container.react'
 import Filter from '../components/Filter/Filter.container.react'
-import Sort from '../components/Sort/Sort.container.react'
 // helpers
 import { Collapse, TaskList, LoadMore } from './App.helper.component'
 // css
@@ -45,7 +44,6 @@ export default class App extends React.Component {
       <div className={scssClasses.app}>
         <Collapse {...this.props} label="add"><Add /></Collapse>
         <Collapse {...this.props} label="filter"><Filter /></Collapse>
-        <Collapse {...this.props} label="sort"><Sort /></Collapse>
         <LevelBar noMargin={this.props.expandMode !== 'default'} />
         <TaskList {...this.props} />
         <LoadMore {...this.props} />

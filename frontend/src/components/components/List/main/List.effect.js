@@ -10,7 +10,7 @@ import {
   TOGGLE_TODO,
   ADD_TODO,
   DELETE_TODO,
-  setSentTime,
+  dispatchSetSentTime,
   dispatchSetIsLoading,
   dispatchRestoreTodo,
   dispatchUpdateNumbersObject,
@@ -32,7 +32,7 @@ const changeLevelEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => snackbarMessage({ message: `Dropped to ${body.nextLevel}` }))
     .filter(({ body }) => body.nextLevel === 'EVALUTE')
-    .do(({ body }) => setSentTime(body._id, new Date()))
+    .do(({ body }) => dispatchSetSentTime(body._id, new Date()))
     .mergeMap(({ body: { _id } }) => postRequest('/setSentTime')
       .send({ _id, sentTime: new Date() })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
