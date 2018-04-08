@@ -49,7 +49,10 @@ SubInfo.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]),
-  sentTime: PropTypes.string,
+  sentTime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Date),
+  ]),
   level: PropTypes.string,
   assignee: PropTypes.string,
   todos: PropTypes.arrayOf(PropTypes.shape({})),

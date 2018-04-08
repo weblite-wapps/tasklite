@@ -31,7 +31,7 @@ const changeLevelEpic = action$ =>
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => snackbarMessage({ message: `Dropped to ${body.nextLevel}` }))
-    .filter(({ body }) => body.nextLevel === 'EVALUTE')
+    .filter(({ body }) => body.nextLevel === 'EVALUATE')
     .do(({ body }) => dispatchSetSentTime(body._id, new Date()))
     .mergeMap(({ body: { _id } }) => postRequest('/setSentTime')
       .send({ _id, sentTime: new Date() })

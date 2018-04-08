@@ -27,7 +27,7 @@ const ActionButtons = ({ classes, expandingId, task: { _id, assignee }, onExpand
 
     {checkToShow('ICE BOX', assignee) && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
     {checkToShow('IN PROGRESS', assignee) && <Icon src="assets/icons/inp.png" label="IN PROGRESS" _id={_id} />}
-    {checkToShow('EVALUTE', assignee) && <Icon src="assets/icons/evalute.png" label="EVALUTE" _id={_id} />}
+    {checkToShow('EVALUATE', assignee) && <Icon src="assets/icons/evaluate.png" label="EVALUATE" _id={_id} />}
     {checkToShow('DONE', assignee) && <Icon src="assets/icons/done.png" label="DONE" _id={_id} />}
   </div>
 )

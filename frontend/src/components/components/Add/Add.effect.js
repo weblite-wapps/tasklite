@@ -8,6 +8,7 @@ import { getRequest, postRequest } from '../../../helper/functions/request.helpe
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import { ADD_TASK, restoreTask, dispatchAddTask } from '../../Main/App.action'
+import { dispatchChangeExpandMode } from '../AppBar/AppBar.action'
 import {
   SET_QUERY_TAG_IN_ADD,
   HANDLE_ADD_TAG,
@@ -58,6 +59,7 @@ const addTaskEpic = action$ =>
         .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })),
     ]))
     .do(() => dispatchResetInputs())
+    .do(() => dispatchChangeExpandMode('default'))
     .mergeMap(success => [restoreTask(success[0].body), loadTagsDataInAdd(success[1].body)])
 
 

@@ -14,7 +14,7 @@ export const getNumberOfTasksInEachLevel = createSelector(
     return ({
       'ICE BOX': R.length(groupedTasks['ICE BOX']) || 0,
       'IN PROGRESS': R.length(groupedTasks['IN PROGRESS']) || 0,
-      EVALUTE: R.length(groupedTasks.EVALUTE) || 0,
+      EVALUATE: R.length(groupedTasks.EVALUATE) || 0,
       DONE: R.length(groupedTasks.DONE) || 0,
     })
   },

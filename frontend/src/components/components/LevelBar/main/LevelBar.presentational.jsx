@@ -14,7 +14,7 @@ const LevelBar = ({ tabIndex, noMargin }) => (
     <div className={noMargin ? scssClasses.noMargin : scssClasses.levelBarContainer}>
       <LevelIcon src="assets/icons/icebox.png" label="ICE BOX" />
       <LevelIcon src="assets/icons/inp.png" label="IN PROGRESS" />
-      <LevelIcon src="assets/icons/evalute.png" label="EVALUTE" />
+      <LevelIcon src="assets/icons/evaluate.png" label="EVALUATE" />
       <LevelIcon src="assets/icons/done.png" label="DONE" />
     </div>
 

@@ -88,7 +88,7 @@ export const FurtherInfo = ({
   <React.Fragment>
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
-    {(level === 'EVALUTE' || level === 'DONE') && <SubInfo label="SENT TIME" sentTime={sentTime} />}
+    {(level === 'EVALUATE' || level === 'DONE') && <SubInfo label="SENT TIME" sentTime={sentTime} />}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
   </React.Fragment>

@@ -8,10 +8,10 @@ export const checkToShow = (level, assignee) => {
   const creator = creatorView()
 
   switch (level) {
-    case 'ICE BOX': return (creator && tabIndex === 'EVALUTE') || (assignee === userName && tabIndex === 'IN PROGRESS')
-    case 'IN PROGRESS': return assignee === userName && (tabIndex === 'ICE BOX' || tabIndex === 'EVALUTE')
-    case 'EVALUTE': return assignee === userName && tabIndex === 'IN PROGRESS'
-    case 'DONE': return creator && tabIndex === 'EVALUTE'
+    case 'ICE BOX': return (creator && tabIndex === 'EVALUATE') || (assignee === userName && tabIndex === 'IN PROGRESS')
+    case 'IN PROGRESS': return assignee === userName && (tabIndex === 'ICE BOX' || tabIndex === 'EVALUATE')
+    case 'EVALUATE': return assignee === userName && tabIndex === 'IN PROGRESS'
+    case 'DONE': return creator && tabIndex === 'EVALUATE'
     default: return false
   }
 }

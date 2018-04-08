@@ -26,7 +26,7 @@ const Todo = ({
         label="DELETE"
         onClick={onDelete}
         componentName="Todo"
-        disabled={level === 'EVALUTE' || level === 'DONE'}
+        disabled={level === 'EVALUATE' || level === 'DONE'}
       />
     }
   </div>
