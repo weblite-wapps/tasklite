@@ -10,6 +10,7 @@ import Todo from '../Todo/Todo.container.react'
 // helper
 import { formattedTime, getRemained, isOnTime } from '../../../../../helper/functions/time.helper'
 
+
 const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id }) => (
   <React.Fragment>
     <Typography variant="button">
@@ -21,7 +22,6 @@ const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id 
       {sentTime && `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
       {assignee && assignee}
       <FlipMove
-        typeName={null}
         duration={500}
         staggerDelayBy={150}
         enterAnimation="elevator"

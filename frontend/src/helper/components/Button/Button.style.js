@@ -67,7 +67,7 @@ export default ({
     margin: '0px 5px',
     padding: '0px 5px',
     minWidth: '5px',
-    minHeight: '25px',
+    minHeight: '16px',
     textTransform: 'capitalize',
   },
 })
