@@ -28,7 +28,7 @@ const Avatar = ({ classes, isError, users, selectedUser, onUserClick }) => (
             >
               { R.head(user.name) }
             </MuiAvatar>
-            <Typography variant="body1" align="center" style={{ marginBottom: '5px' }}>
+            <Typography variant="body1" align="center" className={classes.username} style={{ marginBottom: '5px' }}>
               { user.name }
             </Typography>
           </div>

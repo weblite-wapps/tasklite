@@ -35,4 +35,10 @@ export default () => ({
     margin: '0px 0px 10px 20px',
     fontSize: '12px',
   },
+  username: {
+    whiteSpace: 'nowrap',
+    width: '70px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 })
