@@ -162,7 +162,20 @@ eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setup_server__ = __w
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_task__ = __webpack_require__(/*! ../../models/task */ \"./models/task.js\");\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_tag__ = __webpack_require__(/*! ../../models/tag */ \"./models/tag.js\");\n// models\n\n\n\nconst fetchTasks = async query => __WEBPACK_IMPORTED_MODULE_0__models_task__[\"a\" /* default */].find(query).sort({ created_at: -1 }).limit(5).exec();\n/* harmony export (immutable) */ __webpack_exports__[\"c\"] = fetchTasks;\n\n\nconst fetchTags = async query => __WEBPACK_IMPORTED_MODULE_1__models_tag__[\"a\" /* default */].find(query).sort({ number: -1 }).limit(5).exec();\n/* harmony export (immutable) */ __webpack_exports__[\"b\"] = fetchTags;\n\n\nconst countTasks = async query => __WEBPACK_IMPORTED_MODULE_0__models_task__[\"a\" /* default */].find(query).count().exec();\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = countTasks;\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./logic/main/db.js\n// module id = ./logic/main/db.js\n// module chunks = 0\n\n//# sourceURL=webpack:///./logic/main/db.js?");
+eval("/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__models_task__ = __webpack_require__(/*! ../../models/task */ \"./models/task.js\");\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_tag__ = __webpack_require__(/*! ../../models/tag */ \"./models/tag.js\");\n/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helper__ = __webpack_require__(/*! ./helper */ \"./logic/main/helper.js\");\n// models\n\n\n// helpers\n\n\nconst fetchTasks = async query => __WEBPACK_IMPORTED_MODULE_0__models_task__[\"a\" /* default */].find(query).sort({ created_at: -1 }).limit(Object(__WEBPACK_IMPORTED_MODULE_2__helper__[\"a\" /* getLimit */])(query.level)).exec();\n/* harmony export (immutable) */ __webpack_exports__[\"c\"] = fetchTasks;\n\n\nconst fetchTags = async query => __WEBPACK_IMPORTED_MODULE_1__models_tag__[\"a\" /* default */].find(query).sort({ number: -1 }).limit(5).exec();\n/* harmony export (immutable) */ __webpack_exports__[\"b\"] = fetchTags;\n\n\nconst countTasks = async query => __WEBPACK_IMPORTED_MODULE_0__models_task__[\"a\" /* default */].find(query).count().exec();\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = countTasks;\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./logic/main/db.js\n// module id = ./logic/main/db.js\n// module chunks = 0\n\n//# sourceURL=webpack:///./logic/main/db.js?");
+
+/***/ }),
+
+/***/ "./logic/main/helper.js":
+/*!******************************!*\
+  !*** ./logic/main/helper.js ***!
+  \******************************/
+/*! exports provided: getLimit, nothing */
+/*! exports used: getLimit */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("const getLimit = level => {\n  switch (level) {\n    case 'ICE BOX':\n      return 10;\n    case 'IN PROGRESS':\n      return 5;\n    case 'EVALUTE':\n      return 5;\n    case 'DONE':\n      return 5;\n    default:\n      return 0;\n  }\n};\n/* harmony export (immutable) */ __webpack_exports__[\"a\"] = getLimit;\n\n\nconst nothing = null;\n/* unused harmony export nothing */\n\n\n//////////////////\n// WEBPACK FOOTER\n// ./logic/main/helper.js\n// module id = ./logic/main/helper.js\n// module chunks = 0\n\n//# sourceURL=webpack:///./logic/main/helper.js?");
 
 /***/ }),
 
