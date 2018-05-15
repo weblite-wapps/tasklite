@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Filter from './Filter.presentational'
 // views
-import { usersView } from '../../Main/App.reducer'
+import { usersView, creatorView } from '../../Main/App.reducer'
 import { queryTagView, tagsView, selectedTagsView, selectedUserView } from './Filter.reducer'
 // actions
 import {
@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   suggestions: getFilteredSuggestions(state),
   tags: tagsView(),
   users: usersView(),
+  creator: creatorView(),
 })
 
 const mapDispatchToProps = () => ({

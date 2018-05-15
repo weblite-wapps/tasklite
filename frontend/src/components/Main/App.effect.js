@@ -6,7 +6,7 @@ import { snackbarMessage } from 'weblite-web-snackbar'
 import { getQuery } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
-import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd } from '../components/Add/Add.action'
+import { dispatchLoadTagsDataInAdd, dispatchLoadUsersDataInAdd, dispatchChangeSelectedUserInAdd } from '../components/Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../components/Filter/Filter.action'
 import { LOAD_MORE, dispatchChangePopoverId } from '../components/List/main/List.action'
 import {
@@ -22,7 +22,7 @@ import {
   dispatchUpdateNumbersObject,
 } from './App.action'
 // views
-import { wisView, userIdView, userNameView, creatorView } from './App.reducer'
+import { wisView, userIdView, userNameView, creatorView, userView } from './App.reducer'
 
 
 const saveUsersEpic = action$ =>
@@ -31,6 +31,7 @@ const saveUsersEpic = action$ =>
       .send({ wis: wisView(), userId: userIdView(), username: userNameView() })
       .on('error', err => err.status !== 304 && snackbarMessage({ message: 'Server disconnected!' })))
     .do(({ body }) => body && dispatchLoadUsersData([body]))
+    .do(() => dispatchChangeSelectedUserInAdd(userView()))
     .map(dispatchFetchAdminData)
 
 

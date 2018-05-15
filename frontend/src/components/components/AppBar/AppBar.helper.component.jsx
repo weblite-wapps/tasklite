@@ -35,7 +35,7 @@ Logo.propTypes = {
 
 export const TabBar = (props) => {
   const {
-    classes, creator, aboutMode, setAboutMode, sortByDeadline, toggleSortByDeadline,
+    classes, aboutMode, setAboutMode, sortByDeadline, toggleSortByDeadline,
   } = props
 
   return (
@@ -44,26 +44,26 @@ export const TabBar = (props) => {
       <div className={scssClasses.iconsContainer}>
         {
           !aboutMode &&
-          <Tooltip
-            enterDelay={300}
-            leaveDelay={300}
-            placement="bottom"
-            title={sortByDeadline ? 'Sort By Priority' : 'Sort By Deadline'}
-          >
-            <IconButton onClick={toggleSortByDeadline}>
-              <SortIcon className={sortByDeadline ? classes.sorted : classes.default} />
-            </IconButton>
-          </Tooltip>
-        }
-        {
-          creator && !aboutMode &&
             <React.Fragment>
+              <Tooltip
+                enterDelay={300}
+                leaveDelay={300}
+                placement="bottom"
+                title={sortByDeadline ? 'Sort By Priority' : 'Sort By Deadline'}
+              >
+                <IconButton onClick={toggleSortByDeadline}>
+                  <SortIcon className={sortByDeadline ? classes.sorted : classes.default} />
+                </IconButton>
+              </Tooltip>
+
               <span style={{ width: '15px' }} />
               <AdminButton {...props} label="add" src="assets/icons/plus.png" />
+
               <span style={{ width: '15px' }} />
               <AdminButton {...props} label="filter" src="assets/icons/filter.png" />
             </React.Fragment>
         }
+
         {
           aboutMode &&
             <IconButton onClick={() => setAboutMode(false)}>
@@ -77,7 +77,6 @@ export const TabBar = (props) => {
 
 TabBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
-  creator: PropTypes.bool.isRequired,
   aboutMode: PropTypes.bool.isRequired,
   sortByDeadline: PropTypes.bool.isRequired,
   toggleSortByDeadline: PropTypes.func.isRequired,

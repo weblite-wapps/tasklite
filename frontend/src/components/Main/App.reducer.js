@@ -45,6 +45,7 @@ const numbersObjectLens = R.lensProp('numbersObject')
 // views
 export const wisView = () => R.path(['App', 'wis'])(getState())
 export const creatorView = () => R.path(['App', 'creator'])(getState())
+export const userView = () => R.path(['App', 'user'])(getState())
 export const userIdView = () => R.path(['App', 'user', 'id'])(getState())
 export const userNameView = () => R.path(['App', 'user', 'name'])(getState())
 export const logsView = () => R.path(['App', 'logs'])(getState())

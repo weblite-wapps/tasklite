@@ -11,11 +11,11 @@ import scssClasses from './Add.scss'
 
 
 const Add = (props) => {
-  const { isError } = props
+  const { isError, creator } = props
 
   return (
     <div className={scssClasses.container}>
-      <Avatar {...props} isError={isError.selectedUser} />
+      {creator && <Avatar {...props} isError={isError.selectedUser} />}
       <TextField {...props} isError={isError.title} />
       <TagPanel {...props} />
       <SelectField {...props} />
@@ -27,14 +27,7 @@ const Add = (props) => {
 
 Add.propTypes = {
   isError: PropTypes.shape({}).isRequired,
-  title: PropTypes.string.isRequired,
-  priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  deadline: PropTypes.string.isRequired,
-  selectedUser: PropTypes.shape({}).isRequired,
-  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  queryTag: PropTypes.string.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-  changeIsError: PropTypes.func.isRequired,
+  creator: PropTypes.bool.isRequired,
 }
 
 export default Add
