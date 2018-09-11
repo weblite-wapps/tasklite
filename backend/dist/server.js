@@ -2,9 +2,6 @@
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
-/******/ 	// object to store loaded and loading wasm modules
-/******/ 	var installedWasmModules = {};
-/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -39,17 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -66,9 +78,6 @@
 /******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
-/******/
-/******/ 	// object with all compiled WebAssembly.Modules
-/******/ 	__webpack_require__.w = {};
 /******/
 /******/
 /******/ 	// Load entry module and return exports
@@ -169,7 +178,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _set
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"fetchTasks\", function() { return fetchTasks; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"fetchTags\", function() { return fetchTags; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"countTasks\", function() { return countTasks; });\n/* harmony import */ var _models_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../models/task */ \"./models/task.js\");\n/* harmony import */ var _models_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models/tag */ \"./models/tag.js\");\n// models\n\n\n\nconst fetchTasks = async query => _models_task__WEBPACK_IMPORTED_MODULE_0__[\"default\"].find(query).sort({ created_at: -1 }).limit(5).exec();\n\nconst fetchTags = async query => _models_tag__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(query).sort({ number: -1 }).limit(5).exec();\n\nconst countTasks = async query => _models_task__WEBPACK_IMPORTED_MODULE_0__[\"default\"].find(query).count().exec();\n\n//# sourceURL=webpack:///./logic/main/db.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"fetchTasks\", function() { return fetchTasks; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"fetchTags\", function() { return fetchTags; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"countTasks\", function() { return countTasks; });\n/* harmony import */ var _models_task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../models/task */ \"./models/task.js\");\n/* harmony import */ var _models_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../models/tag */ \"./models/tag.js\");\n/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helper */ \"./logic/main/helper.js\");\n// models\n\n\n// helpers\n\n\nconst fetchTasks = async query => _models_task__WEBPACK_IMPORTED_MODULE_0__[\"default\"].find(query).sort({ created_at: -1 }).limit(Object(_helper__WEBPACK_IMPORTED_MODULE_2__[\"getLimit\"])(query.level)).exec();\n\nconst fetchTags = async query => _models_tag__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(query).sort({ number: -1 }).limit(5).exec();\n\nconst countTasks = async query => _models_task__WEBPACK_IMPORTED_MODULE_0__[\"default\"].find(query).count().exec();\n\n//# sourceURL=webpack:///./logic/main/db.js?");
+
+/***/ }),
+
+/***/ "./logic/main/helper.js":
+/*!******************************!*\
+  !*** ./logic/main/helper.js ***!
+  \******************************/
+/*! exports provided: getLimit, nothing */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLimit\", function() { return getLimit; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"nothing\", function() { return nothing; });\nconst getLimit = level => {\n  switch (level) {\n    case 'ICE BOX':\n      return 10;\n    case 'IN PROGRESS':\n      return 5;\n    case 'EVALUTE':\n      return 5;\n    case 'DONE':\n      return 5;\n    default:\n      return 0;\n  }\n};\n\nconst nothing = null;\n\n//# sourceURL=webpack:///./logic/main/helper.js?");
 
 /***/ }),
 
