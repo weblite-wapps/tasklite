@@ -1,8 +1,8 @@
 {
   "name": "loglite-backend",
   "scripts": {
-    "build": "../../../tools/buildlite/src/index.js default build",
-    "dev": "../../../tools/buildlite/src/index.js default dev"
+    "build": "node ../../../tools/buildlite/src/index.js default build",
+    "dev": "node ../../../tools/buildlite/src/index.js default dev"
   },
   "buildlite": {
     "default": {
