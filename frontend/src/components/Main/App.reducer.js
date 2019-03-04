@@ -53,7 +53,8 @@ export const usersView = () => R.path(['App', 'users'])(getState())
 export const isLoadingView = () => R.path(['App', 'isLoading'])(getState())
 export const tabIndexView = () => R.path(['App', 'tabIndex'])(getState())
 export const tasksView = () => R.path(['App', 'tasks'])(getState())
-export const numbersObjectView = () => R.path(['App', 'numbersObject'])(getState())
+export const numbersObjectView = () =>
+  R.path(['App', 'numbersObject'])(getState())
 
 // reducers
 const reducers = {
@@ -63,8 +64,10 @@ const reducers = {
 
   [CHANGE_TAB]: (state, { value }) => R.set(tabIndexLens, value, state),
 
-  [LOAD_USERS_DATA]: (state, { users }) =>
-    ({ ...state, users: R.uniq(R.concat(state.users, users)) }),
+  [LOAD_USERS_DATA]: (state, { users }) => ({
+    ...state,
+    users: R.uniq(R.concat(state.users, users)),
+  }),
 
   [LOAD_TASKS_DATA]: (state, { tasks }) => ({
     ...state,
@@ -91,9 +94,9 @@ const reducers = {
         sentTime: '',
         wis: state.wis,
       },
-      state.tasks),
+      state.tasks,
+    ),
   }),
-
 
   [RESTORE_TASK]: (state, { task }) => ({
     ...state,
@@ -105,70 +108,120 @@ const reducers = {
 
   [DELETE_TASK]: (state, { task: { _id } }) => ({
     ...state,
-    tasks: R.remove(R.findIndex(R.propEq('_id', _id))(state.tasks), 1, state.tasks),
+    tasks: R.remove(
+      R.findIndex(R.propEq('_id', _id))(state.tasks),
+      1,
+      state.tasks,
+    ),
   }),
 
   [TOGGLE_TODO]: (state, { _id, todoId }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      {
-        ...task,
-        todos: R.map(todo => (todo._id === todoId) ?
-          R.set(completedLens, !todo.completed, todo) : todo, task.todos),
-      } : task, state.tasks),
+    tasks: R.map(
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.map(
+                todo =>
+                  todo._id === todoId
+                    ? R.set(completedLens, !todo.completed, todo)
+                    : todo,
+                task.todos,
+              ),
+            }
+          : task,
+      state.tasks,
+    ),
   }),
 
   [CHANGE_LEVEL]: (state, { _id, nextLevel }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      { ...task, level: nextLevel } : task, state.tasks),
+    tasks: R.map(
+      task => (task._id === _id ? { ...task, level: nextLevel } : task),
+      state.tasks,
+    ),
   }),
 
   [CHANGE_TODO_TEXT]: (state, { _id, value }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      { ...task, todoText: value } : task, state.tasks),
+    tasks: R.map(
+      task => (task._id === _id ? { ...task, todoText: value } : task),
+      state.tasks,
+    ),
   }),
 
   [ADD_TODO]: (state, { _id, value }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      {
-        ...task,
-        todos: R.prepend({
-          title: value, completed: false, _id: task.todos.length.toString() }, task.todos),
-      } : task, state.tasks),
+    tasks: R.map(
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.prepend(
+                {
+                  title: value,
+                  completed: false,
+                  _id: task.todos.length.toString(),
+                },
+                task.todos,
+              ),
+            }
+          : task,
+      state.tasks,
+    ),
   }),
 
   [RESTORE_TODO]: (state, { task: { _id, todos } }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      {
-        ...task,
-        todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
-      } : task, state.tasks),
+    tasks: R.map(
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
+            }
+          : task,
+      state.tasks,
+    ),
   }),
 
   [DELETE_TODO]: (state, { _id, todoId }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ?
-      {
-        ...task,
-        todos: R.remove(R.findIndex(R.propEq('_id', todoId), task.todos), 1, task.todos),
-      } : task, state.tasks),
+    tasks: R.map(
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.remove(
+                R.findIndex(R.propEq('_id', todoId), task.todos),
+                1,
+                task.todos,
+              ),
+            }
+          : task,
+      state.tasks,
+    ),
   }),
 
   [SET_SENT_TIME]: (state, { _id, time }) => ({
     ...state,
-    tasks: R.map(task => (task._id === _id) ? { ...task, sentTime: time } : task, state.tasks),
+    tasks: R.map(
+      task => (task._id === _id ? { ...task, sentTime: time } : task),
+      state.tasks,
+    ),
   }),
 
-  [LOAD_NUMBER_OF_TASKS]: (state, { value }) => R.set(numbersObjectLens, value, state),
+  [LOAD_NUMBER_OF_TASKS]: (state, { value }) =>
+    R.set(numbersObjectLens, value, state),
 
   [UPDATE_NUMBERS_OBJECT]: (state, { currentLevel, nextLevel }) =>
-    R.set(numbersObjectLens, getUpdatedNumbersObject(currentLevel, nextLevel), state),
+    R.set(
+      numbersObjectLens,
+      getUpdatedNumbersObject(currentLevel, nextLevel),
+      state,
+    ),
 }
-
 
 export default (state = initialState, { type, payload }) =>
   reducers[type] ? reducers[type](state, payload) : state

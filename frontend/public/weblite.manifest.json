@@ -1,7 +1,11 @@
 {
   "name": "tasklite",
-  "id": "5afaab3ad17ae32f9743a98d",
+  "id": "5c7cd580cb652f5fc9380c4e",
+  "searchable": true,
   "instancable": true,
   "creator": true,
-  "userInfo": true
+  "userInfo": true,
+  "servIndexes": {
+    "main": "index"
+  }
 }

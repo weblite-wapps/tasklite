@@ -30,7 +30,7 @@
       "clean": [
         "dist"
       ],
-      "publicPath": "https://www.weblite.me:3000/wapp/5afaab3ad17ae32f9743a98d"
+      "publicPath": "https://www.weblite.me:3000/wapp/5c7cd580cb652f5fc9380c4e"
     }
   },
   "dependencies": {
@@ -56,6 +56,7 @@
     "typeface-roboto": "^0.0.45"
   },
   "local-dependencies": [
+    "weblite-web-relite",
     "weblite-web-snackbar"
   ]
 }
