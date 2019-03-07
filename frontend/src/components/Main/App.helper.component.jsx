@@ -12,7 +12,6 @@ import TagList from '../../helper/components/TagList/TagList.presentational'
 // scssClasses
 import scssClasses from './App.scss'
 
-
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
@@ -26,7 +25,6 @@ Collapse.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-
 export const TaskList = ({ tasks, tabIndex }) => (
   <FlipMove
     typeName={null}
@@ -35,8 +33,11 @@ export const TaskList = ({ tasks, tabIndex }) => (
     enterAnimation="elevator"
     leaveAnimation={false}
   >
-    {tasks.filter(task => task.level === tabIndex)
-      .map(task => <CustomizedTaskList key={task._id} task={task} />)}
+    {tasks
+      .filter(task => task.level === tabIndex)
+      .map(task => (
+        <CustomizedTaskList key={task._id} task={task} />
+      ))}
   </FlipMove>
 )
 
@@ -45,18 +46,21 @@ TaskList.propTypes = {
   tabIndex: PropTypes.string.isRequired,
 }
 
-
-export const LoadMore = ({ expandMode, numbersObject, numbers, tabIndex, onLoadMore }) => (
+export const LoadMore = ({
+  expandMode,
+  numbersObject,
+  numbers,
+  tabIndex,
+  onLoadMore,
+}) => (
   <div className={scssClasses.button}>
-    {
-      expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
-        <CustomizedButton
-          label="Load More"
-          onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
-          componentName="Add"
-        />
-      ) : null
-    }
+    {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
+      <CustomizedButton
+        label="Load More"
+        onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
+        componentName="Add"
+      />
+    ) : null}
   </div>
 )
 
@@ -68,9 +72,13 @@ LoadMore.propTypes = {
   onLoadMore: PropTypes.func.isRequired,
 }
 
-
 export const TagPanel = ({
-  suggestions, queryTag, onQueryTagChange, tags, onTagClick, handleAddTag,
+  suggestions,
+  queryTag,
+  onQueryTagChange,
+  tags,
+  onTagClick,
+  handleAddTag,
 }) => (
   <React.Fragment>
     <div className={scssClasses.textField}>
@@ -82,7 +90,11 @@ export const TagPanel = ({
         onSelect={value => onQueryTagChange(value)}
         onAdd={handleAddTag}
       />
-      <CustomizedButton label="ADD" onClick={handleAddTag} componentName="Add" />
+      <CustomizedButton
+        label="ADD"
+        onClick={handleAddTag}
+        componentName="Add"
+      />
     </div>
     <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
   </React.Fragment>
@@ -96,7 +108,6 @@ TagPanel.propTypes = {
   onTagClick: PropTypes.func.isRequired,
   handleAddTag: PropTypes.func.isRequired,
 }
-
 
 // export const UserPanel = (
 //   { isError, userSuggestions, queryUser, onQueryUserChange, handleAddUser }) => (

@@ -10,27 +10,45 @@ import SubInfo from '../components/SubInfo/SubInfo.presentational'
 import TextField from '../../../../helper/components/TextField/TextField.presentational'
 import Button from '../../../../helper/components/Button/Button.presentational'
 // helpers
-import { formatTags, formatTitle, getProgressBarPercent, checkToShow } from './List.helper'
-import { getRemained, getPassedTime } from '../../../../helper/functions/time.helper'
+import {
+  formatTags,
+  formatTitle,
+  getProgressBarPercent,
+  checkToShow,
+} from './List.helper'
+import {
+  getRemained,
+  getPassedTime,
+} from '../../../../helper/functions/time.helper'
 // styles
 import scssClasses from './List.scss'
 
-
-export const TitleAndLevelButtons = (props) => {
-  const { task: { title, priority } } = props
+export const TitleAndLevelButtons = props => {
+  const {
+    task: { title, priority },
+  } = props
 
   return (
     <div className={scssClasses.text}>
       <div className={scssClasses.title}>
-        <img src={`assets/icons/${priority}.png`} alt="priority" className={scssClasses.priority} />
+        <img
+          src={`assets/icons/${priority}.png`}
+          alt="priority"
+          className={scssClasses.priority}
+        />
         <Typography variant="subheading" style={{ marginLeft: '10px' }}>
-          {
-            formatTitle(title) === title ?
-              <span>{formatTitle(title)}</span> :
-              <Tooltip title={title} placement="bottom" enterDelay={300} leaveDelay={300}>
-                <span>{formatTitle(title)}</span>
-              </Tooltip>
-          }
+          {formatTitle(title) === title ? (
+            <span>{formatTitle(title)}</span>
+          ) : (
+            <Tooltip
+              title={title}
+              placement="bottom"
+              enterDelay={300}
+              leaveDelay={300}
+            >
+              <span>{formatTitle(title)}</span>
+            </Tooltip>
+          )}
         </Typography>
       </div>
       <ActionButtons {...props} />
@@ -44,31 +62,35 @@ TitleAndLevelButtons.propTypes = {
   onExpandClick: PropTypes.func.isRequired,
 }
 
-
 export const BriefInfo = ({
-  task: { _id, assignee, tags, deadline, sentTime, todos }, expandingId,
-}) => (
-  _id !== expandingId &&
-  <div className={scssClasses.text}>
-    <Typography variant="body2">
-      {checkToShow('assignee') && <span>{assignee}&nbsp;|&nbsp;</span>}
-      {checkToShow('deadline') && <span>{getRemained(deadline)}</span>}
-      {checkToShow('sentTime') && <span>{getPassedTime(sentTime)} ago</span>}
-      <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags!'}</span>
-      {checkToShow('percent') && <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>}
-    </Typography>
-  </div>
-)
+  task: { _id, assignee, tags, deadline, sentTime, todos },
+  expandingId,
+}) =>
+  _id !== expandingId && (
+    <div className={scssClasses.text}>
+      <Typography variant="body2">
+        {checkToShow('assignee') && <span>{assignee}&nbsp;|&nbsp;</span>}
+        {checkToShow('deadline') && <span>{getRemained(deadline)}</span>}
+        {checkToShow('sentTime') && <span>{getPassedTime(sentTime)} ago</span>}
+        <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags!'}</span>
+        {checkToShow('percent') && (
+          <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
+        )}
+      </Typography>
+    </div>
+  )
 
 BriefInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
 }
 
-
 export const ProgressPanel = ({ todos }) => (
   <div className={scssClasses.progressPannel}>
-    <Typography variant="button"> {`${getProgressBarPercent(todos)}%`} </Typography>
+    <Typography variant="button">
+      {' '}
+      {`${getProgressBarPercent(todos)}%`}{' '}
+    </Typography>
     <LinearProgress
       variant="determinate"
       value={getProgressBarPercent(todos)}
@@ -81,14 +103,15 @@ ProgressPanel.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-
 export const FurtherInfo = ({
   task: { _id, tags, deadline, level, sentTime, assignee, todos },
 }) => (
   <React.Fragment>
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
-    {(level === 'EVALUATE' || level === 'DONE') && <SubInfo label="SENT TIME" sentTime={sentTime} />}
+    {(level === 'EVALUATE' || level === 'DONE') && (
+      <SubInfo label="SENT TIME" sentTime={sentTime} />
+    )}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
   </React.Fragment>
@@ -98,18 +121,19 @@ FurtherInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
 }
 
-
 export const AddTodo = ({
-  task: { level, todoText }, onTodoTextChange, handleAddTodo,
-}) => (
-  (level === 'ICE BOX' || level === 'IN PROGRESS') ? (
+  task: { level, todoText },
+  onTodoTextChange,
+  handleAddTodo,
+}) =>
+  level === 'ICE BOX' || level === 'IN PROGRESS' ? (
     <div className={scssClasses.textField}>
       <TextField
         withButton
         label="New Subtask"
         fullWidth={false}
         value={todoText}
-        onKeyPress={(ev) => {
+        onKeyPress={ev => {
           if (ev.key === 'Enter') {
             handleAddTodo()
             ev.preventDefault()
@@ -120,7 +144,6 @@ export const AddTodo = ({
       <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
     </div>
   ) : null
-)
 
 AddTodo.propTypes = {
   task: PropTypes.shape({}).isRequired,

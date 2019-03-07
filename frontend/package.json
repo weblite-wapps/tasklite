@@ -29,8 +29,7 @@
       "react": "build",
       "clean": [
         "dist"
-      ],
-      "publicPath": "https://www.weblite.me:3000/wapp/5afaab3ad17ae32f9743a98d"
+      ]
     }
   },
   "dependencies": {
@@ -54,8 +53,5 @@
     "rxjs": "^5.5.2",
     "superagent": "^3.8.1",
     "typeface-roboto": "^0.0.45"
-  },
-  "local-dependencies": [
-    "weblite-web-snackbar"
-  ]
+  }
 }

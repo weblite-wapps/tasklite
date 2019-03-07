@@ -14,21 +14,51 @@ import { checkToShow } from './ActionButtons.helper'
 import scssClasses from './ActionButtons.scss'
 import styles from '../../../main/List.style'
 
-
-const ActionButtons = ({ classes, expandingId, task: { _id, assignee }, onExpandClick }) => (
+const ActionButtons = ({
+  classes,
+  expandingId,
+  task: { _id, assignee, title },
+  onExpandClick,
+}) => (
   <div className={scssClasses.actions}>
-    <IconButton onClick={() => onExpandClick(_id)} classes={{ root: classes.IconButton }}>
-      {
-        _id === expandingId ?
-          <ExpandLess classes={{ root: classes.SvgIcon }} /> :
-          <ExpandMore classes={{ root: classes.SvgIcon }} />
-      }
+    <IconButton
+      onClick={() => onExpandClick(_id)}
+      classes={{ root: classes.IconButton }}
+    >
+      {_id === expandingId ? (
+        <ExpandLess classes={{ root: classes.SvgIcon }} />
+      ) : (
+        <ExpandMore classes={{ root: classes.SvgIcon }} />
+      )}
     </IconButton>
 
-    {checkToShow('ICE BOX', assignee) && <Icon src="assets/icons/icebox.png" label="ICE BOX" _id={_id} />}
-    {checkToShow('IN PROGRESS', assignee) && <Icon src="assets/icons/inp.png" label="IN PROGRESS" _id={_id} />}
-    {checkToShow('EVALUATE', assignee) && <Icon src="assets/icons/evaluate.png" label="EVALUATE" _id={_id} />}
-    {checkToShow('DONE', assignee) && <Icon src="assets/icons/done.png" label="DONE" _id={_id} />}
+    {checkToShow('ICE BOX', assignee) && (
+      <Icon
+        src="assets/icons/icebox.png"
+        label="ICE BOX"
+        _id={_id}
+        title={title}
+      />
+    )}
+    {checkToShow('IN PROGRESS', assignee) && (
+      <Icon
+        src="assets/icons/inp.png"
+        label="IN PROGRESS"
+        _id={_id}
+        title={title}
+      />
+    )}
+    {checkToShow('EVALUATE', assignee) && (
+      <Icon
+        src="assets/icons/evaluate.png"
+        label="EVALUATE"
+        _id={_id}
+        title={title}
+      />
+    )}
+    {checkToShow('DONE', assignee) && (
+      <Icon src="assets/icons/done.png" label="DONE" _id={_id} title={title} />
+    )}
   </div>
 )
 

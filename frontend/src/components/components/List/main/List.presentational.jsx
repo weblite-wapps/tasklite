@@ -9,15 +9,20 @@ import Collapse from 'material-ui/transitions/Collapse'
 import Divider from 'material-ui/Divider'
 import MuiButton from 'material-ui/Button'
 // local modules
-import { snackbarMessage } from 'weblite-web-snackbar'
+// import { snackbarMessage } from 'weblite-web-snackbar'
 // components
 import Popover from '../components/Popover/Popover.presentational'
 // helper
-import { TitleAndLevelButtons, BriefInfo, ProgressPanel, FurtherInfo, AddTodo } from './List.helper.component'
+import {
+  TitleAndLevelButtons,
+  BriefInfo,
+  ProgressPanel,
+  FurtherInfo,
+  AddTodo,
+} from './List.helper.component'
 // styles
 import scssClasses from './List.scss'
 import styles from './List.style'
-
 
 class TaskList extends React.Component {
   constructor(props) {
@@ -30,21 +35,32 @@ class TaskList extends React.Component {
   }
 
   _handleAddTodo() {
-    const { task: { todoText }, addTodo } = this.props
+    const {
+      task: { todoText },
+      addTodo,
+    } = this.props
     if (R.trim(todoText)) addTodo(todoText)
-    else snackbarMessage({ message: 'Write something first!' })
+    // else snackbarMessage({ message: 'Write something first!' })
   }
 
   _handleOpenPopover() {
-    const { changePopoverId, task: { _id } } = this.props
+    const {
+      changePopoverId,
+      task: { _id },
+    } = this.props
     this.setState({ anchorEl: findDOMNode(this.button) })
     changePopoverId(_id)
   }
 
   render() {
     const {
-      classes, creator, task: { _id, level, todos }, popoverId,
-      expandingId, deleteTask, changePopoverId,
+      classes,
+      creator,
+      task: { _id, level, todos },
+      popoverId,
+      expandingId,
+      deleteTask,
+      changePopoverId,
     } = this.props
 
     return (
@@ -59,11 +75,12 @@ class TaskList extends React.Component {
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
-            {
-              creator && level === 'ICE BOX' &&
+            {creator && (
               <div className={scssClasses.button}>
                 <MuiButton
-                  ref={(node) => { this.button = node }}
+                  ref={node => {
+                    this.button = node
+                  }}
                   onClick={this.handleOpenPopover}
                   classes={{ raised: classes.Button }}
                   variant="raised"
@@ -78,7 +95,7 @@ class TaskList extends React.Component {
                   onNop={() => changePopoverId('')}
                 />
               </div>
-            }
+            )}
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />

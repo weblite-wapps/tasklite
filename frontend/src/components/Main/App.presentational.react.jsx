@@ -2,7 +2,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 // local modules
-import Snackbar from 'weblite-web-snackbar'
+// import Snackbar from 'weblite-web-snackbar'
 // components
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Add.container.react'
@@ -11,7 +11,6 @@ import Filter from '../components/Filter/Filter.container.react'
 import { Collapse, TaskList, LoadMore } from './App.helper.component'
 // css
 import scssClasses from './App.scss'
-
 
 export default class App extends React.Component {
   constructor(props) {
@@ -27,27 +26,31 @@ export default class App extends React.Component {
 
   _handleWappMode() {
     const { setAPI, fetchInitialData } = this.props
-    window.W.loadData().then(({ creator, user }) => {
-      setAPI(creator, user)
+    window.W.loadData().then(({ creator, creatorId, user }) => {
+      setAPI(creator, creatorId, user)
       fetchInitialData()
     })
   }
 
   _handleNormalMode() {
     const { setAPI, fetchInitialData } = this.props
-    setAPI(true, { name: 'Ali', id: '110' })
+    setAPI(true, 'AdminId', { name: 'Ali', id: '110' })
     fetchInitialData()
   }
 
   render() {
     return (
       <div className={scssClasses.app}>
-        <Collapse {...this.props} label="add"><Add /></Collapse>
-        <Collapse {...this.props} label="filter"><Filter /></Collapse>
+        <Collapse {...this.props} label="add">
+          <Add />
+        </Collapse>
+        <Collapse {...this.props} label="filter">
+          <Filter />
+        </Collapse>
         <LevelBar noMargin={this.props.expandMode !== 'default'} />
         <TaskList {...this.props} />
         <LoadMore {...this.props} />
-        <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
+        {/* <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} /> */}
       </div>
     )
   }

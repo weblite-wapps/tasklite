@@ -5,12 +5,16 @@ import PropTypes from 'prop-types'
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
 import { TagPanel } from '../../Main/App.helper.component'
-import { TextField, SelectField, DatePicker, Button } from './Add.helper.component'
+import {
+  TextField,
+  SelectField,
+  DatePicker,
+  Button,
+} from './Add.helper.component'
 // styles
 import scssClasses from './Add.scss'
 
-
-const Add = (props) => {
+const Add = props => {
   const { isError, creator } = props
 
   return (
