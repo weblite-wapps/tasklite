@@ -29,7 +29,8 @@
       "react": "build",
       "clean": [
         "dist"
-      ]
+      ],
+      "publicPath": "https://www.weblite.me:3000/wapp/5c7cd580cb652f5fc9380c4e"
     }
   },
   "dependencies": {

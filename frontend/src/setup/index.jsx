@@ -5,13 +5,15 @@ import { AppContainer } from 'react-hot-loader'
 // components
 import Root from './root'
 
+console.log('staaaaaaarted!')
 
-const renderLoglite = () => render(
-  <AppContainer>
-    <Root />
-  </AppContainer>,
-  window.document.getElementById('root'),
-)
+const renderLoglite = () =>
+  render(
+    <AppContainer>
+      <Root />
+    </AppContainer>,
+    window.document.getElementById('root'),
+  )
 
 renderLoglite()
 
