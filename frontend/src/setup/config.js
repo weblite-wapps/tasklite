@@ -1,3 +1,3 @@
 export default (process.env.NODE_ENV === 'production'
-  ? 'https://www.weblite.me:3030'
+  ? 'https://wapp.weblite.me/tasklite'
   : 'http://localhost:3030')
