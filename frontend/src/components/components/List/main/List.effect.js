@@ -18,7 +18,9 @@ import {
 // helpers
 import { postRequest } from '../../../../helper/functions/request.helper'
 // views
-import { tasksView } from '../../../Main/App.reducer'
+import { tasksView, userNameView } from '../../../Main/App.reducer'
+
+const { W } = window
 
 const changeLevelEpic = action$ =>
   action$
@@ -29,8 +31,10 @@ const changeLevelEpic = action$ =>
     )
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(
-      ({ _id, currentLevel, nextLevel }) =>
-        postRequest('/changeLevel').send({ _id, currentLevel, nextLevel }),
+      ({ _id, currentLevel, nextLevel, title }) =>
+        postRequest('/changeLevel')
+          .send({ _id, currentLevel, nextLevel })
+          .then(({ body }) => ({ _id, currentLevel, nextLevel, body, title })),
       // .on(
       //   'error',
       //   err =>
@@ -38,6 +42,12 @@ const changeLevelEpic = action$ =>
       //     snackbarMessage({ message: 'Server disconnected!' }),
       // ),
     )
+    .do(({ nextLevel, title }) => {
+      W.sendNotificationToAll(
+        'Tasklite',
+        `Task with name ${title.toUpperCase()} is marked as ${nextLevel} by ${userNameView()}`,
+      )
+    })
     .do(() => dispatchSetIsLoading(false))
     // .do(({ body }) =>
     //   snackbarMessage({ message: `Dropped to ${body.nextLevel}` }),

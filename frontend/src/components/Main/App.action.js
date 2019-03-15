@@ -63,7 +63,12 @@ export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
 export const changeLevel = createAction(
   CHANGE_LEVEL,
-  (_id, currentLevel, nextLevel) => ({ _id, currentLevel, nextLevel }),
+  (_id, currentLevel, nextLevel, title) => ({
+    _id,
+    currentLevel,
+    nextLevel,
+    title,
+  }),
 )
 export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
 
