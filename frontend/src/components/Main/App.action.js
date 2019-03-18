@@ -4,9 +4,8 @@ import { dispatch } from '../../setup/redux'
 
 // actions
 export const SET_API = 'SET_API'
-export const setAPI = createAction(SET_API, (creator, creatorId, user) => ({
+export const setAPI = createAction(SET_API, (creator, user) => ({
   creator,
-  creatorId,
   user,
 }))
 export const dispatchSetApi = (...args) => dispatch(setAPI(...args))

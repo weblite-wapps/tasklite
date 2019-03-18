@@ -26,15 +26,15 @@ export default class App extends React.Component {
 
   _handleWappMode() {
     const { setAPI, fetchInitialData } = this.props
-    window.W.loadData().then(({ creator, creatorId, user }) => {
-      setAPI(creator, creatorId, user)
+    window.W.loadData().then(({ creator, user }) => {
+      setAPI(creator, user)
       fetchInitialData()
     })
   }
 
   _handleNormalMode() {
     const { setAPI, fetchInitialData } = this.props
-    setAPI(true, 'AdminId', { name: 'Ali', id: '110' })
+    setAPI(true, { name: 'Ali', id: '110' })
     fetchInitialData()
   }
 

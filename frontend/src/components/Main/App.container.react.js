@@ -3,12 +3,7 @@ import { connect } from 'react-redux'
 // components
 import App from './App.presentational.react'
 // views
-import {
-  tabIndexView,
-  numbersObjectView,
-  userView,
-  creatorIdView,
-} from './App.reducer'
+import { tabIndexView, numbersObjectView } from './App.reducer'
 import { expandModeView } from '../components/AppBar/AppBar.reducer'
 // actions
 import {
