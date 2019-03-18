@@ -92,7 +92,7 @@ const initialFetchEpic = action$ =>
     .do(({ body: { numberOfTasks } }) =>
       dispatchLoadNumberOfTasks(numberOfTasks),
     )
-    .do(() => window.W && window.W.start())
+    .do(() => window.W && window.W.setHooks())
     .ignoreElements()
 
 const deleteTaskEpic = action$ =>

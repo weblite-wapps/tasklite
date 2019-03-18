@@ -42,12 +42,12 @@ const changeLevelEpic = action$ =>
       //     snackbarMessage({ message: 'Server disconnected!' }),
       // ),
     )
-    .do(({ nextLevel, title }) => {
-      W.sendNotificationToAll(
-        'Tasklite',
-        `Task with name ${title.toUpperCase()} is marked as ${nextLevel} by ${userNameView()}`,
-      )
-    })
+    // .do(({ nextLevel, title }) => {
+    //   W.sendNotificationToAll(
+    //     'Tasklite',
+    //     `Task with name ${title.toUpperCase()} is marked as ${nextLevel} by ${userNameView()}`,
+    //   )
+    // })
     .do(() => dispatchSetIsLoading(false))
     // .do(({ body }) =>
     //   snackbarMessage({ message: `Dropped to ${body.nextLevel}` }),
