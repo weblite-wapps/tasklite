@@ -5,7 +5,7 @@ import Tag from '../../../models/tag'
 export const fetchTags = async query => Tag
   .find(query)
   .sort({ number: -1 })
-  .limit(5)
+  .limit(10)
   .exec()
 
 export const saveTag = async tag => new Tag(tag)

@@ -2,8 +2,8 @@
   "name": "task-lite",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node ../../../tools/buildlite/src/index.js default dev",
-    "build": "node ../../../tools/buildlite/src/index.js default build"
+    "dev": "buildlite default dev",
+    "build": "buildlite default build"
   },
   "buildlite": {
     "default": {
@@ -38,6 +38,7 @@
     "history": "^4.7.2",
     "material-ui": "^1.0.0-beta.37",
     "material-ui-icons": "^1.0.0-beta.36",
+    "node-sass": "^4.11.0",
     "ramda": "^0.25.0",
     "react": "^16.1.1",
     "react-autocomplete": "^1.7.2",
