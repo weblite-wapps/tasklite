@@ -36,6 +36,8 @@ import {
   creatorView,
   userView,
 } from './App.reducer'
+// W
+const { W } = window
 
 const saveUsersEpic = action$ =>
   action$
@@ -92,7 +94,7 @@ const initialFetchEpic = action$ =>
     .do(({ body: { numberOfTasks } }) =>
       dispatchLoadNumberOfTasks(numberOfTasks),
     )
-    .do(() => window.W && window.W.setHooks())
+    .do(() => W && W.setHooks())
     .ignoreElements()
 
 const deleteTaskEpic = action$ =>
@@ -113,6 +115,7 @@ const deleteTaskEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     // .do(() => snackbarMessage({ message: 'Deleted successfully !' }))
     .do(() => dispatchChangePopoverId(''))
+    .do(() => W && W.analytics('DELETE_TASK'))
     .ignoreElements()
 
 const loadMoreEpic = action$ =>
@@ -135,6 +138,7 @@ const loadMoreEpic = action$ =>
     )
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => dispatchLoadTasksData(body))
+    .do(() => W && W.analytics('LOAD_MORE_CLICK'))
     .ignoreElements()
 
 export default combineEpics(

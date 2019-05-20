@@ -8,13 +8,21 @@ import { tabIndexView } from '../../../../Main/App.reducer'
 import { dispatchChangeTab } from '../../../../Main/App.action'
 // selectors
 import { getNumberOfTasksInEachLevel } from '../../../../Main/App.selector'
+// W
+const { W } = window
+
 
 const mapStateToProps = state => ({
   tabIndex: tabIndexView(),
   numbers: getNumberOfTasksInEachLevel(state),
 })
 
-const mapDispatchToProps = () => ({ onTabClick: dispatchChangeTab })
+const mapDispatchToProps = () => ({
+  onTabClick: (label) => {
+    dispatchChangeTab(label)
+    if(W) W.analytics('CHANGE_TAB', { to: label })
+  },
+})
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(LevelIcon)

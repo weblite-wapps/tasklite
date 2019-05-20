@@ -7,7 +7,8 @@ import { isLoadingView } from '../../Main/App.reducer'
 import { expandModeView, aboutModeView, sortByDeadlineView } from './AppBar.reducer'
 // actions
 import { dispatchChangeExpandMode, dispatchSetAboutMode, dispatchToggleSortByDeadline } from './AppBar.action'
-
+// const
+const { W } = window
 
 const mapStateToProps = () => ({
   isLoading: isLoadingView(),
@@ -17,9 +18,15 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = () => ({
-  changeExpandMode: dispatchChangeExpandMode,
+  changeExpandMode: (mode) => { 
+    dispatchChangeExpandMode(mode)
+    if(W) W.analytics('CHANGE_MODE', { mode })
+  },
   setAboutMode: dispatchSetAboutMode,
-  toggleSortByDeadline: dispatchToggleSortByDeadline,
+  toggleSortByDeadline: () => {
+    dispatchToggleSortByDeadline()
+    if(W) W.analytics('SORT_CLICK')
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppBar)

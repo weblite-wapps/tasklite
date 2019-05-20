@@ -87,6 +87,7 @@ const addTaskEpic = action$ =>
     )
     .do(() => dispatchResetInputs())
     .do(() => dispatchChangeExpandMode('default'))
+    .do(() => W && W.analytics('ADD_TASK'))
     .mergeMap(success => [
       restoreTask(success[0].body),
       loadTagsDataInAdd(success[1].body),

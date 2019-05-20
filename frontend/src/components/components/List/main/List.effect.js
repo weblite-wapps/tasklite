@@ -19,7 +19,6 @@ import {
 import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView } from '../../../Main/App.reducer'
-
 const { W } = window
 
 const changeLevelEpic = action$ =>
@@ -64,6 +63,7 @@ const changeLevelEpic = action$ =>
       //     snackbarMessage({ message: 'Server disconnected!' }),
       // ),
     )
+    .do(() => W && W.analytics('CHANGE_LEVEL'))
     .ignoreElements()
 
 const toggleTodoEpic = action$ =>
@@ -86,6 +86,7 @@ const toggleTodoEpic = action$ =>
       // ),
     )
     .do(() => dispatchSetIsLoading(false))
+    .do(() => W && W.analytics('TOGGLE_TODO'))
     .ignoreElements()
 
 const addTodoEpic = action$ =>
@@ -104,6 +105,7 @@ const addTodoEpic = action$ =>
     )
     .do(() => dispatchSetIsLoading(false))
     .do(({ body }) => dispatchRestoreTodo(body[0]))
+    .do(() => W && W.analytics('ADD_TODO'))
     .ignoreElements()
 
 const removeTodoEpic = action$ =>
@@ -121,6 +123,7 @@ const removeTodoEpic = action$ =>
       // ),
     )
     .do(() => dispatchSetIsLoading(false))
+    .do(() => W && W.analytics('DELETE_TODO'))
     .ignoreElements()
 
 export default combineEpics(
