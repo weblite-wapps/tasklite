@@ -4,7 +4,9 @@ import User from '../../../models/user'
 
 export const fetchUsers = async query => User
   .find(query)
-  .sort({ name: 1 })
+  .sort({
+    name: 1
+  })
   .exec()
 
 export const saveUser = async user => new User(user)
