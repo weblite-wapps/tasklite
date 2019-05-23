@@ -1,15 +1,21 @@
 // modules
-import { connect } from 'react-redux'
+import {
+  connect
+} from 'react-redux'
 // components
 import LevelIcon from './LevelIcon.presentational'
 // views
-import { tabIndexView } from '../../../../Main/App.reducer'
+import {
+  tabIndexView
+} from '../../../../Main/App.reducer'
 // actions
-import { dispatchChangeTab } from '../../../../Main/App.action'
+import {
+  dispatchChangeTab
+} from '../../../../Main/App.action'
 // selectors
-import { getNumberOfTasksInEachLevel } from '../../../../Main/App.selector'
-// W
-const { W } = window
+import {
+  getNumberOfTasksInEachLevel
+} from '../../../../Main/App.selector'
 
 
 const mapStateToProps = state => ({
@@ -20,7 +26,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = () => ({
   onTabClick: (label) => {
     dispatchChangeTab(label)
-    if(W) W.analytics('CHANGE_TAB', { to: label })
+    if (window.W) window.W.analytics('CHANGE_TAB', {
+      to: label
+    })
   },
 })
 

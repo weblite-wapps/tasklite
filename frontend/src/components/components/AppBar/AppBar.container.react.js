@@ -1,14 +1,25 @@
 // modules
-import { connect } from 'react-redux'
+import {
+  connect
+} from 'react-redux'
 // components
 import AppBar from './AppBar.presentational'
 // views
-import { isLoadingView } from '../../Main/App.reducer'
-import { expandModeView, aboutModeView, sortByDeadlineView } from './AppBar.reducer'
+import {
+  isLoadingView
+} from '../../Main/App.reducer'
+import {
+  expandModeView,
+  aboutModeView,
+  sortByDeadlineView
+} from './AppBar.reducer'
 // actions
-import { dispatchChangeExpandMode, dispatchSetAboutMode, dispatchToggleSortByDeadline } from './AppBar.action'
-// const
-const { W } = window
+import {
+  dispatchChangeExpandMode,
+  dispatchSetAboutMode,
+  dispatchToggleSortByDeadline
+} from './AppBar.action'
+
 
 const mapStateToProps = () => ({
   isLoading: isLoadingView(),
@@ -18,14 +29,16 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = () => ({
-  changeExpandMode: (mode) => { 
+  changeExpandMode: (mode) => {
     dispatchChangeExpandMode(mode)
-    if(W) W.analytics('CHANGE_MODE', { mode })
+    if (window.W) window.W.analytics('CHANGE_MODE', {
+      mode
+    })
   },
   setAboutMode: dispatchSetAboutMode,
   toggleSortByDeadline: () => {
     dispatchToggleSortByDeadline()
-    if(W) W.analytics('SORT_CLICK')
+    if (window.W) window.W.analytics('SORT_CLICK')
   },
 })
 
