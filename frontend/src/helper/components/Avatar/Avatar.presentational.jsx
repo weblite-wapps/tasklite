@@ -17,7 +17,7 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
     </Typography>
     <div className={scssClasses.row}>
       {users.map(user => (
-        <div key={user._id} className={scssClasses.column}>
+        <div key={user.id} className={scssClasses.column}>
           <MuiAvatar
             className={
               user.id === assignee.id ? classes.active : classes.passive
@@ -25,8 +25,9 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
             onClick={() => onAssigneeChange(user)}
             role="button"
             tabIndex="0"
+            src={user.profileImage && `https://www.weblite.me:3000/image/${user.profileImage}`}
           >
-            {R.head(user.name)}
+            {(!user.profileImage) && R.head(user.firstname)}
           </MuiAvatar>
           <Typography
             variant="body2"
@@ -34,7 +35,7 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
             className={classes.username}
             style={{ marginBottom: '5px' }}
           >
-            {user.name}
+            {user.firstname}
           </Typography>
         </div>
       ))}

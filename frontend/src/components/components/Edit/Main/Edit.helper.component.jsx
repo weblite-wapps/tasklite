@@ -32,7 +32,7 @@ const AppBar = ({ close, submit, classes }) => (
       <IconButton className="icon" onClick={close}>
         <CloseButton classes={{ root: classes.svgIcon }} />
       </IconButton>
-      <strong>Edit Log</strong>
+      <strong>Edit Task</strong>
       <IconButton className="icon" onClick={submit}>
         <Done classes={{ root: classes.svgIcon }} />
       </IconButton>
