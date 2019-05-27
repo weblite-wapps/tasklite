@@ -46,9 +46,6 @@ import {
   userView,
 } from './App.reducer'
 // W
-const {
-  W
-} = window
 
 const saveUsersEpic = action$ =>
   action$

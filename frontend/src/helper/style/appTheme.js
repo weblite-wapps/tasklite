@@ -1,17 +1,23 @@
-import { createMuiTheme } from 'material-ui/styles'
+import {
+  createMuiTheme
+} from '@material-ui/core/styles'
 
 export default createMuiTheme({
+  typography: {
+    // TODO: should remove in next version
+    useNextVariants: true,
+  },
   overrides: {
     MuiTypography: {
-      display1: {
+      h4: {
         color: '#000000',
         fontWeight: '500',
       },
-      body2: {
+      body1: {
         fontWeight: '100',
         color: '#cfcfcf',
       },
-      headline: {
+      h5: {
         color: '#919191',
         textTransform: 'uppercase',
         margin: '5px',
@@ -19,7 +25,7 @@ export default createMuiTheme({
         fontSize: '27px',
         width: '165px',
       },
-      title: {
+      h6: {
         fontSize: '18px',
         textTransform: 'uppercase',
         fontWeight: '900',
@@ -32,14 +38,6 @@ export default createMuiTheme({
       },
       caption: {
         color: 'black',
-      },
-    },
-    MuiButton: {
-      fab: {
-        backgroundColor: '#505050',
-        color: 'white',
-        height: '60px',
-        width: '60px',
       },
     },
     MuiIconButton: {

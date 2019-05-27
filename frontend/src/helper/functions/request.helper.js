@@ -1,7 +1,7 @@
 // modules
 import request from 'superagent'
 // components
-import host from '../../setup/config'
+import host from '../../config'
 
 
 export const getRequest = path => request

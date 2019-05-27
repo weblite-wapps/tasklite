@@ -1,18 +1,17 @@
 // modules
 import React from 'react'
-import Typography from 'material-ui/Typography'
+import Typography from '@material-ui/core/Typography'
 // styles
 import scssClasses from './About.scss'
-
 
 export default () => (
   <React.Fragment>
     <div className={scssClasses.container}>
-      <img alt="tasklite about" src="assets/about.jpg" align="middle" />
-      <Typography variant="subheading" align="center" gutterBottom>
+      <img alt="tasklite about" src="about.jpg" align="middle" />
+      <Typography variant="subtitle1" align="center" gutterBottom>
         Version 1.0.0
       </Typography>
-      <Typography variant="subheading" align="center" gutterBottom>
+      <Typography variant="subtitle1" align="center" gutterBottom>
         All right reserved
       </Typography>
     </div>

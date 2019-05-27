@@ -1,9 +1,9 @@
 // modules
-import React from "react";
-import PropTypes from "prop-types";
-import Tooltip from "material-ui/Tooltip";
+import React from 'react'
+import PropTypes from 'prop-types'
+import Tooltip from '@material-ui/core/Tooltip'
 // styles
-import scssClasses from "./Icon.scss";
+import scssClasses from './Icon.scss'
 
 const Icon = ({ src, label, onChangeLevel }) => (
   <Tooltip enterDelay={150} leaveDelay={150} placement="bottom" title={label}>
@@ -16,12 +16,12 @@ const Icon = ({ src, label, onChangeLevel }) => (
       <img className={scssClasses.icon} src={src} alt={label} />
     </div>
   </Tooltip>
-);
+)
 
 Icon.propTypes = {
   src: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onChangeLevel: PropTypes.func.isRequired
-};
+  onChangeLevel: PropTypes.func.isRequired,
+}
 
-export default Icon;
+export default Icon

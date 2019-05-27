@@ -1,11 +1,11 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 // scssClasses
 import scssClasses from './SelectField.scss'
-import styles from '../../../helper/style/appStyle'
+import styles from '../../style/appStyle'
 // const
 const options = [
   { value: 1, label: 'high' },
@@ -13,7 +13,14 @@ const options = [
   { value: 3, label: 'low' },
 ]
 
-const SelectField = ({ classes, isError, required, label, value, onChange }) => (
+const SelectField = ({
+  classes,
+  isError,
+  required,
+  label,
+  value,
+  onChange,
+}) => (
   <div className={scssClasses.textField}>
     <TextField
       select
@@ -30,7 +37,7 @@ const SelectField = ({ classes, isError, required, label, value, onChange }) => 
     >
       {options.map(option => (
         <option key={option.label} value={option.value}>
-          { option.label }
+          {option.label}
         </option>
       ))}
     </TextField>
@@ -50,6 +57,5 @@ SelectField.defaultProps = {
   isError: false,
   required: false,
 }
-
 
 export default withStyles(styles)(SelectField)

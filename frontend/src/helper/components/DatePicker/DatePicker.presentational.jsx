@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 // helpers
 import scssClasses from './DatePicker.scss'
-import styles from '../../../helper/style/appStyle'
-
+import styles from '../../style/appStyle'
 
 const DatePicker = ({ classes, isError, value, onChange }) => (
   <div className={scssClasses.textField}>
@@ -20,7 +19,10 @@ const DatePicker = ({ classes, isError, value, onChange }) => (
         required
         error={isError}
         InputProps={{ classes: { focused: classes.textFieldInkbar } }}
-        InputLabelProps={{ className: classes.textFieldFormLabel, shrink: true }}
+        InputLabelProps={{
+          className: classes.textFieldFormLabel,
+          shrink: true,
+        }}
       />
     </form>
   </div>

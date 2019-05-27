@@ -24,7 +24,6 @@ import {
 // views
 import {
   tasksView,
-  userNameView
 } from '../../../Main/App.reducer'
 
 

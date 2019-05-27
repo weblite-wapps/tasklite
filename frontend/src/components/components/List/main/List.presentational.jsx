@@ -3,11 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { findDOMNode } from 'react-dom'
-import { withStyles } from 'material-ui/styles'
-import List from 'material-ui/List'
-import Collapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
-import MuiButton from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import Collapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
+import MuiButton from '@material-ui/core/Button'
 // local modules
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // components
@@ -56,7 +56,7 @@ class TaskList extends React.Component {
     const {
       classes,
       creator,
-      task: { _id, level, todos },
+      task: { _id, todos },
       popoverId,
       expandingId,
       deleteTask,
