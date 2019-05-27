@@ -1,29 +1,29 @@
 // modules
-import React from 'react'
-import PropTypes from 'prop-types'
-import FlipMove from 'react-flip-move'
-import MuiCollapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
+import React from "react";
+import PropTypes from "prop-types";
+import FlipMove from "react-flip-move";
+import MuiCollapse from "material-ui/transitions/Collapse";
+import Divider from "material-ui/Divider";
 // components
-import CustomizedTaskList from '../components/List/main/List.container.react'
-import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
-import CustomizedButton from '../../helper/components/Button/Button.presentational'
-import TagList from '../../helper/components/TagList/TagList.presentational'
+import CustomizedTaskList from "../components/List/main/List.container.react";
+import Autocomplete from "../../helper/components/Autocomplete/Autocomplete.presentational";
+import CustomizedButton from "../../helper/components/Button/Button.presentational";
+import TagList from "../../helper/components/TagList/TagList.presentational";
 // scssClasses
-import scssClasses from './App.scss'
+import scssClasses from "./App.scss";
 
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
     <Divider light />
   </MuiCollapse>
-)
+);
 
 Collapse.propTypes = {
   expandMode: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
 export const TaskList = ({ tasks, tabIndex }) => (
   <FlipMove
@@ -39,22 +39,22 @@ export const TaskList = ({ tasks, tabIndex }) => (
         <CustomizedTaskList key={task._id} task={task} />
       ))}
   </FlipMove>
-)
+);
 
 TaskList.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tabIndex: PropTypes.string.isRequired,
-}
+  tabIndex: PropTypes.string.isRequired
+};
 
 export const LoadMore = ({
   expandMode,
   numbersObject,
   numbers,
   tabIndex,
-  onLoadMore,
+  onLoadMore
 }) => (
   <div className={scssClasses.button}>
-    {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
+    {expandMode !== "filter" && numbersObject[tabIndex] > numbers[tabIndex] ? (
       <CustomizedButton
         label="Load More"
         onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
@@ -62,15 +62,15 @@ export const LoadMore = ({
       />
     ) : null}
   </div>
-)
+);
 
 LoadMore.propTypes = {
   expandMode: PropTypes.string.isRequired,
   numbersObject: PropTypes.shape({}).isRequired,
   numbers: PropTypes.shape({}).isRequired,
   tabIndex: PropTypes.string.isRequired,
-  onLoadMore: PropTypes.func.isRequired,
-}
+  onLoadMore: PropTypes.func.isRequired
+};
 
 export const TagPanel = ({
   suggestions,
@@ -78,7 +78,7 @@ export const TagPanel = ({
   onQueryTagChange,
   tags,
   onTagClick,
-  handleAddTag,
+  handleAddTag
 }) => (
   <React.Fragment>
     <div className={scssClasses.textField}>
@@ -98,7 +98,7 @@ export const TagPanel = ({
     </div>
     <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
   </React.Fragment>
-)
+);
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
@@ -106,8 +106,8 @@ TagPanel.propTypes = {
   onQueryTagChange: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTagClick: PropTypes.func.isRequired,
-  handleAddTag: PropTypes.func.isRequired,
-}
+  handleAddTag: PropTypes.func.isRequired
+};
 
 // export const UserPanel = (
 //   { isError, userSuggestions, queryUser, onQueryUserChange, handleAddUser }) => (

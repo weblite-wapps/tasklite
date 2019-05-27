@@ -23,7 +23,7 @@ import {
 // styles
 import scssClasses from "./List.scss";
 
-export const TitleAndLevelButtons = (props) => {
+export const TitleAndLevelButtons = props => {
   const {
     task: { title, priority }
   } = props;
@@ -63,23 +63,35 @@ TitleAndLevelButtons.propTypes = {
 };
 
 export const BriefInfo = ({
+  task,
   task: { _id, assignee, tags, deadline, sentTime, todos },
   expandingId
-}) =>
-  _id !== expandingId && (
-    <div className={scssClasses.text}>
-      <Typography variant="body2">
-        {checkToShow("assignee") && <span>{assignee}&nbsp;|&nbsp;</span>}
-        {checkToShow("deadline") && <span>{getRemained(deadline)}</span>}
-        {checkToShow("sentTime") && <span>{getPassedTime(sentTime)} ago</span>}
-        <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags!"}</span>
-        {checkToShow("percent") && (
-          <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
-        )}
-      </Typography>
-    </div>
+}) => {
+  console.log("task ", task);
+  return (
+    _id !== expandingId && (
+      <div className={scssClasses.text}>
+        <Typography variant="body2">
+          {checkToShow("assignee") && (
+            <span>{assignee || "No assigne"}&nbsp;|&nbsp;</span>
+          )}
+          {checkToShow("deadline") && (
+            <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
+          )}
+          {checkToShow("sentTime") && (
+            <span>
+              {sentTime ? getPassedTime(sentTime) : "No sentTime "} ago
+            </span>
+          )}
+          <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags!"}</span>
+          {checkToShow("percent") && (
+            <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
+          )}
+        </Typography>
+      </div>
+    )
   );
-
+};
 BriefInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired
@@ -133,13 +145,13 @@ export const AddTodo = ({
         label="New Subtask"
         fullWidth={false}
         value={todoText}
-        onKeyPress={(ev) => {
+        onKeyPress={ev => {
           if (ev.key === "Enter") {
             handleAddTodo();
             ev.preventDefault();
           }
         }}
-        onChange={(e) => onTodoTextChange(e.target.value)}
+        onChange={e => onTodoTextChange(e.target.value)}
       />
       <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
     </div>
