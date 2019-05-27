@@ -1,8 +1,8 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import Typography from 'material-ui/Typography'
-import Checkbox from 'material-ui/Checkbox'
+import Typography from '@material-ui/core/Typography'
+import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Button from '../../../../../helper/components/Button/Button.presentational'
 // styles

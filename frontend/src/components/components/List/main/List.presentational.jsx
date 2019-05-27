@@ -3,11 +3,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { findDOMNode } from 'react-dom'
-import { withStyles } from 'material-ui/styles'
-import List from 'material-ui/List'
-import Collapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
-import MuiButton from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import Collapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
+import MuiButton from '@material-ui/core/Button'
 // local modules
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // components
@@ -83,8 +83,8 @@ class TaskList extends React.Component {
                     this.button = node
                   }}
                   onClick={this.handleOpenPopover}
-                  classes={{ raised: classes.Button }}
-                  variant="raised"
+                  classes={{ contained: classes.Button }}
+                  variant="contained"
                 >
                   Delete
                 </MuiButton>
@@ -96,9 +96,9 @@ class TaskList extends React.Component {
                   onNop={() => changePopoverId('')}
                 />
                 <MuiButton
-                  variant="raised"
+                  variant="contained"
                   onClick={editTask}
-                  classes={{ raised: classes.Button }}
+                  classes={{ contained: classes.Button }}
                   style={{ marginLeft: '10px' }}
                 >
                   Edit

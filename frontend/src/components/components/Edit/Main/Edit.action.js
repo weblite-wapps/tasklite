@@ -40,16 +40,6 @@ export const changeTitleIsError = createAction(CHANGE_TITLE_IS_ERROR)
 export const dispatchChangeTitleIsError = (...args) =>
   dispatch(changeTitleIsError(...args))
 
-export const CHANGE_EDIT_POPOVER_ID = 'CHANGE_EDIT_POPOVER_ID'
-export const changeEditPopOverId = createAction(CHANGE_EDIT_POPOVER_ID)
-export const dispatchChangeEditPopOverId = (...args) =>
-  dispatch(changeEditPopOverId(...args))
-
-export const CHANGE_EDIT_ANCHOR_EL = 'CHANGE_EDIT_ANCHOR_EL'
-export const changeEditAnchorEl = createAction(CHANGE_EDIT_ANCHOR_EL)
-export const dispatchChangeEditAnchorEl = (...args) =>
-  dispatch(changeEditAnchorEl(...args))
-
 export const CHANGE_IS_OPEN_DIALOG = 'CHANGE_IS_OPEN_DIALOG'
 export const changeIsOpenDialog = createAction(CHANGE_IS_OPEN_DIALOG)
 export const dispatchChangeIsOpenDialog = (...args) =>

@@ -82,16 +82,6 @@ const reducers = {
     },
   }),
 
-  [CHANGE_EDIT_POPOVER_ID]: (state, value) => ({
-    ...state,
-    popoverId: value,
-  }),
-
-  [CHANGE_EDIT_ANCHOR_EL]: (state, value) => ({
-    ...state,
-    anchorEl: value,
-  }),
-
   [CHANGE_IS_OPEN_DIALOG]: (state, value) => ({
     ...state,
     isOpenDialog: value,

@@ -1,5 +1,5 @@
 import React from 'react'
-import Dialog from 'material-ui/Dialog'
+import Dialog from '@material-ui/core/Dialog'
 import {
   Transition,
   Content,
@@ -11,7 +11,7 @@ const Edit = props => (
     open={props.isOpen}
     fullScreen
     transitionDuration={300}
-    TransitionComponent={Transition}
+    TransitionComponent={Transition} 
   >
     <AppBar {...props} />
     <Content {...props} />

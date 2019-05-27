@@ -2,8 +2,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FlipMove from 'react-flip-move'
-import MuiCollapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
+import MuiCollapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
 // components
 import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
@@ -15,7 +15,7 @@ import scssClasses from './App.scss'
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
-    <Divider light />
+    <Divider variant="middle" />
   </MuiCollapse>
 )
 

@@ -2,12 +2,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as R from "ramda";
-import { CircularProgress } from "material-ui/Progress";
-import IconButton from "material-ui/IconButton";
-import Tooltip from "material-ui/Tooltip";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 // icons
-import SortIcon from "material-ui-icons/Sort";
-import ExitIcon from "material-ui-icons/ExitToApp";
+import SortIcon from "@material-ui/icons/Sort";
+import ExitIcon from "@material-ui/icons/ExitToApp";
 // styles
 import scssClasses from "./AppBar.scss";
 

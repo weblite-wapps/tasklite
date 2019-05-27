@@ -10,8 +10,6 @@ import {
   dispatchChangeEditAssignee,
   dispatchChangeEditPriority,
   dispatchCloseEdit,
-  dispatchChangeEditPopOverId,
-  dispatchChangeEditAnchorEl,
 } from './Edit.action'
 // views
 import {
@@ -54,8 +52,6 @@ const mapDispatchToProps = () => ({
   onAssigneeChange: dispatchChangeEditAssignee,
   onPriorityChange: dispatchChangeEditPriority,
   close: dispatchCloseEdit,
-  changePopoverId: dispatchChangeEditPopOverId,
-  changeAnchorEl: dispatchChangeEditAnchorEl,
 })
 
 export default connect(

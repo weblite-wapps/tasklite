@@ -1,9 +1,9 @@
 // modules
 import React from "react";
 import PropTypes from "prop-types";
-import Tooltip from "material-ui/Tooltip";
-import Typography from "material-ui/Typography";
-import { LinearProgress } from "material-ui/Progress";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
+import LinearProgress from "@material-ui/core/LinearProgress";
 // components
 import ActionButtons from "../components/ActionButtons/main/ActionButtons.presentational";
 import SubInfo from "../components/SubInfo/SubInfo.presentational";
@@ -36,7 +36,7 @@ export const TitleAndLevelButtons = (props) => {
           alt="priority"
           className={scssClasses.priority}
         />
-        <Typography variant="subheading" style={{ marginLeft: "10px" }}>
+        <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
           {formatTitle(title) === title ? (
             <span>{formatTitle(title)}</span>
           ) : (
@@ -68,7 +68,7 @@ export const BriefInfo = ({
 }) =>
   _id !== expandingId && (
     <div className={scssClasses.text}>
-      <Typography variant="body2">
+      <Typography variant="body1">
         {checkToShow("assignee") && <span>{assignee}&nbsp;|&nbsp;</span>}
         {checkToShow("deadline") && <span>{getRemained(deadline)}</span>}
         {checkToShow("sentTime") && <span>{getPassedTime(sentTime)} ago</span>}

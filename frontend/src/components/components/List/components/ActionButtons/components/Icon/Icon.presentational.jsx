@@ -1,7 +1,7 @@
 // modules
 import React from "react";
 import PropTypes from "prop-types";
-import Tooltip from "material-ui/Tooltip";
+import Tooltip from "@material-ui/core/Tooltip";
 // styles
 import scssClasses from "./Icon.scss";
 

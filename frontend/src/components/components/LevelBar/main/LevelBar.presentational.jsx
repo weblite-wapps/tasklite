@@ -1,8 +1,8 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import Typography from 'material-ui/Typography'
-import Divider from 'material-ui/Divider'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 // components
 import LevelIcon from '../components/LevelIcon/LevelIcon.container.react'
 // styles
@@ -20,7 +20,7 @@ const LevelBar = ({ tabIndex, noMargin }) => (
 
     <div className={scssClasses.textContainer}>
       <Divider />
-      <Typography variant="title">{tabIndex}</Typography>
+      <Typography variant="h6">{tabIndex}</Typography>
       <Divider />
     </div>
   </React.Fragment>

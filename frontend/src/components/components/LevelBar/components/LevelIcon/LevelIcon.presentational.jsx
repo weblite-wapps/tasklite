@@ -1,13 +1,13 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import Badge from 'material-ui/Badge'
+import Badge from '@material-ui/core/Badge'
 // styles
 import classes from './LevelIcon.scss'
 
 
 const LevelIcon = ({ numbers, tabIndex, src, label, onTabClick }) => (
-  <Badge badgeContent={numbers[label]}>
+  <Badge badgeContent={numbers[label]} max={100}>
     <div className={classes.container} role="button" tabIndex="0" onClick={() => onTabClick(label)}>
       <img
         src={src}

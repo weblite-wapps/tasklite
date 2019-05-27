@@ -3,8 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FlipMove from 'react-flip-move'
 import * as R from 'ramda'
-import Typography from 'material-ui/Typography'
-import Divider from 'material-ui/Divider'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 // components
 import Todo from '../Todo/Todo.container.react'
 // helper
@@ -38,7 +38,7 @@ const SubInfo = ({ label, tags, deadline, sentTime, level, assignee, todos, _id 
           />))}
       </FlipMove>
     </Typography>
-    <Divider inset />
+    <Divider variant="inset" />
   </React.Fragment>
 )
 

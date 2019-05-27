@@ -1,17 +1,21 @@
-import { createMuiTheme } from 'material-ui/styles'
+import { createMuiTheme } from '@material-ui/core/styles';
+
 
 export default createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   overrides: {
     MuiTypography: {
-      display1: {
+      h4: {
         color: '#000000',
         fontWeight: '500',
       },
-      body2: {
+      body1: {
         fontWeight: '100',
         color: '#cfcfcf',
       },
-      headline: {
+      h5: {
         color: '#919191',
         textTransform: 'uppercase',
         margin: '5px',
@@ -19,7 +23,7 @@ export default createMuiTheme({
         fontSize: '27px',
         width: '165px',
       },
-      title: {
+      h6: {
         fontSize: '18px',
         textTransform: 'uppercase',
         fontWeight: '900',
@@ -44,9 +48,9 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        height: '25px',
-        width: '25px',
-        marginTop: '0px',
+        height: '30px',
+        width: '30px',
+        padding: '0',
         color: '#000000',
       },
     },
@@ -84,7 +88,7 @@ export default createMuiTheme({
         backgroundColor: '#000000',
         margin: '5px 30px 5px 30px',
       },
-      light: {
+      middle: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         margin: '10px 0px 10px 0px',
       },
@@ -128,12 +132,12 @@ export default createMuiTheme({
       badge: {
         backgroundColor: '#519ae7',
         color: 'white',
-        top: 'kind',
-        right: '5px',
+        top: '15px',
+        right: '10px',
         bottom: '10px',
         fontSize: '0.5rem',
-        width: '15px',
-        height: '15px',
+        width: '20px',
+        height: '20px',
       },
     },
     MuiLinearProgress: {

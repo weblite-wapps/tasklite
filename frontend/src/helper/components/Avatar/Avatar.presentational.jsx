@@ -2,17 +2,17 @@
 import React from 'react'
 import * as R from 'ramda'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import MuiAvatar from 'material-ui/Avatar'
-import Typography from 'material-ui/Typography'
-import Divider from 'material-ui/Divider'
+import { withStyles } from '@material-ui/core/styles'
+import MuiAvatar from '@material-ui/core/Avatar'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
 // scssClasses
 import scssClasses from './Avatar.scss'
 import styles from './Avatar.style'
 
 const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
   <div className={scssClasses.container}>
-    <Typography variant="body1" className={classes.text}>
+    <Typography variant="body2" className={classes.text}>
       Assignee
     </Typography>
     <div className={scssClasses.row}>
@@ -29,7 +29,7 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
             {R.head(user.name)}
           </MuiAvatar>
           <Typography
-            variant="body1"
+            variant="body2"
             align="center"
             className={classes.username}
             style={{ marginBottom: '5px' }}
