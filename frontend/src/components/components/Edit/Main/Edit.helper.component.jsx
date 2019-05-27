@@ -1,30 +1,25 @@
 // modules
 import * as R from 'ramda'
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { findDOMNode } from 'react-dom'
 // cores
 import Slide from 'material-ui/transitions/Slide'
 import Toolbar from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
-import List, { ListItem } from 'material-ui/List'
-import Typography from 'material-ui/Typography'
+import List from 'material-ui/List'
 import MuiAppBar from 'material-ui/AppBar'
 import { withStyles } from 'material-ui/styles'
 // icons
-import CancelIcon from 'material-ui-icons/Cancel'
 import CloseButton from 'material-ui-icons/Close'
 import Done from 'material-ui-icons/Done'
 // components
 import { TagPanel } from '../../../Main/App.helper.component'
+import Avatar from '../../../../helper/components/Avatar/Avatar.presentational'
 import {
   TextField,
   SelectField,
   DatePicker,
 } from '../../Add/Add.helper.component'
-// import Popover from '../../../../helper/components/'
-// helpers 
-// import Picker from '../../../../helper/components/Picker/Picker.presentational'
 // classes
 import './Edit.scss'
 import { default as style } from './Edit.style'
@@ -43,7 +38,7 @@ const AppBar = ({ close, submit, classes }) => (
       </IconButton>
     </Toolbar>
   </MuiAppBar>
-)
+) 
 
 AppBar.propTypes = {
   submit: PropTypes.func.isRequired,
@@ -56,6 +51,7 @@ export const AppBarWithStyle = withStyles(style)(AppBar)
 export const Content = ({ isError, ...other }) => (
   <div className="intervalList">
     <List>
+      <Avatar {...other} isError={isError.assignee} />
       <TextField {...other} isError={isError.title} />
       {/* <TagPanel {...other} /> */}
       <SelectField {...other} />
@@ -67,5 +63,3 @@ export const Content = ({ isError, ...other }) => (
 Content.propTypes = {
   isError: PropTypes.shape({}).isRequired,
 }
-
-export const ContentWithStyle = withStyles(style)(Content)

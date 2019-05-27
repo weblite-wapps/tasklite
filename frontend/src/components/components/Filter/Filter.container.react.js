@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 import Filter from './Filter.presentational'
 // views
 import { usersView, creatorView } from '../../Main/App.reducer'
-import { queryTagView, tagsView, selectedTagsView, selectedUserView } from './Filter.reducer'
+import { queryTagView, tagsView, selectedTagsView, assigneeView } from './Filter.reducer'
 // actions
 import {
   dispatchSetQueryTagInFilter,
   dispatchChangeSelectedTagsInFilter,
   dispatchAddTagInFilter,
-  dispatchChangeSelectedUserInFilter,
+  dispatchChangeAssigneeInFilter,
 } from './Filter.action'
 // selector
 import { getFilteredSuggestions } from './Filter.selector'
@@ -18,7 +18,7 @@ import { getFilteredSuggestions } from './Filter.selector'
 
 const mapStateToProps = state => ({
   selectedTags: selectedTagsView(),
-  selectedUser: selectedUserView(),
+  assignee: assigneeView(),
   queryTag: queryTagView(),
   suggestions: getFilteredSuggestions(state),
   tags: tagsView(),
@@ -30,7 +30,7 @@ const mapDispatchToProps = () => ({
   onQueryTagChange: dispatchSetQueryTagInFilter,
   onTagClick: dispatchChangeSelectedTagsInFilter,
   addTag: dispatchAddTagInFilter,
-  onUserClick: dispatchChangeSelectedUserInFilter,
+  onAssigneeChange: dispatchChangeAssigneeInFilter,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)

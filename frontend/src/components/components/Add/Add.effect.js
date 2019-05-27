@@ -73,7 +73,7 @@ const addTaskEpic = action$ =>
   .pluck('payload')
   .mergeMap(({
       title,
-      selectedUser,
+      assignee,
       tags,
       priority,
       deadline
@@ -81,7 +81,7 @@ const addTaskEpic = action$ =>
     Promise.all([
       postRequest('/saveTask').send({
         title,
-        assignee: selectedUser.name,
+        assignee: assignee.name,
         tags,
         priority,
         deadline,
@@ -92,7 +92,7 @@ const addTaskEpic = action$ =>
         }],
         level: 'ICE BOX',
         created_at: new Date(),
-        userId: selectedUser.id,
+        userId: assignee.id,
         wis: wisView(),
       }),
       // .on(
@@ -151,14 +151,14 @@ const effectHandleAddTask = action$ =>
   .do(
     ({
       title,
-      selectedUser,
+      assignee,
       selectedTags,
       priority,
       deadline,
       permission
     }) =>
     permission &&
-    dispatchAddTask(title, selectedUser, selectedTags, priority, deadline),
+    dispatchAddTask(title, assignee, selectedTags, priority, deadline),
   )
   .ignoreElements()
 

@@ -25,8 +25,10 @@ import {
   popoverIdView,
   isOpenDialogView,
 } from './Edit.reducer'
+import { usersView } from '../../../Main/App.reducer';
 
 const mapStateToProps = () => ({
+  users: usersView(),
   task: taskView(),
   title: titleView(),
   deadline: deadlineView(),

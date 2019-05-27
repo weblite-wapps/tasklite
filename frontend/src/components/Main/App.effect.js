@@ -16,7 +16,7 @@ import {
 import {
   dispatchLoadTagsDataInAdd,
   dispatchLoadUsersDataInAdd,
-  dispatchChangeSelectedUserInAdd,
+  dispatchChangeAssigneeInAdd,
 } from '../components/Add/Add.action'
 import {
   dispatchLoadTagsDataInFilter
@@ -70,7 +70,7 @@ const saveUsersEpic = action$ =>
   .do(({
     body
   }) => body && dispatchLoadUsersData([body]))
-  .do(() => dispatchChangeSelectedUserInAdd(userView()))
+  .do(() => dispatchChangeAssigneeInAdd(userView()))
   .map(dispatchFetchAdminData)
 
 const fetchUsersEpic = action$ =>

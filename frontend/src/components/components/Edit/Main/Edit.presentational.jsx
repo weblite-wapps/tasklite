@@ -2,9 +2,9 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import {
   Transition,
-  ContentWithStyle as Content,
+  Content,
   AppBarWithStyle as AppBar,
-} from './Edit.helper'
+} from './Edit.helper.component'
 
 const Edit = props => (
   <Dialog

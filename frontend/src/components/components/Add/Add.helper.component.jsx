@@ -60,20 +60,20 @@ DatePicker.defaultProps = {
 
 
 export const Button = ({
-  title, selectedUser, selectedTags, priority, deadline, label, handleAddTask,
+  title, assignee, selectedTags, priority, deadline, label, handleAddTask,
 }) => (
   <div className={scssClasses.button}>
     <CustomizedButton
       label={label}
       componentName="Add"
-      onClick={() => handleAddTask(title, selectedUser, selectedTags, priority, new Date(deadline))}
+      onClick={() => handleAddTask(title, assignee, selectedTags, priority, new Date(deadline))}
     />
   </div>
 )
 
 Button.propTypes = {
   title: PropTypes.string.isRequired,
-  selectedUser: PropTypes.shape({}).isRequired,
+  assignee: PropTypes.shape({}).isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.string.isRequired,

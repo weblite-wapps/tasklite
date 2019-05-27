@@ -32,7 +32,7 @@ const submitEditEpic = (action$, { dispatch }) =>
         })(),
     )
     .map(({ task, title, deadline, assignee, priority }) => ({
-      ...task, title, deadline, assignee, priority
+      ...task, title, deadline, assignee: assignee.name, priority
     }))
     .do(task => {
       postRequest('/editTask')

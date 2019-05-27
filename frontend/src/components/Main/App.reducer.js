@@ -83,13 +83,13 @@ const reducers = {
     )(tasks),
   }),
 
-  [ADD_TASK]: (state, { title, selectedUser, tags, priority, deadline }) => ({
+  [ADD_TASK]: (state, { title, assignee, tags, priority, deadline }) => ({
     ...state,
     tasks: R.prepend(
       {
         _id: state.tasks.length.toString(),
         title,
-        assignee: selectedUser.name,
+        assignee: assignee.name,
         tags,
         priority,
         deadline,

@@ -41,9 +41,9 @@ export const dispatchLoadTasksData = (...args) =>
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(
   ADD_TASK,
-  (title, selectedUser, tags, priority, deadline) => ({
+  (title, assignee, tags, priority, deadline) => ({
     title,
-    selectedUser,
+    assignee,
     tags,
     priority,
     deadline,
