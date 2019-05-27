@@ -49,9 +49,13 @@ export const DatePicker = ({ isError, deadline, onDeadlineChange }) => (
 )
 
 DatePicker.propTypes = {
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   deadline: PropTypes.string.isRequired,
   onDeadlineChange: PropTypes.func.isRequired,
+}
+
+DatePicker.defaultProps = {
+  isError: false,
 }
 
 

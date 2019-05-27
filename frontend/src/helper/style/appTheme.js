@@ -50,6 +50,20 @@ export default createMuiTheme({
         color: '#000000',
       },
     },
+    MuiDialog: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        top: '50px',
+      },
+    },
+    MuiToolbar: {
+      root: {
+        backgroundColor: '#cfcfcf',
+        color: 'black',
+        justifyContent: 'space-between',
+      },
+    },
     MuiTab: {
       root: {
         height: '50px',

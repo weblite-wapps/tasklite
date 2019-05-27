@@ -122,3 +122,7 @@ export const updateNumbersObject = createAction(
 )
 export const dispatchUpdateNumbersObject = (...args) =>
   dispatch(updateNumbersObject(...args))
+
+export const SET_EDITED_TASK = 'SET_EDITED_TASK'
+export const setEditedTask = createAction(SET_EDITED_TASK)
+export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))

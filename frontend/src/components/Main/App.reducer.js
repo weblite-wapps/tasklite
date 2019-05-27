@@ -21,6 +21,7 @@ import {
   SET_SENT_TIME,
   LOAD_NUMBER_OF_TASKS,
   UPDATE_NUMBERS_OBJECT,
+  SET_EDITED_TASK,
 } from './App.action'
 // helpers
 import { getUpdatedNumbersObject } from './App.helper'
@@ -225,6 +226,10 @@ const reducers = {
       getUpdatedNumbersObject(currentLevel, nextLevel),
       state,
     ),
+  [SET_EDITED_TASK]: (state, newTask) => ({
+    ...state,
+    tasks: R.map(task => (task._id === newTask._id ? newTask : task), state.tasks),
+  }),
 }
 
 export default (state = initialState, { type, payload }) =>

@@ -56,10 +56,11 @@ class TaskList extends React.Component {
     const {
       classes,
       creator,
-      task: { _id, level, todos },
+      task: { _id, todos },
       popoverId,
       expandingId,
       deleteTask,
+      editTask,
       changePopoverId,
     } = this.props
 
@@ -94,6 +95,14 @@ class TaskList extends React.Component {
                   onYep={deleteTask}
                   onNop={() => changePopoverId('')}
                 />
+                <MuiButton
+                  variant="raised"
+                  onClick={editTask}
+                  classes={{ raised: classes.Button }}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Edit
+                </MuiButton>
               </div>
             )}
           </div>
