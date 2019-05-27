@@ -63,35 +63,29 @@ TitleAndLevelButtons.propTypes = {
 };
 
 export const BriefInfo = ({
-  task,
   task: { _id, assignee, tags, deadline, sentTime, todos },
   expandingId
-}) => {
-  console.log("task ", task);
-  return (
-    _id !== expandingId && (
-      <div className={scssClasses.text}>
-        <Typography variant="body2">
-          {checkToShow("assignee") && (
-            <span>{assignee || "No assigne"}&nbsp;|&nbsp;</span>
-          )}
-          {checkToShow("deadline") && (
-            <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
-          )}
-          {checkToShow("sentTime") && (
-            <span>
-              {sentTime ? getPassedTime(sentTime) : "No sentTime "} ago
-            </span>
-          )}
-          <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags!"}</span>
-          {checkToShow("percent") && (
-            <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
-          )}
-        </Typography>
-      </div>
-    )
+}) =>
+  _id !== expandingId && (
+    <div className={scssClasses.text}>
+      <Typography variant="body2">
+        {checkToShow("assignee") && (
+          <span>{assignee || "No assigne"}&nbsp;|&nbsp;</span>
+        )}
+        {checkToShow("deadline") && (
+          <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
+        )}
+        {checkToShow("sentTime") && (
+          <span>{sentTime ? getPassedTime(sentTime) : "No sentTime "} ago</span>
+        )}
+        <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags!"}</span>
+        {checkToShow("percent") && (
+          <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
+        )}
+      </Typography>
+    </div>
   );
-};
+
 BriefInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired
