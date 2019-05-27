@@ -49,7 +49,7 @@ AppBar.propTypes = {
 export const AppBarWithStyle = withStyles(style)(AppBar)
 
 export const Content = ({ isError, ...other }) => (
-  <div className="intervalList">
+  <div style={{ marginTop: '60px' }}> 
     <List>
       <Avatar {...other} isError={isError.assignee} />
       <TextField {...other} isError={isError.title} />

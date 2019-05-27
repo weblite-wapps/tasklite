@@ -10,7 +10,7 @@ const Edit = props => (
   <Dialog
     open={props.isOpen}
     fullScreen
-    transitionDuration={300}
+    transitionDuration={250}
     TransitionComponent={Transition} 
   >
     <AppBar {...props} />

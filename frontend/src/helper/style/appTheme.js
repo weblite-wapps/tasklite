@@ -57,14 +57,13 @@ export default createMuiTheme({
     MuiDialog: {
       root: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column', 
         top: '50px',
       },
     },
     MuiToolbar: {
       root: {
-        backgroundColor: '#cfcfcf',
-        color: 'black',
+        backgroundColor: '#62666C',
         justifyContent: 'space-between',
       },
     },
