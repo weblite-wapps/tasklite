@@ -45,6 +45,7 @@
     "react-dom": "^16.8.6",
     "react-flip-move": "^3.0.1",
     "react-hot-loader": "^4.1.2",
+    "react-persian-datepicker": "^3.0.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",

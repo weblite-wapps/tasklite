@@ -3,3 +3,34 @@
   align-items: flex-end;
   margin: 0px 20px 5px 20px;
 }
+
+.responsiveCalendar {
+  /* by setting font-size, all the elements will correspond */
+  font-size: 9px !important;
+  /* default to 10px */
+}
+
+@media (max-width: 1500px) {
+  .responsiveCalendar {
+    font-size: 8px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .responsiveCalendar {
+    font-size: 7px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsiveCalendar {
+    font-size: 6px !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 2500px) {
+  .responsiveCalendar {
+    font-size: 12px !important;
+  }
+}

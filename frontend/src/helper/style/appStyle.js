@@ -9,14 +9,6 @@ export default theme => ({
     marginRight: theme.spacing.unit,
     width: 300,
   },
-  datePickerContainer: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: '100%',
-  },
-  datePickerTextField: {
-    width: '100%',
-  },
   textFieldFormLabel: {
     color: '#919191',
   },
