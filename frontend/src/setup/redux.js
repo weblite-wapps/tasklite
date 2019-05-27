@@ -15,17 +15,17 @@ import {
 } from 'react-router-redux'
 import createHistory from 'history/createMemoryHistory'
 // reducers
-import AppReducer from './components/Main/App.reducer'
-import AddReducer from './components/components/Add/Add.reducer'
-import FilterReducer from './components/components/Filter/Filter.reducer'
-import ListReducer from './components/components/List/main/List.reducer'
-import AppBarReducer from './components/components/AppBar/AppBar.reducer'
+import AppReducer from '../components/Main/App.reducer'
+import AddReducer from '../components/components/Add/Add.reducer'
+import FilterReducer from '../components/components/Filter/Filter.reducer'
+import ListReducer from '../components/components/List/main/List.reducer'
+import AppBarReducer from '../components/components/AppBar/AppBar.reducer'
 // epics
-import AppEpic from './components/Main/App.effect'
-import AddEpic from './components/components/Add/Add.effect'
-import ListEpic from './components/components/List/main/List.effect'
-import FilterEpic from './components/components/Filter/Filter.effect'
-import AppBarEpic from './components/components/AppBar/AppBar.effect'
+import AppEpic from '../components/Main/App.effect'
+import AddEpic from '../components/components/Add/Add.effect'
+import ListEpic from '../components/components/List/main/List.effect'
+import FilterEpic from '../components/components/Filter/Filter.effect'
+import AppBarEpic from '../components/components/AppBar/AppBar.effect'
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
 

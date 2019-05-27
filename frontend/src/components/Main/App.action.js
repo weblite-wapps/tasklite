@@ -4,7 +4,7 @@ import {
 } from 'redux-actions'
 import {
   dispatch
-} from '../../redux'
+} from '../../setup/redux'
 
 // actions
 export const SET_API = 'SET_API'

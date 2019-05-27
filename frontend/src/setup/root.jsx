@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { Route } from 'react-router'
 import { ConnectedRouter } from 'react-router-redux'
 import { MuiThemeProvider } from '@material-ui/core/styles'
+import { hot } from 'react-hot-loader/root'
 // Setup
 import store, { history } from './redux'
 // Component
@@ -14,7 +15,7 @@ import About from '../components/components/About/About'
 import scssClasses from './root.scss'
 import theme from '../helper/style/appTheme'
 
-export default function root() {
+const root = () => {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
@@ -29,3 +30,5 @@ export default function root() {
     </Provider>
   )
 }
+
+export default hot(root)

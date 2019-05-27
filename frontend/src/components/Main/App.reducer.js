@@ -3,7 +3,7 @@ import * as R from 'ramda'
 // local modules
 import {
   getState
-} from '../../redux'
+} from '../../setup/redux'
 // actions
 import {
   SET_API,
@@ -156,8 +156,7 @@ const reducers = {
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ?
-      {
+      task._id === _id ? {
         ...task,
         todos: R.map(
           todo =>
@@ -207,8 +206,7 @@ const reducers = {
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ?
-      {
+      task._id === _id ? {
         ...task,
         todos: R.prepend({
             title: value,
@@ -232,8 +230,7 @@ const reducers = {
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ?
-      {
+      task._id === _id ? {
         ...task,
         todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
       } :
@@ -249,8 +246,7 @@ const reducers = {
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ?
-      {
+      task._id === _id ? {
         ...task,
         todos: R.remove(
           R.findIndex(R.propEq('_id', todoId), task.todos),
