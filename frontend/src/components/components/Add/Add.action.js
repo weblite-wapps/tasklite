@@ -50,7 +50,7 @@ export const dispatchChangeSelectedTagsInAdd = (...args) =>
   dispatch(changeSelectedTagsInAdd(...args))
 
 export const CHANGE_ASSIGNEE_IN_ADD = 'CHANGE_ASSIGNEE_IN_ADD'
-export const changeAssigneeInAdd = createAction(CHANGE_ASSIGNEE_IN_ADD, user => ({ user }))
+export const changeAssigneeInAdd = createAction(CHANGE_ASSIGNEE_IN_ADD)
 export const dispatchChangeAssigneeInAdd = (...args) =>
   dispatch(changeAssigneeInAdd(...args))
 

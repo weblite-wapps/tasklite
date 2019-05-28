@@ -31,7 +31,7 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className="c--filter_container">
-        {this.props.creator && <Avatar {...this.props} />}
+        <Avatar {...this.props} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
       </div>
     )
