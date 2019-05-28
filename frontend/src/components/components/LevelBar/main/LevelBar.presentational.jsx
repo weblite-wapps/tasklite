@@ -12,7 +12,7 @@ const LevelBar = ({ tabIndex, noMargin }) => (
   <React.Fragment>
     <div
       className={
-        noMargin ? "c--levelBar_noMargin" : "c--levelBar_levelBarContainer"
+        noMargin ? "c--levelBar_noMargin" : "c--levelBar_container"
       }
     >
       <LevelIcon src="icebox.png" label="ICE BOX" />

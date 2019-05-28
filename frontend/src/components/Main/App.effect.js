@@ -6,7 +6,8 @@ import 'rxjs'
 // import { snackbarMessage } from 'weblite-web-snackbar'
 // helpers
 import {
-  getQuery
+  getQuery,
+  mapToUsername,
 } from './App.helper'
 import {
   getRequest,
@@ -29,9 +30,8 @@ import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
   FETCH_ADMIN_DATA,
-  loadUsersData,
-  dispatchLoadTasksData,
   dispatchLoadUsersData,
+  dispatchLoadTasksData,
   dispatchFetchAdminData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
@@ -45,7 +45,7 @@ import {
   creatorView,
   userView,
 } from './App.reducer'
-// W
+
 
 const saveUsersEpic = action$ =>
   action$
@@ -85,12 +85,13 @@ const fetchUsersEpic = action$ =>
     //     snackbarMessage({ message: 'Server disconnected!' }),
     // ),
   )
-  .do(({
-    body
-  }) => dispatchLoadUsersDataInAdd(body))
-  .map(({
-    body
-  }) => loadUsersData(body))
+  .do(({ body }) =>
+    window.W && window.W.getUsersInfo(mapToUsername(body)).then(info => {
+      const users = R.values(info)
+      dispatchLoadUsersDataInAdd(users)
+      dispatchLoadUsersData(users)
+    }))
+  .ignoreElements()
 
 const initialFetchEpic = action$ =>
   action$

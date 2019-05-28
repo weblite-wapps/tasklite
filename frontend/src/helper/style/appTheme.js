@@ -15,7 +15,7 @@ export default createMuiTheme({
       },
       body1: {
         fontWeight: '100',
-        color: '#cfcfcf',
+        // color: '#cfcfcf',
       },
       h5: {
         color: '#919191',

@@ -30,3 +30,5 @@ export const getLevel = _id =>
     R.prop('level'),
     R.find(R.propEq('_id', _id)),
   )(tasksView())
+
+export const mapToUsername = users => R.map(user => user.name, users)
