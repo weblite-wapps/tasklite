@@ -48,17 +48,21 @@ AppBar.propTypes = {
 
 export const AppBarWithStyle = withStyles(style)(AppBar)
 
-export const Content = ({ isError, ...other }) => (
-  <div style={{ marginTop: '60px' }}> 
+export const Content = props => {
+  const { isError, ...other } = props
+
+  return (
+    <div style={{ marginTop: '60px' }}> 
     <List>
-      <Avatar {...other} isError={isError.assignee} />
+      {props.assignee && <Avatar {...other} />}
       <TextField {...other} isError={isError.title} />
       {/* <TagPanel {...other} /> */}
-      <SelectField {...other} />
-      <DatePicker {...other} />
+      {props.priority && <SelectField {...other} />}
+      {props.deadline && <DatePicker {...other} />}
     </List>
   </div>
-)
+  )
+}
 
 Content.propTypes = {
   isError: PropTypes.shape({}).isRequired,

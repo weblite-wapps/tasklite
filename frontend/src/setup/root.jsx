@@ -12,11 +12,12 @@ import AppBar from '../components/components/AppBar/AppBar.container.react'
 import App from '../components/Main/App.container.react'
 import Edit from '../components/components/Edit/Main/Edit.container.react'
 import About from '../components/components/About/About'
+import Snackbar from '../components/components/Snackbar/Snackbar.container.react'
 // styles
 import './root.scss'
 import theme from '../helper/style/appTheme'
 
-const root = () => {
+const root = () => { 
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>

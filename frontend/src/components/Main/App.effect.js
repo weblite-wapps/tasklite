@@ -1,8 +1,9 @@
 // modules
+import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 // helpers
-import { getQuery } from './App.helper'
+import { getQuery, mapToUsername } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
 import {

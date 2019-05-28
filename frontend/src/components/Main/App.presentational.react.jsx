@@ -1,8 +1,6 @@
 // Modules
 import React from 'react'
 import PropTypes from 'prop-types'
-// local modules
-// import Snackbar from 'weblite-web-snackbar'
 // components
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Add.container.react'
@@ -50,7 +48,6 @@ export default class App extends React.Component {
         <LevelBar noMargin={this.props.expandMode !== 'default'} />
         <TaskList {...this.props} />
         <LoadMore {...this.props} />
-        {/* <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} /> */}
       </div>
     )
   }

@@ -4,8 +4,6 @@ import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
 import {
   wisView,
-  userIdView,
-  creatorView,
   numbersObjectView,
   tasksView,
 } from './App.reducer'

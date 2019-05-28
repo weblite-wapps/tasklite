@@ -16,7 +16,7 @@ const Popover = ({ classes, popoverIsOpen, anchorEl, onClose, onYep }) => (
     anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
     transformOrigin={{ vertical: 'top', horizontal: 'center' }}
   >
-    <Typography type="subheading" style={{ margin: '5px' }}>
+    <Typography type="subtitle1" style={{ margin: '5px' }}>
       Are you sure?
     </Typography>
     <Button
