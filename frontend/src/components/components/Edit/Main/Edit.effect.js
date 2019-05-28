@@ -10,7 +10,7 @@ import {
   dispatchChangeIsOpenDialog,
 } from './Edit.action'
 import { dispatchSetEditedTask } from '../../../Main/App.action'
-// import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
+import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 //helper
 import { postRequest } from '../../../../helper/functions/request.helper'
 // const
@@ -26,7 +26,7 @@ const submitEditEpic = (action$, { dispatch }) =>
         title.length ||
         (() => {
           dispatchChangeTitleIsError(true)
-          // dispatchChangeSnackbarStage('Title is empty')
+          dispatchChangeSnackbarStage('Title is empty')
           return false
         })(),
     )
@@ -36,15 +36,15 @@ const submitEditEpic = (action$, { dispatch }) =>
     .do(task => {
       postRequest('/editTask')
         .send(task)
-        // .on('error', err => {
-        //   if (err.status !== 304) {
-        //     dispatchChangeSnackbarStage('Server disconnected!')
-        //   }
-        // })
+        .on('error', err => {
+          if (err.status !== 304) {
+            dispatchChangeSnackbarStage('Server disconnected!')
+          }
+        })
         .then(() => dispatchSetEditedTask(task))
         .then(() => {
           dispatchChangeIsOpenDialog(false)
-          // dispatchChangeSnackbarStage('Updated Succesfully!')
+          dispatchChangeSnackbarStage('Updated Succesfully!')
           dispatch(push('/'))
           dispatchChangeTitleIsError(false)
           W && W.analytics('EDIT_TASK')
