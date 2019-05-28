@@ -10,10 +10,10 @@ import store, { history } from './redux'
 import AppBar from '../components/components/AppBar/AppBar.container.react'
 import App from '../components/Main/App.container.react'
 import About from '../components/components/About/About'
+import Snackbar from '../components/components/Snackbar/Snackbar.container.react'
 // scssClasses
 import scssClasses from './root.scss'
 import theme from '../helper/style/appTheme'
-
 
 export default function root() {
   return (
@@ -22,6 +22,7 @@ export default function root() {
         <ConnectedRouter history={history}>
           <div className={scssClasses.container}>
             <AppBar />
+            <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
             <Route exact path="/" component={App} />
             <Route path="/About" component={About} />
           </div>

@@ -9,6 +9,7 @@ import AddReducer from '../components/components/Add/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
 import ListReducer from '../components/components/List/main/List.reducer'
 import AppBarReducer from '../components/components/AppBar/AppBar.reducer'
+import SnackbarReducer from '../components/components/Snackbar/Snackbar.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Add.effect'
@@ -26,9 +27,14 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic, FilterEpic, AppBarEpic)
+const rootEpic = combineEpics(
+  AppEpic,
+  AddEpic,
+  ListEpic,
+  FilterEpic,
+  AppBarEpic,
+)
 const epicMiddleware = createEpicMiddleware(rootEpic)
-
 
 const store = createStore(
   combineReducers({
@@ -37,9 +43,11 @@ const store = createStore(
     Filter: FilterReducer,
     List: ListReducer,
     AppBar: AppBarReducer,
+    Snackbar: SnackbarReducer,
     router: routerReducer,
-  }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))
-
+  }),
+  composeEnhancers(applyMiddleware(middleware, epicMiddleware)),
+)
 
 export const { dispatch, getState } = store
 export default store
