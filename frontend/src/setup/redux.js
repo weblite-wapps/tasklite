@@ -20,12 +20,14 @@ import AddReducer from '../components/components/Add/Add.reducer'
 import FilterReducer from '../components/components/Filter/Filter.reducer'
 import ListReducer from '../components/components/List/main/List.reducer'
 import AppBarReducer from '../components/components/AppBar/AppBar.reducer'
+import EditReducer from '../components/components/Edit/Main/Edit.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 import FilterEpic from '../components/components/Filter/Filter.effect'
 import AppBarEpic from '../components/components/AppBar/AppBar.effect'
+import EditEpic from '../components/components/Edit/Main/Edit.effect'
 // Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
 
@@ -37,7 +39,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic, FilterEpic, AppBarEpic)
+const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic, FilterEpic, AppBarEpic, EditEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 
@@ -48,6 +50,7 @@ const store = createStore(
     Filter: FilterReducer,
     List: ListReducer,
     AppBar: AppBarReducer,
+    Edit: EditReducer,
     router: routerReducer,
   }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))
 

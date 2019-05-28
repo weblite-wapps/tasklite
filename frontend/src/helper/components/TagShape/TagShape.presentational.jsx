@@ -4,18 +4,17 @@ import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import Add from '@material-ui/icons/Add'
 import Remove from '@material-ui/icons/Remove'
-// styles
-import './TagShape.scss'
+// scssClasses
+import scssClasses from './TagShape.scss'
+
 
 const TagShape = ({ tag: { label, isSelected }, onTagClick }) => (
-  <div
-    className="c--tagShape_container"
-    onClick={onTagClick}
-    role="button"
-    tabIndex="0"
-  >
-    <div className={isSelected ? "c--tagShape_selected" : "c--tagShape_default"}>
-      <Typography type="body1">{label}</Typography>
+  <div className={scssClasses.container} onClick={onTagClick} role="button" tabIndex="0">
+    <div className={isSelected ? scssClasses.selected : scssClasses.default}>
+      <Typography type="body2">{ label }</Typography>
+    </div>
+    <div className={scssClasses.icon}>
+      {isSelected ? <Remove /> : <Add />}
     </div>
     <div className="c--tagShape_icon">{isSelected ? <Remove /> : <Add />}</div>
   </div>

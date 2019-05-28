@@ -15,7 +15,7 @@ import './App.scss'
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
-    <Divider light />
+    <Divider variant="middle" />
   </MuiCollapse>
 )
 

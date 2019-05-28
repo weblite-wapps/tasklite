@@ -11,13 +11,16 @@
   height: 40px;
   margin: 10px;
   cursor: pointer;
+  transition: background-color 1s ease;
 }
 
 .c--levelIcon_passive:hover {
   background-color: #919191;
+  transition: background-color 0.5s ease;
 }
 
 .c--levelIcon_active {
   @extend .c--levelIcon_passive;
   background-color: #515151;
+  transition: background-color 1s ease;
 }

@@ -9,7 +9,9 @@ export default () => ({
     outline: 'none',
     '&:hover': {
       backgroundColor: '#919191',
+      transition: 'background-color 0.5s ease',
     },
+    transition: 'background-color 1s ease',
   },
   active: {
     backgroundColor: '#4CAF50',
@@ -19,6 +21,7 @@ export default () => ({
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
+    transition: 'background-color 1s ease',
   },
   default: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',

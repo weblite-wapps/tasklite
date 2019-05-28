@@ -36,7 +36,7 @@ export const TitleAndLevelButtons = props => {
           alt="priority"
           className="c--list_priority"
         />
-        <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
+        <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
           {formatTitle(title) === title ? (
             <span>{formatTitle(title)}</span>
           ) : (

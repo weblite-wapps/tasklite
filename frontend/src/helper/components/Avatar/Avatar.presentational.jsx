@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import './Avatar.scss'
 import styles from './Avatar.style'
 
-const Avatar = ({ classes, isError, users, selectedUser, onUserClick }) => (
+const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
   <div className="c--avatar_container">
     <Typography variant="body2" className={classes.text}>
       Assignee
@@ -20,10 +20,10 @@ const Avatar = ({ classes, isError, users, selectedUser, onUserClick }) => (
         <div key={user._id} className="c--avatar_column">
           <MuiAvatar
             className={
-              user.id === selectedUser.id ? classes.active : classes.passive
+              user.id === assignee.id ? classes.active : classes.passive
             }
-            onClick={() => onUserClick(user)}
-            role="button" 
+            onClick={() => onAssigneeChange(user)}
+            role="button"
             tabIndex="0"
           >
             {R.head(user.name)}
@@ -47,8 +47,8 @@ Avatar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   isError: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectedUser: PropTypes.shape({}).isRequired,
-  onUserClick: PropTypes.func.isRequired,
+  assignee: PropTypes.shape({}).isRequired,
+  onAssigneeChange: PropTypes.func.isRequired,
 }
 
 Avatar.defaultProps = {

@@ -25,8 +25,8 @@ export const changeSelectedTagsInFilter = createAction(
 export const dispatchChangeSelectedTagsInFilter = (...args) =>
   dispatch(changeSelectedTagsInFilter(...args))
 
-export const CHANGE_SELECTED_USER_IN_FILTER = 'CHANGE_SELECTED_USER_IN_FILTER'
-export const changeSelectedUserInFilter = createAction(
-  CHANGE_SELECTED_USER_IN_FILTER, user => ({ user }))
-export const dispatchChangeSelectedUserInFilter = (...args) =>
-  dispatch(changeSelectedUserInFilter(...args))
+export const CHANGE_ASSIGNEE_IN_FILTER = 'CHANGE_ASSIGNEE_IN_FILTER'
+export const changeAssigneeInFilter = createAction(
+  CHANGE_ASSIGNEE_IN_FILTER, user => ({ user }))
+export const dispatchChangeAssigneeInFilter = (...args) =>
+  dispatch(changeAssigneeInFilter(...args))

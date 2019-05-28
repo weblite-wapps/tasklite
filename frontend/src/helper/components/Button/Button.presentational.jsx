@@ -14,10 +14,7 @@ const CustomizedButton = props => {
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      classes={{
-        root: classes[componentName],
-        raised: classes[`${componentName}Raised`],
-      }}
+      classes={{ root: classes[componentName], contained: classes[`${componentName}Contained`] }}
     >
       {props.children}
       {label}
@@ -39,7 +36,7 @@ CustomizedButton.defaultProps = {
   componentName: 'default',
   children: null,
   label: '',
-  variant: 'contained',
+  variant: 'text',
   disabled: false,
   onClick: () => {},
 }

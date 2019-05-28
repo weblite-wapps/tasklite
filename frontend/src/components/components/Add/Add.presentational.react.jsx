@@ -19,7 +19,7 @@ const Add = props => {
 
   return (
     <div className="c--add_container">
-      {creator && <Avatar {...props} isError={isError.selectedUser} />}
+      {creator && <Avatar {...props} isError={isError.assignee} />}
       <TextField {...props} isError={isError.title} />
       <TagPanel {...props} />
       <SelectField {...props} />

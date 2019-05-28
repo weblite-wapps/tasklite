@@ -60,6 +60,7 @@ class TaskList extends React.Component {
       popoverId,
       expandingId,
       deleteTask,
+      editTask,
       changePopoverId,
     } = this.props
 
@@ -82,8 +83,8 @@ class TaskList extends React.Component {
                     this.button = node
                   }}
                   onClick={this.handleOpenPopover}
-                  classes={{ raised: classes.Button }}
-                  variant="raised"
+                  classes={{ contained: classes.Button }}
+                  variant="contained"
                 >
                   Delete
                 </MuiButton>
@@ -94,6 +95,14 @@ class TaskList extends React.Component {
                   onYep={deleteTask}
                   onNop={() => changePopoverId('')}
                 />
+                <MuiButton
+                  variant="contained"
+                  onClick={editTask}
+                  classes={{ contained: classes.Button }}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Edit
+                </MuiButton>
               </div>
             )}
           </div>

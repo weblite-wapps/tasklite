@@ -42,10 +42,23 @@ export default createMuiTheme({
     },
     MuiIconButton: {
       root: {
-        height: '25px',
-        width: '25px',
-        marginTop: '0px',
+        height: '30px',
+        width: '30px',
+        padding: '0',
         color: '#000000',
+      },
+    },
+    MuiDialog: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column', 
+        top: '50px',
+      },
+    },
+    MuiToolbar: {
+      root: {
+        backgroundColor: '#62666C',
+        justifyContent: 'space-between',
       },
     },
     MuiTab: {
@@ -68,7 +81,7 @@ export default createMuiTheme({
         backgroundColor: '#000000',
         margin: '5px 30px 5px 30px',
       },
-      light: {
+      middle: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         margin: '10px 0px 10px 0px',
       },
@@ -112,12 +125,12 @@ export default createMuiTheme({
       badge: {
         backgroundColor: '#519ae7',
         color: 'white',
-        top: 'kind',
-        right: '5px',
+        top: '15px',
+        right: '10px',
         bottom: '10px',
         fontSize: '0.5rem',
-        width: '15px',
-        height: '15px',
+        width: '20px',
+        height: '20px',
       },
     },
     MuiLinearProgress: {

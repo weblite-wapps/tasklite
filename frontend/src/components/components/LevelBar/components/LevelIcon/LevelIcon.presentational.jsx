@@ -6,7 +6,7 @@ import Badge from '@material-ui/core/Badge'
 import './LevelIcon.scss'
 
 const LevelIcon = ({ numbers, tabIndex, src, label, onTabClick }) => (
-  <Badge badgeContent={numbers[label]}>
+  <Badge badgeContent={numbers[label]} max={100}>
     <div
       className="c--levelIcon_container"
       role="button"

@@ -52,7 +52,7 @@ const SubInfo = ({
           ))}
       </FlipMove>
     </Typography>
-    <Divider inset />
+    <Divider variant="inset" />
   </React.Fragment>
 )
 
