@@ -1,5 +1,6 @@
 // modules
 import * as R from 'ramda'
+import { getToday } from 'react-persian-calendar-date-picker';
 // local modules
 import { getState } from '../../../setup/redux'
 // actions
@@ -21,7 +22,7 @@ import {
 const initialState = {
   title: '',
   priority: 1,
-  deadline: '',
+  deadline: getToday(),
   queryTag: '',
   suggestions: [],
   selectedTags: [],
@@ -49,7 +50,7 @@ export const isErrorView = () => R.path(['Add', 'isError'])(getState())
 
 // reducers
 const reducers = {
-  [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
+  [CHANGE_DEADLINE]: (state, value) => R.set(deadlineLens, value, state),
 
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 

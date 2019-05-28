@@ -1,8 +1,14 @@
 // modules
 import * as R from 'ramda'
+import jalaali from 'jalaali-js'
 // views
 import { titleView, assigneeView, deadlineView, queryTagView, tagsView } from './Add.reducer'
 
+
+export const getDate = ({ year, month, day }) => {
+  const date = jalaali.toGregorian(year, month, day)
+  return new Date(`${date.gy}-${date.gm}-${date.gd}`)
+}
 
 export const checkBeforeAddTask = () => {
   if (titleView() && assigneeView() && deadlineView()) {

@@ -1,36 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types' 
 import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import "react-persian-calendar-date-picker/lib/DatePicker.css";
+import { Calendar } from "react-persian-calendar-date-picker";
 // helpers
 import './DatePicker.scss'
-import styles from '../../style/appStyle'
+import styles from '../Avatar/Avatar.style'
 
-const DatePicker = ({ classes, isError, value, onChange }) => (
+const DatePicker = ({ classes, value, onChange }) => (
   <div className="c--datePicker_textField">
-    <form className={classes.datePickerContainer} noValidate>
-      <TextField
-        id="date"
-        label="Deadline"
-        type="date"
-        value={value}
-        onChange={onChange}
-        className={classes.datePickerTextField}
-        required
-        error={isError}
-        InputProps={{ classes: { focused: classes.textFieldInkbar } }}
-        InputLabelProps={{
-          className: classes.textFieldFormLabel,
-          shrink: true,
-        }}
-      />
-    </form>
+    <Typography variant="body2" className={classes.text}>
+      Deadline
+    </Typography>
+
+    <Calendar
+      selectedDay={value}
+      onChange={onChange}
+      colorPrimary="#4caf50"
+      calendarClassName="c--datePicker_calendar"
+      calendarTodayClassName="c--datePicker_calendar-today"
+    />
   </div>
 );
 
 DatePicker.propTypes = {
-  isError: PropTypes.bool.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired
 };
 

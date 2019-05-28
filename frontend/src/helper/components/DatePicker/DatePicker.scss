@@ -1,36 +1,24 @@
 .c--datePicker_textField {
   display: flex;
-  align-items: flex-end;
-  margin: 0px 20px 5px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.responsiveCalendar {
-  /* by setting font-size, all the elements will correspond */
+.c--datePicker_calendar-today { 
+  color: #505050 !important;
+  border: 1px solid #505050 !important;
+}
+
+.c--datePicker_calendar-today::after {
+  visibility: hidden; /* hide small border under the text */
+}
+
+.c--datePicker_calendar {
   font-size: 9px !important;
-  /* default to 10px */
-}
-
-@media (max-width: 1500px) {
-  .responsiveCalendar {
-    font-size: 8px !important;
-  }
-}
-
-@media (max-width: 1200px) {
-  .responsiveCalendar {
-    font-size: 7px !important;
-  }
-}
-
-@media (max-width: 768px) {
-  .responsiveCalendar {
-    font-size: 6px !important;
-  }
-}
-
-/* Large screens */
-@media (min-width: 2500px) {
-  .responsiveCalendar {
-    font-size: 12px !important;
-  }
+  color: #cfcfcf !important;
+  border: 1px solid #cfcfcf !important;
+  justify-content: center;
+  margin: auto;
 }

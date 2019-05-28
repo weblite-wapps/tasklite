@@ -1,4 +1,5 @@
 // modules
+import jalaali from 'jalaali-js'
 import { differenceInSeconds, format, isAfter } from 'date-fns'
 
 const formattedSeconds = seconds => {
@@ -25,7 +26,11 @@ export const getRemained = time => {
 export const getPassedTime = time =>
   formattedSeconds(differenceInSeconds(new Date(), time))
 
-export const formattedTime = time => format(time, 'DD MMM YYYY, HH:mm')
+export const formattedTime = time => {
+  const date = jalaali.toJalaali(new Date(time))
+  console.log(`${date.jy}-${date.jm}-${date.jd}`)
+  return `${date.jy}-${date.jm}-${date.jd}`
+}
 
 export const isOnTime = (sentTime, deadline) =>
   isAfter(sentTime, deadline) ? 'Delayed' : 'On Time'
