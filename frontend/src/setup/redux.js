@@ -21,6 +21,7 @@ import FilterReducer from '../components/components/Filter/Filter.reducer'
 import ListReducer from '../components/components/List/main/List.reducer'
 import AppBarReducer from '../components/components/AppBar/AppBar.reducer'
 import EditReducer from '../components/components/Edit/Main/Edit.reducer'
+import SnackbarReducer from '../components/components/Snackbar/Snackbar.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import AddEpic from '../components/components/Add/Add.effect'
@@ -42,7 +43,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const rootEpic = combineEpics(AppEpic, AddEpic, ListEpic, FilterEpic, AppBarEpic, EditEpic)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
-
 const store = createStore(
   combineReducers({
     App: AppReducer,
@@ -51,9 +51,11 @@ const store = createStore(
     List: ListReducer,
     AppBar: AppBarReducer,
     Edit: EditReducer,
+    Snackbar: SnackbarReducer,
     router: routerReducer,
-  }), composeEnhancers(applyMiddleware(middleware, epicMiddleware)))
-
+  }),
+  composeEnhancers(applyMiddleware(middleware, epicMiddleware)),
+)
 
 export const {
   dispatch,

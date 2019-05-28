@@ -9,7 +9,7 @@ import Collapse from '@material-ui/core/Collapse'
 import Divider from '@material-ui/core/Divider'
 import MuiButton from '@material-ui/core/Button'
 // local modules
-// import { snackbarMessage } from 'weblite-web-snackbar'
+import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 // components
 import Popover from '../components/Popover/Popover.presentational'
 // helper
@@ -40,7 +40,7 @@ class TaskList extends React.Component {
       addTodo,
     } = this.props
     if (R.trim(todoText)) addTodo(todoText)
-    // else snackbarMessage({ message: 'Write something first!' })
+    else dispatchChangeSnackbarStage('Write something first!')
   }
 
   _handleOpenPopover() {

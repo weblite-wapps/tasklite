@@ -23,6 +23,7 @@ const root = () => {
         <ConnectedRouter history={history}>
           <div className="c--root_container">
             <AppBar />
+            <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} />
             <Route exact path="/" component={App} />
             <Route exact path="/Edit" component={Edit} />
             <Route path="/About" component={About} />
