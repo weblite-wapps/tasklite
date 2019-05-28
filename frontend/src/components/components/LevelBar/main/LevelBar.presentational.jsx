@@ -6,13 +6,13 @@ import Divider from '@material-ui/core/Divider'
 // components
 import LevelIcon from '../components/LevelIcon/LevelIcon.container.react'
 // styles
-import scssClasses from './LevelBar.scss'
+import './LevelBar.scss'
 
 const LevelBar = ({ tabIndex, noMargin }) => (
   <React.Fragment>
     <div
       className={
-        noMargin ? scssClasses.noMargin : scssClasses.levelBarContainer
+        noMargin ? "c--levelBar_noMargin" : "c--levelBar_levelBarContainer"
       }
     >
       <LevelIcon src="icebox.png" label="ICE BOX" />
@@ -21,7 +21,7 @@ const LevelBar = ({ tabIndex, noMargin }) => (
       <LevelIcon src="done.png" label="DONE" />
     </div>
 
-    <div className={scssClasses.textContainer}>
+    <div className="c--levelBar_textContainer">
       <Divider />
       <Typography variant="h6">{tabIndex}</Typography>
       <Divider />

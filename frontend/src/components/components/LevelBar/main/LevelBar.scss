@@ -1,15 +1,15 @@
-.levelBarContainer {
+.c--levelBar_container {
   margin-top: 65px;
   display: flex;
   justify-content: center;
 }
 
-.noMargin {
-  @extend .levelBarContainer;
+.c--levelBar_noMargin {
+  @extend .c--levelBar_container;
   margin-top: 0px;
 }
 
-.textContainer {
+.c--levelBar_textContainer {
   text-align: center;
   margin-bottom: 10px;
 }

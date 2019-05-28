@@ -21,7 +21,7 @@ import {
   AddTodo,
 } from './List.helper.component'
 // styles
-import scssClasses from './List.scss'
+import './List.scss'
 import styles from './List.style'
 
 class TaskList extends React.Component {
@@ -71,12 +71,12 @@ class TaskList extends React.Component {
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
-          <div className={scssClasses.collapse}>
+          <div className="c--list_collapse">
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
             {creator && (
-              <div className={scssClasses.button}>
+              <div className="c--list_button">
                 <MuiButton
                   ref={node => {
                     this.button = node

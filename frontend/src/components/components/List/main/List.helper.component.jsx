@@ -21,7 +21,7 @@ import {
   getPassedTime,
 } from '../../../../helper/functions/time.helper'
 // styles
-import scssClasses from './List.scss'
+import './List.scss'
 
 export const TitleAndLevelButtons = props => {
   const {
@@ -29,12 +29,12 @@ export const TitleAndLevelButtons = props => {
   } = props
 
   return (
-    <div className={scssClasses.text}>
-      <div className={scssClasses.title}>
+    <div className="c--list_text">
+      <div className="c--list_title">
         <img
           src={`${priority}.png`}
           alt="priority"
-          className={scssClasses.priority}
+          className="c--list_priority"
         />
         <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
           {formatTitle(title) === title ? (
@@ -67,7 +67,7 @@ export const BriefInfo = ({
   expandingId,
 }) =>
   _id !== expandingId && (
-    <div className={scssClasses.text}>
+    <div className="c--list_text">
       <Typography variant="body1">
         {checkToShow('assignee') && <span>{assignee}&nbsp;|&nbsp;</span>}
         {checkToShow('deadline') && <span>{getRemained(deadline)}</span>}
@@ -86,7 +86,7 @@ BriefInfo.propTypes = {
 }
 
 export const ProgressPanel = ({ todos }) => (
-  <div className={scssClasses.progressPannel}>
+  <div className="c--list_progress_panel">
     <Typography variant="button">
       {' '}
       {`${getProgressBarPercent(todos)}%`}{' '}
@@ -94,7 +94,7 @@ export const ProgressPanel = ({ todos }) => (
     <LinearProgress
       variant="determinate"
       value={getProgressBarPercent(todos)}
-      className={scssClasses.progress}
+      className="c--list_progress"
     />
   </div>
 )
@@ -127,7 +127,7 @@ export const AddTodo = ({
   handleAddTodo,
 }) =>
   level === 'ICE BOX' || level === 'IN PROGRESS' ? (
-    <div className={scssClasses.textField}>
+    <div className="c--list_textField">
       <TextField
         withButton
         label="New Subtask"

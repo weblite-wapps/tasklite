@@ -3,17 +3,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tooltip from '@material-ui/core/Tooltip'
 // styles
-import scssClasses from './Icon.scss'
+import './Icon.scss'
 
 const Icon = ({ src, label, onChangeLevel }) => (
   <Tooltip enterDelay={150} leaveDelay={150} placement="bottom" title={label}>
     <div
-      className={scssClasses.container}
+      className="c--icon_container"
       role="button"
       tabIndex="0"
       onClick={onChangeLevel}
     >
-      <img className={scssClasses.icon} src={src} alt={label} />
+      <img className="c--icon_icon" src={src} alt={label} />
     </div>
   </Tooltip>
 )

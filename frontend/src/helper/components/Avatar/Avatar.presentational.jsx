@@ -6,24 +6,24 @@ import { withStyles } from '@material-ui/core/styles'
 import MuiAvatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
-// scssClasses
-import scssClasses from './Avatar.scss'
+// styles
+import './Avatar.scss'
 import styles from './Avatar.style'
 
 const Avatar = ({ classes, isError, users, selectedUser, onUserClick }) => (
-  <div className={scssClasses.container}>
+  <div className="c--avatar_container">
     <Typography variant="body2" className={classes.text}>
       Assignee
     </Typography>
-    <div className={scssClasses.row}>
+    <div className="c--avatar_row">
       {users.map(user => (
-        <div key={user._id} className={scssClasses.column}>
+        <div key={user._id} className="c--avatar_column">
           <MuiAvatar
             className={
               user.id === selectedUser.id ? classes.active : classes.passive
             }
             onClick={() => onUserClick(user)}
-            role="button"
+            role="button" 
             tabIndex="0"
           >
             {R.head(user.name)}

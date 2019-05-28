@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import MuiTextField from '@material-ui/core/TextField'
 // styles
-import scssClasses from './TextField.scss'
+import './TextField.scss'
 import styles from '../../style/appStyle'
 
 const TextField = ({
@@ -33,7 +33,7 @@ const TextField = ({
       InputLabelProps={{ className: classes.textFieldFormLabel }}
     />
   ) : (
-    <div className={scssClasses.textField}>
+    <div className="c--textField_textField">
       <MuiTextField
         label={label}
         value={value}

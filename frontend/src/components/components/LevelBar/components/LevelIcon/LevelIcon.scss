@@ -2,7 +2,7 @@
   outline: none;
 }
 
-.passive {
+.c--levelIcon_passive {
   background-color: #cfcfcf;
   color: white;
   border-radius: 100%;
@@ -13,11 +13,11 @@
   cursor: pointer;
 }
 
-.passive:hover {
+.c--levelIcon_passive:hover {
   background-color: #919191;
 }
 
-.active {
-  @extend .passive;
+.c--levelIcon_active {
+  @extend .c--levelIcon_passive;
   background-color: #515151;
 }

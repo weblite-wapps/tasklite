@@ -9,26 +9,26 @@ import Tooltip from '@material-ui/core/Tooltip'
 import SortIcon from '@material-ui/icons/Sort'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 // styles
-import scssClasses from './AppBar.scss'
+import './AppBar.scss'
 
 export const Logo = ({ isLoading, setAboutMode }) => (
   <React.Fragment>
     <div
       onClick={() => setAboutMode(true)}
-      className={scssClasses.logoContainer}
+      className="c--appBar_logoContainer"
       role="button"
       tabIndex="0"
     >
-      <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
+      <div className={isLoading ? "c--appBar_loading" : "c--appBar_normal"}>
         <CircularProgress
           size={40}
           color="primary"
-          className={scssClasses.progress}
+          className="c--appBar_progress"
         />
         <img
           alt="loglite logo"
           src="toplogo.png"
-          className={scssClasses.logo}
+          className="c--appBar_logo"
         />
       </div>
     </div>
@@ -50,9 +50,9 @@ export const TabBar = props => {
   } = props
 
   return (
-    <div className={scssClasses.tabBar}>
-      <img alt="loglite logo" src="typo.png" className={scssClasses.typo} />
-      <div className={scssClasses.iconsContainer}>
+    <div className="c--appBar_tabBar">
+      <img alt="loglite logo" src="typo.png" className="c--appBar_typo" />
+      <div className="c--appBar_iconsContainer">
         {!aboutMode && (
           <React.Fragment>
             <Tooltip
@@ -116,9 +116,9 @@ const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
           ? changeExpandMode('default')
           : changeExpandMode(label)
       }
-      className={scssClasses.imageContainer}
+      className="c--appBar_imageContainer"
     >
-      <img className={scssClasses.image} alt={label} src={src} />
+      <img className="c--appBar_image" alt={label} src={src} />
     </div>
   </Tooltip>
 )

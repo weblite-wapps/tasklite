@@ -9,8 +9,8 @@ import Add from '../components/Add/Add.container.react'
 import Filter from '../components/Filter/Filter.container.react'
 // helpers
 import { Collapse, TaskList, LoadMore } from './App.helper.component'
-// css
-import scssClasses from './App.scss'
+// styles
+import './App.scss'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className={scssClasses.app}>
+      <div className="c--app_container">
         <Collapse {...this.props} label="add">
           <Add />
         </Collapse>

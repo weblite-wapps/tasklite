@@ -3,8 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-// scssClasses
-import scssClasses from './SelectField.scss'
+// styles
+import './SelectField.scss'
 import styles from '../../style/appStyle'
 // const
 const options = [
@@ -21,7 +21,7 @@ const SelectField = ({
   value,
   onChange,
 }) => (
-  <div className={scssClasses.textField}>
+  <div className="c--selectField_textField">
     <TextField
       select
       label={label}
@@ -32,7 +32,7 @@ const SelectField = ({
       onChange={onChange}
       InputProps={{ classes: { focused: classes.textFieldInkbar } }}
       InputLabelProps={{ shrink: true, className: classes.textFieldFormLabel }}
-      SelectProps={{ native: true, MenuProps: { className: scssClasses.menu } }}
+      SelectProps={{ native: true, MenuProps: { className: "c--selectField_menu" } }}
       margin="normal"
     >
       {options.map(option => (

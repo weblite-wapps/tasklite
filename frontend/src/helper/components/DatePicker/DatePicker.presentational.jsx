@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 // helpers
-import scssClasses from './DatePicker.scss'
+import './DatePicker.scss'
 import styles from '../../style/appStyle'
 
 const DatePicker = ({ classes, isError, value, onChange }) => (
-  <div className={scssClasses.textField}>
+  <div className="c--datePicker_textField">
     <form className={classes.datePickerContainer} noValidate>
       <TextField
         id="date"

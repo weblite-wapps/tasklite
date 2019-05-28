@@ -9,8 +9,8 @@ import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
 import CustomizedButton from '../../helper/components/Button/Button.presentational'
 import TagList from '../../helper/components/TagList/TagList.presentational'
-// scssClasses
-import scssClasses from './App.scss'
+// styles
+import './App.scss'
 
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
@@ -53,7 +53,7 @@ export const LoadMore = ({
   tabIndex,
   onLoadMore,
 }) => (
-  <div className={scssClasses.button}>
+  <div className="c--app_button">
     {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
       <CustomizedButton
         label="Load More"
@@ -81,7 +81,7 @@ export const TagPanel = ({
   handleAddTag,
 }) => (
   <React.Fragment>
-    <div className={scssClasses.textField}>
+    <div className="c--app_textField">
       <Autocomplete
         label="Tags"
         suggestions={suggestions}

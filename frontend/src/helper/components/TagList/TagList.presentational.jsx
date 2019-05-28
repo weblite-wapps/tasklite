@@ -3,12 +3,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // components
 import TagShape from '../TagShape/TagShape.presentational'
-// scssClasses
-import scssClasses from './TagList.scss'
+// styles
+import './TagList.scss'
 
 
 const TagList = ({ tags, onTagClick }) => (
-  <div className={scssClasses.container}>
+  <div className="c--tagList_container">
     {tags.map(tag => (
       <TagShape key={tag._id} tag={tag} onTagClick={() => onTagClick(tag)} />
      ))}

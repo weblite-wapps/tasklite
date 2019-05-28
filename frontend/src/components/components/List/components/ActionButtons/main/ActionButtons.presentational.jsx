@@ -11,7 +11,7 @@ import Icon from '../components/Icon/Icon.container.react'
 // helpers
 import { checkToShow } from './ActionButtons.helper'
 // styles
-import scssClasses from './ActionButtons.scss'
+import './ActionButtons.scss'
 import styles from '../../../main/List.style'
 
 const ActionButtons = ({
@@ -20,7 +20,7 @@ const ActionButtons = ({
   task: { _id, assignee, title },
   onExpandClick,
 }) => (
-  <div className={scssClasses.actions}>
+  <div className="c--actionButtons_actions">
     <IconButton
       onClick={() => onExpandClick(_id)}
       classes={{ root: classes.IconButton }}

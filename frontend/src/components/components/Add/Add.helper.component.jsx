@@ -7,7 +7,7 @@ import CustomizedSelectField from '../../../helper/components/SelectField/Select
 import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
 import CustomizedButton from '../../../helper/components/Button/Button.presentational'
 // styles
-import scssClasses from './Add.scss'
+import './Add.scss'
 
 
 export const TextField = ({ isError, title, onTitleChange }) => (
@@ -58,7 +58,7 @@ DatePicker.propTypes = {
 export const Button = ({
   title, selectedUser, selectedTags, priority, deadline, label, handleAddTask,
 }) => (
-  <div className={scssClasses.button}>
+  <div className="c--add_button">
     <CustomizedButton
       label={label}
       componentName="Add"

@@ -1,44 +1,44 @@
-.text {
+.c--list_text {
   display: flex;
   justify-content: space-between;
   margin: -5px 30px 0px 30px;
 }
 
-.title {
+.c--list_title {
   display: flex;
   align-content: center;
   align-items: center;
 }
 
-.priority {
+.c--list_priority {
   color: black;
   width: 10px;
   height: 10px;
 }
 
-.collapse {
+.c--list_collapse {
   display: flex;
   flex-direction: column;
   margin: 10px 30px;
 }
 
-.progressPannel {
+.c--list_progress_panel {
   width: 250px;
   margin-bottom: 15px;
 }
 
-.progress {
+.c--list_progress {
   max-width: 200px;
 }
 
-.textField {
+.c--list_textField {
   display: flex;
   align-items: flex-end;
   margin-top: 0px;
   width: 250px;
 }
 
-.button {
+.c--list_button {
   display: flex;
   margin: 10px 0px;
 }
