@@ -1,11 +1,11 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField'
-// scssClasses
-import scssClasses from './SelectField.scss'
-import styles from '../../../helper/style/appStyle'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+// styles
+import './SelectField.scss'
+import styles from '../../style/appStyle'
 // const
 const options = [
   { value: 1, label: 'high' },
@@ -13,8 +13,15 @@ const options = [
   { value: 3, label: 'low' },
 ]
 
-const SelectField = ({ classes, isError, required, label, value, onChange }) => (
-  <div className={scssClasses.textField}>
+const SelectField = ({
+  classes,
+  isError,
+  required,
+  label,
+  value,
+  onChange,
+}) => (
+  <div className="c--selectField_textField">
     <TextField
       select
       label={label}
@@ -25,12 +32,12 @@ const SelectField = ({ classes, isError, required, label, value, onChange }) => 
       onChange={onChange}
       InputProps={{ classes: { focused: classes.textFieldInkbar } }}
       InputLabelProps={{ shrink: true, className: classes.textFieldFormLabel }}
-      SelectProps={{ native: true, MenuProps: { className: scssClasses.menu } }}
+      SelectProps={{ native: true, MenuProps: { className: "c--selectField_menu" } }}
       margin="normal"
     >
       {options.map(option => (
         <option key={option.label} value={option.value}>
-          { option.label }
+          {option.label}
         </option>
       ))}
     </TextField>
@@ -50,6 +57,5 @@ SelectField.defaultProps = {
   isError: false,
   required: false,
 }
-
 
 export default withStyles(styles)(SelectField)

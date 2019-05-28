@@ -14,6 +14,7 @@ import {
 import {
   dispatchChangeExpnadingId,
   dispatchChangePopoverId,
+  dispatchEditButtonClick,
 } from './List.action'
 
 const mapStateToProps = () => ({
@@ -28,6 +29,7 @@ const mapDispatchToProps = (_, { task }) => ({
   onTodoTextChange: value => dispatchChangeTodoText(task._id, value),
   changePopoverId: dispatchChangePopoverId,
   deleteTask: () => dispatchDeleteTask(task),
+  editTask: () => dispatchEditButtonClick(task),
   addTodo: value => {
     dispatchAddTodo(task._id, value)
     dispatchChangeTodoText(task._id, '')

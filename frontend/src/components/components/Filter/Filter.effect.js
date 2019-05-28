@@ -1,7 +1,7 @@
 // modules
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
-// import { snackbarMessage } from 'weblite-web-snackbar'
+import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // helpers
 import { getRequest } from '../../../helper/functions/request.helper'
 // actions
@@ -15,19 +15,19 @@ const effectSearchTagsEpic = action$ =>
     .pluck('payload')
     .filter(({ queryTag }) => queryTag.trim() !== '')
     .debounceTime(250)
-    .mergeMap(
-      ({ queryTag }) =>
-        getRequest('/searchTags').query({
+    .mergeMap(({ queryTag }) =>
+      getRequest('/searchTags')
+        .query({
           wis: wisView(),
           userId: userIdView(),
           label: queryTag,
-        }),
-      // .on(
-      //   'error',
-      //   err =>
-      //     err.status !== 304 &&
-      //     snackbarMessage({ message: 'Server disconnected!' }),
-      // ),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
     )
     .map(({ body }) => fetchTagsInFilter(body))
 

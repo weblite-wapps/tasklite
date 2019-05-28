@@ -1,34 +1,39 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import Typography from 'material-ui/Typography'
-import Checkbox from 'material-ui/Checkbox'
+import Typography from '@material-ui/core/Typography'
+import Checkbox from '@material-ui/core/Checkbox'
 // components
 import Button from '../../../../../helper/components/Button/Button.presentational'
 // styles
-import scssClasses from './Todo.scss'
-
+import './Todo.scss'
 
 const Todo = ({
-  level, length, index, todo: { completed, title }, onCompletedChange, onDelete,
+  level,
+  length,
+  index,
+  todo: { completed, title },
+  onCompletedChange,
+  onDelete,
 }) => (
-  <div className={scssClasses.todoContainer}>
+  <div className="c--todo_container">
     <Checkbox
       disabled={level !== 'IN PROGRESS'}
       checked={completed}
       onChange={onCompletedChange}
       style={{ height: '15px', width: '15px' }}
     />
-    <Typography variant="caption" style={{ marginLeft: '5px' }}>{title}</Typography>
-    {
-      length !== index &&
+    <Typography variant="caption" style={{ marginLeft: '5px' }}>
+      {title}
+    </Typography>
+    {length !== index && (
       <Button
         label="DELETE"
         onClick={onDelete}
         componentName="Todo"
         disabled={level === 'EVALUATE' || level === 'DONE'}
       />
-    }
+    )}
   </div>
 )
 

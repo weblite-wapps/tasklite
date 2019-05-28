@@ -1,31 +1,31 @@
 // modules
 import * as R from 'ramda'
 // views
-import { titleView, selectedUserView, deadlineView, queryTagView, tagsView } from './Add.reducer'
+import { titleView, assigneeView, deadlineView, queryTagView, tagsView } from './Add.reducer'
 
 
 export const checkBeforeAddTask = () => {
-  if (titleView() && selectedUserView() && deadlineView()) {
+  if (titleView() && assigneeView() && deadlineView()) {
     return ({
-      isError: { selectedUser: false, title: false, deadline: false },
+      isError: { assignee: false, title: false, deadline: false },
       message: 'Added successfully!',
       permission: true,
     })
-  } else if (!selectedUserView().id) {
+  } else if (!assigneeView().id) {
     return ({
-      isError: { selectedUser: true, title: false, deadline: false },
+      isError: { assignee: true, title: false, deadline: false },
       message: 'Select user first!',
       permission: false,
     })
   } else if (!titleView()) {
     return ({
-      isError: { selectedUser: false, title: true, deadline: false },
+      isError: { assignee: false, title: true, deadline: false },
       message: 'Enter title first!',
       permission: false,
     })
   }
   return ({
-    isError: { selectedUser: true, title: false, deadline: true },
+    isError: { assignee: true, title: false, deadline: true },
     message: 'Select deadline first!',
     permission: false,
   })

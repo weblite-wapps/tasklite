@@ -9,18 +9,18 @@ body {
   height: 100%;
 }
 
-.app {
+.c--app_container { 
   display: flex;
   flex-direction: column;
 }
 
-.textField {
+.c--app_textField {
   display: flex;
   align-items: flex-end;
   margin: 0px 20px 5px 20px;
 }
 
-.button {
+.c--app_button {
   display: flex;
   justify-content: center;
   margin-top: 20px;

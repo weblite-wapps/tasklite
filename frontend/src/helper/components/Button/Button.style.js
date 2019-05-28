@@ -56,7 +56,7 @@ export default ({
     margin: '0px',
     border: '0.5px solid white',
   },
-  ReportRaised: {
+  ReportContained: {
     color: 'white',
   },
   Todo: {

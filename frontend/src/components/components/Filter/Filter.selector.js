@@ -16,13 +16,13 @@ export const getFilteredSuggestions = createSelector(
 
 
 const getTasks = state => state.App.tasks
-const getSelectedUser = state => state.Filter.selectedUser
+const getAssignee = state => state.Filter.assignee
 const getSelectedTags = state => state.Filter.selectedTags
 
 export const getFilteredTasks = createSelector(
-  [getTasks, getSelectedUser, getSelectedTags],
-  (tasks, selectedUser, selectedTags) => R.compose(
+  [getTasks, getAssignee, getSelectedTags],
+  (tasks, assignee, selectedTags) => R.compose(
     R.filter(task => filteredTags(selectedTags, task.tags)),
-    R.filter(task => selectedUser.name ? task.assignee === selectedUser.name : true),
+    R.filter(task => assignee.name ? task.assignee === assignee.name : true),
   )(tasks),
 )

@@ -1,8 +1,8 @@
-.container {
+.c--levelIcon_container {
   outline: none;
 }
 
-.passive {
+.c--levelIcon_passive {
   background-color: #cfcfcf;
   color: white;
   border-radius: 100%;
@@ -11,13 +11,16 @@
   height: 40px;
   margin: 10px;
   cursor: pointer;
+  transition: background-color 1s ease;
 }
 
-.passive:hover {
+.c--levelIcon_passive:hover {
   background-color: #919191;
+  transition: background-color 0.5s ease;
 }
 
-.active {
-  @extend .passive;
+.c--levelIcon_active {
+  @extend .c--levelIcon_passive;
   background-color: #515151;
+  transition: background-color 1s ease;
 }

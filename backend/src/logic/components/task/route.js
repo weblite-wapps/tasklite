@@ -126,3 +126,10 @@ app.get('/loadMore', ({
   loadMoreFetchTasks(query)
   .then(tasks => res.json(tasks))
   .catch(logger))
+
+
+app.post("/editTask", ({ body, body: { _id } }, res) =>
+  updateTask({ _id }, body)
+    .then(task => res.send(task))
+    .catch(logger)
+);

@@ -2,6 +2,7 @@
 # yarn lockfile v1
 
 
+<<<<<<< HEAD
 jalaali-js@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.1.0.tgz#f0e942049273d11f7298a992356fc36ce2784863"
@@ -45,3 +46,5 @@ react-persian-calendar-date-picker@^1.0.1:
   dependencies:
     jalaali-js "^1.1.0"
     prop-types "^15.7.2"
+=======
+>>>>>>> master

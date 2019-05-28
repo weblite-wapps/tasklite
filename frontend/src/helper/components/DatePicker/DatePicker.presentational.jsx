@@ -1,22 +1,30 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { DatePicker as PersianDatePicker } from "react-persian-datepicker";
-import "react-persian-calendar-date-picker/lib/DatePicker.css";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
 // helpers
-import scssClasses from "./DatePicker.scss";
+import './DatePicker.scss'
+import styles from '../../style/appStyle'
 
-const DatePicker = ({ isError, value, onChange }) => (
-  <div className={scssClasses.textField}>
-    <PersianDatePicker
-      value={value}
-      onChange={onChange}
-      // required
-      // error={isError}
-      inputPlaceholder="Deadline"
-      // isDayRange
-      // inputClassName={scssClasses.responsiveCalendar}
-      // disabledDays={disabledDays}
-    />
+const DatePicker = ({ classes, isError, value, onChange }) => (
+  <div className="c--datePicker_textField">
+    <form className={classes.datePickerContainer} noValidate>
+      <TextField
+        id="date"
+        label="Deadline"
+        type="date"
+        value={value}
+        onChange={onChange}
+        className={classes.datePickerTextField}
+        required
+        error={isError}
+        InputProps={{ classes: { focused: classes.textFieldInkbar } }}
+        InputLabelProps={{
+          className: classes.textFieldFormLabel,
+          shrink: true,
+        }}
+      />
+    </form>
   </div>
 );
 
@@ -26,4 +34,4 @@ DatePicker.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-export default DatePicker;
+export default withStyles(styles)(DatePicker)

@@ -1,54 +1,25 @@
 {
-  "name": "task-lite",
+  "name": "tasklite",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "buildlite default dev",
-    "build": "buildlite default build"
-  },
-  "buildlite": {
-    "default": {
-      "entry": "./src/setup/index.jsx",
-      "outputPath": "dist",
-      "outputName": "[name].[hash].js",
-      "style": "style.[hash].css",
-      "html": {
-        "templatePath": "./public/index.html"
-      },
-      "copy": [
-        {
-          "from": "./public",
-          "to": "."
-        }
-      ]
-    },
-    "dev": {
-      "react": "dev",
-      "devServer": 8000
-    },
-    "build": {
-      "react": "build",
-      "clean": [
-        "dist"
-      ],
-      "publicPath": "https://www.weblite.me:3000/wapp/5c7cd580cb652f5fc9380c4e"
-    }
-  },
+  "private": true,
   "dependencies": {
+    "@material-ui/core": "3.9.3",
+    "@material-ui/icons": "3.0.2",
+    "@material-ui/styles": "^4.0.1",
     "date-fns": "^1.29.0",
     "history": "^4.7.2",
-    "material-ui": "^1.0.0-beta.37",
-    "material-ui-icons": "^1.0.0-beta.36",
     "node-sass": "^4.11.0",
     "ramda": "^0.25.0",
     "react": "^16.8.6",
     "react-autocomplete": "^1.7.2",
-    "react-dom": "^16.8.6",
+    "react-dom": "npm:@hot-loader/react-dom",
     "react-flip-move": "^3.0.1",
-    "react-hot-loader": "^4.1.2",
     "react-persian-datepicker": "^3.0.2",
+    "react-hot-loader": "^4.8.8",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "react-scripts": "^3.0.1",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-observable": "^0.17.0",
@@ -56,5 +27,27 @@
     "rxjs": "^5.5.2",
     "superagent": "^3.8.1",
     "typeface-roboto": "^0.0.45"
-  }
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "homepage": ".",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all",
+    "ie 10"
+  ],
+  "development": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ]
 }

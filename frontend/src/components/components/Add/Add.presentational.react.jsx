@@ -12,14 +12,14 @@ import {
   Button,
 } from './Add.helper.component'
 // styles
-import scssClasses from './Add.scss'
+import './Add.scss'
 
 const Add = props => {
   const { isError, creator } = props
 
   return (
-    <div className={scssClasses.container}>
-      {creator && <Avatar {...props} isError={isError.selectedUser} />}
+    <div className="c--add_container">
+      {creator && <Avatar {...props} isError={isError.assignee} />}
       <TextField {...props} isError={isError.title} />
       <TagPanel {...props} />
       <SelectField {...props} />

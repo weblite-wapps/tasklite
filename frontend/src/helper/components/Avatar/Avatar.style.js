@@ -1,24 +1,30 @@
 export default () => ({
   passive: {
-    backgroundColor: '#cfcfcf',
     marginLeft: '10px',
     marginRight: '10px',
     width: '50px',
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
+    border: 'solid 5px transparent',
+    boxSizing: 'border-box',
+    transition: 'box-sizing 1s ease, border 1s ease',
     '&:hover': {
-      backgroundColor: '#919191',
+      border: 'solid 5px #4CAF50',
+      boxSizing: 'content-box',
+      transition: 'box-sizing 1s, ease border 1s ease',
     },
   },
   active: {
-    backgroundColor: '#4CAF50',
     marginLeft: '10px',
     marginRight: '10px',
     width: '50px',
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
+    border: 'solid 5px #4CAF50',
+    boxSizing: 'content-box',
+    transition: 'box-sizing 1s ease, border 1s ease',
   },
   default: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',

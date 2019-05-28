@@ -3,13 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as R from 'ramda'
 import { findDOMNode } from 'react-dom'
-import { withStyles } from 'material-ui/styles'
-import List from 'material-ui/List'
-import Collapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
-import MuiButton from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import Collapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
+import MuiButton from '@material-ui/core/Button'
 // local modules
-// import { snackbarMessage } from 'weblite-web-snackbar'
+import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 // components
 import Popover from '../components/Popover/Popover.presentational'
 // helper
@@ -21,7 +21,7 @@ import {
   AddTodo,
 } from './List.helper.component'
 // styles
-import scssClasses from './List.scss'
+import './List.scss'
 import styles from './List.style'
 
 class TaskList extends React.Component {
@@ -40,7 +40,7 @@ class TaskList extends React.Component {
       addTodo,
     } = this.props
     if (R.trim(todoText)) addTodo(todoText)
-    // else snackbarMessage({ message: 'Write something first!' })
+    else dispatchChangeSnackbarStage('Write something first!')
   }
 
   _handleOpenPopover() {
@@ -56,10 +56,11 @@ class TaskList extends React.Component {
     const {
       classes,
       creator,
-      task: { _id, level, todos },
+      task: { _id, todos },
       popoverId,
       expandingId,
       deleteTask,
+      editTask,
       changePopoverId,
     } = this.props
 
@@ -71,19 +72,19 @@ class TaskList extends React.Component {
         </List>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
-          <div className={scssClasses.collapse}>
+          <div className="c--list_collapse">
             <ProgressPanel todos={todos} />
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
             {creator && (
-              <div className={scssClasses.button}>
+              <div className="c--list_button">
                 <MuiButton
                   ref={node => {
                     this.button = node
                   }}
                   onClick={this.handleOpenPopover}
-                  classes={{ raised: classes.Button }}
-                  variant="raised"
+                  classes={{ contained: classes.Button }}
+                  variant="contained"
                 >
                   Delete
                 </MuiButton>
@@ -94,6 +95,14 @@ class TaskList extends React.Component {
                   onYep={deleteTask}
                   onNop={() => changePopoverId('')}
                 />
+                <MuiButton
+                  variant="contained"
+                  onClick={editTask}
+                  classes={{ contained: classes.Button }}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Edit
+                </MuiButton>
               </div>
             )}
           </div>
