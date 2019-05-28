@@ -7,7 +7,7 @@ import { getRequest } from '../../../helper/functions/request.helper'
 // actions
 import { SET_QUERY_TAG_IN_FILTER, fetchTagsInFilter } from './Filter.action'
 // views
-import { wisView, userIdView } from '../../Main/App.reducer'
+import { wisView, userIdView } from '../Home/Home.reducer'
 
 const effectSearchTagsEpic = action$ =>
   action$

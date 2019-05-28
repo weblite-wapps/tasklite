@@ -9,12 +9,11 @@ import {
   dispatchChangeTitleIsError,
   dispatchChangeIsOpenDialog,
 } from './Edit.action'
-import { dispatchSetEditedTask } from '../../../Main/App.action'
+import { dispatchSetEditedTask } from '../../Home/Home.action'
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 //helper
 import { postRequest } from '../../../../helper/functions/request.helper'
-// const
-const { W } = window
+
 
 // epics
 const submitEditEpic = (action$, { dispatch }) =>
@@ -31,7 +30,7 @@ const submitEditEpic = (action$, { dispatch }) =>
         })(),
     )
     .map(({ task, title, deadline, assignee, priority }) => ({
-      ...task, title, deadline, assignee: assignee.name, priority
+      ...task, title, deadline, assignee: assignee.username, priority
     }))
     .do(task => {
       postRequest('/editTask')
@@ -47,7 +46,7 @@ const submitEditEpic = (action$, { dispatch }) =>
           dispatchChangeSnackbarStage('Updated Succesfully!')
           dispatch(push('/'))
           dispatchChangeTitleIsError(false)
-          W && W.analytics('EDIT_TASK')
+          window.W && window.W.analytics('EDIT_TASK')
         })
     })
     .ignoreElements()

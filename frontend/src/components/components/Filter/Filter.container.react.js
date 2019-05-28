@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Filter from './Filter.presentational'
 // views
-import { usersView, creatorView } from '../../Main/App.reducer'
+import { usersView, creatorView } from '../Home/Home.reducer'
 import { queryTagView, tagsView, selectedTagsView, assigneeView } from './Filter.reducer'
 // actions
 import {

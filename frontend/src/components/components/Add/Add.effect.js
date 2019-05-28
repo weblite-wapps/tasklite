@@ -16,8 +16,8 @@ import {
   restoreTask,
   dispatchAddTask,
   dispatchChangeTab,
-} from '../../Main/App.action'
-import { dispatchChangeExpandMode } from '../AppBar/AppBar.action'
+} from '../Home/Home.action'
+import { dispatchChangeExpandMode } from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
   HANDLE_ADD_TAG,
@@ -29,7 +29,7 @@ import {
   dispatchChangeIsError,
 } from './Add.action'
 // views
-import { wisView, userIdView } from '../../Main/App.reducer'
+import { wisView, userIdView } from '../Home/Home.reducer'
 
 const effectSearchTagsEpic = action$ =>
   action$
@@ -62,7 +62,7 @@ const addTaskEpic = action$ =>
         postRequest('/saveTask')
           .send({
             title,
-            assignee: assignee.name,
+            assignee: assignee.username,
             tags,
             priority,
             deadline,

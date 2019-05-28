@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 // components
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
-import { TagPanel } from '../../Main/App.helper.component'
+import { TagPanel } from '../Home/Home.helper.component'
 import {
   TextField,
   SelectField,
