@@ -19,8 +19,7 @@ export const formatTime = time =>
     R.slice(0, 2, time),
   )
 
-export const getQuery = () =>
-  creatorView() ? { wis: wisView() } : { wis: wisView(), userId: userIdView() }
+export const getQuery = () => ({ wis: wisView() })
 
 export const getUpdatedNumbersObject = (currentLevel, nextLevel) =>
   R.evolve({ [currentLevel]: R.dec, [nextLevel]: R.inc }, numbersObjectView())
