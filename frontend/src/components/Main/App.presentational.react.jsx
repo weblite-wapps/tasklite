@@ -1,16 +1,14 @@
 // Modules
 import React from 'react'
 import PropTypes from 'prop-types'
-// local modules
-// import Snackbar from 'weblite-web-snackbar'
 // components
 import LevelBar from '../components/LevelBar/main/LevelBar.container.react'
 import Add from '../components/Add/Add.container.react'
 import Filter from '../components/Filter/Filter.container.react'
 // helpers
 import { Collapse, TaskList, LoadMore } from './App.helper.component'
-// css
-import scssClasses from './App.scss'
+// styles
+import './App.scss'
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,7 +38,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className={scssClasses.app}>
+      <div className="c--app_container">
         <Collapse {...this.props} label="add">
           <Add />
         </Collapse>
@@ -50,7 +48,6 @@ export default class App extends React.Component {
         <LevelBar noMargin={this.props.expandMode !== 'default'} />
         <TaskList {...this.props} />
         <LoadMore {...this.props} />
-        {/* <Snackbar location={{ vertical: 'bottom', horizontal: 'right' }} /> */}
       </div>
     )
   }

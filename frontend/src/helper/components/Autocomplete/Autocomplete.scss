@@ -1,4 +1,4 @@
-.group {
+.c--autocomplete_group {
   position:relative;
   width: 100%;
 }
@@ -13,7 +13,7 @@ input	{
   background-color: transparent;
 }
 
-.error {
+.c--autocomplete_error {
   border-bottom: 2px solid #E25141;
 }
 
@@ -23,7 +23,7 @@ input:focus {
 }
 
 /* LABEL ======================================= */
-.label {
+.c--autocomplete_label {
   font-weight:normal;
   position:absolute;
   pointer-events:none;
@@ -45,13 +45,13 @@ input:focus ~ .label, input:valid ~ .label 		{
 }
 
 /* BOTTOM BARS ================================= */
-.bar	{
+.c--autocomplete_bar	{
   position:relative;
   display:block;
   width: 100%;
 }
 
-.bar:before, .bar:after	{
+.c--autocomplete_bar:before, .c--autocomplete_bar:after	{
   content:'';
   height:2px;
   width:0;
@@ -63,21 +63,21 @@ input:focus ~ .label, input:valid ~ .label 		{
   -webkit-transition:0.2s ease all;
 }
 
-.bar:before {
+.c--autocomplete_bar:before {
   left:50%;
 }
 
-.bar:after {
+.c--autocomplete_bar:after {
   right:50%;
 }
 
 /* active state */
-input:focus ~ .bar:before, input:focus ~ .bar:after {
+input:focus ~ .c--autocomplete_bar:before, input:focus ~ .c--autocomplete_bar:after {
   width:50%;
 }
 
 /* HIGHLIGHTER ================================== */
-.highlight {
+.c--autocomplete_highlight {
   position:absolute;
   height:60%;
   width: 100%;
@@ -88,7 +88,7 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 }
 
 /* active state */
-input:focus ~ .highlight {
+input:focus ~ .c--autocomplete_highlight {
   -webkit-animation:inputHighlighter 0.5s ease;
   -moz-animation:inputHighlighter 0.5s ease;
   animation:inputHighlighter 0.5s ease;

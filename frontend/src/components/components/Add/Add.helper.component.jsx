@@ -7,7 +7,7 @@ import CustomizedSelectField from '../../../helper/components/SelectField/Select
 import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
 import CustomizedButton from '../../../helper/components/Button/Button.presentational'
 // styles
-import scssClasses from './Add.scss'
+import './Add.scss'
 
 
 export const TextField = ({ isError, title, onTitleChange }) => (
@@ -49,27 +49,31 @@ export const DatePicker = ({ isError, deadline, onDeadlineChange }) => (
 )
 
 DatePicker.propTypes = {
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   deadline: PropTypes.string.isRequired,
   onDeadlineChange: PropTypes.func.isRequired,
 }
 
+DatePicker.defaultProps = {
+  isError: false,
+}
+
 
 export const Button = ({
-  title, selectedUser, selectedTags, priority, deadline, label, handleAddTask,
+  title, assignee, selectedTags, priority, deadline, label, handleAddTask,
 }) => (
-  <div className={scssClasses.button}>
+  <div className="c--add_button">
     <CustomizedButton
       label={label}
       componentName="Add"
-      onClick={() => handleAddTask(title, selectedUser, selectedTags, priority, new Date(deadline))}
+      onClick={() => handleAddTask(title, assignee, selectedTags, priority, new Date(deadline))}
     />
   </div>
 )
 
 Button.propTypes = {
   title: PropTypes.string.isRequired,
-  selectedUser: PropTypes.shape({}).isRequired,
+  assignee: PropTypes.shape({}).isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.string.isRequired,

@@ -1,6 +1,10 @@
 // modules
-import { createAction } from 'redux-actions'
-import { dispatch } from '../../setup/redux'
+import {
+  createAction
+} from 'redux-actions'
+import {
+  dispatch
+} from '../../setup/redux'
 
 // actions
 export const SET_API = 'SET_API'
@@ -16,15 +20,21 @@ export const dispatchFetchInitialData = (...args) =>
   dispatch(fetchInitialData(...args))
 
 export const SET_ISLOADING = 'SET_ISLOADING'
-export const setIsLoading = createAction(SET_ISLOADING, value => ({ value }))
+export const setIsLoading = createAction(SET_ISLOADING, value => ({
+  value
+}))
 export const dispatchSetIsLoading = (...args) => dispatch(setIsLoading(...args))
 
 export const CHANGE_TAB = 'CHANGE_TAB'
-export const changeTab = createAction(CHANGE_TAB, value => ({ value }))
+export const changeTab = createAction(CHANGE_TAB, value => ({
+  value
+}))
 export const dispatchChangeTab = (...args) => dispatch(changeTab(...args))
 
 export const LOAD_USERS_DATA = 'LOAD_USERS_DATA'
-export const loadUsersData = createAction(LOAD_USERS_DATA, users => ({ users }))
+export const loadUsersData = createAction(LOAD_USERS_DATA, users => ({
+  users
+}))
 export const dispatchLoadUsersData = (...args) =>
   dispatch(loadUsersData(...args))
 
@@ -34,16 +44,18 @@ export const dispatchFetchAdminData = (...args) =>
   dispatch(fetchAdminData(...args))
 
 export const LOAD_TASKS_DATA = 'LOAD_TASKS_DATA'
-export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({ tasks }))
+export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({
+  tasks
+}))
 export const dispatchLoadTasksData = (...args) =>
   dispatch(loadTasksData(...args))
 
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(
   ADD_TASK,
-  (title, selectedUser, tags, priority, deadline) => ({
+  (title, assignee, tags, priority, deadline) => ({
     title,
-    selectedUser,
+    assignee,
     tags,
     priority,
     deadline,
@@ -52,11 +64,15 @@ export const addTask = createAction(
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
 export const RESTORE_TASK = 'RESTORE_TASK'
-export const restoreTask = createAction(RESTORE_TASK, task => ({ task }))
+export const restoreTask = createAction(RESTORE_TASK, task => ({
+  task
+}))
 export const dispatchRestoreTask = (...args) => dispatch(restoreTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
-export const deleteTask = createAction(DELETE_TASK, task => ({ task }))
+export const deleteTask = createAction(DELETE_TASK, task => ({
+  task
+}))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
 export const CHANGE_LEVEL = 'CHANGE_LEVEL'
@@ -87,11 +103,16 @@ export const toggleTodo = createAction(TOGGLE_TODO, (_id, todoId) => ({
 export const dispatchToggleTodo = (...args) => dispatch(toggleTodo(...args))
 
 export const ADD_TODO = 'ADD_TODO'
-export const addTodo = createAction(ADD_TODO, (_id, value) => ({ _id, value }))
+export const addTodo = createAction(ADD_TODO, (_id, value) => ({
+  _id,
+  value
+}))
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
 
 export const RESTORE_TODO = 'RESTORE_TODO'
-export const restoreTodo = createAction(RESTORE_TODO, task => ({ task }))
+export const restoreTodo = createAction(RESTORE_TODO, task => ({
+  task
+}))
 export const dispatchRestoreTodo = (...args) => dispatch(restoreTodo(...args))
 
 export const DELETE_TODO = 'DELETE_TODO'
@@ -118,7 +139,14 @@ export const dispatchLoadNumberOfTasks = (...args) =>
 export const UPDATE_NUMBERS_OBJECT = 'UPDATE_NUMBERS_OBJECT'
 export const updateNumbersObject = createAction(
   UPDATE_NUMBERS_OBJECT,
-  (currentLevel, nextLevel) => ({ currentLevel, nextLevel }),
+  (currentLevel, nextLevel) => ({
+    currentLevel,
+    nextLevel
+  }),
 )
 export const dispatchUpdateNumbersObject = (...args) =>
   dispatch(updateNumbersObject(...args))
+
+export const SET_EDITED_TASK = 'SET_EDITED_TASK'
+export const setEditedTask = createAction(SET_EDITED_TASK)
+export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))

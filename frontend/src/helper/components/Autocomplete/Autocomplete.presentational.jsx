@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Autocomplete from 'react-autocomplete'
 // styles
-import scssClasses from './Autocomplete.scss'
+import './Autocomplete.scss'
 
 
 const CustomizedAutocomplete = ({
@@ -18,12 +18,12 @@ const CustomizedAutocomplete = ({
     )}
     renderInput={
       kind => (
-        <div className={scssClasses.group}>
+        <div className="c--autocomplete_group">
           <input
             {...kind}
             type="text"
             required
-            className={isError ? scssClasses.error : null}
+            className={isError ? "c--autocomplete_error" : null}
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
                 onAdd()
@@ -31,9 +31,9 @@ const CustomizedAutocomplete = ({
               }
             }}
           />
-          <span className={scssClasses.highlight} />
-          <span className={scssClasses.bar} />
-          <span className={scssClasses.label}>{label}</span>
+          <span className="c--autocomplete_highlight" />
+          <span className="c--autocomplete_bar" />
+          <span className="c--autocomplete_label">{label}</span>
         </div>
       )
     }

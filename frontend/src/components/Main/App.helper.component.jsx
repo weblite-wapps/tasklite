@@ -2,20 +2,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FlipMove from 'react-flip-move'
-import MuiCollapse from 'material-ui/transitions/Collapse'
-import Divider from 'material-ui/Divider'
+import MuiCollapse from '@material-ui/core/Collapse'
+import Divider from '@material-ui/core/Divider'
 // components
 import CustomizedTaskList from '../components/List/main/List.container.react'
 import Autocomplete from '../../helper/components/Autocomplete/Autocomplete.presentational'
 import CustomizedButton from '../../helper/components/Button/Button.presentational'
 import TagList from '../../helper/components/TagList/TagList.presentational'
-// scssClasses
-import scssClasses from './App.scss'
+// styles
+import './App.scss'
 
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
-    <Divider light />
+    <Divider variant="middle" />
   </MuiCollapse>
 )
 
@@ -53,7 +53,7 @@ export const LoadMore = ({
   tabIndex,
   onLoadMore,
 }) => (
-  <div className={scssClasses.button}>
+  <div className="c--app_button">
     {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
       <CustomizedButton
         label="Load More"
@@ -81,7 +81,7 @@ export const TagPanel = ({
   handleAddTag,
 }) => (
   <React.Fragment>
-    <div className={scssClasses.textField}>
+    <div className="c--app_textField">
       <Autocomplete
         label="Tags"
         suggestions={suggestions}

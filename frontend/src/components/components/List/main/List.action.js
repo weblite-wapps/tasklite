@@ -15,3 +15,8 @@ export const dispatchChangePopoverId = (...args) => dispatch(changePopoverId(...
 export const CHANGE_EXPANDING_ID = 'CHANGE_EXPANDING_ID'
 export const changeExpandingId = createAction(CHANGE_EXPANDING_ID, _id => ({ _id }))
 export const dispatchChangeExpnadingId = (...args) => dispatch(changeExpandingId(...args))
+
+export const EDIT_BUTTON_CLICK = 'EDIT_BUTTON_CLICK'
+export const editButtonClick = createAction(EDIT_BUTTON_CLICK)
+export const dispatchEditButtonClick = (...args) => dispatch(editButtonClick(...args))
+

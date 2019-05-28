@@ -1,18 +1,39 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import MuiTextField from 'material-ui/TextField'
+import { withStyles } from '@material-ui/core/styles'
+import MuiTextField from '@material-ui/core/TextField'
 // styles
-import scssClasses from './TextField.scss'
-import styles from '../../../helper/style/appStyle'
-
+import './TextField.scss'
+import styles from '../../style/appStyle'
 
 const TextField = ({
-  classes, withButton, isError, required, fullWidth, label, value, onChange, onKeyPress,
+  classes,
+  withButton,
+  isError,
+  required,
+  fullWidth,
+  label,
+  value,
+  onChange,
+  onKeyPress,
 }) =>
-  (
-    withButton ? (
+  withButton ? (
+    <MuiTextField
+      label={label}
+      value={value}
+      onChange={onChange}
+      onKeyPress={onKeyPress}
+      helperText={required && 'required'}
+      error={isError}
+      required={required}
+      fullWidth={fullWidth}
+      multiline
+      InputProps={{ classes: { focused: classes.textFieldInkbar } }}
+      InputLabelProps={{ className: classes.textFieldFormLabel }}
+    />
+  ) : (
+    <div className="c--textField_textField">
       <MuiTextField
         label={label}
         value={value}
@@ -26,25 +47,8 @@ const TextField = ({
         InputProps={{ classes: { focused: classes.textFieldInkbar } }}
         InputLabelProps={{ className: classes.textFieldFormLabel }}
       />
-    ) : (
-      <div className={scssClasses.textField}>
-        <MuiTextField
-          label={label}
-          value={value}
-          onChange={onChange}
-          onKeyPress={onKeyPress}
-          helperText={required && 'required'}
-          error={isError}
-          required={required}
-          fullWidth={fullWidth}
-          multiline
-          InputProps={{ classes: { focused: classes.textFieldInkbar } }}
-          InputLabelProps={{ className: classes.textFieldFormLabel }}
-        />
-      </div>
-    )
+    </div>
   )
-
 
 TextField.propTypes = {
   classes: PropTypes.shape({}).isRequired,
@@ -65,6 +69,5 @@ TextField.defaultProps = {
   fullWidth: true,
   onKeyPress: () => {},
 }
-
 
 export default withStyles(styles)(TextField)

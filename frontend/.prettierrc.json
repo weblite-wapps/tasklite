@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "semi": false,
   "printWidth": 80,
@@ -7,4 +8,15 @@
   "trailingComma": "all",
   "jsxBracketSameLine": false,
   "arrowParens": "avoid"
+=======
+{
+  "semi": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "jsxBracketSameLine": false,
+  "arrowParens": "avoid"
+>>>>>>> master
 }

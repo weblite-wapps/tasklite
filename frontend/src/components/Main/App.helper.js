@@ -4,8 +4,6 @@ import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
 import {
   wisView,
-  userIdView,
-  creatorView,
   numbersObjectView,
   tasksView,
 } from './App.reducer'
@@ -19,8 +17,7 @@ export const formatTime = time =>
     R.slice(0, 2, time),
   )
 
-export const getQuery = () =>
-  creatorView() ? { wis: wisView() } : { wis: wisView(), userId: userIdView() }
+export const getQuery = () => ({ wis: wisView() })
 
 export const getUpdatedNumbersObject = (currentLevel, nextLevel) =>
   R.evolve({ [currentLevel]: R.dec, [nextLevel]: R.inc }, numbersObjectView())
@@ -30,3 +27,5 @@ export const getLevel = _id =>
     R.prop('level'),
     R.find(R.propEq('_id', _id)),
   )(tasksView())
+
+export const mapToUsername = users => R.map(user => user.name, users)

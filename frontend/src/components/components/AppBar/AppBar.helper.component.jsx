@@ -1,69 +1,65 @@
 // modules
-import React from "react";
-import PropTypes from "prop-types";
-import * as R from "ramda";
-import { CircularProgress } from "material-ui/Progress";
-import IconButton from "material-ui/IconButton";
-import Tooltip from "material-ui/Tooltip";
+import React from 'react'
+import PropTypes from 'prop-types'
+import * as R from 'ramda'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 // icons
-import SortIcon from "material-ui-icons/Sort";
-import ExitIcon from "material-ui-icons/ExitToApp";
+import SortIcon from '@material-ui/icons/Sort'
+import ExitIcon from '@material-ui/icons/ExitToApp'
 // styles
-import scssClasses from "./AppBar.scss";
+import './AppBar.scss'
 
 export const Logo = ({ isLoading, setAboutMode }) => (
   <React.Fragment>
     <div
       onClick={() => setAboutMode(true)}
-      className={scssClasses.logoContainer}
+      className="c--appBar_logoContainer"
       role="button"
       tabIndex="0"
     >
-      <div className={isLoading ? scssClasses.loading : scssClasses.normal}>
+      <div className={isLoading ? "c--appBar_loading" : "c--appBar_normal"}>
         <CircularProgress
           size={40}
           color="primary"
-          className={scssClasses.progress}
+          className="c--appBar_progress"
         />
         <img
           alt="loglite logo"
-          src="assets/toplogo.png"
-          className={scssClasses.logo}
+          src="toplogo.png"
+          className="c--appBar_logo"
         />
       </div>
     </div>
   </React.Fragment>
-);
+)
 
 Logo.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  setAboutMode: PropTypes.func.isRequired
-};
+  setAboutMode: PropTypes.func.isRequired,
+}
 
-export const TabBar = (props) => {
+export const TabBar = props => {
   const {
     classes,
     aboutMode,
     setAboutMode,
     sortByDeadline,
-    toggleSortByDeadline
-  } = props;
+    toggleSortByDeadline,
+  } = props
 
   return (
-    <div className={scssClasses.tabBar}>
-      <img
-        alt="loglite logo"
-        src="assets/typo.png"
-        className={scssClasses.typo}
-      />
-      <div className={scssClasses.iconsContainer}>
+    <div className="c--appBar_tabBar">
+      <img alt="loglite logo" src="typo.png" className="c--appBar_typo" />
+      <div className="c--appBar_iconsContainer">
         {!aboutMode && (
           <React.Fragment>
             <Tooltip
               enterDelay={150}
               leaveDelay={150}
               placement="bottom"
-              title={sortByDeadline ? "Sort By Priority" : "Sort By Deadline"}
+              title={sortByDeadline ? 'Sort By Priority' : 'Sort By Deadline'}
             >
               <IconButton onClick={toggleSortByDeadline}>
                 <SortIcon
@@ -72,15 +68,11 @@ export const TabBar = (props) => {
               </IconButton>
             </Tooltip>
 
-            <span style={{ width: "15px" }} />
-            <AdminButton {...props} label="add" src="assets/icons/plus.png" />
+            <span style={{ width: '15px' }} />
+            <AdminButton {...props} label="add" src="plus.png" />
 
-            <span style={{ width: "15px" }} />
-            <AdminButton
-              {...props}
-              label="filter"
-              src="assets/icons/filter.png"
-            />
+            <span style={{ width: '15px' }} />
+            <AdminButton {...props} label="filter" src="filter.png" />
           </React.Fragment>
         )}
 
@@ -92,22 +84,22 @@ export const TabBar = (props) => {
             title="APP"
           >
             <IconButton onClick={() => setAboutMode(false)}>
-              <ExitIcon style={{ width: "25px", height: "25px" }} />
+              <ExitIcon style={{ width: '25px', height: '25px' }} />
             </IconButton>
           </Tooltip>
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 TabBar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   aboutMode: PropTypes.bool.isRequired,
   sortByDeadline: PropTypes.bool.isRequired,
   toggleSortByDeadline: PropTypes.func.isRequired,
-  setAboutMode: PropTypes.func.isRequired
-};
+  setAboutMode: PropTypes.func.isRequired,
+}
 
 const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
   <Tooltip
@@ -121,19 +113,19 @@ const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
       tabIndex="0"
       onClick={() =>
         expandMode === label
-          ? changeExpandMode("default")
+          ? changeExpandMode('default')
           : changeExpandMode(label)
       }
-      className={scssClasses.imageContainer}
+      className="c--appBar_imageContainer"
     >
-      <img className={scssClasses.image} alt={label} src={src} />
+      <img className="c--appBar_image" alt={label} src={src} />
     </div>
   </Tooltip>
-);
+)
 
 AdminButton.propTypes = {
   expandMode: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
-  changeExpandMode: PropTypes.func.isRequired
-};
+  changeExpandMode: PropTypes.func.isRequired,
+}

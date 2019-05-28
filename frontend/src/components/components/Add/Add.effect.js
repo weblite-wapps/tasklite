@@ -57,12 +57,12 @@ const addTaskEpic = action$ =>
   action$
     .ofType(ADD_TASK)
     .pluck('payload')
-    .mergeMap(({ title, selectedUser, tags, priority, deadline }) =>
+    .mergeMap(({ title, assignee, tags, priority, deadline }) =>
       Promise.all([
         postRequest('/saveTask')
           .send({
             title,
-            assignee: selectedUser.name,
+            assignee: assignee.name,
             tags,
             priority,
             deadline,
@@ -75,7 +75,7 @@ const addTaskEpic = action$ =>
             ],
             level: 'ICE BOX',
             created_at: new Date(),
-            userId: selectedUser.id,
+            userId: assignee.id,
             wis: wisView(),
           })
           .on(
@@ -106,6 +106,7 @@ const addTaskEpic = action$ =>
       loadTagsDataInAdd(success[1].body),
     ])
     .do(() => dispatchChangeTab('ICE BOX'))
+    .ignoreElements()
 
 const effectHandleAddTag = action$ =>
   action$
@@ -122,20 +123,27 @@ const effectHandleAddTag = action$ =>
 
 const effectHandleAddTask = action$ =>
   action$
-    .ofType(HANDLE_ADD_TASK)
-    .pluck('payload')
-    .map(payload => ({
-      ...payload,
-      ...checkBeforeAddTask(),
-    }))
-    .do(({ message }) => dispatchChangeSnackbarStage(message))
-    .do(({ isError }) => dispatchChangeIsError(isError))
-    .do(
-      ({ title, selectedUser, selectedTags, priority, deadline, permission }) =>
-        permission &&
-        dispatchAddTask(title, selectedUser, selectedTags, priority, deadline),
-    )
-    .ignoreElements()
+  .ofType(HANDLE_ADD_TASK)
+  .pluck('payload')
+  .map(payload => ({
+    ...payload,
+    ...checkBeforeAddTask()
+  }))
+  .do(({ message }) => dispatchChangeSnackbarStage(message))
+  .do(({ isError }) => dispatchChangeIsError(isError))
+  .do(
+    ({
+      title,
+      assignee,
+      selectedTags,
+      priority,
+      deadline,
+      permission
+    }) =>
+    permission &&
+    dispatchAddTask(title, assignee, selectedTags, priority, deadline),
+  )
+  .ignoreElements()
 
 export default combineEpics(
   effectSearchTagsEpic,

@@ -1,14 +1,15 @@
 // modules
+import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 // helpers
-import { getQuery } from './App.helper'
+import { getQuery, mapToUsername } from './App.helper'
 import { getRequest, postRequest } from '../../helper/functions/request.helper'
 // actions
 import {
   dispatchLoadTagsDataInAdd,
   dispatchLoadUsersDataInAdd,
-  dispatchChangeSelectedUserInAdd,
+  dispatchChangeAssigneeInAdd,
 } from '../components/Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../components/Filter/Filter.action'
 import {
@@ -19,9 +20,8 @@ import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
   FETCH_ADMIN_DATA,
-  loadUsersData,
-  dispatchLoadTasksData,
   dispatchLoadUsersData,
+  dispatchLoadTasksData,
   dispatchFetchAdminData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
@@ -36,70 +36,89 @@ import {
   creatorView,
   userView,
 } from './App.reducer'
-// W
-const { W } = window
+
 
 const saveUsersEpic = action$ =>
   action$
-    .ofType(FETCH_INITIAL_DATA)
-    .mergeMap(() =>
-      postRequest('/saveUser')
-        .send({
-          wis: wisView(),
-          userId: userIdView(),
-          username: userNameView(),
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(({ body }) => body && dispatchLoadUsersData([body]))
-    .do(() => dispatchChangeSelectedUserInAdd(userView()))
-    .map(dispatchFetchAdminData)
+  .ofType(FETCH_INITIAL_DATA)
+  .mergeMap(() =>
+    postRequest('/saveUser').send({
+      wis: wisView(),
+      userId: userIdView(),
+      username: userNameView(),
+    })
+    .on(
+      'error',
+      err =>
+        err.status !== 304 &&
+        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+    ),
+  )
+  .do(({
+    body
+  }) => body && dispatchLoadUsersData([body]))
+  .do(() => dispatchChangeAssigneeInAdd(userView()))
+  .map(dispatchFetchAdminData)
 
 const fetchUsersEpic = action$ =>
   action$
-    .ofType(FETCH_ADMIN_DATA)
-    .filter(() => creatorView())
-    .mergeMap(() =>
-      getRequest('/fetchUsers')
-        .query({
-          wis: wisView(),
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(({ body }) => dispatchLoadUsersDataInAdd(body))
-    .map(({ body }) => loadUsersData(body))
+  .ofType(FETCH_ADMIN_DATA)
+  .filter(() => creatorView())
+  .mergeMap(
+    () => getRequest('/fetchUsers').query({
+      wis: wisView()
+    })
+    .on(
+      'error',
+      err =>
+        err.status !== 304 &&
+        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+    ),
+  )
+  .do(({ body }) =>
+    window.W && window.W.getUsersInfo(mapToUsername(body)).then(info => {
+      const users = R.values(info)
+      dispatchLoadUsersDataInAdd(users)
+      dispatchLoadUsersData(users)
+    }))
+  .ignoreElements()
 
 const initialFetchEpic = action$ =>
   action$
-    .ofType(FETCH_INITIAL_DATA)
-    .mergeMap(() =>
-      getRequest('/initialFetch')
-        .query(getQuery())
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
-    .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
-    .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
-    .do(({ body: { numberOfTasks } }) =>
-      dispatchLoadNumberOfTasks(numberOfTasks),
-    )
-    .do(() => window.W && window.W.setHooks())
-    .ignoreElements()
+  .ofType(FETCH_INITIAL_DATA)
+  .do(() => window.W && window.W.start())
+  .mergeMap(
+    () => getRequest('/initialFetch').query(getQuery())
+    .on(
+      'error',
+      err =>
+        err.status !== 304 &&
+        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+    ),
+  )
+  .do(({
+    body: {
+      tasks
+    }
+  }) => dispatchLoadTasksData(tasks))
+  .do(({
+    body: {
+      tags
+    }
+  }) => dispatchLoadTagsDataInAdd(tags))
+  .do(({
+    body: {
+      tags
+    }
+  }) => dispatchLoadTagsDataInFilter(tags))
+  .do(({
+      body: {
+        numberOfTasks
+      }
+    }) =>
+    dispatchLoadNumberOfTasks(numberOfTasks),
+  )
+  .ignoreElements()
 
 const deleteTaskEpic = action$ =>
   action$

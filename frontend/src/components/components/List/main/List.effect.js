@@ -2,6 +2,7 @@
 import { combineEpics } from 'redux-observable'
 import * as R from 'ramda'
 import 'rxjs'
+import { push } from 'react-router-redux'
 // local modules
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 // actions
@@ -15,6 +16,11 @@ import {
   dispatchRestoreTodo,
   dispatchUpdateNumbersObject,
 } from '../../../Main/App.action'
+import {
+  dispatchChangeIsOpenDialog,
+  dispatchInsertTask,
+} from '../../Edit/Main/Edit.action'
+import { EDIT_BUTTON_CLICK } from './List.action'
 // helpers
 import { postRequest } from '../../../../helper/functions/request.helper'
 // views
@@ -146,9 +152,18 @@ const removeTodoEpic = action$ =>
     .do(() => window.W && window.W.analytics('DELETE_TODO'))
     .ignoreElements()
 
+const handleEditButtonEpic = action$ =>
+  action$
+    .ofType(EDIT_BUTTON_CLICK)
+    .pluck('payload')
+    .do(dispatchInsertTask)
+    .do(() => dispatchChangeIsOpenDialog(true))
+    .map(() => push('/Edit'))
+
 export default combineEpics(
   changeLevelEpic,
   toggleTodoEpic,
   addTodoEpic,
   removeTodoEpic,
+  handleEditButtonEpic,
 )
