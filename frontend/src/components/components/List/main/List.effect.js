@@ -59,7 +59,7 @@ const changeLevelEpic = action$ =>
       Window.W &&
         Window.W.sendNotificationToAll(
           'Tasklite',
-          `Task with name ${title.toUpperCase()} is marked as ${nextLevel} by ${userNameView()}`,
+          `${title.toUpperCase()} sent to ${nextLevel} by ${userNameView()}`,
         )
     })
     .do(() => dispatchSetIsLoading(false))
