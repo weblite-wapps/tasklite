@@ -68,7 +68,7 @@ export const BriefInfo = ({
 }) =>
   _id !== expandingId && (
     <div className="c--list_text">
-      <Typography variant="body1">
+      <Typography variant="body2">
         {checkToShow('assignee') && <span>{assignee}&nbsp;|&nbsp;</span>}
         {checkToShow('deadline') && <span>{getRemained(deadline)}</span>}
         {checkToShow('sentTime') && <span>{getPassedTime(sentTime)} ago</span>}
