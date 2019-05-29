@@ -23,7 +23,7 @@ import {
   popoverIdView,
   isOpenDialogView,
 } from './Edit.reducer'
-import { usersView } from '../../../Main/App.reducer';
+import { usersView } from '../../Home/Home.reducer';
 
 const mapStateToProps = () => ({
   users: usersView(),

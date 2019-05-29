@@ -4,7 +4,7 @@ import * as R from 'ramda'
 import PropTypes from 'prop-types'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // helpers
-import { TagPanel } from '../../Main/App.helper.component'
+import { TagPanel } from '../Home/Home.helper.component'
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // styles
 import './Filter.scss'
@@ -31,7 +31,7 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className="c--filter_container">
-        {this.props.creator && <Avatar {...this.props} />}
+        <Avatar {...this.props} />
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
       </div>
     )

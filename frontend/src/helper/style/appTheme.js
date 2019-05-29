@@ -1,8 +1,13 @@
 import {
   createMuiTheme
 } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey';
+
 
 export default createMuiTheme({
+  palette: {
+    primary: grey,
+  },
   typography: {
     // TODO: should remove in next version
     useNextVariants: true,
@@ -145,6 +150,22 @@ export default createMuiTheme({
       root: {
         width: '50px',
         height: '50px',
+      },
+    },
+    MuiFormControl: {
+      root: {
+        width: '90%',
+        margin: 'auto',
+      },
+    },
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#505050',
+      },
+    },
+    MuiPickersDay: {
+      isSelected: {
+        backgroundColor: '#505050',
       },
     },
   },

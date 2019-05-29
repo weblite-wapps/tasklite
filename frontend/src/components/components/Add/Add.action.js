@@ -5,7 +5,7 @@ import { dispatch } from '../../../setup/redux'
 
 // actions
 export const CHANGE_DEADLINE = 'CHANGE_DEADLINE'
-export const changeDeadline = createAction(CHANGE_DEADLINE, value => ({ value }))
+export const changeDeadline = createAction(CHANGE_DEADLINE)
 export const dispatchChangeDeadline = (...args) => dispatch(changeDeadline(...args))
 
 export const CHANGE_START_TIME = 'CHANGE_START_TIME'
@@ -50,7 +50,7 @@ export const dispatchChangeSelectedTagsInAdd = (...args) =>
   dispatch(changeSelectedTagsInAdd(...args))
 
 export const CHANGE_ASSIGNEE_IN_ADD = 'CHANGE_ASSIGNEE_IN_ADD'
-export const changeAssigneeInAdd = createAction(CHANGE_ASSIGNEE_IN_ADD, user => ({ user }))
+export const changeAssigneeInAdd = createAction(CHANGE_ASSIGNEE_IN_ADD)
 export const dispatchChangeAssigneeInAdd = (...args) =>
   dispatch(changeAssigneeInAdd(...args))
 

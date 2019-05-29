@@ -15,7 +15,7 @@ import {
   dispatchSetIsLoading,
   dispatchRestoreTodo,
   dispatchUpdateNumbersObject,
-} from '../../../Main/App.action'
+} from '../../Home/Home.action'
 import {
   dispatchChangeIsOpenDialog,
   dispatchInsertTask,
@@ -24,7 +24,7 @@ import { EDIT_BUTTON_CLICK } from './List.action'
 // helpers
 import { postRequest } from '../../../../helper/functions/request.helper'
 // views
-import { tasksView, userNameView } from '../../../Main/App.reducer'
+import { tasksView, userNameView } from '../../Home/Home.reducer'
 
 const changeLevelEpic = action$ =>
   action$

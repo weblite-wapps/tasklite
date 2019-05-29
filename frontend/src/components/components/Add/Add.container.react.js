@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 // components
 import Add from './Add.presentational.react'
 // views
-import { usersView, creatorView } from '../../Main/App.reducer'
+import { usersView, creatorView } from '../Home/Home.reducer'
 import { titleView, priorityView, deadlineView, selectedTagsView, assigneeView, queryTagView, tagsView, isErrorView } from './Add.reducer'
 // actions
-import { dispatchChangeTab } from '../../Main/App.action'
+import { dispatchChangeTab } from '../Home/Home.action'
 import {
   dispatchChangeTitle,
   dispatchChangePriority,

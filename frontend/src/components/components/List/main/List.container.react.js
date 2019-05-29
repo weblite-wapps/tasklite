@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 // components
 import List from './List.presentational'
 // views
-import { tabIndexView, creatorView } from '../../../Main/App.reducer'
+import { tabIndexView, creatorView } from '../../Home/Home.reducer'
 import { expandingIdView, popoverIdView } from './List.reducer'
 // actions
 import {
   dispatchChangeTodoText,
   dispatchAddTodo,
   dispatchDeleteTask,
-} from '../../../Main/App.action'
+} from '../../Home/Home.action'
 import {
   dispatchChangeExpnadingId,
   dispatchChangePopoverId,

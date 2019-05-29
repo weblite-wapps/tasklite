@@ -1,5 +1,6 @@
 // modules
 import * as R from 'ramda'
+import jMoment from "moment-jalaali"
 // local modules
 import { getState } from '../../../setup/redux'
 // actions
@@ -16,12 +17,11 @@ import {
   RESET_INPUTS,
   CHANGE_IS_ERROR,
 } from './Add.action'
-
 // state
 const initialState = {
   title: '',
   priority: 1,
-  deadline: '',
+  deadline: jMoment(),
   queryTag: '',
   suggestions: [],
   selectedTags: [],
@@ -49,7 +49,7 @@ export const isErrorView = () => R.path(['Add', 'isError'])(getState())
 
 // reducers
 const reducers = {
-  [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
+  [CHANGE_DEADLINE]: (state, value) => R.set(deadlineLens, value, state),
 
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 
@@ -81,16 +81,16 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_ASSIGNEE_IN_ADD]: (state, { user }) => ({
+  [CHANGE_ASSIGNEE_IN_ADD]: (state, { username, id }) => ({
     ...state,
-    assignee: { name: user.name, id: user.id },
+    assignee: { username, id },
   }),
 
   [RESET_INPUTS]: state =>
     ({ ...state,
       title: '',
       priority: 1,
-      deadline: '',
+      deadline: jMoment(),
       selectedTags: [],
       assignee: {},
       queryTag: '',

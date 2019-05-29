@@ -1,5 +1,6 @@
 // modules
 import * as R from 'ramda'
+import jMoment from "moment-jalaali"
 // local modules
 import { getState } from '../../../../setup/redux'
 // actions
@@ -19,7 +20,7 @@ import { getUserInfo } from './Edit.helper'
 const initialState = {
   task: {},
   title: '',
-  deadline: '',
+  deadline: jMoment(),
   assignee: '',
   priority: '',
   isError: { title: false },
@@ -49,7 +50,7 @@ const reducers = {
     assignee: getUserInfo(task),
     tags: R.prop('tags', task),
     priority: R.prop('priority', task),
-    deadline: R.prop('deadline', task),
+    deadline: jMoment(R.prop('deadline', task)),
   }),
 
   [CHANGE_EDIT_TITLE]: (state, title) => ({

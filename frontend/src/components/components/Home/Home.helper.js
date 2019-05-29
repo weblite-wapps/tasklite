@@ -6,7 +6,7 @@ import {
   wisView,
   numbersObjectView,
   tasksView,
-} from './App.reducer'
+} from './Home.reducer'
 
 export const formatTime = time =>
   setHours(

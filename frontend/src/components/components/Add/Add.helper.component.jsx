@@ -40,17 +40,16 @@ SelectField.propTypes = {
 }
 
 
-export const DatePicker = ({ isError, deadline, onDeadlineChange }) => (
+export const DatePicker = ({ deadline, onDeadlineChange }) => (
   <CustomizedDatePicker
     value={deadline}
-    onChange={e => onDeadlineChange(e.target.value)}
-    isError={isError}
+    onChange={onDeadlineChange}
   />
 )
 
 DatePicker.propTypes = {
   isError: PropTypes.bool,
-  deadline: PropTypes.string.isRequired,
+  deadline: PropTypes.shape({}).isRequired,
   onDeadlineChange: PropTypes.func.isRequired,
 }
 
@@ -66,7 +65,7 @@ export const Button = ({
     <CustomizedButton
       label={label}
       componentName="Add"
-      onClick={() => handleAddTask(title, assignee, selectedTags, priority, new Date(deadline))}
+      onClick={() => handleAddTask(title, assignee, selectedTags, priority, deadline)}
     />
   </div>
 )
@@ -76,7 +75,7 @@ Button.propTypes = {
   assignee: PropTypes.shape({}).isRequired,
   selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  deadline: PropTypes.string.isRequired,
+  deadline: PropTypes.shape({}).isRequired,
   label: PropTypes.string.isRequired,
   handleAddTask: PropTypes.func.isRequired,
 }

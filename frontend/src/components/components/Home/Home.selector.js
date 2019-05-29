@@ -2,9 +2,10 @@
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
 // selectors
-import { getFilteredTasks } from '../components/Filter/Filter.selector'
+import { getFilteredTasks } from '../Filter/Filter.selector'
 // helpers
-import { formattedDate } from '../../helper/functions/time.helper'
+import { formattedDate } from '../../../helper/functions/time.helper'
+
 
 export const getNumberOfTasksInEachLevel = createSelector(
   [getFilteredTasks],
@@ -19,7 +20,7 @@ export const getNumberOfTasksInEachLevel = createSelector(
   },
 )
 
-const getSortByDeadline = state => state.AppBar.sortByDeadline
+const getSortByDeadline = state => state.App.sortByDeadline
 
 export const getSortedTasks = createSelector(
   [getFilteredTasks, getSortByDeadline],

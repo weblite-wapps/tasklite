@@ -7,15 +7,15 @@ import LevelIcon from './LevelIcon.presentational'
 // views
 import {
   tabIndexView
-} from '../../../../Main/App.reducer'
+} from '../../../Home/Home.reducer'
 // actions
 import {
   dispatchChangeTab
-} from '../../../../Main/App.action'
+} from '../../../Home/Home.action'
 // selectors
 import {
   getNumberOfTasksInEachLevel
-} from '../../../../Main/App.selector'
+} from '../../../Home/Home.selector'
 
 
 const mapStateToProps = state => ({

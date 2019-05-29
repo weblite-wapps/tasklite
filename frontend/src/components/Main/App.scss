@@ -1,27 +1,89 @@
-html {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  margin: 0px;
-  width: 100%;
-  height: 100%;
-}
-
-.c--app_container { 
+.c--app_container {
   display: flex;
-  flex-direction: column;
 }
 
-.c--app_textField {
-  display: flex;
-  align-items: flex-end;
-  margin: 0px 20px 5px 20px;
+/////////////////////////////////////////// LOGO //////////////////////////////////////////////////
+
+.c--app_logoContainer {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 50px;
+  cursor: pointer;
+  outline: none;
+  z-index: 50;
+  background-color: #000000;
 }
 
-.c--app_button {
+.c--app_normal {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  flex-direction: row;
+  background-color: #000000;
+  width: 100px;
+  height: 50px;
+  z-index: 25;
+  margin-left: -50px;
+  -webkit-transition: 0.2s ease 0.5s;
+  -moz-transition: 0.2s ease 0.5s;
+  -o-transition: 0.2s ease 0.5s;
+  transition: 0.2s ease 0.5s;
+}
+
+.c--app_loading {
+  @extend .c--app_normal;
+  margin-left: 0px;
+}
+
+
+.c--app_logo {
+  margin-left: 15.5px;
+  margin-top: 12.5px;
+  width: 25px;
+  height: 25px;
+  z-index: 25;
+}
+
+.c--app_progress {
+  margin-left: 5px;
+  margin-top: 5px;
+  z-index: 25;
+}
+
+//////////////////////////////////////// TAB BAR //////////////////////////////////////////////////
+
+.c--app_tabBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 50px;
+  right: 0px;
+  top: 0px;
+  height: 50px;
+  z-index: 100;
+  background-color: #cfcfcf;
+}
+
+.c--app_typo {
+  width: 100px;
+  height: 25px;
+  margin-left: 15px;
+  z-index: 50;
+}
+
+.c--app_iconsContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.c--app_imageContainer {
+  outline: none;
+  cursor: pointer;
+}
+
+.c--app_image {
+  width: 20px;
+  height: 20px;
 }

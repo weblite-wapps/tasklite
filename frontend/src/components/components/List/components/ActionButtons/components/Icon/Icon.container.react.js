@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 // components
 import Icon from './Icon.presentational'
 // actions
-import { dispatchChangeLevel } from '../../../../../../Main/App.action'
+import { dispatchChangeLevel } from '../../../../../Home/Home.action'
 // helpers
-import { getLevel } from '../../../../../../Main/App.helper'
+import { getLevel } from '../../../../../Home/Home.helper'
 
 const mapDispatchToProps = (_, { _id, label, title }) => ({
   onChangeLevel: () => {

@@ -28,7 +28,7 @@ const SubInfo = ({
     <Typography variant="button">{label}</Typography>
     <Typography variant="caption">
       {tags && R.join(', ', tags)}
-      {deadline &&
+      {deadline && 
         `${formattedTime(deadline)} - ${getRemained(deadline)} remained`}
       {sentTime &&
         `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
