@@ -18,7 +18,7 @@ const DatePicker = ({ value, onChange }) => (
       <MuiDatePicker
         autoOk
         label="Deadline"
-        labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+        labelFunc={date => (date ? date.format("jYYYY/jM/jD") : "")}
         value={value}
         onChange={onChange}
         animateYearScrolling={false}
