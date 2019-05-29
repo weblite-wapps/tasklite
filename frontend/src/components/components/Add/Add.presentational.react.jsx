@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 // components
 import Avatar from '../../../helper/components/Avatar/Avatar.presentational'
 // helpers
-import { TagPanel } from '../../Main/App.helper.component'
+import { TagPanel } from '../Home/Home.helper.component'
 import {
   TextField,
   SelectField,
@@ -12,14 +12,14 @@ import {
   Button,
 } from './Add.helper.component'
 // styles
-import scssClasses from './Add.scss'
+import './Add.scss'
 
 const Add = props => {
   const { isError, creator } = props
 
   return (
-    <div className={scssClasses.container}>
-      {creator && <Avatar {...props} isError={isError.selectedUser} />}
+    <div className="c--add_container">
+      {creator && <Avatar {...props} isError={isError.assignee} />}
       <TextField {...props} isError={isError.title} />
       <TagPanel {...props} />
       <SelectField {...props} />

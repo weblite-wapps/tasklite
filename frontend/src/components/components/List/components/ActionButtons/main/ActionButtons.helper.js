@@ -3,7 +3,7 @@ import {
   tabIndexView,
   userNameView,
   creatorView,
-} from '../../../../../Main/App.reducer'
+} from '../../../../Home/Home.reducer'
 
 export const checkToShow = (level, assignee) => {
   const tabIndex = tabIndexView()

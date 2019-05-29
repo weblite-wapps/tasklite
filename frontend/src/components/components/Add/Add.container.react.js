@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 // components
 import Add from './Add.presentational.react'
 // views
-import { usersView, creatorView } from '../../Main/App.reducer'
-import { titleView, priorityView, deadlineView, selectedTagsView, selectedUserView, queryTagView, tagsView, isErrorView } from './Add.reducer'
+import { usersView, creatorView } from '../Home/Home.reducer'
+import { titleView, priorityView, deadlineView, selectedTagsView, assigneeView, queryTagView, tagsView, isErrorView } from './Add.reducer'
 // actions
-import { dispatchChangeTab } from '../../Main/App.action'
+import { dispatchChangeTab } from '../Home/Home.action'
 import {
   dispatchChangeTitle,
   dispatchChangePriority,
   dispatchChangeDeadline,
   dispatchSetQueryTagInAdd,
   dispatchChangeSelectedTagsInAdd,
-  dispatchChangeSelectedUserInAdd,
+  dispatchChangeAssigneeInAdd,
   dispatchChangeIsError,
   dispatchHandleAddTag,
   dispatchHandleAddTask,
@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
   priority: priorityView(),
   deadline: deadlineView(),
   selectedTags: selectedTagsView(),
-  selectedUser: selectedUserView(),
+  assignee: assigneeView(),
   queryTag: queryTagView(),
   suggestions: getFilteredSuggestions(state),
   tags: tagsView(),
@@ -43,7 +43,7 @@ const mapDispatchToProps = () => ({
   onQueryTagChange: dispatchSetQueryTagInAdd,
   onTagClick: dispatchChangeSelectedTagsInAdd,
   changeTab: dispatchChangeTab,
-  onUserClick: dispatchChangeSelectedUserInAdd,
+  onAssigneeChange: dispatchChangeAssigneeInAdd,
   changeIsError: dispatchChangeIsError,
   handleAddTag: dispatchHandleAddTag,
   handleAddTask: dispatchHandleAddTask,

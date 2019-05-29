@@ -1,9 +1,20 @@
-import { createMuiTheme } from 'material-ui/styles'
+import {
+  createMuiTheme
+} from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey';
+
 
 export default createMuiTheme({
+  palette: {
+    primary: grey,
+  },
+  typography: {
+    // TODO: should remove in next version
+    useNextVariants: true,
+  },
   overrides: {
     MuiTypography: {
-      display1: {
+      h4: {
         color: '#000000',
         fontWeight: '500',
       },
@@ -11,7 +22,11 @@ export default createMuiTheme({
         fontWeight: '100',
         color: '#cfcfcf',
       },
-      headline: {
+      body1: {
+        color: 'black',
+        fontSize: '0.9rem',
+      },
+      h5: {
         color: '#919191',
         textTransform: 'uppercase',
         margin: '5px',
@@ -19,7 +34,7 @@ export default createMuiTheme({
         fontSize: '27px',
         width: '165px',
       },
-      title: {
+      h6: {
         fontSize: '18px',
         textTransform: 'uppercase',
         fontWeight: '900',
@@ -34,20 +49,25 @@ export default createMuiTheme({
         color: 'black',
       },
     },
-    MuiButton: {
-      fab: {
-        backgroundColor: '#505050',
-        color: 'white',
-        height: '60px',
-        width: '60px',
-      },
-    },
     MuiIconButton: {
       root: {
-        height: '25px',
-        width: '25px',
-        marginTop: '0px',
+        height: '30px',
+        width: '30px',
+        padding: '0',
         color: '#000000',
+      },
+    },
+    MuiDialog: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column', 
+        top: '50px',
+      },
+    },
+    MuiToolbar: {
+      root: {
+        backgroundColor: '#62666C',
+        justifyContent: 'space-between',
       },
     },
     MuiTab: {
@@ -70,7 +90,7 @@ export default createMuiTheme({
         backgroundColor: '#000000',
         margin: '5px 30px 5px 30px',
       },
-      light: {
+      middle: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         margin: '10px 0px 10px 0px',
       },
@@ -104,22 +124,16 @@ export default createMuiTheme({
         paddingRight: '20px',
       },
     },
-    MuiSvgIcon: {
-      root: {
-        width: '15px',
-        height: '15px',
-      },
-    },
     MuiBadge: {
       badge: {
         backgroundColor: '#519ae7',
         color: 'white',
-        top: 'kind',
-        right: '5px',
+        top: '15px',
+        right: '10px',
         bottom: '10px',
         fontSize: '0.5rem',
-        width: '15px',
-        height: '15px',
+        width: '20px',
+        height: '20px',
       },
     },
     MuiLinearProgress: {
@@ -134,6 +148,22 @@ export default createMuiTheme({
       root: {
         width: '50px',
         height: '50px',
+      },
+    },
+    MuiFormControl: {
+      root: {
+        width: '90%',
+        margin: 'auto',
+      },
+    },
+    MuiPickersToolbar: {
+      toolbar: {
+        backgroundColor: '#505050',
+      },
+    },
+    MuiPickersDay: {
+      isSelected: {
+        backgroundColor: '#505050',
       },
     },
   },

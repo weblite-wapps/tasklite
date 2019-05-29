@@ -5,7 +5,7 @@ import { dispatch } from '../../../setup/redux'
 
 // actions
 export const CHANGE_DEADLINE = 'CHANGE_DEADLINE'
-export const changeDeadline = createAction(CHANGE_DEADLINE, value => ({ value }))
+export const changeDeadline = createAction(CHANGE_DEADLINE)
 export const dispatchChangeDeadline = (...args) => dispatch(changeDeadline(...args))
 
 export const CHANGE_START_TIME = 'CHANGE_START_TIME'
@@ -49,10 +49,10 @@ export const changeSelectedTagsInAdd = createAction(CHANGE_SELECTED_TAGS_IN_ADD,
 export const dispatchChangeSelectedTagsInAdd = (...args) =>
   dispatch(changeSelectedTagsInAdd(...args))
 
-export const CHANGE_SELECTED_USER_IN_ADD = 'CHANGE_SELECTED_USER_IN_ADD'
-export const changeSelectedUserInAdd = createAction(CHANGE_SELECTED_USER_IN_ADD, user => ({ user }))
-export const dispatchChangeSelectedUserInAdd = (...args) =>
-  dispatch(changeSelectedUserInAdd(...args))
+export const CHANGE_ASSIGNEE_IN_ADD = 'CHANGE_ASSIGNEE_IN_ADD'
+export const changeAssigneeInAdd = createAction(CHANGE_ASSIGNEE_IN_ADD)
+export const dispatchChangeAssigneeInAdd = (...args) =>
+  dispatch(changeAssigneeInAdd(...args))
 
 export const RESET_INPUTS = 'RESET_INPUTS'
 export const resetInputs = createAction(RESET_INPUTS)
@@ -70,6 +70,6 @@ export const dispatchHandleAddTag = (...args) => dispatch(handleAddTag(...args))
 
 export const HANDLE_ADD_TASK = 'HANDLE_ADD_TASK'
 export const handleAddTask = createAction(HANDLE_ADD_TASK,
-  (title, selectedUser, selectedTags, priority, deadline) =>
-    ({ title, selectedUser, selectedTags, priority, deadline }))
+  (title, assignee, selectedTags, priority, deadline) =>
+    ({ title, assignee, selectedTags, priority, deadline }))
 export const dispatchHandleAddTask = (...args) => dispatch(handleAddTask(...args))

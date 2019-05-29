@@ -1,38 +1,41 @@
 // modules
-import { connect } from 'react-redux'
+import {
+  connect
+} from 'react-redux'
 // components
-import App from './App.presentational.react'
+import App from './App.presentational'
 // views
-import { tabIndexView, numbersObjectView } from './App.reducer'
-import { expandModeView } from '../components/AppBar/AppBar.reducer'
+import {
+  isLoadingView
+} from '../components/Home/Home.reducer'
+import {
+  expandModeView,
+  aboutModeView,
+} from './App.reducer'
 // actions
 import {
-  dispatchChangeTab,
-  dispatchSetApi,
-  dispatchFetchInitialData,
+  dispatchChangeExpandMode,
+  dispatchSetAboutMode,
 } from './App.action'
-import { dispatchLoadMore } from '../components/List/main/List.action'
-// selectors
-import { getNumberOfTasksInEachLevel, getSortedTasks } from './App.selector'
-// view
-import { tasksView } from './App.reducer'
+import { dispatchSetApi, dispatchFetchInitialData } from '../components/Home/Home.action'
 
-const mapStateToProps = state => ({
-  tasks: tasksView(),
-  tabIndex: tabIndexView(),
+
+const mapStateToProps = () => ({
+  isLoading: isLoadingView(),
   expandMode: expandModeView(),
-  numbers: getNumberOfTasksInEachLevel(state),
-  numbersObject: numbersObjectView(),
+  aboutMode: aboutModeView(),
 })
 
 const mapDispatchToProps = () => ({
-  changeTab: dispatchChangeTab,
   setAPI: dispatchSetApi,
   fetchInitialData: dispatchFetchInitialData,
-  onLoadMore: (skipLength, tabIndex) => dispatchLoadMore(skipLength, tabIndex),
+  changeExpandMode: (mode) => {
+    dispatchChangeExpandMode(mode)
+    if (window.W) window.W.analytics('CHANGE_MODE', {
+      mode
+    })
+  },
+  setAboutMode: dispatchSetAboutMode,
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

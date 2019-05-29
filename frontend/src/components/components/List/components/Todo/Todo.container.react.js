@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Todo from './Todo.presentational'
 // actions
-import { dispatchToggleTodo, dispatchDeleteTodo } from '../../../../Main/App.action'
+import { dispatchToggleTodo, dispatchDeleteTodo } from '../../../Home/Home.action'
 
 
 const mapDispatchToProps = (_, { _id, todo }) => ({

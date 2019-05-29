@@ -9,7 +9,7 @@ import {
   FETCH_TAGS_IN_FILTER,
   ADD_TAG_IN_FILTER,
   CHANGE_SELECTED_TAGS_IN_FILTER,
-  CHANGE_SELECTED_USER_IN_FILTER,
+  CHANGE_ASSIGNEE_IN_FILTER,
 } from './Filter.action'
 
 // state
@@ -17,7 +17,7 @@ const initialState = {
   queryTag: '',
   suggestions: [],
   selectedTags: [],
-  selectedUser: {},
+  assignee: {},
   tags: [],
 }
 
@@ -28,7 +28,7 @@ const suggestionsLens = R.lensProp('suggestions')
 export const queryTagView = () => R.path(['Filter', 'queryTag'])(getState())
 export const selectedTagsView = () => R.path(['Filter', 'selectedTags'])(getState())
 export const tagsView = () => R.path(['Filter', 'tags'])(getState())
-export const selectedUserView = () => R.path(['Filter', 'selectedUser'])(getState())
+export const assigneeView = () => R.path(['Filter', 'assignee'])(getState())
 
 // reducers
 const reducers = {
@@ -58,8 +58,9 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_SELECTED_USER_IN_FILTER]: (state, { user }) => ({ ...state,
-    selectedUser: state.selectedUser.id === user.id ? {} : { name: user.name, id: user.id },
+  [CHANGE_ASSIGNEE_IN_FILTER]: (state, { id, username }) => ({
+    ...state,
+    assignee: state.assignee.id === id ? {} : { username, id },
   }),
 }
 

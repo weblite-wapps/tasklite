@@ -1,5 +1,6 @@
 // modules
 import * as R from 'ramda'
+import jMoment from "moment-jalaali"
 // local modules
 import { getState } from '../../../setup/redux'
 // actions
@@ -12,22 +13,21 @@ import {
   FETCH_TAGS_IN_ADD,
   ADD_TAG_IN_ADD,
   CHANGE_SELECTED_TAGS_IN_ADD,
-  CHANGE_SELECTED_USER_IN_ADD,
+  CHANGE_ASSIGNEE_IN_ADD,
   RESET_INPUTS,
   CHANGE_IS_ERROR,
 } from './Add.action'
-
 // state
 const initialState = {
   title: '',
   priority: 1,
-  deadline: '',
+  deadline: jMoment(),
   queryTag: '',
   suggestions: [],
   selectedTags: [],
-  selectedUser: {},
+  assignee: {},
   tags: [],
-  isError: { selectedUser: false, title: false, deadline: false },
+  isError: { assignee: false, title: false, deadline: false },
 }
 
 // lens
@@ -43,13 +43,13 @@ export const priorityView = () => R.path(['Add', 'priority'])(getState())
 export const deadlineView = () => R.path(['Add', 'deadline'])(getState())
 export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
 export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
-export const selectedUserView = () => R.path(['Add', 'selectedUser'])(getState())
+export const assigneeView = () => R.path(['Add', 'assignee'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
 export const isErrorView = () => R.path(['Add', 'isError'])(getState())
 
 // reducers
 const reducers = {
-  [CHANGE_DEADLINE]: (state, { value }) => R.set(deadlineLens, value, state),
+  [CHANGE_DEADLINE]: (state, value) => R.set(deadlineLens, value, state),
 
   [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
 
@@ -81,17 +81,18 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_SELECTED_USER_IN_ADD]: (state, { user }) => ({ ...state,
-    selectedUser: { name: user.name, id: user.id },
+  [CHANGE_ASSIGNEE_IN_ADD]: (state, { username, id }) => ({
+    ...state,
+    assignee: { username, id },
   }),
 
   [RESET_INPUTS]: state =>
     ({ ...state,
       title: '',
       priority: 1,
-      deadline: '',
+      deadline: jMoment(),
       selectedTags: [],
-      selectedUser: {},
+      assignee: {},
       queryTag: '',
     }),
 

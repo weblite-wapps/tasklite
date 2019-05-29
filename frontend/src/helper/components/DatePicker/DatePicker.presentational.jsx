@@ -1,36 +1,36 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField'
+import React from "react"
+import PropTypes from 'prop-types' 
+import jMoment from "moment-jalaali"
+import JalaliUtils from "@date-io/jalaali"
+import {
+  DatePicker as MuiDatePicker,
+  MuiPickersUtilsProvider,
+} from "material-ui-pickers" 
 // helpers
-import scssClasses from './DatePicker.scss'
-import styles from '../../../helper/style/appStyle'
+import './DatePicker.scss'
 
 
-const DatePicker = ({ classes, isError, value, onChange }) => (
-  <div className={scssClasses.textField}>
-    <form className={classes.datePickerContainer} noValidate>
-      <TextField
-        id="date"
+jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true })
+
+const DatePicker = ({ value, onChange }) => ( 
+  <div className="c--datePicker_textField"> 
+    <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+      <MuiDatePicker
+        autoOk
         label="Deadline"
-        type="date"
+        labelFunc={date => (date ? date.format("jYYYY/jM/jD") : "")}
         value={value}
         onChange={onChange}
-        className={classes.datePickerTextField}
-        required
-        error={isError}
-        InputProps={{ classes: { focused: classes.textFieldInkbar } }}
-        InputLabelProps={{ className: classes.textFieldFormLabel, shrink: true }}
+        animateYearScrolling={false}
       />
-    </form>
+    </MuiPickersUtilsProvider>
   </div>
 )
 
+
 DatePicker.propTypes = {
-  classes: PropTypes.shape({}).isRequired,
-  isError: PropTypes.bool.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  value: PropTypes.shape({}).isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(DatePicker)
+export default DatePicker

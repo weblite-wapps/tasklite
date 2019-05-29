@@ -1,7 +1,7 @@
 // modules
 import * as R from 'ramda'
 // views
-import { tabIndexView, creatorView } from '../../../Main/App.reducer'
+import { tabIndexView, creatorView } from '../../Home/Home.reducer'
 
 
 export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name

@@ -3,8 +3,6 @@ import * as R from "ramda";
 // views
 import {
   titleView,
-  selectedUserView,
-  deadlineView,
   queryTagView,
   tagsView
 } from "./Add.reducer";
@@ -12,13 +10,13 @@ import {
 export const checkBeforeAddTask = () => {
   if (titleView()) {
     return {
-      isError: { selectedUser: false, title: false, deadline: false },
+      isError: { assignee: false, title: false, deadline: false },
       message: "Added successfully!",
       permission: true
     };
   } else {
     return {
-      isError: { selectedUser: false, title: true, deadline: false },
+      isError: { assignee: false, title: true, deadline: false },
       message: "Enter title first!",
       permission: false
     };

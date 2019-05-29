@@ -1,13 +1,12 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
 // styles
 import styles from './Button.style'
 
-
-const CustomizedButton = (props) => {
+const CustomizedButton = props => {
   const { classes, componentName, label, variant, disabled, onClick } = props
 
   return (
@@ -15,10 +14,10 @@ const CustomizedButton = (props) => {
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      classes={{ root: classes[componentName], raised: classes[`${componentName}Raised`] }}
+      classes={{ root: classes[componentName], contained: classes[`${componentName}Contained`] }}
     >
-      { props.children }
-      { label }
+      {props.children}
+      {label}
     </Button>
   )
 }
@@ -37,7 +36,7 @@ CustomizedButton.defaultProps = {
   componentName: 'default',
   children: null,
   label: '',
-  variant: 'flat',
+  variant: 'text',
   disabled: false,
   onClick: () => {},
 }
