@@ -29,6 +29,7 @@ import {
 import {
   getUpdatedNumbersObject
 } from './Home.helper'
+import { formattedTime } from '../../../helper/functions/time.helper'
 
 // state
 const initialState = {
@@ -126,6 +127,7 @@ const reducers = {
   }) => ({
     ...state,
     tasks: R.compose(
+      R.adjust(R.assoc('deadline', formattedTime(task.deadline)), 0),
       R.adjust(R.assoc('todoText', ''), 0),
       R.adjust(R.assoc('_id', task._id), 0),
     )(state.tasks),

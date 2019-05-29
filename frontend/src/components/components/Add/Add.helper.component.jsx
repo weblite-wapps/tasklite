@@ -6,8 +6,6 @@ import CustomizedTextField from '../../../helper/components/TextField/TextField.
 import CustomizedSelectField from '../../../helper/components/SelectField/SelectField.presentational'
 import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
 import CustomizedButton from '../../../helper/components/Button/Button.presentational'
-// helpers
-import { getDate } from './Add.helper'
 // styles
 import './Add.scss'
 
@@ -67,7 +65,7 @@ export const Button = ({
     <CustomizedButton
       label={label}
       componentName="Add"
-      onClick={() => handleAddTask(title, assignee, selectedTags, priority, getDate(deadline))}
+      onClick={() => handleAddTask(title, assignee, selectedTags, priority, deadline)}
     />
   </div>
 )

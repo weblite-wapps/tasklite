@@ -57,6 +57,7 @@ const addTaskEpic = action$ =>
   action$
     .ofType(ADD_TASK)
     .pluck('payload')
+    .do(console.log)
     .mergeMap(({ title, assignee, tags, priority, deadline }) =>
       Promise.all([
         postRequest('/saveTask')
@@ -101,6 +102,7 @@ const addTaskEpic = action$ =>
     .do(() => dispatchResetInputs())
     .do(() => dispatchChangeExpandMode('default'))
     .do(() => window.W && window.W.analytics('ADD_TASK'))
+    .do(success => console.log(success[0].body))
     .mergeMap(success => [
       restoreTask(success[0].body),
       loadTagsDataInAdd(success[1].body),

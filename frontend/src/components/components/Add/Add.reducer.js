@@ -1,6 +1,6 @@
 // modules
 import * as R from 'ramda'
-import { getToday } from 'react-persian-calendar-date-picker';
+import jMoment from "moment-jalaali"
 // local modules
 import { getState } from '../../../setup/redux'
 // actions
@@ -17,12 +17,11 @@ import {
   RESET_INPUTS,
   CHANGE_IS_ERROR,
 } from './Add.action'
-
 // state
 const initialState = {
   title: '',
   priority: 1,
-  deadline: getToday(),
+  deadline: jMoment(),
   queryTag: '',
   suggestions: [],
   selectedTags: [],
@@ -91,7 +90,7 @@ const reducers = {
     ({ ...state,
       title: '',
       priority: 1,
-      deadline: '',
+      deadline: jMoment(),
       selectedTags: [],
       assignee: {},
       queryTag: '',
