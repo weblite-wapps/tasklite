@@ -11,8 +11,8 @@ import './TagShape.scss'
 const TagShape = ({ tag: { label, isSelected }, onTagClick }) => (
   <div className="c--tagShape_container" onClick={onTagClick} role="button" tabIndex="0">
     <div className={isSelected ? "c--tagShape_selected" : "c--tagShape_default"}>
-      <Typography type="body2">{ label }</Typography>
-    </div>
+      <Typography variant="body1">{ label }</Typography>
+    </div> 
     <div className="c--tagShape_icon">
       {isSelected ? <Remove /> : <Add />}
     </div>

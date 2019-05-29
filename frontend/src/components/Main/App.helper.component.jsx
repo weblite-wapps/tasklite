@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 // icons
-import SortIcon from '@material-ui/icons/Sort'
 import ExitIcon from '@material-ui/icons/ExitToApp'
 // styles
 import './App.scss'
@@ -42,11 +41,8 @@ Logo.propTypes = {
 
 export const TabBar = props => {
   const {
-    classes,
     aboutMode,
     setAboutMode,
-    sortByDeadline,
-    toggleSortByDeadline,
   } = props
 
   return (
@@ -55,20 +51,6 @@ export const TabBar = props => {
       <div className="c--app_iconsContainer">
         {!aboutMode && (
           <React.Fragment>
-            <Tooltip
-              enterDelay={150}
-              leaveDelay={150}
-              placement="bottom"
-              title={sortByDeadline ? 'Sort By Priority' : 'Sort By Deadline'}
-            >
-              <IconButton onClick={toggleSortByDeadline}>
-                <SortIcon
-                  className={sortByDeadline ? classes.sorted : classes.default}
-                />
-              </IconButton>
-            </Tooltip>
-
-            <span style={{ width: '15px' }} />
             <AdminButton {...props} label="add" src="plus.png" />
 
             <span style={{ width: '15px' }} />
@@ -94,10 +76,7 @@ export const TabBar = props => {
 }
 
 TabBar.propTypes = {
-  classes: PropTypes.shape({}).isRequired,
   aboutMode: PropTypes.bool.isRequired,
-  sortByDeadline: PropTypes.bool.isRequired,
-  toggleSortByDeadline: PropTypes.func.isRequired,
   setAboutMode: PropTypes.func.isRequired,
 }
 

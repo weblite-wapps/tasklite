@@ -22,6 +22,10 @@ export default createMuiTheme({
         fontWeight: '100',
         color: '#cfcfcf',
       },
+      body1: {
+        color: 'black',
+        fontSize: '0.9rem',
+      },
       h5: {
         color: '#919191',
         textTransform: 'uppercase',
@@ -118,12 +122,6 @@ export default createMuiTheme({
     MuiListItemSecondaryAction: {
       root: {
         paddingRight: '20px',
-      },
-    },
-    MuiSvgIcon: {
-      root: {
-        width: '15px',
-        height: '15px',
       },
     },
     MuiBadge: {

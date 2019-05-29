@@ -1,11 +1,11 @@
 // modules
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 // components
-import CustomizedTextField from '../../../helper/components/TextField/TextField.presentational'
-import CustomizedSelectField from '../../../helper/components/SelectField/SelectField.presentational'
-import CustomizedDatePicker from '../../../helper/components/DatePicker/DatePicker.presentational'
-import CustomizedButton from '../../../helper/components/Button/Button.presentational'
+import CustomizedTextField from "../../../helper/components/TextField/TextField.presentational";
+import CustomizedSelectField from "../../../helper/components/SelectField/SelectField.presentational";
+import CustomizedDatePicker from "../../../helper/components/DatePicker/DatePicker.presentational";
+import CustomizedButton from "../../../helper/components/Button/Button.presentational";
 // styles
 import './Add.scss'
 
@@ -17,14 +17,13 @@ export const TextField = ({ isError, title, onTitleChange }) => (
     onChange={e => onTitleChange(e.target.value)}
     isError={isError}
   />
-)
+);
 
 TextField.propTypes = {
   isError: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  onTitleChange: PropTypes.func.isRequired,
-}
-
+  onTitleChange: PropTypes.func.isRequired
+};
 
 export const SelectField = ({ priority, onPriorityChange }) => (
   <CustomizedSelectField
@@ -32,20 +31,20 @@ export const SelectField = ({ priority, onPriorityChange }) => (
     value={priority}
     onChange={e => onPriorityChange(e.target.value)}
   />
-)
+);
 
 SelectField.propTypes = {
-  priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onPriorityChange: PropTypes.func.isRequired,
-}
-
+  priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  onPriorityChange: PropTypes.func.isRequired
+};
 
 export const DatePicker = ({ deadline, onDeadlineChange }) => (
   <CustomizedDatePicker
     value={deadline}
     onChange={onDeadlineChange}
   />
-)
+);
 
 DatePicker.propTypes = {
   isError: PropTypes.bool,
@@ -68,7 +67,7 @@ export const Button = ({
       onClick={() => handleAddTask(title, assignee, selectedTags, priority, deadline)}
     />
   </div>
-)
+);
 
 Button.propTypes = {
   title: PropTypes.string.isRequired,
@@ -77,5 +76,5 @@ Button.propTypes = {
   priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   deadline: PropTypes.shape({}).isRequired,
   label: PropTypes.string.isRequired,
-  handleAddTask: PropTypes.func.isRequired,
-}
+  handleAddTask: PropTypes.func.isRequired
+};

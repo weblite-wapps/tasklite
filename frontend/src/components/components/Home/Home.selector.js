@@ -3,8 +3,6 @@ import { createSelector } from 'reselect'
 import * as R from 'ramda'
 // selectors
 import { getFilteredTasks } from '../Filter/Filter.selector'
-// helpers
-import { formattedDate } from '../../../helper/functions/time.helper'
 
 
 export const getNumberOfTasksInEachLevel = createSelector(
@@ -20,17 +18,4 @@ export const getNumberOfTasksInEachLevel = createSelector(
   },
 )
 
-const getSortByDeadline = state => state.App.sortByDeadline
-
-export const getSortedTasks = createSelector(
-  [getFilteredTasks, getSortByDeadline],
-  (tasks, sortByDeadline) =>
-    R.compose(
-      R.sortWith([
-        sortByDeadline
-          ? R.ascend(R.prop('deadline'))
-          : R.ascend(R.prop('priority')),
-      ]),
-      R.map(task => ({ ...task, deadline: formattedDate(task.deadline) })),
-    )(tasks),
-)
+export default null

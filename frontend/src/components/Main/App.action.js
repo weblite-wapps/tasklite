@@ -10,7 +10,3 @@ export const dispatchChangeExpandMode = (...args) => dispatch(changeExpandMode(.
 export const SET_ABOUT_MODE = 'SET_ABOUT_MODE'
 export const setAboutMode = createAction(SET_ABOUT_MODE, value => ({ value }))
 export const dispatchSetAboutMode = (...args) => dispatch(setAboutMode(...args))
-
-export const TOGGLE_SORT_BY_DEADLINE = 'TOGGLE_SORT_BY_DEADLINE'
-export const toggleSortByDeadline = createAction(TOGGLE_SORT_BY_DEADLINE)
-export const dispatchToggleSortByDeadline = (...args) => dispatch(toggleSortByDeadline(...args))

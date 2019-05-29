@@ -1,5 +1,5 @@
 // modules
-import { differenceInSeconds, format, isAfter } from 'date-fns'
+import { differenceInSeconds, isAfter } from 'date-fns'
 import jMoment from "moment-jalaali"
 
 
@@ -36,5 +36,3 @@ export const formattedTime = time =>
 
 export const isOnTime = (sentTime, deadline) =>
   isAfter(sentTime, deadline) ? 'Delayed' : 'On Time'
-
-export const formattedDate = date => format(date, 'YYYY-MM-DD')

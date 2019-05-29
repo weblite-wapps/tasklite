@@ -11,13 +11,11 @@ import {
 import {
   expandModeView,
   aboutModeView,
-  sortByDeadlineView
 } from './App.reducer'
 // actions
 import {
   dispatchChangeExpandMode,
   dispatchSetAboutMode,
-  dispatchToggleSortByDeadline
 } from './App.action'
 import { dispatchSetApi, dispatchFetchInitialData } from '../components/Home/Home.action'
 
@@ -26,7 +24,6 @@ const mapStateToProps = () => ({
   isLoading: isLoadingView(),
   expandMode: expandModeView(),
   aboutMode: aboutModeView(),
-  sortByDeadline: sortByDeadlineView(),
 })
 
 const mapDispatchToProps = () => ({
@@ -39,10 +36,6 @@ const mapDispatchToProps = () => ({
     })
   },
   setAboutMode: dispatchSetAboutMode,
-  toggleSortByDeadline: () => {
-    dispatchToggleSortByDeadline()
-    if (window.W) window.W.analytics('SORT_CLICK')
-  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
