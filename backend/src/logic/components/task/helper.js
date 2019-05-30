@@ -9,4 +9,4 @@ export const getToggledValue = (task, todoId) =>
     R.prop('todos'),
   )(task)
 
-export const nothing = null
+export default null
