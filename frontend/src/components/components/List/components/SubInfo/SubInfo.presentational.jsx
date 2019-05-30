@@ -32,7 +32,7 @@ const SubInfo = ({
         `${formattedTime(deadline)} - ${getRemained(deadline)} remained`}
       {sentTime &&
         `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
-      {assignee && assignee}
+      {assignee && assignee.name}
       <FlipMove
         duration={500}
         staggerDelayBy={150}
@@ -62,7 +62,7 @@ SubInfo.propTypes = {
   deadline: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   sentTime: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   level: PropTypes.string,
-  assignee: PropTypes.string,
+  assignee: PropTypes.shape({}),
   todos: PropTypes.arrayOf(PropTypes.shape({})),
   _id: PropTypes.string,
 }
@@ -72,7 +72,7 @@ SubInfo.defaultProps = {
   deadline: '',
   sentTime: '',
   level: '',
-  assignee: '',
+  assignee: { name: '', id: '' },
   todos: [],
   _id: '',
 }

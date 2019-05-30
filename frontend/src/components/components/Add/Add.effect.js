@@ -67,7 +67,7 @@ const addTaskEpic = action$ =>
             priority,
             deadline,
             sentTime: '',
-            todos: [
+            todos: [ 
               {
                 title: 'done',
                 completed: false,
@@ -99,13 +99,13 @@ const addTaskEpic = action$ =>
       ]),
     )
     .do(success => {
-      restoreTask(success[0].body)
+      restoreTask(success[0].body) 
       loadTagsDataInAdd(success[1].body)
     })
     .do(() => dispatchChangeExpandMode('default'))
     .do(() => dispatchChangeTab('ICE BOX'))
     .do(() => dispatchSetIsLoading(false))
-    .do(dispatchResetInputs)
+    .do(() => dispatchResetInputs())
     .filter(success => success[0].body.assignee)
     .do((success) => {
       const { title, assignee } = success[0].body

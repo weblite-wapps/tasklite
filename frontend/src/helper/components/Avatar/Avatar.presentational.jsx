@@ -15,19 +15,20 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
     <Typography variant="body2" className={classes.text}>
       Assignee
     </Typography>
+
     <div className="c--avatar_row">
-      {users.map(user => (
-        <div key={user._id} className="c--avatar_column">
+      {users.map(({ _id, id, username, firstname, profileImage }) => (
+        <div key={_id} className="c--avatar_column">
           <MuiAvatar
             className={
-              user.id === assignee.id ? classes.active : classes.passive
+              id === assignee.id ? classes.active : classes.passive
             }
-            onClick={() => onAssigneeChange(user)}
+            onClick={() => onAssigneeChange({ id, name: username })}
             role="button"
             tabIndex="0"
-            src={user.profileImage && `https://www.weblite.me:3000/image/${user.profileImage}`}
+            src={profileImage && `https://www.weblite.me:3000/image/${profileImage}`}
           >
-            {(!user.profileImage) && R.head(user.firstname)}
+            {(!profileImage) && R.head(firstname)}
           </MuiAvatar>
           <Typography
             variant="body2"
@@ -35,7 +36,7 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
             className={classes.username}
             style={{ marginBottom: '5px' }}
           >
-            {user.firstname}
+            {firstname}
           </Typography>
         </div>
       ))}
@@ -54,7 +55,7 @@ Avatar.propTypes = {
 
 Avatar.defaultProps = {
   isError: false,
-  assignee: {id: '', name: ''},
+  assignee: { id: '', name: '' },
 }
 
 export default withStyles(styles)(Avatar)

@@ -10,7 +10,6 @@ export const checkToShow = (level, assignee = { id: '', name: '' }) => {
   const userName = userNameView()
   const creator = creatorView()
 
-  console.log(assignee)
   switch (level) {
     case 'ICE BOX':
       return (

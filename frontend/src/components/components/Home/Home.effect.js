@@ -9,7 +9,6 @@ import { getRequest, postRequest } from '../../../helper/functions/request.helpe
 import {
   dispatchLoadTagsDataInAdd,
   dispatchLoadUsersDataInAdd,
-  dispatchChangeAssigneeInAdd,
 } from '../Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../Filter/Filter.action'
 import {
@@ -34,7 +33,6 @@ import {
   userIdView,
   userNameView,
   creatorView,
-  userView,
 } from './Home.reducer'
 
 
@@ -57,7 +55,6 @@ const saveUsersEpic = action$ =>
   .do(({
     body
   }) => body && dispatchLoadUsersData([body]))
-  .do(() => dispatchChangeAssigneeInAdd(userView()))
   .map(dispatchFetchAdminData)
 
 const fetchUsersEpic = action$ =>

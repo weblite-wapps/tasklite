@@ -40,7 +40,7 @@ const submitEditEpic = (action$, { dispatch }) =>
             dispatchChangeSnackbarStage('Server disconnected!')
           }
         }).then(() => task))
-      .do(task => dispatchSetEditedTask(task))
+      .do(task => dispatchSetEditedTask(task)) 
       .do(() => dispatchChangeIsOpenDialog(false))
       .do(() => dispatch(push('/')))
       .do(() => dispatchChangeSnackbarStage('Updated Successfully!'))

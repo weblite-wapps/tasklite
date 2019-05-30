@@ -69,7 +69,7 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2">
-        <span>{assignee || "No assigne"}&nbsp;|&nbsp;</span>
+        <span>{(assignee && assignee.name) || "No assigne"}&nbsp;|&nbsp;</span>
 
         {checkToShow("deadline") && (
           <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
@@ -86,7 +86,9 @@ export const BriefInfo = ({
   )
 
 BriefInfo.propTypes = {
-  task: PropTypes.shape({}).isRequired,
+  task: PropTypes.shape({
+    assignee: { name: '', id: '' },
+  }).isRequired,
   expandingId: PropTypes.string.isRequired,
 }
 
@@ -117,7 +119,7 @@ export const FurtherInfo = ({
     {(level === 'EVALUATE' || level === 'DONE') && (
       <SubInfo label="SENT TIME" sentTime={sentTime} />
     )}
-    <SubInfo label="ASSIGNEE" assignee={assignee} />
+    <SubInfo label="ASSIGNEE" assignee={assignee} /> 
     <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
   </React.Fragment>
 )

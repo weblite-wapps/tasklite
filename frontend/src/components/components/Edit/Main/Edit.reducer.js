@@ -13,8 +13,6 @@ import {
   CHANGE_TITLE_IS_ERROR,
   CHANGE_IS_OPEN_DIALOG,
 } from './Edit.action'
-// helpers
-import { getUserInfo } from './Edit.helper'
 
 // state
 const initialState = {
@@ -47,7 +45,7 @@ const reducers = {
     ...state,
     task,
     title: R.prop('title', task),
-    assignee: getUserInfo(task),
+    assignee: R.prop('assignee', task),
     tags: R.prop('tags', task),
     priority: R.prop('priority', task),
     deadline: jMoment(R.prop('deadline', task)),

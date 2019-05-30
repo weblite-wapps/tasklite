@@ -81,9 +81,9 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_ASSIGNEE_IN_ADD]: (state, { name, id }) => ({
+  [CHANGE_ASSIGNEE_IN_ADD]: (state, { username, id }) => ({
     ...state,
-    assignee: { name, id },
+    assignee: state.assignee.id === id ? {} : { name: username, id },
   }),
 
   [RESET_INPUTS]: state =>
@@ -92,7 +92,7 @@ const reducers = {
       priority: 1,
       deadline: jMoment(),
       selectedTags: [],
-      assignee: {},
+      assignee: { name: '', id: '' },
       queryTag: '',
     }),
 
