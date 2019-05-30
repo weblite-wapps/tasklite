@@ -56,8 +56,8 @@ const changeLevelEpic = action$ =>
         })),
     )
     .do(({ nextLevel, title }) => {
-      Window.W &&
-        Window.W.sendNotificationToAll(
+      window.W &&
+        window.W.sendNotificationToAll(
           'Tasklite',
           `${title.toUpperCase()} sent to ${nextLevel} by ${userNameView()}`,
         )
