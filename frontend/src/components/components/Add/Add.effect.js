@@ -1,9 +1,6 @@
 // modules
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
-// local modules
-import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
-
 // helpers
 import {
   getRequest,
@@ -16,6 +13,7 @@ import {
   restoreTask,
   dispatchAddTask,
   dispatchChangeTab,
+  dispatchSetIsLoading,
 } from '../Home/Home.action'
 import { dispatchChangeExpandMode } from '../../Main/App.action'
 import {
@@ -27,7 +25,8 @@ import {
   dispatchResetInputs,
   dispatchAddTagInAdd,
   dispatchChangeIsError
-} from "./Add.action";
+} from "./Add.action"
+import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
 import { wisView, userIdView } from '../Home/Home.reducer'
 
@@ -57,12 +56,13 @@ const addTaskEpic = action$ =>
   action$
     .ofType(ADD_TASK)
     .pluck('payload')
+    .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ title, assignee, tags, priority, deadline }) =>
       Promise.all([
         postRequest('/saveTask')
           .send({
             title,
-            assignee: assignee.username,
+            assignee,
             tags,
             priority,
             deadline,
@@ -75,7 +75,7 @@ const addTaskEpic = action$ =>
             ],
             level: 'ICE BOX',
             created_at: new Date(),
-            userId: assignee.id,
+            userId: userIdView(),
             wis: wisView(),
           })
           .on(
@@ -98,14 +98,26 @@ const addTaskEpic = action$ =>
           ),
       ]),
     )
-    .do(() => dispatchResetInputs())
+    .do(success => {
+      restoreTask(success[0].body)
+      loadTagsDataInAdd(success[1].body)
+    })
     .do(() => dispatchChangeExpandMode('default'))
-    .do(() => window.W && window.W.analytics('ADD_TASK'))
-    .mergeMap(success => [
-      restoreTask(success[0].body),
-      loadTagsDataInAdd(success[1].body),
-    ])
     .do(() => dispatchChangeTab('ICE BOX'))
+    .do(() => dispatchSetIsLoading(false))
+    .do(dispatchResetInputs)
+    .filter(success => success[0].body.assignee)
+    .do((success) => {
+      const { title, assignee } = success[0].body
+      console.log(assignee.id)
+      window.W && window.W.sendNotificationToUsers(
+      'Tasklite',
+      `${title.toUpperCase()} added`,
+      "",
+      [assignee.id])
+      }
+    )
+    .do(() => window.W && window.W.analytics('ADD_TASK'))
     .ignoreElements()
 
 const effectHandleAddTag = action$ =>

@@ -9,7 +9,7 @@ import {
   dispatchChangeTitleIsError,
   dispatchChangeIsOpenDialog,
 } from './Edit.action'
-import { dispatchSetEditedTask } from '../../Home/Home.action'
+import { dispatchSetEditedTask, dispatchSetIsLoading } from '../../Home/Home.action'
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 //helper
 import { postRequest } from '../../../../helper/functions/request.helper'
@@ -32,24 +32,31 @@ const submitEditEpic = (action$, { dispatch }) =>
     .map(({ task, title, deadline, assignee, priority }) => ({
       ...task, title, deadline, assignee: assignee && assignee.username, priority
     }))
-    .do(task => {
-      postRequest('/editTask')
+    .do(() => dispatchSetIsLoading(true))
+    .mergeMap(task => postRequest('/editTask')
         .send(task)
         .on('error', err => {
           if (err.status !== 304) {
             dispatchChangeSnackbarStage('Server disconnected!')
           }
-        })
-        .then(() => dispatchSetEditedTask(task))
-        .then(() => {
-          dispatchChangeIsOpenDialog(false)
-          dispatchChangeSnackbarStage('Updated Succesfully!')
-          dispatch(push('/'))
-          dispatchChangeTitleIsError(false)
-          window.W && window.W.analytics('EDIT_TASK')
-        })
-    })
-    .ignoreElements()
+        }).then(() => task))
+      .do(console.log)
+      .do(task => dispatchSetEditedTask(task))
+      .do(() => dispatchChangeIsOpenDialog(false))
+      .do(() => dispatch(push('/')))
+      .do(() => dispatchChangeSnackbarStage('Updated Successfully!'))
+      .do(() => dispatchSetIsLoading(false))
+      .do(() => dispatchChangeTitleIsError(false))
+      .do(() => window.W && window.W.analytics('EDIT_TASK'))
+      .filter(task => task.assignee)
+      .do(console.log)
+      .do(({ title, assignee }) => window.W && window.W.sendNotificationToUsers(
+        'Tasklite',
+        `${title.toUpperCase()} edited`,
+        "",
+        [assignee.id],
+      ))
+      .ignoreElements()
 
 const closeEditEpic = action$ =>
   action$

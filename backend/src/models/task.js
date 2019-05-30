@@ -11,7 +11,10 @@ const TaskSchema = new Schema({
   deadline: Date,
   sentTime: Date,
   level: String,
-  assignee: String,
+  assignee: {
+    name: String,
+    id: String,
+  },
   todos: [{
     title: String,
     completed: Boolean,

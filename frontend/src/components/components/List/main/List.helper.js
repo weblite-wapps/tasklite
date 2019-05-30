@@ -1,7 +1,7 @@
 // modules
 import * as R from 'ramda'
 // views
-import { tabIndexView, creatorView } from '../../Home/Home.reducer'
+import { tabIndexView } from '../../Home/Home.reducer'
 
 
 export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name
@@ -22,10 +22,8 @@ export const getProgressBarPercent = todos =>
 
 export const checkToShow = (info) => {
   const tabIndex = tabIndexView()
-  const creator = creatorView()
 
   switch (info) {
-    case 'assignee': return creator
     case 'deadline': return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
     case 'sentTime': return tabIndex === 'EVALUATE'
     case 'percent': return tabIndex === 'IN PROGRESS'

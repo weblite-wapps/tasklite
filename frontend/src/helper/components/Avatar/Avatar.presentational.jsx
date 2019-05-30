@@ -48,12 +48,13 @@ Avatar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
   isError: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
-  assignee: PropTypes.shape({}).isRequired,
+  assignee: PropTypes.shape({}),
   onAssigneeChange: PropTypes.func.isRequired,
 }
 
 Avatar.defaultProps = {
   isError: false,
+  assignee: {id: '', username: ''},
 }
 
 export default withStyles(styles)(Avatar)

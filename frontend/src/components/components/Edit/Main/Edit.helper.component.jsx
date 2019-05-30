@@ -54,7 +54,7 @@ export const Content = props => {
   return (
     <div style={{ marginTop: '60px' }}> 
     <List>
-      {props.assignee && <Avatar {...other} />}
+      <Avatar {...other} />
       <TextField {...other} isError={isError.title} />
       {/* <TagPanel {...other} /> */}
       {props.priority && <SelectField {...other} />}
