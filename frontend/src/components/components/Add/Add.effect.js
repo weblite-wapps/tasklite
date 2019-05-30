@@ -109,7 +109,6 @@ const addTaskEpic = action$ =>
     .filter(success => success[0].body.assignee)
     .do((success) => {
       const { title, assignee } = success[0].body
-      console.log(assignee.id)
       window.W && window.W.sendNotificationToUsers(
       'Tasklite',
       `${title.toUpperCase()} added`,

@@ -30,7 +30,7 @@ const submitEditEpic = (action$, { dispatch }) =>
         })(),
     )
     .map(({ task, title, deadline, assignee, priority }) => ({
-      ...task, title, deadline, assignee: assignee && assignee.username, priority
+      ...task, title, deadline, assignee, priority
     }))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(task => postRequest('/editTask')
@@ -40,7 +40,6 @@ const submitEditEpic = (action$, { dispatch }) =>
             dispatchChangeSnackbarStage('Server disconnected!')
           }
         }).then(() => task))
-      .do(console.log)
       .do(task => dispatchSetEditedTask(task))
       .do(() => dispatchChangeIsOpenDialog(false))
       .do(() => dispatch(push('/')))
@@ -49,7 +48,6 @@ const submitEditEpic = (action$, { dispatch }) =>
       .do(() => dispatchChangeTitleIsError(false))
       .do(() => window.W && window.W.analytics('EDIT_TASK'))
       .filter(task => task.assignee)
-      .do(console.log)
       .do(({ title, assignee }) => window.W && window.W.sendNotificationToUsers(
         'Tasklite',
         `${title.toUpperCase()} edited`,

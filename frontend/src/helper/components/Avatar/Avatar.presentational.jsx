@@ -54,7 +54,7 @@ Avatar.propTypes = {
 
 Avatar.defaultProps = {
   isError: false,
-  assignee: {id: '', username: ''},
+  assignee: {id: '', name: ''},
 }
 
 export default withStyles(styles)(Avatar)

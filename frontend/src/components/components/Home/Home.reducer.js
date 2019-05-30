@@ -104,7 +104,7 @@ const reducers = {
     tasks: R.prepend({
         _id: state.tasks.length.toString(),
         title,
-        assignee: assignee.username,
+        assignee: assignee.name,
         tags,
         priority,
         deadline,
