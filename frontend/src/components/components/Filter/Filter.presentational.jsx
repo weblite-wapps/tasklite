@@ -31,7 +31,7 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className="c--filter_container">
-        <Avatar {...this.props} />
+        <Avatar {...this.props} /> 
         <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
       </div>
     )
@@ -39,7 +39,6 @@ export default class Filter extends React.Component {
 }
 
 Filter.propTypes = {
-  creator: PropTypes.bool.isRequired,
   queryTag: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   addTag: PropTypes.func.isRequired,

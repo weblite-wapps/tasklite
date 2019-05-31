@@ -10,9 +10,10 @@ import { dispatchChangeTab } from './Home.action'
 import { dispatchLoadMore } from '../List/main/List.action'
 // selectors
 import { getNumberOfTasksInEachLevel } from './Home.selector'
+import { getFilteredTasks } from '../Filter/Filter.selector'
 
 const mapStateToProps = state => ({
-  tasks: tasksView(),
+  tasks: getFilteredTasks(state),
   tabIndex: tabIndexView(),
   expandMode: expandModeView(), 
   numbers: getNumberOfTasksInEachLevel(state),

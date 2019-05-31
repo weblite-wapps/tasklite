@@ -20,7 +20,7 @@ import {
 // state
 const initialState = {
   title: '',
-  priority: 1,
+  priority: '',
   deadline: jMoment(),
   queryTag: '',
   suggestions: [],

@@ -38,11 +38,6 @@ export const loadUsersData = createAction(LOAD_USERS_DATA, users => ({
 export const dispatchLoadUsersData = (...args) =>
   dispatch(loadUsersData(...args))
 
-export const FETCH_ADMIN_DATA = 'FETCH_ADMIN_DATA'
-export const fetchAdminData = createAction(FETCH_ADMIN_DATA)
-export const dispatchFetchAdminData = (...args) =>
-  dispatch(fetchAdminData(...args))
-
 export const LOAD_TASKS_DATA = 'LOAD_TASKS_DATA'
 export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({
   tasks

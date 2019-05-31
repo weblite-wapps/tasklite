@@ -19,7 +19,7 @@ const formattedSeconds = seconds => {
 export const getRemained = time => {
   const seconds = differenceInSeconds(time, new Date())
   if (seconds < 0) return 'Overtime'
-  return formattedSeconds(seconds)
+  return `${formattedSeconds(seconds)} remained`
 }
 
 export const getPassedTime = time =>

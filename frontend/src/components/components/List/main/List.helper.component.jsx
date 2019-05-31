@@ -69,7 +69,7 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2">
-        <span>{(assignee && assignee.name) || "No assigne"}&nbsp;|&nbsp;</span>
+        <span>{(assignee && assignee.name) || "No assignee"}&nbsp;|&nbsp;</span>
 
         {checkToShow("deadline") && (
           <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
@@ -77,7 +77,7 @@ export const BriefInfo = ({
         {checkToShow("sentTime") && (
           <span>{sentTime ? getPassedTime(sentTime) : "No sentTime "} ago</span>
         )}
-        <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags!"}</span>
+        <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags"}</span>
         {checkToShow("percent") && (
           <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
         )}
