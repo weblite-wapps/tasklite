@@ -91,7 +91,10 @@ const reducers = {
 
   [ADD_TASK]: (state, task) => ({
     ...state,
-    tasks: R.prepend(task, state.tasks),
+    tasks: R.compose(
+      R.adjust(R.assoc('todoText', ''), 0),
+      R.prepend(task),
+    )(state.tasks)
   }),
 
   [DELETE_TASK]: (state, {
