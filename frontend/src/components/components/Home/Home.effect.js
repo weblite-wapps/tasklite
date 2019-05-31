@@ -51,9 +51,6 @@ const usersEpic = action$ =>
           dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
       ),
     )
-    .do(({
-      body
-    }) => body && dispatchLoadUsersData([body]))
     .do(() => dispatchChangeAssigneeInAdd(userView()))
     .mergeMap(() => getRequest('/fetchUsers')
       .query({ wis: wisView() })

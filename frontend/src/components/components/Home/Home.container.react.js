@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import Home from './Home.presentational.react'
 // views
-import { tabIndexView, numbersObjectView, tasksView } from './Home.reducer'
+import { tabIndexView, numbersObjectView } from './Home.reducer'
 import { expandModeView } from '../../Main/App.reducer'
 // actions
 import { dispatchChangeTab } from './Home.action'

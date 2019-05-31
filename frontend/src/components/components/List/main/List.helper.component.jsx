@@ -31,11 +31,11 @@ export const TitleAndLevelButtons = props => {
   return (
     <div className="c--list_text">
       <div className="c--list_title">
-        <img
+        {priority && <img
           src={`${priority}.png`}
           alt="priority"
           className="c--list_priority"
-        />
+        />}
         <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
           {formatTitle(title) === title ? (
             <span>{formatTitle(title)}</span>

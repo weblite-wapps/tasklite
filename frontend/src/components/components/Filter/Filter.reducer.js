@@ -32,13 +32,13 @@ export const assigneeView = () => R.path(['Filter', 'assignee'])(getState())
 
 // reducers
 const reducers = {
-  [LOAD_TAGS_DATA_IN_FILTER]: (state, { tags }) => ({ ...state,
+  [LOAD_TAGS_DATA_IN_FILTER]: (state, tags) => ({ ...state,
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
-  [SET_QUERY_TAG_IN_FILTER]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
+  [SET_QUERY_TAG_IN_FILTER]: (state, queryTag) => R.set(queryTagLens, queryTag)(state),
 
-  [FETCH_TAGS_IN_FILTER]: (state, { tags }) => R.set(suggestionsLens, tags, state),
+  [FETCH_TAGS_IN_FILTER]: (state, tags) => R.set(suggestionsLens, tags, state),
 
   [ADD_TAG_IN_FILTER]: state => ({ ...state,
     selectedTags: R.append(R.toLower(state.queryTag), state.selectedTags),
@@ -50,7 +50,7 @@ const reducers = {
     queryTag: '',
   }),
 
-  [CHANGE_SELECTED_TAGS_IN_FILTER]: (state, { tag }) => ({ ...state,
+  [CHANGE_SELECTED_TAGS_IN_FILTER]: (state, tag) => ({ ...state,
     selectedTags: tag.isSelected ?
       R.remove(R.indexOf(tag.label, state.selectedTags), 1, state.selectedTags) :
       R.append(tag.label, state.selectedTags),

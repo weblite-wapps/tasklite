@@ -9,9 +9,7 @@ import {
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {
-  ADD_TASK,
-  restoreTask,
-  dispatchAddTask,
+  dispatchAddTask, 
   dispatchChangeTab,
   dispatchSetIsLoading,
 } from '../Home/Home.action'
@@ -21,7 +19,7 @@ import {
   HANDLE_ADD_TAG,
   HANDLE_ADD_TASK,
   fetchTagsInAdd,
-  loadTagsDataInAdd,
+  dispatchLoadTagsDataInAdd,
   dispatchResetInputs,
   dispatchAddTagInAdd,
   dispatchChangeIsError
@@ -34,9 +32,9 @@ const effectSearchTagsEpic = action$ =>
   action$
     .ofType(SET_QUERY_TAG_IN_ADD)
     .pluck('payload')
-    .filter(({ queryTag }) => queryTag.trim() !== '')
+    .filter(queryTag => queryTag.trim() !== '')
     .debounceTime(250)
-    .mergeMap(({ queryTag }) =>
+    .mergeMap(queryTag =>
       getRequest('/searchTags')
         .query({
           wis: wisView(),
@@ -51,73 +49,6 @@ const effectSearchTagsEpic = action$ =>
         ),
     )
     .map(({ body }) => fetchTagsInAdd(body))
-
-const addTaskEpic = action$ =>
-  action$
-    .ofType(ADD_TASK)
-    .pluck('payload')
-    .do(() => dispatchSetIsLoading(true))
-    .mergeMap(({ title, assignee, tags, priority, deadline }) =>
-      Promise.all([
-        postRequest('/saveTask')
-          .send({
-            title,
-            assignee,
-            tags,
-            priority,
-            deadline,
-            sentTime: '',
-            todos: [ 
-              {
-                title: 'done',
-                completed: false,
-              },
-            ],
-            level: 'ICE BOX',
-            created_at: new Date(),
-            userId: userIdView(),
-            wis: wisView(),
-          })
-          .on(
-            'error',
-            err =>
-              err.status !== 304 &&
-              dispatchChangeSnackbarStage('Server disconnected!'),
-          ),
-        postRequest('/saveTags')
-          .send({
-            tags,
-            userId: userIdView(),
-            wis: wisView(),
-          })
-          .on(
-            'error',
-            err =>
-              err.status !== 304 &&
-              dispatchChangeSnackbarStage('Server disconnected!'),
-          ),
-      ]),
-    )
-    .do(success => {
-      restoreTask(success[0].body)
-      loadTagsDataInAdd(success[1].body)
-    })
-    .do(() => dispatchChangeExpandMode('default'))
-    .do(() => dispatchChangeTab('ICE BOX'))
-    .do(() => dispatchSetIsLoading(false))
-    .do(() => dispatchResetInputs())
-    .filter(success => success[0].body.assignee)
-    .do((success) => {
-      const { title, assignee } = success[0].body
-      window.W && window.W.sendNotificationToUsers(
-      'Tasklite',
-      `${title.toUpperCase()} added`,
-      "",
-      [assignee.id])
-      }
-    )
-    .do(() => window.W && window.W.analytics('ADD_TASK'))
-    .ignoreElements()
 
 const effectHandleAddTag = action$ =>
   action$
@@ -140,25 +71,77 @@ const effectHandleAddTask = action$ =>
     ...payload,
     ...checkBeforeAddTask()
   }))
-  .do(({ message }) => dispatchChangeSnackbarStage(message))
-  .do(({ isError }) => dispatchChangeIsError(isError))
   .do(
-    ({
-      title,
-      assignee,
-      selectedTags,
-      priority,
-      deadline,
-      permission
-    }) =>
-    permission &&
-    dispatchAddTask(title, assignee, selectedTags, priority, deadline),
+    ({ permission, message }) =>
+      !permission && dispatchChangeSnackbarStage(message),
+  )
+  .do(({ isError }) => dispatchChangeIsError(isError))
+  .filter(({ permission }) => permission)
+  .do(() => dispatchSetIsLoading(true))
+  .mergeMap(({ title, assignee, selectedTags, priority, deadline }) =>
+    Promise.all([
+      postRequest('/saveTask')
+        .send({
+          title,
+          assignee,
+          tags: selectedTags,
+          priority,
+          deadline,
+          sentTime: '',
+          todos: [ 
+            {
+              title: 'done',
+              completed: false,
+            },
+          ],
+          level: 'ICE BOX',
+          created_at: new Date(),
+          userId: userIdView(),
+          wis: wisView(),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
+      postRequest('/saveTags')
+        .send({
+          tags: selectedTags,
+          userId: userIdView(),
+          wis: wisView(),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
+    ]),
+  )
+  .do(success => {
+    dispatchAddTask(success[0].body)
+    dispatchLoadTagsDataInAdd(success[1].body)
+  })
+  .do(() => dispatchChangeExpandMode('default'))
+  .do(() => dispatchChangeTab('ICE BOX'))
+  .do(() => dispatchSetIsLoading(false))
+  .do(() => dispatchResetInputs())
+  .do(() => window.W && window.W.analytics('ADD_TASK'))
+  .filter(success => success[0].body.assignee)
+  .do((success) => {
+    const { title, assignee } = success[0].body
+    window.W && window.W.sendNotificationToUsers(
+    'Tasklite',
+    `${title.toUpperCase()} added`,
+    "",
+    [assignee.id])
+    }
   )
   .ignoreElements()
 
 export default combineEpics(
   effectSearchTagsEpic,
-  addTaskEpic,
   effectHandleAddTag,
   effectHandleAddTask,
 )

@@ -20,49 +20,26 @@ export const dispatchFetchInitialData = (...args) =>
   dispatch(fetchInitialData(...args))
 
 export const SET_ISLOADING = 'SET_ISLOADING'
-export const setIsLoading = createAction(SET_ISLOADING, value => ({
-  value
-}))
+export const setIsLoading = createAction(SET_ISLOADING)
 export const dispatchSetIsLoading = (...args) => dispatch(setIsLoading(...args))
 
 export const CHANGE_TAB = 'CHANGE_TAB'
-export const changeTab = createAction(CHANGE_TAB, value => ({
-  value
-}))
+export const changeTab = createAction(CHANGE_TAB)
 export const dispatchChangeTab = (...args) => dispatch(changeTab(...args))
 
 export const LOAD_USERS_DATA = 'LOAD_USERS_DATA'
-export const loadUsersData = createAction(LOAD_USERS_DATA, users => ({
-  users
-}))
+export const loadUsersData = createAction(LOAD_USERS_DATA)
 export const dispatchLoadUsersData = (...args) =>
   dispatch(loadUsersData(...args))
 
 export const LOAD_TASKS_DATA = 'LOAD_TASKS_DATA'
-export const loadTasksData = createAction(LOAD_TASKS_DATA, tasks => ({
-  tasks
-}))
+export const loadTasksData = createAction(LOAD_TASKS_DATA)
 export const dispatchLoadTasksData = (...args) =>
   dispatch(loadTasksData(...args))
 
 export const ADD_TASK = 'ADD_TASK'
-export const addTask = createAction(
-  ADD_TASK,
-  (title, assignee, tags, priority, deadline) => ({
-    title,
-    assignee,
-    tags,
-    priority,
-    deadline,
-  }),
-)
+export const addTask = createAction(ADD_TASK)
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
-
-export const RESTORE_TASK = 'RESTORE_TASK'
-export const restoreTask = createAction(RESTORE_TASK, task => ({
-  task
-}))
-export const dispatchRestoreTask = (...args) => dispatch(restoreTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
 export const deleteTask = createAction(DELETE_TASK, task => ({
@@ -105,9 +82,7 @@ export const addTodo = createAction(ADD_TODO, (_id, value) => ({
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
 
 export const RESTORE_TODO = 'RESTORE_TODO'
-export const restoreTodo = createAction(RESTORE_TODO, task => ({
-  task
-}))
+export const restoreTodo = createAction(RESTORE_TODO)
 export const dispatchRestoreTodo = (...args) => dispatch(restoreTodo(...args))
 
 export const DELETE_TODO = 'DELETE_TODO'
@@ -125,9 +100,7 @@ export const setSentTime = createAction(SET_SENT_TIME, (_id, time) => ({
 export const dispatchSetSentTime = (...args) => dispatch(setSentTime(...args))
 
 export const LOAD_NUMBER_OF_TASKS = 'LOAD_NUMBER_OF_TASKS'
-export const loadNumberOfTasks = createAction(LOAD_NUMBER_OF_TASKS, value => ({
-  value,
-}))
+export const loadNumberOfTasks = createAction(LOAD_NUMBER_OF_TASKS)
 export const dispatchLoadNumberOfTasks = (...args) =>
   dispatch(loadNumberOfTasks(...args))
 

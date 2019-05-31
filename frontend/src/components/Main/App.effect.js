@@ -9,7 +9,7 @@ import { SET_ABOUT_MODE } from './App.action'
 const setAboutModeEpic = (action$, { dispatch }) =>
   action$.ofType(SET_ABOUT_MODE)
     .pluck('payload')
-    .do(({ value }) => value ? dispatch(push('/About')) : dispatch(push('/')))
+    .do(value => value ? dispatch(push('/About')) : dispatch(push('/')))
     .ignoreElements()
 
 

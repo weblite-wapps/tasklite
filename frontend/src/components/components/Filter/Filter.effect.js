@@ -13,9 +13,9 @@ const effectSearchTagsEpic = action$ =>
   action$
     .ofType(SET_QUERY_TAG_IN_FILTER)
     .pluck('payload')
-    .filter(({ queryTag }) => queryTag.trim() !== '')
+    .filter(queryTag => queryTag.trim() !== '')
     .debounceTime(250)
-    .mergeMap(({ queryTag }) =>
+    .mergeMap(queryTag =>
       getRequest('/searchTags')
         .query({
           wis: wisView(),
