@@ -18,6 +18,7 @@ const DatePicker = ({ value, onChange }) => (
       <MuiDatePicker
         autoOk
         label="Deadline"
+        disablePast
         labelFunc={date => (date ? date.format("jYYYY/jM/jD") : "")}
         value={value}
         onChange={onChange}
@@ -29,8 +30,12 @@ const DatePicker = ({ value, onChange }) => (
 
 
 DatePicker.propTypes = {
-  value: PropTypes.shape({}).isRequired,
-  onChange: PropTypes.func.isRequired
+  value: PropTypes.shape({}),
+  onChange: PropTypes.func.isRequired,
+}
+
+DatePicker.defaultProps = {
+  value: null,
 }
 
 export default DatePicker
