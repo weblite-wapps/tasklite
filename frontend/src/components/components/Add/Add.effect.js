@@ -18,7 +18,7 @@ import {
   SET_QUERY_TAG_IN_ADD,
   HANDLE_ADD_TAG,
   HANDLE_ADD_TASK,
-  fetchTagsInAdd,
+  dispatchFetchTagsInAdd,
   dispatchLoadTagsDataInAdd,
   dispatchResetInputs,
   dispatchAddTagInAdd,
@@ -34,6 +34,7 @@ const effectSearchTagsEpic = action$ =>
     .pluck('payload')
     .filter(queryTag => queryTag.trim() !== '')
     .debounceTime(250)
+    .do(() => dispatchSetIsLoading(true))
     .mergeMap(queryTag =>
       getRequest('/searchTags')
         .query({
@@ -48,7 +49,9 @@ const effectSearchTagsEpic = action$ =>
             dispatchChangeSnackbarStage('Server disconnected!'),
         ),
     )
-    .map(({ body }) => fetchTagsInAdd(body))
+    .do(({ body }) => dispatchFetchTagsInAdd(body)) 
+    .do(() => dispatchSetIsLoading(false))
+    .ignoreElements()
 
 const effectHandleAddTag = action$ =>
   action$

@@ -73,6 +73,7 @@ const initialFetchEpic = action$ =>
   action$
     .ofType(FETCH_INITIAL_DATA)
     .do(() => window.W && window.W.start())
+    .do(() => dispatchSetIsLoading(true))
     .mergeMap(
       () => getRequest('/initialFetch').query(getQuery())
       .on(
@@ -104,6 +105,7 @@ const initialFetchEpic = action$ =>
       }) =>
       dispatchLoadNumberOfTasks(numberOfTasks),
     )
+    .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
 const deleteTaskEpic = action$ =>
