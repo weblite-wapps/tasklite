@@ -13,7 +13,7 @@ const formattedSeconds = seconds => {
       ? `${Math.floor(seconds / 3600)}h`
       : `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`
 
-  return `${Math.floor(seconds / 86400)}Day` 
+  return `${Math.floor(seconds / 86400)}D` 
 }
 
 export const getRemained = time => {

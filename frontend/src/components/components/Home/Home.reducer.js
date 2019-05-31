@@ -104,7 +104,7 @@ const reducers = {
     tasks: R.prepend({
         _id: state.tasks.length.toString(),
         title,
-        assignee: assignee.username,
+        assignee,
         tags,
         priority,
         deadline,
@@ -127,7 +127,7 @@ const reducers = {
   }) => ({
     ...state,
     tasks: R.compose(
-      R.adjust(R.assoc('deadline', formattedTime(task.deadline)), 0),
+      R.adjust(R.assoc('deadline', formattedTime(task.deadline)), 0), 
       R.adjust(R.assoc('todoText', ''), 0),
       R.adjust(R.assoc('_id', task._id), 0),
     )(state.tasks),

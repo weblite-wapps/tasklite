@@ -57,6 +57,7 @@ const addTaskEpic = action$ =>
     .ofType(ADD_TASK)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
+    .do(console.log)
     .mergeMap(({ title, assignee, tags, priority, deadline }) =>
       Promise.all([
         postRequest('/saveTask')
@@ -67,7 +68,7 @@ const addTaskEpic = action$ =>
             priority,
             deadline,
             sentTime: '',
-            todos: [
+            todos: [ 
               {
                 title: 'done',
                 completed: false,
@@ -98,6 +99,7 @@ const addTaskEpic = action$ =>
           ),
       ]),
     )
+    .do(console.log)
     .do(success => {
       restoreTask(success[0].body)
       loadTagsDataInAdd(success[1].body)
@@ -105,11 +107,10 @@ const addTaskEpic = action$ =>
     .do(() => dispatchChangeExpandMode('default'))
     .do(() => dispatchChangeTab('ICE BOX'))
     .do(() => dispatchSetIsLoading(false))
-    .do(dispatchResetInputs)
+    .do(() => dispatchResetInputs())
     .filter(success => success[0].body.assignee)
     .do((success) => {
       const { title, assignee } = success[0].body
-      console.log(assignee.id)
       window.W && window.W.sendNotificationToUsers(
       'Tasklite',
       `${title.toUpperCase()} added`,
@@ -143,6 +144,7 @@ const effectHandleAddTask = action$ =>
   }))
   .do(({ message }) => dispatchChangeSnackbarStage(message))
   .do(({ isError }) => dispatchChangeIsError(isError))
+  .do(console.log)
   .do(
     ({
       title,

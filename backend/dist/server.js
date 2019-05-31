@@ -126,11 +126,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!*****************************************!*\
   !*** ./logic/components/task/helper.js ***!
   \*****************************************/
-/*! exports provided: getToggledValue, nothing */
+/*! exports provided: getToggledValue, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getToggledValue\", function() { return getToggledValue; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"nothing\", function() { return nothing; });\n/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ramda */ \"ramda\");\n/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ramda__WEBPACK_IMPORTED_MODULE_0__);\n// modules\n\nconst getToggledValue = (task, todoId) => ramda__WEBPACK_IMPORTED_MODULE_0__[\"compose\"](ramda__WEBPACK_IMPORTED_MODULE_0__[\"prop\"]('completed'), ramda__WEBPACK_IMPORTED_MODULE_0__[\"find\"](ramda__WEBPACK_IMPORTED_MODULE_0__[\"propEq\"]('_id', todoId)), ramda__WEBPACK_IMPORTED_MODULE_0__[\"prop\"]('todos'))(task);\nconst nothing = null;\n\n//# sourceURL=webpack:///./logic/components/task/helper.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getToggledValue\", function() { return getToggledValue; });\n/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ramda */ \"ramda\");\n/* harmony import */ var ramda__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ramda__WEBPACK_IMPORTED_MODULE_0__);\n// modules\n\nconst getToggledValue = (task, todoId) => ramda__WEBPACK_IMPORTED_MODULE_0__[\"compose\"](ramda__WEBPACK_IMPORTED_MODULE_0__[\"prop\"]('completed'), ramda__WEBPACK_IMPORTED_MODULE_0__[\"find\"](ramda__WEBPACK_IMPORTED_MODULE_0__[\"propEq\"]('_id', todoId)), ramda__WEBPACK_IMPORTED_MODULE_0__[\"prop\"]('todos'))(task);\n/* harmony default export */ __webpack_exports__[\"default\"] = (null);\n\n//# sourceURL=webpack:///./logic/components/task/helper.js?");
 
 /***/ }),
 

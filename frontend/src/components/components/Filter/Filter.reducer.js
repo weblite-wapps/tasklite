@@ -60,7 +60,7 @@ const reducers = {
 
   [CHANGE_ASSIGNEE_IN_FILTER]: (state, { id, username }) => ({
     ...state,
-    assignee: state.assignee.id === id ? {} : { username, id },
+    assignee: state.assignee.id === id ? {} : { name: username, id },
   }),
 }
 
