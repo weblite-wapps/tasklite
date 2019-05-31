@@ -58,9 +58,9 @@ const reducers = {
       { ...eachTag, isSelected: !eachTag.isSelected } : eachTag, state.tags),
   }),
 
-  [CHANGE_ASSIGNEE_IN_FILTER]: (state, { id, username }) => ({
+  [CHANGE_ASSIGNEE_IN_FILTER]: (state, { id, name }) => ({
     ...state,
-    assignee: state.assignee.id === id ? {} : { name: username, id },
+    assignee: state.assignee.id === id ? {} : { id, name },
   }),
 }
 

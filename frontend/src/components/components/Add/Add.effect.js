@@ -57,7 +57,6 @@ const addTaskEpic = action$ =>
     .ofType(ADD_TASK)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
-    .do(console.log)
     .mergeMap(({ title, assignee, tags, priority, deadline }) =>
       Promise.all([
         postRequest('/saveTask')
@@ -99,7 +98,6 @@ const addTaskEpic = action$ =>
           ),
       ]),
     )
-    .do(console.log)
     .do(success => {
       restoreTask(success[0].body)
       loadTagsDataInAdd(success[1].body)
@@ -144,7 +142,6 @@ const effectHandleAddTask = action$ =>
   }))
   .do(({ message }) => dispatchChangeSnackbarStage(message))
   .do(({ isError }) => dispatchChangeIsError(isError))
-  .do(console.log)
   .do(
     ({
       title,
