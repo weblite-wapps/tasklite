@@ -31,8 +31,8 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div className="c--filter_container">
-        <Avatar {...this.props} filterMode /> 
-        <TagPanel {...this.props} handleAddTag={this.handleAddTag} />
+        <Avatar {...this.props} filterMode />
+        <TagPanel {...this.props} handleAddTag={this.handleAddTag} label="SEARCH" />
       </div>
     )
   }

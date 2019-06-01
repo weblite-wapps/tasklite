@@ -9,7 +9,7 @@ body {
   height: 100%;
 }
 
-.c--home_container { 
+.c--home_container {
   display: flex;
   flex-direction: column;
 }
@@ -17,11 +17,17 @@ body {
 .c--home_textField {
   display: flex;
   align-items: flex-end;
-  margin: 0px 20px 5px 20px;
+  margin: 5px 20px 0px 20px;
 }
 
 .c--home_button {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.c--home_tagPanel-title {
+  color: #919191;
+  margin: 0px 0px 10px 20px;
+  font-size: 12px;
 }

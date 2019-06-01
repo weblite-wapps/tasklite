@@ -11,7 +11,12 @@ import ExitIcon from '@material-ui/icons/ExitToApp'
 import './App.scss'
 
 export const Logo = ({ isLoading, setAboutMode }) => (
-  <React.Fragment>
+  <Tooltip
+    title="About"
+    placement="bottom"
+    enterDelay={150}
+    leaveDelay={150}
+  >
     <div
       onClick={() => setAboutMode(true)}
       className="c--app_logoContainer"
@@ -31,7 +36,7 @@ export const Logo = ({ isLoading, setAboutMode }) => (
         />
       </div>
     </div>
-  </React.Fragment>
+  </Tooltip>
 )
 
 Logo.propTypes = {

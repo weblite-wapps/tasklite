@@ -60,14 +60,23 @@ export default createMuiTheme({
     MuiDialog: {
       root: {
         display: 'flex',
-        flexDirection: 'column', 
-        top: '50px',
+        flexDirection: 'column',
+        top: '52px',
+      },
+    },
+    MuiBackdrop: {
+      root: {
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
       },
     },
     MuiToolbar: {
       root: {
-        backgroundColor: '#62666C',
+        backgroundColor: '#505050',
         justifyContent: 'space-between',
+      },
+      gutters: {
+        paddingRight: '10px',
+        paddingLeft: '10px',
       },
     },
     MuiTab: {
@@ -88,11 +97,11 @@ export default createMuiTheme({
     MuiDivider: {
       root: {
         backgroundColor: '#000000',
-        margin: '5px 30px 5px 30px',
+        margin: '5px 30px',
       },
       middle: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
-        margin: '10px 0px 10px 0px',
+        margin: '10px 0px',
       },
       inset: {
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
@@ -103,6 +112,10 @@ export default createMuiTheme({
         backgroundColor: 'rgba(0, 0, 0, 0.2)',
         margin: '10px 30px 10px 0px',
         marginLeft: '0px',
+      },
+      light: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        margin: '20px 0px',
       },
     },
     MuiList: {
@@ -128,12 +141,12 @@ export default createMuiTheme({
       badge: {
         backgroundColor: '#519ae7',
         color: 'white',
-        top: '15px',
+        top: 'unset',
         right: '10px',
-        bottom: '10px',
+        bottom: '5px',
         fontSize: '0.5rem',
-        width: '20px',
-        height: '20px',
+        width: '21px',
+        height: '21px',
       },
     },
     MuiLinearProgress: {

@@ -7,12 +7,10 @@ export default () => ({
     cursor: 'pointer',
     outline: 'none',
     border: 'solid 5px transparent',
-    boxSizing: 'border-box',
-    transition: 'box-sizing 1s ease, border 1s ease',
+    transition: 'border 0.5s ease',
     '&:hover': {
       border: 'solid 5px #4CAF50',
-      boxSizing: 'content-box',
-      transition: 'box-sizing 1s, ease border 1s ease',
+      transition: 'border 0.5s ease',
     },
   },
   active: {
@@ -23,8 +21,7 @@ export default () => ({
     cursor: 'pointer',
     outline: 'none',
     border: 'solid 5px #4CAF50',
-    boxSizing: 'content-box',
-    transition: 'box-sizing 1s ease, border 1s ease',
+    transition: 'border 0.5s ease',
   },
   default: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
