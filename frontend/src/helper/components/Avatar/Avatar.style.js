@@ -9,7 +9,7 @@ export default () => ({
     border: 'solid 5px transparent',
     transition: 'border 0.5s ease',
     '&:hover': {
-      border: 'solid 5px #4CAF50',
+      border: 'solid 5px #519ae7',
       transition: 'border 0.5s ease',
     },
   },
@@ -20,7 +20,7 @@ export default () => ({
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
-    border: 'solid 5px #4CAF50',
+    border: 'solid 5px #519ae7',
     transition: 'border 0.5s ease',
   },
   default: {
