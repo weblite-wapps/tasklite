@@ -12,7 +12,7 @@ import {
   dispatchDeleteTask,
 } from '../../Home/Home.action'
 import {
-  dispatchChangeExpnadingId,
+  dispatchChangeExpandingId,
   dispatchChangePopoverId,
   dispatchEditButtonClick,
 } from './List.action'
@@ -25,7 +25,7 @@ const mapStateToProps = () => ({
 })
 
 const mapDispatchToProps = (_, { task }) => ({
-  onExpandClick: dispatchChangeExpnadingId,
+  onExpandClick: dispatchChangeExpandingId,
   onTodoTextChange: value => dispatchChangeTodoText(task._id, value),
   changePopoverId: dispatchChangePopoverId,
   deleteTask: () => dispatchDeleteTask(task),

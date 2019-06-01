@@ -12,7 +12,6 @@ import {
   LOAD_USERS_DATA,
   LOAD_TASKS_DATA,
   ADD_TASK,
-  RESTORE_TASK,
   DELETE_TASK,
   CHANGE_LEVEL,
   CHANGE_TODO_TEXT,
@@ -29,7 +28,6 @@ import {
 import {
   getUpdatedNumbersObject
 } from './Home.helper'
-import { formattedTime } from '../../../helper/functions/time.helper'
 
 // state
 const initialState = {
@@ -73,24 +71,16 @@ const reducers = {
     creator,
   }),
 
-  [SET_ISLOADING]: (state, {
-    value
-  }) => R.set(isLoadingLens, value, state),
+  [SET_ISLOADING]: (state, value) => R.set(isLoadingLens, value, state),
 
-  [CHANGE_TAB]: (state, {
-    value
-  }) => R.set(tabIndexLens, value, state),
+  [CHANGE_TAB]: (state, value) => R.set(tabIndexLens, value, state),
 
-  [LOAD_USERS_DATA]: (state, {
-    users
-  }) => ({
+  [LOAD_USERS_DATA]: (state, users) => ({
     ...state,
     users: R.uniq(R.concat(state.users, users)),
   }),
 
-  [LOAD_TASKS_DATA]: (state, {
-    tasks
-  }) => ({
+  [LOAD_TASKS_DATA]: (state, tasks) => ({
     ...state,
     tasks: R.compose(
       R.uniq(),
@@ -99,38 +89,12 @@ const reducers = {
     )(tasks),
   }),
 
-  [ADD_TASK]: (state, { title, assignee, tags, priority, deadline }) => ({
-    ...state,
-    tasks: R.prepend({
-        _id: state.tasks.length.toString(),
-        title,
-        assignee,
-        tags,
-        priority,
-        deadline,
-        level: 'ICE BOX',
-        todos: [{
-          title: 'done',
-          completed: false,
-          _id: 'fakjfjlcmlqgfgo'
-        }],
-        todoText: '',
-        sentTime: '',
-        wis: state.wis,
-      },
-      state.tasks,
-    ),
-  }),
-
-  [RESTORE_TASK]: (state, {
-    task
-  }) => ({
+  [ADD_TASK]: (state, task) => ({
     ...state,
     tasks: R.compose(
-      R.adjust(R.assoc('deadline', formattedTime(task.deadline)), 0), 
       R.adjust(R.assoc('todoText', ''), 0),
-      R.adjust(R.assoc('_id', task._id), 0),
-    )(state.tasks),
+      R.prepend(task),
+    )(state.tasks)
   }),
 
   [DELETE_TASK]: (state, {
@@ -218,12 +182,7 @@ const reducers = {
     ),
   }),
 
-  [RESTORE_TODO]: (state, {
-    task: {
-      _id,
-      todos
-    }
-  }) => ({
+  [RESTORE_TODO]: (state, { _id, todos }) => ({
     ...state,
     tasks: R.map(
       task =>
@@ -270,9 +229,7 @@ const reducers = {
     ),
   }),
 
-  [LOAD_NUMBER_OF_TASKS]: (state, {
-      value
-    }) =>
+  [LOAD_NUMBER_OF_TASKS]: (state, value) =>
     R.set(numbersObjectLens, value, state),
 
   [UPDATE_NUMBERS_OBJECT]: (state, {

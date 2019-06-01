@@ -19,10 +19,8 @@ import {
 import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
-  FETCH_ADMIN_DATA,
   dispatchLoadUsersData,
   dispatchLoadTasksData,
-  dispatchFetchAdminData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
   dispatchUpdateNumbersObject,
@@ -34,91 +32,83 @@ import {
   userView,
   userIdView,
   userNameView,
-  creatorView,
 } from './Home.reducer'
 
 
-const saveUsersEpic = action$ =>
+const usersEpic = action$ =>
   action$
-  .ofType(FETCH_INITIAL_DATA)
-  .mergeMap(() =>
-    postRequest('/saveUser').send({
-      wis: wisView(),
-      userId: userIdView(),
-      username: userNameView(),
-    })
-    .on(
-      'error',
-      err =>
-        err.status !== 304 &&
-        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-    ),
-  )
-  .do(({
-    body
-  }) => body && dispatchLoadUsersData([body]))
-  .do(() => dispatchChangeAssigneeInAdd(userView()))
-  .map(dispatchFetchAdminData)
-
-const fetchUsersEpic = action$ =>
-  action$
-  .ofType(FETCH_ADMIN_DATA)
-  .filter(() => creatorView())
-  .mergeMap(
-    () => getRequest('/fetchUsers').query({
-      wis: wisView()
-    })
-    .on(
-      'error',
-      err =>
-        err.status !== 304 &&
-        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-    ),
-  )
-  .do(({ body }) =>
-    window.W && window.W.getUsersInfo(mapToUsername(body)).then(info => {
-      const users = R.values(info)
-      dispatchLoadUsersDataInAdd(users) 
-      dispatchLoadUsersData(users)
-    }))
-  .ignoreElements()
+    .ofType(FETCH_INITIAL_DATA)
+    .do(() => dispatchSetIsLoading(true))
+    .mergeMap(() =>
+      postRequest('/saveUser').send({
+        wis: wisView(),
+        userId: userIdView(),
+        username: userNameView(),
+      })
+      .on(
+        'error',
+        err =>
+          err.status !== 304 &&
+          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+      ),
+    )
+    .do(() => dispatchChangeAssigneeInAdd(userView()))
+    .mergeMap(() => getRequest('/fetchUsers')
+      .query({ wis: wisView() })
+      .on(
+        'error',
+        err =>
+          err.status !== 304 &&
+          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+      ),
+    )
+    .do(({ body }) =>
+      window.W && window.W.getUsersInfo(mapToUsername(body)).then(info => {
+        const users = R.values(info)
+        dispatchLoadUsersDataInAdd(users) 
+        dispatchLoadUsersData(users)
+      }))
+    .do(() => dispatchSetIsLoading(false))
+    .ignoreElements()
 
 const initialFetchEpic = action$ =>
   action$
-  .ofType(FETCH_INITIAL_DATA)
-  .do(() => window.W && window.W.start())
-  .mergeMap(
-    () => getRequest('/initialFetch').query(getQuery())
-    .on(
-      'error',
-      err =>
-        err.status !== 304 &&
-        dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-    ),
-  )
-  .do(({
-    body: {
-      tasks
-    }
-  }) => dispatchLoadTasksData(tasks))
-  .do(({
-    body: {
-      tags
-    }
-  }) => dispatchLoadTagsDataInAdd(tags))
-  .do(({
-    body: {
-      tags
-    }
-  }) => dispatchLoadTagsDataInFilter(tags))
-  .do(({
+    .ofType(FETCH_INITIAL_DATA)
+    .do(() => window.W && window.W.start())
+    .do(() => dispatchSetIsLoading(true))
+    .mergeMap(
+      () => getRequest('/initialFetch').query(getQuery())
+      .on(
+        'error',
+        err =>
+          err.status !== 304 &&
+          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
+      ),
+    )
+    .do(({
       body: {
-        numberOfTasks
+        tasks
       }
-    }) =>
-    dispatchLoadNumberOfTasks(numberOfTasks),
-  )
-  .ignoreElements()
+    }) => dispatchLoadTasksData(tasks))
+    .do(({
+      body: {
+        tags
+      }
+    }) => dispatchLoadTagsDataInAdd(tags))
+    .do(({
+      body: {
+        tags
+      }
+    }) => dispatchLoadTagsDataInFilter(tags))
+    .do(({
+        body: {
+          numberOfTasks
+        }
+      }) =>
+      dispatchLoadNumberOfTasks(numberOfTasks),
+    )
+    .do(() => dispatchSetIsLoading(false))
+    .ignoreElements()
 
 const deleteTaskEpic = action$ =>
   action$
@@ -171,8 +161,7 @@ const loadMoreEpic = action$ =>
     .ignoreElements()
 
 export default combineEpics(
-  fetchUsersEpic,
-  saveUsersEpic,
+  usersEpic,
   initialFetchEpic,
   deleteTaskEpic,
   loadMoreEpic,

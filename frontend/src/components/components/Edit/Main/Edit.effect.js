@@ -30,7 +30,7 @@ const submitEditEpic = (action$, { dispatch }) =>
         })(),
     )
     .map(({ task, title, deadline, assignee, priority }) => ({
-      ...task, title, deadline, assignee, priority
+      ...task, title, deadline, assignee, priority,
     }))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(task => postRequest('/editTask')

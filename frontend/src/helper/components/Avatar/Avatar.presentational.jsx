@@ -5,18 +5,39 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import MuiAvatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
 // styles
 import './Avatar.scss'
 import styles from './Avatar.style'
 
-const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
+const Avatar = ({ classes, users, assignee, filterMode, onAssigneeChange }) => (
   <div className="c--avatar_container">
     <Typography variant="body2" className={classes.text}>
       Assignee
     </Typography>
 
     <div className="c--avatar_row">
+      {filterMode &&
+        <div className="c--avatar_column">
+          <MuiAvatar
+            className={
+              assignee.id === 'no assignee' ? classes.active : classes.passive
+            }
+            onClick={() => onAssigneeChange({ id: 'no assignee', name: 'no assignee' })}
+            role="button"
+            tabIndex="0"
+          >
+            {R.head('No assignee')}
+          </MuiAvatar>
+          <Typography
+            variant="body2"
+            align="center"
+            className={classes.username}
+            style={{ marginBottom: '5px' }}
+          >
+            No assignee
+          </Typography>
+        </div>
+      }
       {users.map(({ _id, id, username, firstname, profileImage }) => (
         <div key={_id} className="c--avatar_column">
           <MuiAvatar
@@ -41,21 +62,20 @@ const Avatar = ({ classes, isError, users, assignee, onAssigneeChange }) => (
         </div>
       ))}
     </div>
-    <Divider className={isError ? classes.error : classes.default} />
   </div>
 )
 
 Avatar.propTypes = {
   classes: PropTypes.shape({}).isRequired,
-  isError: PropTypes.bool,
   users: PropTypes.arrayOf(PropTypes.object).isRequired,
   assignee: PropTypes.shape({}),
+  filterMode: PropTypes.bool,
   onAssigneeChange: PropTypes.func.isRequired,
 }
 
 Avatar.defaultProps = {
-  isError: false,
   assignee: { id: '', name: '' },
+  filterMode: false,
 }
 
 export default withStyles(styles)(Avatar)

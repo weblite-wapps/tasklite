@@ -1,6 +1,7 @@
 // modules
 import React from "react";
 import PropTypes from "prop-types";
+import { endOfDay } from 'date-fns' 
 // components
 import CustomizedTextField from "../../../helper/components/TextField/TextField.presentational";
 import CustomizedSelectField from "../../../helper/components/SelectField/SelectField.presentational";
@@ -64,7 +65,7 @@ export const Button = ({
     <CustomizedButton
       label={label}
       componentName="Add"
-      onClick={() => handleAddTask(title, assignee, selectedTags, priority, deadline)}
+      onClick={() => handleAddTask(title, assignee, selectedTags, priority, endOfDay(deadline))}
     />
   </div>
 );

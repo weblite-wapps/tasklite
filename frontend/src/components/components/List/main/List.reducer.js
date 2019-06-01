@@ -19,9 +19,9 @@ export const expandingIdView = () => R.path(['List', 'expandingId'])(getState())
 
 // reducers
 const reducers = {
-  [CHANGE_POPOVER_ID]: (state, { value }) => R.set(popoverIdLens, value, state),
+  [CHANGE_POPOVER_ID]: (state, value) => R.set(popoverIdLens, value, state),
 
-  [CHANGE_EXPANDING_ID]: (state, { _id }) => ({
+  [CHANGE_EXPANDING_ID]: (state, _id) => ({
     ...state,
     expandingId: state.expandingId === _id ? '' : _id,
   }),

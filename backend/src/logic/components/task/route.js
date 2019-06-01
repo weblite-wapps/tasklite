@@ -130,6 +130,6 @@ app.get('/loadMore', ({
 
 app.post("/editTask", ({ body, body: { _id } }, res) =>
   updateTask({ _id }, body)
-    .then(task => res.send(task))
+    .then(() => res.send('edited successfully!'))
     .catch(logger)
-);
+)

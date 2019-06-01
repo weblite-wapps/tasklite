@@ -20,9 +20,9 @@ export const aboutModeView = () => R.path(['App', 'aboutMode'])(getState())
 
 // reducers
 const reducers = {
-  [CHANGE_EXPAND_MODE]: (state, { newMode }) => R.set(expandModeLens, newMode, state),
+  [CHANGE_EXPAND_MODE]: (state, newMode) => R.set(expandModeLens, newMode, state),
 
-  [SET_ABOUT_MODE]: (state, { value }) => R.set(aboutModeLens, value, state),
+  [SET_ABOUT_MODE]: (state, value) => R.set(aboutModeLens, value, state),
 }
 
 export default (state = initialState, { type, payload }) =>

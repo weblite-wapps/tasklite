@@ -35,6 +35,7 @@ const SelectField = ({
       SelectProps={{ native: true, MenuProps: { className: "c--selectField_menu" } }}
       margin="normal"
     >
+      <option value="">none</option>
       {options.map(option => (
         <option key={option.label} value={option.value}>
           {option.label}

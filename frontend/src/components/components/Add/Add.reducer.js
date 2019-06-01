@@ -20,7 +20,7 @@ import {
 // state
 const initialState = {
   title: '',
-  priority: 1,
+  priority: '',
   deadline: jMoment(),
   queryTag: '',
   suggestions: [],
@@ -51,15 +51,15 @@ export const isErrorView = () => R.path(['Add', 'isError'])(getState())
 const reducers = {
   [CHANGE_DEADLINE]: (state, value) => R.set(deadlineLens, value, state),
 
-  [CHANGE_TITLE]: (state, { value }) => R.set(titleLens, value, state),
+  [CHANGE_TITLE]: (state, value) => R.set(titleLens, value, state),
 
-  [CHANGE_PRIORITY]: (state, { value }) => R.set(priorityLens, value, state),
+  [CHANGE_PRIORITY]: (state, value) => R.set(priorityLens, value, state),
 
   [LOAD_TAGS_DATA_IN_ADD]: (state, { tags }) => ({ ...state,
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
-  [SET_QUERY_TAG_IN_ADD]: (state, { queryTag }) => R.set(queryTagLens, queryTag)(state),
+  [SET_QUERY_TAG_IN_ADD]: (state, queryTag) => R.set(queryTagLens, queryTag)(state),
 
   [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(suggestionsLens, tags, state),
 
@@ -73,7 +73,7 @@ const reducers = {
     queryTag: '',
   }),
 
-  [CHANGE_SELECTED_TAGS_IN_ADD]: (state, { tag }) => ({ ...state,
+  [CHANGE_SELECTED_TAGS_IN_ADD]: (state, tag) => ({ ...state,
     selectedTags: tag.isSelected ?
       R.remove(R.indexOf(tag.label, state.selectedTags), 1, state.selectedTags) :
       R.append(tag.label, state.selectedTags),
