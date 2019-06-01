@@ -38,6 +38,7 @@ import {
 const usersEpic = action$ =>
   action$
     .ofType(FETCH_INITIAL_DATA)
+    .do(() => dispatchSetIsLoading(true))
     .mergeMap(() =>
       postRequest('/saveUser').send({
         wis: wisView(),
@@ -67,6 +68,7 @@ const usersEpic = action$ =>
         dispatchLoadUsersDataInAdd(users) 
         dispatchLoadUsersData(users)
       }))
+    .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
 const initialFetchEpic = action$ =>

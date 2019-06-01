@@ -23,6 +23,10 @@ export const getFilteredTasks = createSelector(
   [getTasks, getAssignee, getSelectedTags],
   (tasks, assignee, selectedTags) => R.compose(
     R.filter(task => filteredTags(selectedTags, task.tags)),
-    R.filter(task => assignee.name ? task.assignee.name === assignee.name : true),
+    R.filter((task) => {
+      if (!assignee.name) return true
+      else if (assignee.name && !task.assignee) return true
+      return task.assignee.name === assignee.name
+    }),
   )(tasks)
 )
