@@ -2,7 +2,9 @@
 import mongoose from 'mongoose'
 
 
-const { Schema } = mongoose
+const {
+  Schema
+} = mongoose
 
 const TaskSchema = new Schema({
   title: String,
@@ -19,6 +21,7 @@ const TaskSchema = new Schema({
     title: String,
     completed: Boolean,
   }],
+  indexInDb: Number,
   created_at: Date,
   userId: String,
   wis: String,

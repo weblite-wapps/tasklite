@@ -12,7 +12,8 @@ import {
 } from './db'
 // helpers
 import {
-  getToggledValue
+  getToggledValue,
+  calcNewIndexInDb,
 } from './helper'
 // const
 const logger = console.log
@@ -39,7 +40,7 @@ app.post('/changeLevel', ({
     $set: {
       level: body.nextLevel
     }
-  })
+  }, {})
   .then(() => res.send(body))
   .catch(logger))
 
@@ -55,7 +56,7 @@ app.post('/setSentTime', ({
     $set: {
       sentTime
     }
-  })
+  }, {})
   .then(() => res.send('sent time set!'))
   .catch(logger))
 
@@ -73,7 +74,7 @@ app.post('/toggleTodo', ({
     $set: {
       'todos.$.completed': getToggledValue(task, todoId)
     }
-  })
+  }, {})
   .then(() => res.send('toggled successfully!'))
   .catch(logger))
 
@@ -95,7 +96,7 @@ app.post('/addTodo', ({
         $position: 0
       }
     }
-  })
+  }, {})
   .then(() => fetchTasks({
     _id: mongoose.Types.ObjectId(_id)
   }))
@@ -116,7 +117,7 @@ app.post('/deleteTodo', ({
         _id: todoId
       }
     }
-  })
+  }, {})
   .then(() => res.send('deleted successfully!'))
   .catch(logger))
 
@@ -128,8 +129,35 @@ app.get('/loadMore', ({
   .catch(logger))
 
 
-app.post("/editTask", ({ body, body: { _id } }, res) =>
-  updateTask({ _id }, body)
-    .then(() => res.send('edited successfully!'))
-    .catch(logger)
+app.post("/editTask", ({
+    body,
+    body: {
+      _id
+    }
+  }, res) =>
+  updateTask({
+    _id
+  }, body, {})
+  .then(() => res.send('edited successfully!'))
+  .catch(logger)
+)
+
+app.post(
+  '/dragTask',
+  ({
+    body: {
+      sourceId,
+      desIndexInDb,
+      desSiblingIndexInDb
+    }
+  }, res) =>
+  updateTask({
+    _id: sourceId
+  }, {
+    indexInDb: calcNewIndexInDb(desIndexInDb, desSiblingIndexInDb)
+  }, {
+    new: true
+  }, )
+  .then(data => res.send(data))
+  .catch(console.log),
 )

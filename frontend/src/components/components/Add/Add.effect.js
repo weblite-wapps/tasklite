@@ -1,19 +1,27 @@
 // modules
-import { combineEpics } from 'redux-observable'
+import {
+  combineEpics
+} from 'redux-observable'
+import * as R from 'ramda'
 import 'rxjs'
 // helpers
 import {
   getRequest,
   postRequest,
 } from '../../../helper/functions/request.helper'
-import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
+import {
+  checkBeforeAddTag,
+  checkBeforeAddTask
+} from './Add.helper'
 // actions
 import {
-  dispatchAddTask, 
+  dispatchAddTask,
   dispatchChangeTab,
   dispatchSetIsLoading,
 } from '../Home/Home.action'
-import { dispatchChangeExpandMode } from '../../Main/App.action'
+import {
+  dispatchChangeExpandMode
+} from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
   HANDLE_ADD_TAG,
@@ -24,47 +32,60 @@ import {
   dispatchAddTagInAdd,
   dispatchChangeIsError
 } from "./Add.action"
-import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
+import {
+  dispatchChangeSnackbarStage
+} from '../Snackbar/Snackbar.action'
 // views
-import { wisView, userIdView } from '../Home/Home.reducer'
+import {
+  wisView,
+  userIdView,
+  tasksView
+} from '../Home/Home.reducer'
 
 const effectSearchTagsEpic = action$ =>
   action$
-    .ofType(SET_QUERY_TAG_IN_ADD)
-    .pluck('payload')
-    .filter(queryTag => queryTag.trim() !== '')
-    .debounceTime(250)
-    .do(() => dispatchSetIsLoading(true))
-    .mergeMap(queryTag =>
-      getRequest('/searchTags')
-        .query({
-          wis: wisView(),
-          userId: userIdView(),
-          label: queryTag,
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(({ body }) => dispatchFetchTagsInAdd(body)) 
-    .do(() => dispatchSetIsLoading(false))
-    .ignoreElements()
+  .ofType(SET_QUERY_TAG_IN_ADD)
+  .pluck('payload')
+  .filter(queryTag => queryTag.trim() !== '')
+  .debounceTime(250)
+  .do(() => dispatchSetIsLoading(true))
+  .mergeMap(queryTag =>
+    getRequest('/searchTags')
+    .query({
+      wis: wisView(),
+      userId: userIdView(),
+      label: queryTag,
+    })
+    .on(
+      'error',
+      err =>
+      err.status !== 304 &&
+      dispatchChangeSnackbarStage('Server disconnected!'),
+    ),
+  )
+  .do(({
+    body
+  }) => dispatchFetchTagsInAdd(body))
+  .do(() => dispatchSetIsLoading(false))
+  .ignoreElements()
 
 const effectHandleAddTag = action$ =>
   action$
-    .ofType(HANDLE_ADD_TAG)
-    .map(() => ({
-      ...checkBeforeAddTag(),
-    }))
-    .do(({ permission }) => permission && dispatchAddTagInAdd())
-    .do(
-      ({ permission, message }) =>
-        !permission && dispatchChangeSnackbarStage(message),
-    )
-    .ignoreElements()
+  .ofType(HANDLE_ADD_TAG)
+  .map(() => ({
+    ...checkBeforeAddTag(),
+  }))
+  .do(({
+    permission
+  }) => permission && dispatchAddTagInAdd())
+  .do(
+    ({
+      permission,
+      message
+    }) =>
+    !permission && dispatchChangeSnackbarStage(message),
+  )
+  .ignoreElements()
 
 const effectHandleAddTask = action$ =>
   action$
@@ -72,54 +93,69 @@ const effectHandleAddTask = action$ =>
   .pluck('payload')
   .map(payload => ({
     ...payload,
-    ...checkBeforeAddTask()
+    ...checkBeforeAddTask(),
+    indexInDb: R.length(tasksView()) ?
+      R.prop('indexInDb', R.head(tasksView())) + 1 : 0,
   }))
   .do(
-    ({ permission, message }) =>
-      !permission && dispatchChangeSnackbarStage(message),
+    ({
+      permission,
+      message
+    }) =>
+    !permission && dispatchChangeSnackbarStage(message),
   )
-  .do(({ isError }) => dispatchChangeIsError(isError))
-  .filter(({ permission }) => permission)
+  .do(({
+    isError
+  }) => dispatchChangeIsError(isError))
+  .filter(({
+    permission
+  }) => permission)
   .do(() => dispatchSetIsLoading(true))
-  .mergeMap(({ title, assignee, selectedTags, priority, deadline }) =>
+  .mergeMap(({
+      title,
+      assignee,
+      selectedTags,
+      priority,
+      deadline,
+      indexInDb,
+    }) =>
     Promise.all([
       postRequest('/saveTask')
-        .send({
-          title,
-          assignee,
-          tags: selectedTags,
-          priority,
-          deadline,
-          sentTime: '',
-          todos: [ 
-            {
-              title: 'done',
-              completed: false,
-            },
-          ],
-          level: 'ICE BOX',
-          created_at: new Date(),
-          userId: userIdView(),
-          wis: wisView(),
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
+      .send({
+        title,
+        assignee,
+        tags: selectedTags,
+        priority,
+        deadline,
+        sentTime: '',
+        todos: [{
+          title: 'done',
+          completed: false,
+        }, ],
+        level: 'ICE BOX',
+        created_at: new Date(),
+        userId: userIdView(),
+        wis: wisView(),
+        indexInDb,
+      })
+      .on(
+        'error',
+        err =>
+        err.status !== 304 &&
+        dispatchChangeSnackbarStage('Server disconnected!'),
+      ),
       postRequest('/saveTags')
-        .send({
-          tags: selectedTags,
-          userId: userIdView(),
-          wis: wisView(),
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
+      .send({
+        tags: selectedTags,
+        userId: userIdView(),
+        wis: wisView(),
+      })
+      .on(
+        'error',
+        err =>
+        err.status !== 304 &&
+        dispatchChangeSnackbarStage('Server disconnected!'),
+      ),
     ]),
   )
   .do(success => {
@@ -133,14 +169,16 @@ const effectHandleAddTask = action$ =>
   .do(() => window.W && window.W.analytics('ADD_TASK'))
   .filter(success => success[0].body.assignee)
   .do((success) => {
-    const { title, assignee } = success[0].body
+    const {
+      title,
+      assignee
+    } = success[0].body
     window.W && window.W.sendNotificationToUsers(
-    'Tasklite',
-    `${title.toUpperCase()} added`,
-    "",
-    [assignee.id])
-    }
-  )
+      'Tasklite',
+      `${title.toUpperCase()} added`,
+      "",
+      [assignee.id])
+  })
   .ignoreElements()
 
 export default combineEpics(

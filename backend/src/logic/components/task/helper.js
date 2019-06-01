@@ -9,4 +9,7 @@ export const getToggledValue = (task, todoId) =>
     R.prop('todos'),
   )(task)
 
-export default null
+export const calcNewIndexInDb = (desIndexInDb, desSiblingIndexInDb) => {
+  if (desIndexInDb && desSiblingIndexInDb)
+    return (desIndexInDb + desSiblingIndexInDb) / 2
+}

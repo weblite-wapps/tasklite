@@ -24,37 +24,37 @@ const SubInfo = ({
   todos,
   _id,
 }) => (
-  <React.Fragment>
-    <Typography variant="button">{label}</Typography>
-    <Typography variant="caption">
-      {tags && R.join(', ', tags)}
-      {deadline &&
-        `${formattedTime(deadline)} - ${getRemained(deadline)}`} 
-      {sentTime &&
-        `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
-      {assignee && assignee.name}
-      <FlipMove
-        duration={500}
-        staggerDelayBy={150}
-        enterAnimation="elevator"
-        leaveAnimation={false}
-      >
-        {todos &&
-          todos.map((todo, index) => (
-            <Todo
-              key={todo._id}
-              level={level}
-              _id={_id}
-              todo={todo}
-              length={todos.length}
-              index={index + 1}
-            />
-          ))}
-      </FlipMove>
-    </Typography>
-    <Divider variant="inset" />
-  </React.Fragment>
-)
+    <React.Fragment>
+      <Typography variant="button">{label}</Typography>
+      <Typography variant="caption">
+        {tags && R.join(', ', tags)}
+        {deadline &&
+          `${formattedTime(deadline)} - ${getRemained(deadline)}`}
+        {sentTime &&
+          `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
+        {assignee && assignee.name}
+        <FlipMove
+          duration={500}
+          staggerDelayBy={150}
+          enterAnimation="elevator"
+          leaveAnimation={false}
+        >
+          {todos &&
+            todos.map((todo, index) => (
+              <Todo
+                key={todo._id}
+                level={level}
+                _id={_id}
+                todo={todo}
+                length={todos.length}
+                index={index + 1}
+              />
+            ))}
+        </FlipMove>
+      </Typography>
+      <Divider variant="inset" />
+    </React.Fragment>
+  )
 
 SubInfo.propTypes = {
   label: PropTypes.string.isRequired,

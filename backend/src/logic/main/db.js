@@ -7,10 +7,10 @@ import {
 } from './helper'
 
 
-export const fetchTasks = async query => Task
-  .find(query)
+export const fetchTasks = async query =>
+  Task.find(query)
   .sort({
-    created_at: -1
+    indexInDb: -1,
   })
   .limit(getLimit(query.level))
   .exec()

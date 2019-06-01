@@ -23,6 +23,8 @@ import {
   LOAD_NUMBER_OF_TASKS,
   UPDATE_NUMBERS_OBJECT,
   SET_EDITED_TASK,
+  SET_ALL_TASKS,
+  SET_INDEXINDB,
 } from './Home.action'
 // helpers
 import {
@@ -89,10 +91,43 @@ const reducers = {
     )(tasks),
   }),
 
+  // [ADD_TASK]: (
+  //   state, {
+  //     title,
+  //     selectedUser,
+  //     tags,
+  //     priority,
+  //     deadline,
+  //     indexInDb
+  //   },
+  // ) => ({
+  //   ...state,
+  //   tasks: R.prepend({
+  //       _id: state.tasks.length.toString(),
+  //       title,
+  //       assignee: selectedUser.name,
+  //       tags,
+  //       priority,
+  //       deadline,
+  //       level: 'ICE BOX',
+  //       todos: [{
+  //         title: 'done',
+  //         completed: false,
+  //         _id: 'fakjfjlcmlqgfgo'
+  //       }],
+  //       todoText: '',
+  //       sentTime: '',
+  //       wis: state.wis,
+  //       indexInDb,
+  //     },
+  //     state.tasks,
+  //   ),
+  // }),
+
   [ADD_TASK]: (state, task) => ({
     ...state,
     tasks: R.compose(
-      R.adjust(R.assoc('todoText', ''), 0),
+      R.adjust(0, R.assoc('todoText', '')),
       R.prepend(task),
     )(state.tasks)
   }),
@@ -182,13 +217,16 @@ const reducers = {
     ),
   }),
 
-  [RESTORE_TODO]: (state, { _id, todos }) => ({
+  [RESTORE_TODO]: (state, {
+    _id,
+    todos
+  }) => ({
     ...state,
     tasks: R.map(
       task =>
       task._id === _id ? {
         ...task,
-        todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
+        todos: R.adjust(0, R.assoc('_id', todos[0]._id), task.todos),
       } :
       task,
       state.tasks,
@@ -245,6 +283,26 @@ const reducers = {
     ...state,
     tasks: R.map(task => (task._id === newTask._id ? newTask : task), state.tasks),
   }),
+
+  [SET_ALL_TASKS]: (state, tasks) => ({
+    ...state,
+    tasks,
+  }),
+
+  [SET_INDEXINDB]: (state, {
+    _id,
+    indexInDb
+  }) => ({
+    ...state,
+    tasks: R.map(
+      task => (task._id === _id ? {
+        ...task,
+        indexInDb
+      } : task),
+      state.tasks,
+    ),
+  }),
+
 }
 
 export default (state = initialState, {

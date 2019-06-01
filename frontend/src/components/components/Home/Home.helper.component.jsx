@@ -1,9 +1,10 @@
 // modules
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import FlipMove from 'react-flip-move'
 import MuiCollapse from '@material-ui/core/Collapse'
 import Divider from '@material-ui/core/Divider'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 // components
 import CustomizedTaskList from '../List/main/List.container.react'
 import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational'
@@ -25,21 +26,91 @@ Collapse.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export const TaskList = ({ tasks, tabIndex }) => (
-  <FlipMove
-    typeName={null}
-    duration={500}
-    staggerDelayBy={150}
-    enterAnimation="elevator"
-    leaveAnimation={false}
-  >
-    {tasks
-      .filter(task => task.level === tabIndex)
-      .map(task => (
-        <CustomizedTaskList key={task._id} task={task} />
-      ))}
-  </FlipMove>
-)
+class DroppableItemTask extends Component {
+  render() {
+    const { task, provided } = this.props
+    return (
+      <div
+        ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+      >
+        <CustomizedTaskList task={task} />
+      </div>
+    )
+  }
+}
+
+class DroppableItem extends Component {
+  render() {
+    const { provided, tasks, tabIndex, isLoading } = this.props
+    return (
+      <div ref={provided.innerRef}>
+        <FlipMove
+          typeName={null}
+          duration={500}
+          staggerDelayBy={150}
+          enterAnimation="elevator"
+          leaveAnimation={false}
+        >
+          {tasks
+            .filter(task => task.level === tabIndex)
+            .map((task, index) => (
+              <Draggable
+                key={task._id}
+                isDragDisabled={isLoading}
+                draggableId={task._id}
+                index={index}
+              >
+                {provided => (
+                  <DroppableItemTask task={task} provided={provided} />
+                )}
+              </Draggable>
+            ))}
+        </FlipMove>
+      </div>
+    )
+  }
+}
+
+DroppableItem.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tabIndex: PropTypes.string.isRequired,
+}
+
+export class TaskList extends Component {
+  constructor(props) {
+    super(props)
+    this.onDragEnd = this.onDragEnd.bind(this)
+  }
+
+  onDragEnd(e) {
+    const { dragTask } = this.props
+    dragTask(e)
+  }
+
+  render() {
+    const { ...props } = this.props
+    return (
+      <>
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
+        >
+          <Droppable droppableId="droppable">
+            {provided => (
+              <DroppableItem
+                provided={provided}
+                innerRef={provided.innerRef}
+                {...props}
+              />
+            )}
+          </Droppable>
+        </DragDropContext>
+      </>
+    )
+  }
+}
 
 TaskList.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -53,16 +124,16 @@ export const LoadMore = ({
   tabIndex,
   onLoadMore,
 }) => (
-  <div className="c--home_button">
-    {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
-      <CustomizedButton
-        label="Load More"
-        onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
-        componentName="Add"
-      />
-    ) : null}
-  </div>
-)
+    <div className="c--home_button">
+      {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
+        <CustomizedButton
+          label="Load More"
+          onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
+          componentName="Add"
+        />
+      ) : null}
+    </div>
+  )
 
 LoadMore.propTypes = {
   expandMode: PropTypes.string.isRequired,
@@ -80,25 +151,25 @@ export const TagPanel = ({
   onTagClick,
   handleAddTag,
 }) => (
-  <React.Fragment>
-    <div className="c--home_textField">
-      <Autocomplete
-        label="Tags"
-        suggestions={suggestions}
-        inputValue={queryTag}
-        onInputValueChange={e => onQueryTagChange(e.target.value)}
-        onSelect={value => onQueryTagChange(value)}
-        onAdd={handleAddTag}
-      />
-      <CustomizedButton
-        label="ADD"
-        onClick={handleAddTag}
-        componentName="Add"
-      />
-    </div>
-    <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-  </React.Fragment>
-)
+    <React.Fragment>
+      <div className="c--home_textField">
+        <Autocomplete
+          label="Tags"
+          suggestions={suggestions}
+          inputValue={queryTag}
+          onInputValueChange={e => onQueryTagChange(e.target.value)}
+          onSelect={value => onQueryTagChange(value)}
+          onAdd={handleAddTag}
+        />
+        <CustomizedButton
+          label="ADD"
+          onClick={handleAddTag}
+          componentName="Add"
+        />
+      </div>
+      <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+    </React.Fragment>
+  )
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,

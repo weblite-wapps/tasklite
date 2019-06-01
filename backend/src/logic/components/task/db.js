@@ -21,10 +21,14 @@ export const fetchTasks = async query => Task
 export const saveTask = async task => new Task(task)
   .save()
 
-export const updateTask = async (query, updateObject) => Task
-  .update(query, updateObject)
-  .exec()
-
 export const deleteTask = async query => Task
   .remove(query)
+  .exec()
+
+export const updateTask = async (query, updateObject, updateOption) =>
+  Task.findByIdAndUpdate(query, updateObject, updateOption)
+  .select({
+    indexInDb: 1,
+    _id: 1
+  })
   .exec()

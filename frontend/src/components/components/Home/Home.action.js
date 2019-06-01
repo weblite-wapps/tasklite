@@ -37,6 +37,20 @@ export const loadTasksData = createAction(LOAD_TASKS_DATA)
 export const dispatchLoadTasksData = (...args) =>
   dispatch(loadTasksData(...args))
 
+// export const ADD_TASK = 'ADD_TASK'
+// export const addTask = createAction(
+//   ADD_TASK,
+//   (title, selectedUser, tags, priority, deadline, indexInDb) => ({
+//     title,
+//     selectedUser,
+//     tags,
+//     priority,
+//     deadline,
+//     indexInDb,
+//   }),
+// )
+// export const dispatchAddTask = (...args) => dispatch(addTask(...args))
+
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(ADD_TASK)
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))
@@ -118,3 +132,16 @@ export const dispatchUpdateNumbersObject = (...args) =>
 export const SET_EDITED_TASK = 'SET_EDITED_TASK'
 export const setEditedTask = createAction(SET_EDITED_TASK)
 export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))
+
+export const SET_ALL_TASKS = 'SET_ALL_TASKS'
+export const setAllTasks = createAction(SET_ALL_TASKS)
+export const dispatchSetAllTasks = (...args) => dispatch(setAllTasks(...args))
+
+export const HANDLE_DRAG_TASK = 'HANDLE_DRAG_TASK'
+export const handleDragTask = createAction(HANDLE_DRAG_TASK)
+export const dispatchHandleDragTask = (...args) =>
+  dispatch(handleDragTask(...args))
+
+export const SET_INDEXINDB = 'SET_INDEXINDB'
+export const setIndexInDb = createAction(SET_INDEXINDB)
+export const dispatchSetIndexInDb = (...args) => dispatch(setIndexInDb(...args))
