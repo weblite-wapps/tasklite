@@ -28,10 +28,10 @@ Collapse.propTypes = {
 
 class DroppableItemTask extends Component {
   render() {
-    const { task, provided } = this.props
+    const { task, provided, innerRef } = this.props
     return (
       <div
-        ref={provided.innerRef}
+        ref={innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
@@ -63,7 +63,11 @@ class DroppableItem extends Component {
                 index={index}
               >
                 {provided => (
-                  <DroppableItemTask task={task} provided={provided} />
+                  <DroppableItemTask
+                    innerRef={provided.innerRef}
+                    task={task}
+                    provided={provided}
+                  />
                 )}
               </Draggable>
             ))}
@@ -100,6 +104,8 @@ export class TaskList extends Component {
           <Droppable droppableId="droppable">
             {provided => (
               <DroppableItem
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
                 provided={provided}
                 innerRef={provided.innerRef}
                 {...props}
@@ -124,16 +130,16 @@ export const LoadMore = ({
   tabIndex,
   onLoadMore,
 }) => (
-    <div className="c--home_button">
-      {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
-        <CustomizedButton
-          label="Load More"
-          onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
-          componentName="Add"
-        />
-      ) : null}
-    </div>
-  )
+  <div className="c--home_button">
+    {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
+      <CustomizedButton
+        label="Load More"
+        onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
+        componentName="Add"
+      />
+    ) : null}
+  </div>
+)
 
 LoadMore.propTypes = {
   expandMode: PropTypes.string.isRequired,
@@ -151,25 +157,25 @@ export const TagPanel = ({
   onTagClick,
   handleAddTag,
 }) => (
-    <React.Fragment>
-      <div className="c--home_textField">
-        <Autocomplete
-          label="Tags"
-          suggestions={suggestions}
-          inputValue={queryTag}
-          onInputValueChange={e => onQueryTagChange(e.target.value)}
-          onSelect={value => onQueryTagChange(value)}
-          onAdd={handleAddTag}
-        />
-        <CustomizedButton
-          label="ADD"
-          onClick={handleAddTag}
-          componentName="Add"
-        />
-      </div>
-      <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-    </React.Fragment>
-  )
+  <React.Fragment>
+    <div className="c--home_textField">
+      <Autocomplete
+        label="Tags"
+        suggestions={suggestions}
+        inputValue={queryTag}
+        onInputValueChange={e => onQueryTagChange(e.target.value)}
+        onSelect={value => onQueryTagChange(value)}
+        onAdd={handleAddTag}
+      />
+      <CustomizedButton
+        label="ADD"
+        onClick={handleAddTag}
+        componentName="Add"
+      />
+    </div>
+    <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+  </React.Fragment>
+)
 
 TagPanel.propTypes = {
   queryTag: PropTypes.string.isRequired,
