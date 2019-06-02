@@ -15,6 +15,7 @@ import {
   formatTitle,
   getProgressBarPercent,
   checkToShow,
+  priorityClasses,
 } from './List.helper'
 import {
   getRemained,
@@ -28,27 +29,24 @@ export const TitleAndLevelButtons = props => {
     task: { title, priority },
   } = props
 
+  const priorityClass = priorityClasses[priority]
+
   return (
     <div className="c--list_text">
-      <div className="c--list_title">
-        {priority && <img
-          src={`${priority}.png`}
-          alt="priority"
-          className="c--list_priority"
-        />}
+      <div className={priorityClass}>
         <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
           {formatTitle(title) === title ? (
             <span>{formatTitle(title)}</span>
           ) : (
-            <Tooltip
-              title={title}
-              placement="bottom"
-              enterDelay={150}
-              leaveDelay={150}
-            >
-              <span>{formatTitle(title)}</span>
-            </Tooltip>
-          )}
+              <Tooltip
+                title={title}
+                placement="bottom"
+                enterDelay={150}
+                leaveDelay={150}
+              >
+                <span>{formatTitle(title)}</span>
+              </Tooltip>
+            )}
         </Typography>
       </div>
       <ActionButtons {...props} />
@@ -113,16 +111,16 @@ ProgressPanel.propTypes = {
 export const FurtherInfo = ({
   task: { _id, tags, deadline, level, sentTime, assignee, todos },
 }) => (
-  <React.Fragment>
-    <SubInfo label="TAGS" tags={tags} />
-    <SubInfo label="DEADLINE" deadline={deadline} />
-    {(level === 'EVALUATE' || level === 'DONE') && (
-      <SubInfo label="SENT TIME" sentTime={sentTime} />
-    )}
-    <SubInfo label="ASSIGNEE" assignee={assignee} /> 
-    <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
-  </React.Fragment>
-)
+    <React.Fragment>
+      <SubInfo label="TAGS" tags={tags} />
+      <SubInfo label="DEADLINE" deadline={deadline} />
+      {(level === 'EVALUATE' || level === 'DONE') && (
+        <SubInfo label="SENT TIME" sentTime={sentTime} />
+      )}
+      <SubInfo label="ASSIGNEE" assignee={assignee} />
+      <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
+    </React.Fragment>
+  )
 
 FurtherInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,

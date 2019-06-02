@@ -1,7 +1,9 @@
 // modules
 import * as R from 'ramda'
 // views
-import { tabIndexView } from '../../Home/Home.reducer'
+import {
+  tabIndexView
+} from '../../Home/Home.reducer'
 
 
 export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name
@@ -24,9 +26,19 @@ export const checkToShow = (info) => {
   const tabIndex = tabIndexView()
 
   switch (info) {
-    case 'deadline': return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
-    case 'sentTime': return tabIndex === 'EVALUATE'
-    case 'percent': return tabIndex === 'IN PROGRESS'
-    default: return false
+    case 'deadline':
+      return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
+    case 'sentTime':
+      return tabIndex === 'EVALUATE'
+    case 'percent':
+      return tabIndex === 'IN PROGRESS'
+    default:
+      return false
   }
+}
+
+export const priorityClasses = {
+  1: 'c--list_title-high',
+  2: 'c--list_title-middle',
+  3: 'c--list_title-low',
 }

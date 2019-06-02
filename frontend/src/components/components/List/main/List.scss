@@ -5,15 +5,45 @@
 }
 
 .c--list_title {
+
+  &-high,
+  &-middle,
+  &-low {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+}
+
+.c--list_title-high::before {
   display: flex;
   align-content: center;
   align-items: center;
+  content: "\2022";
+  color: #da4445;
+  font-size: 30px;
+  display: inline-block;
 }
 
-.c--list_priority {
-  color: black;
-  width: 10px;
-  height: 10px;
+.c--list_title-middle::before {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  content: "\2022";
+  color: #ffad00;
+  font-size: 30px;
+  display: inline-block;
+}
+
+.c--list_title-low::before {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  content: "\2022";
+  color: #60c102;
+  font-size: 30px;
+  display: inline-block;
 }
 
 .c--list_collapse {
