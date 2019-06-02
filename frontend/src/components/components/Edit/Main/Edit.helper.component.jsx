@@ -3,7 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 // cores
 import { withStyles } from '@material-ui/core/styles'
-import Slide from '@material-ui/core/Slide'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
@@ -25,16 +24,14 @@ import './Edit.scss'
 import { default as style } from './Edit.style'
 
 
-export const Transition = props => <Slide direction="up" {...props} />
-
-const AppBar = ({ close, submit, classes }) => (
+const AppBar = ({ label, close, submit, classes }) => (
   <MuiAppBar style={{ position: 'fixed' }}>
     <Toolbar>
       <IconButton className="icon" onClick={close}>
         <CloseButton classes={{ root: classes.svgIcon }} />
       </IconButton>
       <Typography variant="h6" style={{ color: 'white' }}>
-        Edit Task
+        {label}
       </Typography>
       <IconButton className="icon" onClick={submit}>
         <Done classes={{ root: classes.svgIcon }} />
@@ -44,6 +41,7 @@ const AppBar = ({ close, submit, classes }) => (
 )
 
 AppBar.propTypes = {
+  label: PropTypes.string.isRequired,
   submit: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,

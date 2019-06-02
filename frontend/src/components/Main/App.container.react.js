@@ -16,8 +16,12 @@ import {
 import {
   dispatchChangeExpandMode,
   dispatchSetAboutMode,
+  dispatchAddButtonClick,
 } from './App.action'
-import { dispatchSetApi, dispatchFetchInitialData } from '../components/Home/Home.action'
+import {
+  dispatchSetApi,
+  dispatchFetchInitialData
+} from '../components/Home/Home.action'
 
 
 const mapStateToProps = () => ({
@@ -29,6 +33,7 @@ const mapStateToProps = () => ({
 const mapDispatchToProps = () => ({
   setAPI: dispatchSetApi,
   fetchInitialData: dispatchFetchInitialData,
+  addButtonClick: dispatchAddButtonClick,
   changeExpandMode: (mode) => {
     dispatchChangeExpandMode(mode)
     if (window.W) window.W.analytics('CHANGE_MODE', {

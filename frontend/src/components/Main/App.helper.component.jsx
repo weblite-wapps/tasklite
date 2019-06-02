@@ -85,7 +85,7 @@ TabBar.propTypes = {
   setAboutMode: PropTypes.func.isRequired,
 }
 
-const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
+const AdminButton = ({ expandMode, changeExpandMode, label, src, addButtonClick }) => (
   <Tooltip
     enterDelay={300}
     leaveDelay={300}
@@ -95,11 +95,11 @@ const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
     <div
       role="button"
       tabIndex="0"
-      onClick={() =>
-        expandMode === label
-          ? changeExpandMode('default')
-          : changeExpandMode(label)
-      }
+      onClick={() => {
+        if (label === 'add') addButtonClick()
+        else if (expandMode === label) changeExpandMode('default')
+        else changeExpandMode(label)
+      }}
       className="c--app_imageContainer"
     >
       <img className="c--app_image" alt={label} src={src} />

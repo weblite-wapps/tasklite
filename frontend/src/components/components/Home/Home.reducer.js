@@ -92,7 +92,7 @@ const reducers = {
   [ADD_TASK]: (state, task) => ({
     ...state,
     tasks: R.compose(
-      R.adjust(R.assoc('todoText', ''), 0),
+      R.adjust(0, R.assoc('todoText', '')),
       R.prepend(task),
     )(state.tasks)
   }),
@@ -182,13 +182,16 @@ const reducers = {
     ),
   }),
 
-  [RESTORE_TODO]: (state, { _id, todos }) => ({
+  [RESTORE_TODO]: (state, {
+    _id,
+    todos
+  }) => ({
     ...state,
     tasks: R.map(
       task =>
       task._id === _id ? {
         ...task,
-        todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
+        todos: R.adjust(0, R.assoc('_id', todos[0]._id), task.todos),
       } :
       task,
       state.tasks,

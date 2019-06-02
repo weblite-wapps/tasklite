@@ -18,6 +18,9 @@ import theme from '../helper/style/appTheme'
 const Home = lazy(() =>
   import('../components/components/Home/Home.container.react'),
 )
+const Add = lazy(() =>
+  import('../components/components/Add/Add.container.react')
+)
 const Edit = lazy(() =>
   import('../components/components/Edit/Main/Edit.container.react')
 )
@@ -34,6 +37,7 @@ const root = () => {
 
             <Suspense fallback={<Loading />}>
               <Route exact path="/" render={() => <Home />} />
+              <Route exact path="/Add" render={() => <Add />} />
               <Route path="/Edit" render={() => <Edit />} />
               <Route path="/About" render={() => <About />} />
             </Suspense>
