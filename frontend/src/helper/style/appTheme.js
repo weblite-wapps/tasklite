@@ -11,6 +11,7 @@ export default createMuiTheme({
   typography: {
     // TODO: should remove in next version
     useNextVariants: true,
+    // fontFamily: '"Product Sans", serif',
   },
   overrides: {
     MuiTypography: {

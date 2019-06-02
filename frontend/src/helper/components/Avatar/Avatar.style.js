@@ -6,11 +6,11 @@ export default () => ({
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
-    border: 'solid 5px transparent',
-    transition: 'border 0.5s ease',
+    boxShadow: '0 0 0 1px #ffffff, 0 0 0 5px #ffffff',
+    transition: 'box-shadow 1s ease',
     '&:hover': {
-      border: 'solid 5px #519ae7',
-      transition: 'border 0.5s ease',
+      boxShadow: '0 0 0 1px #ffffff, 0 0 0 5px #519ae7',
+      transition: 'box-shadow 1s ease',
     },
   },
   active: {
@@ -20,8 +20,8 @@ export default () => ({
     height: '50px',
     cursor: 'pointer',
     outline: 'none',
-    border: 'solid 5px #519ae7',
-    transition: 'border 0.5s ease',
+    boxShadow: '0 0 0 1px #ffffff, 0 0 0 5px #519ae7',
+    transition: 'box-shadow 1s ease',
   },
   default: {
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
