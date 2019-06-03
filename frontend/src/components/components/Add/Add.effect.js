@@ -127,10 +127,7 @@ const effectHandleAddTask = (action$, {
         priority,
         deadline,
         sentTime: '',
-        todos: [{
-          title: 'done',
-          completed: false,
-        }, ],
+        todos: [],
         level: 'ICE BOX',
         created_at: new Date(),
         userId: userIdView(),

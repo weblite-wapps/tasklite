@@ -76,7 +76,7 @@ export const BriefInfo = ({
           <span>{sentTime ? getPassedTime(sentTime) : "No sentTime "} ago</span>
         )}
         <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags"}</span>
-        {checkToShow("percent") && (
+        {checkToShow("percent", todos) && (
           <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
         )}
       </Typography>
@@ -134,6 +134,7 @@ export const AddTodo = ({
   level === 'ICE BOX' || level === 'IN PROGRESS' ? (
     <div className="c--list_textField">
       <TextField
+        dir="auto"
         withButton
         label="New Subtask"
         fullWidth={false}

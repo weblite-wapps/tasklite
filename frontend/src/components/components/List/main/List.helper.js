@@ -22,7 +22,7 @@ export const getProgressBarPercent = todos =>
     R.filter(item => item.completed === true),
   )(todos)
 
-export const checkToShow = (info) => {
+export const checkToShow = (info, todos = []) => {
   const tabIndex = tabIndexView()
 
   switch (info) {
@@ -31,7 +31,7 @@ export const checkToShow = (info) => {
     case 'sentTime':
       return tabIndex === 'EVALUATE'
     case 'percent':
-      return tabIndex === 'IN PROGRESS'
+      return tabIndex === 'IN PROGRESS' && todos.length > 0
     default:
       return false
   }
