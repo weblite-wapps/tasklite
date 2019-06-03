@@ -6,7 +6,10 @@ import {
 } from '../../Home/Home.reducer'
 
 
-export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+export const formatTitle = (name, tabIndex, creator) => {
+  if (creator && tabIndex === 'EVALUATE') return name.length > 15 ? `${R.slice(0, 15, name)}...` : name
+  return name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+}
 
 export const formatTags = (tags) => {
   const joined = R.join(', ', tags)
