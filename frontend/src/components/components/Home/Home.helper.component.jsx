@@ -28,10 +28,10 @@ Collapse.propTypes = {
 
 class DroppableItemTask extends Component {
   render() {
-    const { task, provided, innerRef } = this.props
+    const { task, provided, forwardedRef } = this.props
     return (
       <div
-        ref={innerRef}
+        ref={forwardedRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
@@ -41,11 +41,15 @@ class DroppableItemTask extends Component {
   }
 }
 
+const ForwardedDroppableItemTask = React.forwardRef((props, ref) => (
+  <DroppableItemTask {...props} forwardedRef={ref} />
+))
+
 class DroppableItem extends Component {
   render() {
-    const { provided, tasks, tabIndex, isLoading } = this.props
+    const { tasks, tabIndex, isLoading, forwardedRef } = this.props
     return (
-      <div ref={provided.innerRef}>
+      <div ref={forwardedRef}>
         <FlipMove
           typeName={null}
           duration={500}
@@ -63,8 +67,8 @@ class DroppableItem extends Component {
                 index={index}
               >
                 {provided => (
-                  <DroppableItemTask
-                    innerRef={provided.innerRef}
+                  <ForwardedDroppableItemTask
+                    ref={provided.innerRef}
                     task={task}
                     provided={provided}
                   />
@@ -81,6 +85,10 @@ DroppableItem.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
   tabIndex: PropTypes.string.isRequired,
 }
+
+const ForwardedDroppableItem = React.forwardRef((props, ref) => (
+  <DroppableItem {...props} forwardedRef={ref} />
+))
 
 export class TaskList extends Component {
   constructor(props) {
@@ -103,12 +111,11 @@ export class TaskList extends Component {
         >
           <Droppable droppableId="droppable">
             {provided => (
-              <DroppableItem
+              <ForwardedDroppableItem
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
-                provided={provided}
-                innerRef={provided.innerRef}
                 {...props}
+                ref={provided.innerRef}
               />
             )}
           </Droppable>
