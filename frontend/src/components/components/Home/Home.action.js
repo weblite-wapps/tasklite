@@ -33,20 +33,6 @@ export const loadTasksData = createAction(LOAD_TASKS_DATA)
 export const dispatchLoadTasksData = (...args) =>
   dispatch(loadTasksData(...args))
 
-// export const ADD_TASK = 'ADD_TASK'
-// export const addTask = createAction(
-//   ADD_TASK,
-//   (title, selectedUser, tags, priority, deadline, indexInDb) => ({
-//     title,
-//     selectedUser,
-//     tags,
-//     priority,
-//     deadline,
-//     indexInDb,
-//   }),
-// )
-// export const dispatchAddTask = (...args) => dispatch(addTask(...args))
-
 export const ADD_TASK = 'ADD_TASK'
 export const addTask = createAction(ADD_TASK)
 export const dispatchAddTask = (...args) => dispatch(addTask(...args))

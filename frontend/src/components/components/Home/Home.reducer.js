@@ -249,14 +249,14 @@ const reducers = {
     tasks,
   }),
 
-  [SET_INDEXINDB]: (state, { _id, indexInDb }) => ({
+  [SET_INDEXINDB]: (state, { _id, order }) => ({
     ...state,
     tasks: R.map(
       task =>
         task._id === _id
           ? {
               ...task,
-              indexInDb,
+              order,
             }
           : task,
       state.tasks,

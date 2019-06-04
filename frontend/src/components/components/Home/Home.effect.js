@@ -193,7 +193,7 @@ const dragTaskEpic = action$ =>
     .map(({ sourceId, destinationId, allTasks }) => ({
       sourceId,
       desIndexInDb: R.prop(
-        'indexInDb',
+        'order',
         R.find(R.propEq('_id', destinationId), allTasks),
       ),
       sourceIndex: R.findIndex(R.propEq('_id', sourceId), allTasks),
@@ -210,7 +210,7 @@ const dragTaskEpic = action$ =>
             : !destinationIndex
             ? desIndexInDb + 100
             : R.prop(
-                'indexInDb',
+                'order',
                 R.nth(
                   destinationIndex > sourceIndex
                     ? destinationIndex + 1
@@ -238,10 +238,10 @@ const dragTaskEpic = action$ =>
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')
         })
-        .then(({ body: { _id, indexInDb } }) =>
+        .then(({ body: { _id, order } }) =>
           dispatchSetIndexInDb({
             _id,
-            indexInDb,
+            order,
           }),
         )
         .then(dispatchSetIsLoading(false)),

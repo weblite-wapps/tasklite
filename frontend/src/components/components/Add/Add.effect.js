@@ -77,9 +77,9 @@ const effectHandleAddTask = (action$, { dispatch }) =>
     .map(payload => ({
       ...payload,
       ...checkBeforeAddTask(),
-      indexInDb: R.length(tasksView())
-        ? R.prop('indexInDb', R.head(tasksView())) + 100
-        : 0,
+      order: R.length(tasksView())
+        ? R.prop('order', R.head(tasksView())) + 100
+        : 100,
     }))
     .do(
       ({ permission, message }) =>
@@ -88,43 +88,42 @@ const effectHandleAddTask = (action$, { dispatch }) =>
     .do(({ isError }) => dispatchChangeIsError(isError))
     .filter(({ permission }) => permission)
     .do(() => dispatchSetIsLoading(true))
-    .mergeMap(
-      ({ title, assignee, selectedTags, priority, deadline, indexInDb }) =>
-        Promise.all([
-          postRequest('/saveTask')
-            .send({
-              title,
-              assignee,
-              tags: selectedTags,
-              priority,
-              deadline,
-              sentTime: '',
-              todos: [],
-              level: 'ICE BOX',
-              created_at: new Date(),
-              userId: userIdView(),
-              wis: wisView(),
-              indexInDb,
-            })
-            .on(
-              'error',
-              err =>
-                err.status !== 304 &&
-                dispatchChangeSnackbarStage('Server disconnected!'),
-            ),
-          postRequest('/saveTags')
-            .send({
-              tags: selectedTags,
-              userId: userIdView(),
-              wis: wisView(),
-            })
-            .on(
-              'error',
-              err =>
-                err.status !== 304 &&
-                dispatchChangeSnackbarStage('Server disconnected!'),
-            ),
-        ]),
+    .mergeMap(({ title, assignee, selectedTags, priority, deadline, order }) =>
+      Promise.all([
+        postRequest('/saveTask')
+          .send({
+            title,
+            assignee,
+            tags: selectedTags,
+            priority,
+            deadline,
+            sentTime: '',
+            todos: [],
+            level: 'ICE BOX',
+            created_at: new Date(),
+            userId: userIdView(),
+            wis: wisView(),
+            order,
+          })
+          .on(
+            'error',
+            err =>
+              err.status !== 304 &&
+              dispatchChangeSnackbarStage('Server disconnected!'),
+          ),
+        postRequest('/saveTags')
+          .send({
+            tags: selectedTags,
+            userId: userIdView(),
+            wis: wisView(),
+          })
+          .on(
+            'error',
+            err =>
+              err.status !== 304 &&
+              dispatchChangeSnackbarStage('Server disconnected!'),
+          ),
+      ]),
     )
     .do(success => {
       dispatchAddTask(success[0].body)
