@@ -11,8 +11,8 @@ import styles from './Avatar.style'
 
 const Avatar = ({ classes, users, assignee, filterMode, onAssigneeChange }) => (
   <div className="c--avatar_container">
-    <Typography variant="body2" className={classes.text}>
-      Assignee
+    <Typography variant="h6" className={classes.text}>
+      Assignee:
     </Typography>
 
     <div className="c--avatar_row">

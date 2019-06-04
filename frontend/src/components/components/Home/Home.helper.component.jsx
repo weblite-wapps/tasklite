@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import FlipMove from 'react-flip-move'
 import MuiCollapse from '@material-ui/core/Collapse'
 import Divider from '@material-ui/core/Divider'
+import Typography from '@material-ui/core/Typography'
 // components
 import CustomizedTaskList from '../List/main/List.container.react'
 import Autocomplete from '../../../helper/components/Autocomplete/Autocomplete.presentational'
@@ -15,7 +16,7 @@ import './Home.scss'
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
     {children}
-    <Divider variant="middle" />
+    <Divider light />
   </MuiCollapse>
 )
 
@@ -53,16 +54,16 @@ export const LoadMore = ({
   tabIndex,
   onLoadMore,
 }) => (
-  <div className="c--home_button">
-    {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
-      <CustomizedButton
-        label="Load More"
-        onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
-        componentName="Add"
-      />
-    ) : null}
-  </div>
-)
+    <div className="c--home_button">
+      {expandMode !== 'filter' && numbersObject[tabIndex] > numbers[tabIndex] ? (
+        <CustomizedButton
+          label="Load More"
+          onClick={() => onLoadMore(numbers[tabIndex], tabIndex)}
+          componentName="Add"
+        />
+      ) : null}
+    </div>
+  )
 
 LoadMore.propTypes = {
   expandMode: PropTypes.string.isRequired,
@@ -73,6 +74,7 @@ LoadMore.propTypes = {
 }
 
 export const TagPanel = ({
+  label,
   suggestions,
   queryTag,
   onQueryTagChange,
@@ -80,33 +82,44 @@ export const TagPanel = ({
   onTagClick,
   handleAddTag,
 }) => (
-  <React.Fragment>
-    <div className="c--home_textField">
-      <Autocomplete
-        label="Tags"
-        suggestions={suggestions}
-        inputValue={queryTag}
-        onInputValueChange={e => onQueryTagChange(e.target.value)}
-        onSelect={value => onQueryTagChange(value)}
-        onAdd={handleAddTag}
-      />
-      <CustomizedButton
-        label="ADD"
-        onClick={handleAddTag}
-        componentName="Add"
-      />
-    </div>
-    <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
-  </React.Fragment>
-)
+    <React.Fragment>
+      <Typography
+        variant="h6"
+        style={{ color: '#919191', margin: '10px 0px 0px 20px', fontSize: '12px' }}
+      >
+        Frequently used tags:
+      </Typography>
+      <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+      <div className="c--home_textField">
+        <Autocomplete
+          label="Tags"
+          suggestions={suggestions}
+          inputValue={queryTag}
+          onInputValueChange={e => onQueryTagChange(e.target.value)}
+          onSelect={value => onQueryTagChange(value)}
+          onAdd={handleAddTag}
+        />
+        <CustomizedButton
+          label={label}
+          onClick={handleAddTag}
+          componentName="Add"
+        />
+      </div>
+    </React.Fragment>
+  )
 
 TagPanel.propTypes = {
+  label: PropTypes.string,
   queryTag: PropTypes.string.isRequired,
   suggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onQueryTagChange: PropTypes.func.isRequired,
   tags: PropTypes.arrayOf(PropTypes.object).isRequired,
   onTagClick: PropTypes.func.isRequired,
   handleAddTag: PropTypes.func.isRequired,
+}
+
+TagPanel.defaultProps = {
+  label: 'ADD',
 }
 
 // export const UserPanel = (

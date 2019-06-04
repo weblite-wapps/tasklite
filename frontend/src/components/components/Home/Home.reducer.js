@@ -17,7 +17,6 @@ import {
   CHANGE_TODO_TEXT,
   TOGGLE_TODO,
   ADD_TODO,
-  RESTORE_TODO,
   DELETE_TODO,
   SET_SENT_TIME,
   LOAD_NUMBER_OF_TASKS,
@@ -92,7 +91,7 @@ const reducers = {
   [ADD_TASK]: (state, task) => ({
     ...state,
     tasks: R.compose(
-      R.adjust(R.assoc('todoText', ''), 0),
+      R.adjust(0, R.assoc('todoText', '')),
       R.prepend(task),
     )(state.tasks)
   }),
@@ -162,37 +161,13 @@ const reducers = {
 
   [ADD_TODO]: (state, {
     _id,
-    value
+    todos
   }) => ({
     ...state,
-    tasks: R.map(
-      task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.prepend({
-            title: value,
-            completed: false,
-            _id: task.todos.length.toString(),
-          },
-          task.todos,
-        ),
-      } :
-      task,
-      state.tasks,
-    ),
-  }),
-
-  [RESTORE_TODO]: (state, { _id, todos }) => ({
-    ...state,
-    tasks: R.map(
-      task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.adjust(R.assoc('_id', todos[0]._id), 0, task.todos),
-      } :
-      task,
-      state.tasks,
-    ),
+    tasks: R.map(task => task._id === _id ? ({
+      ...task,
+      todos
+    }) : task, state.tasks)
   }),
 
   [DELETE_TODO]: (state, {

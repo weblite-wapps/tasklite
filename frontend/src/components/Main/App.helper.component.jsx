@@ -11,7 +11,12 @@ import ExitIcon from '@material-ui/icons/ExitToApp'
 import './App.scss'
 
 export const Logo = ({ isLoading, setAboutMode }) => (
-  <React.Fragment>
+  <Tooltip
+    title="About"
+    placement="bottom"
+    enterDelay={150}
+    leaveDelay={150}
+  >
     <div
       onClick={() => setAboutMode(true)}
       className="c--app_logoContainer"
@@ -31,7 +36,7 @@ export const Logo = ({ isLoading, setAboutMode }) => (
         />
       </div>
     </div>
-  </React.Fragment>
+  </Tooltip>
 )
 
 Logo.propTypes = {
@@ -80,7 +85,7 @@ TabBar.propTypes = {
   setAboutMode: PropTypes.func.isRequired,
 }
 
-const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
+const AdminButton = ({ expandMode, changeExpandMode, label, src, addButtonClick }) => (
   <Tooltip
     enterDelay={300}
     leaveDelay={300}
@@ -90,11 +95,11 @@ const AdminButton = ({ expandMode, changeExpandMode, label, src }) => (
     <div
       role="button"
       tabIndex="0"
-      onClick={() =>
-        expandMode === label
-          ? changeExpandMode('default')
-          : changeExpandMode(label)
-      }
+      onClick={() => {
+        if (label === 'add') addButtonClick()
+        else if (expandMode === label) changeExpandMode('default')
+        else changeExpandMode(label)
+      }}
       className="c--app_imageContainer"
     >
       <img className="c--app_image" alt={label} src={src} />

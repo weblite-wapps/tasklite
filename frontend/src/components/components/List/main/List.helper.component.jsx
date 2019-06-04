@@ -15,6 +15,7 @@ import {
   formatTitle,
   getProgressBarPercent,
   checkToShow,
+  priorityClasses,
 } from './List.helper'
 import {
   getRemained,
@@ -25,30 +26,29 @@ import './List.scss'
 
 export const TitleAndLevelButtons = props => {
   const {
-    task: { title, priority },
+    task: { title, priority }, tabIndex, creator,
   } = props
+
+  const priorityClass = priorityClasses[priority]
+
+  const formattedTitle = formatTitle(title, tabIndex, creator)
 
   return (
     <div className="c--list_text">
-      <div className="c--list_title">
-        {priority && <img
-          src={`${priority}.png`}
-          alt="priority"
-          className="c--list_priority"
-        />}
+      <div className={priorityClass}>
         <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
-          {formatTitle(title) === title ? (
-            <span>{formatTitle(title)}</span>
+          {formattedTitle === title ? (
+            <span>{formattedTitle}</span>
           ) : (
-            <Tooltip
-              title={title}
-              placement="bottom"
-              enterDelay={150}
-              leaveDelay={150}
-            >
-              <span>{formatTitle(title)}</span>
-            </Tooltip>
-          )}
+              <Tooltip
+                title={title}
+                placement="bottom"
+                enterDelay={150}
+                leaveDelay={150}
+              >
+                <span>{formattedTitle}</span>
+              </Tooltip>
+            )}
         </Typography>
       </div>
       <ActionButtons {...props} />
@@ -78,7 +78,7 @@ export const BriefInfo = ({
           <span>{sentTime ? getPassedTime(sentTime) : "No sentTime "} ago</span>
         )}
         <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags"}</span>
-        {checkToShow("percent") && (
+        {checkToShow("percent", todos) && (
           <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
         )}
       </Typography>
@@ -111,18 +111,23 @@ ProgressPanel.propTypes = {
 }
 
 export const FurtherInfo = ({
-  task: { _id, tags, deadline, level, sentTime, assignee, todos },
+  task: { _id, tags, deadline, level, sentTime, assignee, todos }, isLoading,
 }) => (
-  <React.Fragment>
-    <SubInfo label="TAGS" tags={tags} />
-    <SubInfo label="DEADLINE" deadline={deadline} />
-    {(level === 'EVALUATE' || level === 'DONE') && (
-      <SubInfo label="SENT TIME" sentTime={sentTime} />
-    )}
-    <SubInfo label="ASSIGNEE" assignee={assignee} /> 
-    <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
-  </React.Fragment>
-)
+    <React.Fragment>
+      <SubInfo label="TAGS" tags={tags} />
+      <SubInfo label="DEADLINE" deadline={deadline} />
+      {(level === 'EVALUATE' || level === 'DONE') && (
+        <SubInfo label="SENT TIME" sentTime={sentTime} />
+      )}
+      <SubInfo label="ASSIGNEE" assignee={assignee} />
+      <SubInfo
+        label="SUBWORKS"
+        todos={todos}
+        _id={_id}
+        level={level}
+      />
+    </React.Fragment>
+  )
 
 FurtherInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,
@@ -130,25 +135,32 @@ FurtherInfo.propTypes = {
 
 export const AddTodo = ({
   task: { level, todoText },
+  isLoading,
   onTodoTextChange,
   handleAddTodo,
 }) =>
   level === 'ICE BOX' || level === 'IN PROGRESS' ? (
     <div className="c--list_textField">
       <TextField
+        dir="auto"
         withButton
         label="New Subtask"
         fullWidth={false}
         value={todoText}
         onKeyPress={ev => {
-          if (ev.key === 'Enter') {
+          if (ev.key === 'Enter' && !isLoading) {
             handleAddTodo()
             ev.preventDefault()
           }
         }}
         onChange={e => onTodoTextChange(e.target.value)}
       />
-      <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
+      <Button
+        label="ADD"
+        onClick={handleAddTodo}
+        componentName="Add"
+        disabled={isLoading}
+      />
     </div>
   ) : null
 

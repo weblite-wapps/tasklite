@@ -73,7 +73,7 @@ class TaskList extends React.Component {
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className="c--list_collapse">
-            <ProgressPanel todos={todos} />
+            {todos.length > 0 && <ProgressPanel todos={todos} />}
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
             {creator && (
