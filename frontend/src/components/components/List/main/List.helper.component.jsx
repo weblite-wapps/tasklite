@@ -111,7 +111,7 @@ ProgressPanel.propTypes = {
 }
 
 export const FurtherInfo = ({
-  task: { _id, tags, deadline, level, sentTime, assignee, todos },
+  task: { _id, tags, deadline, level, sentTime, assignee, todos }, isLoading,
 }) => (
     <React.Fragment>
       <SubInfo label="TAGS" tags={tags} />
@@ -120,7 +120,12 @@ export const FurtherInfo = ({
         <SubInfo label="SENT TIME" sentTime={sentTime} />
       )}
       <SubInfo label="ASSIGNEE" assignee={assignee} />
-      <SubInfo label="SUBWORKS" todos={todos} _id={_id} level={level} />
+      <SubInfo
+        label="SUBWORKS"
+        todos={todos}
+        _id={_id}
+        level={level}
+      />
     </React.Fragment>
   )
 
@@ -130,6 +135,7 @@ FurtherInfo.propTypes = {
 
 export const AddTodo = ({
   task: { level, todoText },
+  isLoading,
   onTodoTextChange,
   handleAddTodo,
 }) =>
@@ -142,14 +148,19 @@ export const AddTodo = ({
         fullWidth={false}
         value={todoText}
         onKeyPress={ev => {
-          if (ev.key === 'Enter') {
+          if (ev.key === 'Enter' && !isLoading) {
             handleAddTodo()
             ev.preventDefault()
           }
         }}
         onChange={e => onTodoTextChange(e.target.value)}
       />
-      <Button label="ADD" onClick={handleAddTodo} componentName="Add" />
+      <Button
+        label="ADD"
+        onClick={handleAddTodo}
+        componentName="Add"
+        disabled={isLoading}
+      />
     </div>
   ) : null
 

@@ -9,16 +9,11 @@ export default createMuiTheme({
     primary: grey,
   },
   typography: {
-    // TODO: should remove in next version
+    // TODO: should remove in next version (v4)
     useNextVariants: true,
-    // fontFamily: '"Product Sans", serif',
   },
   overrides: {
     MuiTypography: {
-      h4: {
-        color: '#000000',
-        fontWeight: '500',
-      },
       body2: {
         fontWeight: '100',
         color: '#cfcfcf',
@@ -26,6 +21,10 @@ export default createMuiTheme({
       body1: {
         color: 'black',
         fontSize: '0.9rem',
+      },
+      h4: {
+        color: '#000000',
+        fontWeight: '500',
       },
       h5: {
         color: '#919191',

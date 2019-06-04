@@ -10,6 +10,7 @@ import './Todo.scss'
 
 const Todo = ({
   level,
+  isLoading,
   todo: { completed, title },
   onCompletedChange,
   onDelete,
@@ -28,7 +29,7 @@ const Todo = ({
         label="DELETE"
         onClick={onDelete}
         componentName="Todo"
-        disabled={level === 'EVALUATE' || level === 'DONE'}
+        disabled={level === 'EVALUATE' || level === 'DONE' || isLoading}
       />
     </div>
   )
