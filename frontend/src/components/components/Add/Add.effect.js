@@ -147,6 +147,7 @@ const effectHandleAddTask = (action$, { dispatch }) =>
           [assignee.id],
         )
     })
+    // .do(() => console.log("going to add new task"))
     .do(() => pulse())
     .ignoreElements()
 
