@@ -17,7 +17,7 @@ import {
 // actions
 import {
   dispatchChangeTodoText,
-  dispatchAddTodo,
+  dispatchHandleAddTodo,
   dispatchDeleteTask,
 } from '../../Home/Home.action'
 import {
@@ -43,7 +43,7 @@ const mapDispatchToProps = (_, {
   deleteTask: () => dispatchDeleteTask(task),
   editTask: () => dispatchEditButtonClick(task),
   addTodo: value => {
-    dispatchAddTodo(task._id, value)
+    dispatchHandleAddTodo(task._id, value)
     dispatchChangeTodoText(task._id, '')
   },
 })

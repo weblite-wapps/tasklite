@@ -75,15 +75,8 @@ export const toggleTodo = createAction(TOGGLE_TODO, (_id, todoId) => ({
 export const dispatchToggleTodo = (...args) => dispatch(toggleTodo(...args))
 
 export const ADD_TODO = 'ADD_TODO'
-export const addTodo = createAction(ADD_TODO, (_id, value) => ({
-  _id,
-  value
-}))
+export const addTodo = createAction(ADD_TODO)
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
-
-export const RESTORE_TODO = 'RESTORE_TODO'
-export const restoreTodo = createAction(RESTORE_TODO)
-export const dispatchRestoreTodo = (...args) => dispatch(restoreTodo(...args))
 
 export const DELETE_TODO = 'DELETE_TODO'
 export const deleteTodo = createAction(DELETE_TODO, (_id, todoId) => ({
@@ -118,3 +111,16 @@ export const dispatchUpdateNumbersObject = (...args) =>
 export const SET_EDITED_TASK = 'SET_EDITED_TASK'
 export const setEditedTask = createAction(SET_EDITED_TASK)
 export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))
+
+
+// effects
+export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
+export const handleAddTodo = createAction(
+  HANDLE_ADD_TODO,
+  (_id, value) => ({
+    _id,
+    value
+  }),
+)
+export const dispatchHandleAddTodo = (...args) =>
+  dispatch(handleAddTodo(...args))
