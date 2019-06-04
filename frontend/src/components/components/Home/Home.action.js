@@ -122,6 +122,11 @@ export const SET_INDEXINDB = 'SET_INDEXINDB'
 export const setIndexInDb = createAction(SET_INDEXINDB)
 export const dispatchSetIndexInDb = (...args) => dispatch(setIndexInDb(...args))
 
+export const SET_TODO_ORDER = 'SET_TODO_ORDER'
+export const setTodoOrdrer = createAction(SET_TODO_ORDER)
+export const dispatchSetTodoOrder = (...args) =>
+  dispatch(setTodoOrdrer(...args))
+
 // effects
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
 export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({

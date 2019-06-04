@@ -63,7 +63,7 @@ class DroppableItem extends Component {
             .map((task, index) => (
               <Draggable
                 key={task._id}
-                isDragDisabled={isLoading}
+                isDragDisabled={true}
                 draggableId={task._id}
                 index={index}
               >
@@ -106,10 +106,7 @@ export class TaskList extends Component {
     const { ...props } = this.props
     return (
       <>
-        <DragDropContext
-          onDragStart={this.onDragStart}
-          onDragEnd={this.onDragEnd}
-        >
+        <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {provided => (
               <ForwardedDroppableItem

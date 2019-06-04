@@ -78,7 +78,7 @@ app.post("/toggleTodo", ({ body: { _id, todoId, task } }, res) =>
     .catch(logger)
 );
 
-app.post("/addTodo", ({ body: { _id, value } }, res) =>
+app.post("/addTodo", ({ body: { _id, value, order } }, res) =>
   updateTask(
     {
       _id: mongoose.Types.ObjectId(_id)
@@ -89,6 +89,7 @@ app.post("/addTodo", ({ body: { _id, value } }, res) =>
           $each: [
             {
               title: value,
+              order,
               completed: false
             }
           ],

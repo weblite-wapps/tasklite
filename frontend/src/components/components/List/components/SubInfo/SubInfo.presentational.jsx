@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 // components
 import Todo from '../Todo/Todo.container.react'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 // helper
 import {
   formattedTime,
@@ -15,7 +16,7 @@ import {
 } from '../../../../../helper/functions/time.helper'
 
 const SubInfo = ({
-  isLoading,
+  // isLoading,
   label,
   tags,
   deadline,
@@ -24,6 +25,7 @@ const SubInfo = ({
   assignee,
   todos,
   _id,
+  onDragEnd,
 }) => (
   <React.Fragment>
     <Typography variant="button">{label}</Typography>
@@ -33,17 +35,55 @@ const SubInfo = ({
       {sentTime &&
         `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
       {assignee && assignee.name}
-      <FlipMove
-        duration={500}
-        staggerDelayBy={150}
-        enterAnimation="elevator"
-        leaveAnimation={false}
-      >
-        {todos &&
-          todos.map(todo => (
-            <Todo key={todo._id} level={level} _id={_id} todo={todo} />
-          ))}
-      </FlipMove>
+      {todos && (
+        <DragDropContext onDragEnd={e => onDragEnd({ e, todos, task_id: _id })}>
+          <Droppable droppableId="droppable">
+            {provided => (
+              <div
+                ref={provided.innerRef}
+                // style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {' '}
+                <FlipMove
+                  typeName={null}
+                  duration={500}
+                  staggerDelayBy={150}
+                  enterAnimation="elevator"
+                  leaveAnimation={false}
+                >
+                  {todos.map((todo, index) => (
+                    <Draggable
+                      key={todo._id}
+                      draggableId={todo._id}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          // style={getItemStyle(
+                          //   snapshot.isDragging,
+                          //   provided.draggableProps.style,
+                          // )}
+                        >
+                          <Todo
+                            key={todo._id}
+                            level={level}
+                            _id={_id}
+                            todo={todo}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </FlipMove>
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      )}
     </Typography>
     <Divider variant="inset" />
   </React.Fragment>

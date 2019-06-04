@@ -222,9 +222,6 @@ const dragTaskEpic = action$ =>
         ...rest,
       }),
     )
-    // .do(({ desIndexInDb, desSiblingIndexInDb }) =>
-    //   console.log(desIndexInDb, desSiblingIndexInDb),
-    // )
     .do(({ sourceId, desIndexInDb, desSiblingIndexInDb, allTasks }) =>
       postRequest('/dragTask')
         .send({
@@ -233,7 +230,6 @@ const dragTaskEpic = action$ =>
           desSiblingIndexInDb,
         })
         .on('error', err => {
-          // console.log('error eccured')
           dispatchSetAllTasks(allTasks)
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')

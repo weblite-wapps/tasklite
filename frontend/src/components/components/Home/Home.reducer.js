@@ -22,6 +22,7 @@ import {
   SET_EDITED_TASK,
   SET_ALL_TASKS,
   SET_INDEXINDB,
+  SET_TODO_ORDER,
 } from './Home.action'
 // helpers
 import { getUpdatedNumbersObject } from './Home.helper'
@@ -82,39 +83,6 @@ const reducers = {
       R.map(task => R.assoc('todoText', '', task)),
     )(tasks),
   }),
-
-  // [ADD_TASK]: (
-  //   state, {
-  //     title,
-  //     selectedUser,
-  //     tags,
-  //     priority,
-  //     deadline,
-  //     indexInDb
-  //   },
-  // ) => ({
-  //   ...state,
-  //   tasks: R.prepend({
-  //       _id: state.tasks.length.toString(),
-  //       title,
-  //       assignee: selectedUser.name,
-  //       tags,
-  //       priority,
-  //       deadline,
-  //       level: 'ICE BOX',
-  //       todos: [{
-  //         title: 'done',
-  //         completed: false,
-  //         _id: 'fakjfjlcmlqgfgo'
-  //       }],
-  //       todoText: '',
-  //       sentTime: '',
-  //       wis: state.wis,
-  //       indexInDb,
-  //     },
-  //     state.tasks,
-  //   ),
-  // }),
 
   [ADD_TASK]: (state, task) => ({
     ...state,
@@ -262,6 +230,9 @@ const reducers = {
       state.tasks,
     ),
   }),
+
+  [SET_TODO_ORDER]: (state, { _id, todo_id, order }) =>
+    console.log(_id, todo_id, order),
 }
 
 export default (state = initialState, { type, payload }) =>
