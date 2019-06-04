@@ -1,6 +1,10 @@
 // modules
-import { createAction } from 'redux-actions'
-import { dispatch } from '../../../setup/redux'
+import {
+  createAction
+} from 'redux-actions'
+import {
+  dispatch
+} from '../../../setup/redux'
 
 
 // actions
@@ -13,15 +17,21 @@ export const setQueryTagInAdd = createAction(SET_QUERY_TAG_IN_ADD)
 export const dispatchSetQueryTagInAdd = (...args) => dispatch(setQueryTagInAdd(...args))
 
 export const FETCH_TAGS_IN_ADD = 'FETCH_TAGS_IN_ADD'
-export const fetchTagsInAdd = createAction(FETCH_TAGS_IN_ADD, tags => ({ tags }))
+export const fetchTagsInAdd = createAction(FETCH_TAGS_IN_ADD, tags => ({
+  tags
+}))
 export const dispatchFetchTagsInAdd = (...args) => dispatch(fetchTagsInAdd(...args))
 
 export const LOAD_TAGS_DATA_IN_ADD = 'LOAD_TAGS_DATA_IN_ADD'
-export const loadTagsDataInAdd = createAction(LOAD_TAGS_DATA_IN_ADD, tags => ({ tags }))
+export const loadTagsDataInAdd = createAction(LOAD_TAGS_DATA_IN_ADD, tags => ({
+  tags
+}))
 export const dispatchLoadTagsDataInAdd = (...args) => dispatch(loadTagsDataInAdd(...args))
 
 export const LOAD_USERS_DATA_IN_ADD = 'LOAD_USERS_DATA_IN_ADD'
-export const loadUsersDataInAdd = createAction(LOAD_USERS_DATA_IN_ADD, users => ({ users }))
+export const loadUsersDataInAdd = createAction(LOAD_USERS_DATA_IN_ADD, users => ({
+  users
+}))
 export const dispatchLoadUsersDataInAdd = (...args) => dispatch(loadUsersDataInAdd(...args))
 
 export const CHANGE_TITLE = 'CHANGE_TITLE'
@@ -51,9 +61,18 @@ export const resetInputs = createAction(RESET_INPUTS)
 export const dispatchResetInputs = (...args) => dispatch(resetInputs(...args))
 
 export const CHANGE_IS_ERROR = 'CHANGE_IS_ERROR'
-export const changeIsError = createAction(CHANGE_IS_ERROR, value => ({ value }))
+export const changeIsError = createAction(CHANGE_IS_ERROR, value => ({
+  value
+}))
 export const dispatchChangeIsError = (...args) => dispatch(changeIsError(...args))
 
+export const CHANGE_IS_OPEN_ADD_DIALOG = 'CHANGE_IS_OPEN_ADD_DIALOG'
+export const changeIsOpenAddDialog = createAction(CHANGE_IS_OPEN_ADD_DIALOG)
+export const dispatchChangeIsOpenAddDialog = (...args) => dispatch(changeIsOpenAddDialog(...args))
+
+export const CLOSE_ADD = 'CLOSE_ADD'
+export const closeAdd = createAction(CLOSE_ADD)
+export const dispatchCloseAdd = (...args) => dispatch(closeAdd(...args))
 
 // effects
 export const HANDLE_ADD_TAG = 'HANDLE_ADD_TAG'
@@ -63,5 +82,11 @@ export const dispatchHandleAddTag = (...args) => dispatch(handleAddTag(...args))
 export const HANDLE_ADD_TASK = 'HANDLE_ADD_TASK'
 export const handleAddTask = createAction(HANDLE_ADD_TASK,
   (title, assignee, selectedTags, priority, deadline) =>
-    ({ title, assignee, selectedTags, priority, deadline }))
+  ({
+    title,
+    assignee,
+    selectedTags,
+    priority,
+    deadline
+  }))
 export const dispatchHandleAddTask = (...args) => dispatch(handleAddTask(...args))

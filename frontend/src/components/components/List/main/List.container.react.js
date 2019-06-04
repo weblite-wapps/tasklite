@@ -1,14 +1,23 @@
 // modules
-import { connect } from 'react-redux'
+import {
+  connect
+} from 'react-redux'
 // components
 import List from './List.presentational'
 // views
-import { tabIndexView, creatorView } from '../../Home/Home.reducer'
-import { expandingIdView, popoverIdView } from './List.reducer'
+import {
+  tabIndexView,
+  creatorView,
+  isLoadingView
+} from '../../Home/Home.reducer'
+import {
+  expandingIdView,
+  popoverIdView
+} from './List.reducer'
 // actions
 import {
   dispatchChangeTodoText,
-  dispatchAddTodo,
+  dispatchHandleAddTodo,
   dispatchDeleteTask,
 } from '../../Home/Home.action'
 import {
@@ -22,16 +31,19 @@ const mapStateToProps = () => ({
   expandingId: expandingIdView(),
   popoverId: popoverIdView(),
   creator: creatorView(),
+  isLoading: isLoadingView(),
 })
 
-const mapDispatchToProps = (_, { task }) => ({
+const mapDispatchToProps = (_, {
+  task
+}) => ({
   onExpandClick: dispatchChangeExpandingId,
   onTodoTextChange: value => dispatchChangeTodoText(task._id, value),
   changePopoverId: dispatchChangePopoverId,
   deleteTask: () => dispatchDeleteTask(task),
   editTask: () => dispatchEditButtonClick(task),
   addTodo: value => {
-    dispatchAddTodo(task._id, value)
+    dispatchHandleAddTodo(task._id, value)
     dispatchChangeTodoText(task._id, '')
   },
 })

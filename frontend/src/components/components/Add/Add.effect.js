@@ -2,6 +2,7 @@
 import { combineEpics } from 'redux-observable'
 import * as R from 'ramda'
 import 'rxjs'
+import { push } from 'react-router-redux'
 // helpers
 import {
   getRequest,
@@ -14,9 +15,9 @@ import {
   dispatchChangeTab,
   dispatchSetIsLoading,
 } from '../Home/Home.action'
-import { dispatchChangeExpandMode } from '../../Main/App.action'
 import {
   SET_QUERY_TAG_IN_ADD,
+  CLOSE_ADD,
   HANDLE_ADD_TAG,
   HANDLE_ADD_TASK,
   dispatchFetchTagsInAdd,
@@ -28,6 +29,8 @@ import {
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
 import { wisView, userIdView, tasksView } from '../Home/Home.reducer'
+
+import { dispatchChangeIsOpenAddDialog } from './Add.action'
 
 const effectSearchTagsEpic = action$ =>
   action$
@@ -67,7 +70,7 @@ const effectHandleAddTag = action$ =>
     )
     .ignoreElements()
 
-const effectHandleAddTask = action$ =>
+const effectHandleAddTask = (action$, { dispatch }) =>
   action$
     .ofType(HANDLE_ADD_TASK)
     .pluck('payload')
@@ -96,12 +99,7 @@ const effectHandleAddTask = action$ =>
               priority,
               deadline,
               sentTime: '',
-              todos: [
-                {
-                  title: 'done',
-                  completed: false,
-                },
-              ],
+              todos: [],
               level: 'ICE BOX',
               created_at: new Date(),
               userId: userIdView(),
@@ -132,7 +130,8 @@ const effectHandleAddTask = action$ =>
       dispatchAddTask(success[0].body)
       dispatchLoadTagsDataInAdd(success[1].body)
     })
-    .do(() => dispatchChangeExpandMode('default'))
+    .do(() => dispatchChangeIsOpenAddDialog(false))
+    .do(() => dispatch(push('/')))
     .do(() => dispatchChangeTab('ICE BOX'))
     .do(() => dispatchSetIsLoading(false))
     .do(() => dispatchResetInputs())
@@ -150,8 +149,16 @@ const effectHandleAddTask = action$ =>
     })
     .ignoreElements()
 
+const closeAddEpic = action$ =>
+  action$
+    .ofType(CLOSE_ADD)
+    .do(() => dispatchChangeIsOpenAddDialog(false))
+    .delay(200)
+    .map(() => push('/'))
+
 export default combineEpics(
   effectSearchTagsEpic,
   effectHandleAddTag,
   effectHandleAddTask,
+  closeAddEpic,
 )

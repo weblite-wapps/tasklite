@@ -1,12 +1,32 @@
 // modules
-import { connect } from 'react-redux'
+import {
+  connect
+} from 'react-redux'
+import {
+  endOfDay
+} from 'date-fns'
 // components
 import Add from './Add.presentational.react'
 // views
-import { usersView, creatorView } from '../Home/Home.reducer'
-import { titleView, priorityView, deadlineView, selectedTagsView, assigneeView, queryTagView, tagsView, isErrorView } from './Add.reducer'
+import {
+  usersView,
+  creatorView
+} from '../Home/Home.reducer'
+import {
+  titleView,
+  priorityView,
+  deadlineView,
+  selectedTagsView,
+  assigneeView,
+  queryTagView,
+  tagsView,
+  isErrorView,
+  isOpenAddDialogView
+} from './Add.reducer'
 // actions
-import { dispatchChangeTab } from '../Home/Home.action'
+import {
+  dispatchChangeTab
+} from '../Home/Home.action'
 import {
   dispatchChangeTitle,
   dispatchChangePriority,
@@ -17,9 +37,12 @@ import {
   dispatchChangeIsError,
   dispatchHandleAddTag,
   dispatchHandleAddTask,
+  dispatchCloseAdd,
 } from './Add.action'
 // selector
-import { getFilteredSuggestions } from './Add.selector'
+import {
+  getFilteredSuggestions
+} from './Add.selector'
 
 
 const mapStateToProps = state => ({
@@ -34,6 +57,7 @@ const mapStateToProps = state => ({
   users: usersView(),
   isError: isErrorView(),
   creator: creatorView(),
+  isOpen: isOpenAddDialogView(),
 })
 
 const mapDispatchToProps = () => ({
@@ -45,8 +69,9 @@ const mapDispatchToProps = () => ({
   changeTab: dispatchChangeTab,
   onAssigneeChange: dispatchChangeAssigneeInAdd,
   changeIsError: dispatchChangeIsError,
+  close: dispatchCloseAdd,
+  submit: () => dispatchHandleAddTask(titleView(), assigneeView(), selectedTagsView(), priorityView(), endOfDay(deadlineView())),
   handleAddTag: dispatchHandleAddTag,
-  handleAddTask: dispatchHandleAddTask,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add)

@@ -1,10 +1,6 @@
 // modules
-import {
-  createAction
-} from 'redux-actions'
-import {
-  dispatch
-} from '../../../setup/redux'
+import { createAction } from 'redux-actions'
+import { dispatch } from '../../../setup/redux'
 
 // actions
 export const SET_API = 'SET_API'
@@ -57,7 +53,7 @@ export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
 export const deleteTask = createAction(DELETE_TASK, task => ({
-  task
+  task,
 }))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
@@ -89,15 +85,8 @@ export const toggleTodo = createAction(TOGGLE_TODO, (_id, todoId) => ({
 export const dispatchToggleTodo = (...args) => dispatch(toggleTodo(...args))
 
 export const ADD_TODO = 'ADD_TODO'
-export const addTodo = createAction(ADD_TODO, (_id, value) => ({
-  _id,
-  value
-}))
+export const addTodo = createAction(ADD_TODO)
 export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
-
-export const RESTORE_TODO = 'RESTORE_TODO'
-export const restoreTodo = createAction(RESTORE_TODO)
-export const dispatchRestoreTodo = (...args) => dispatch(restoreTodo(...args))
 
 export const DELETE_TODO = 'DELETE_TODO'
 export const deleteTodo = createAction(DELETE_TODO, (_id, todoId) => ({
@@ -123,7 +112,7 @@ export const updateNumbersObject = createAction(
   UPDATE_NUMBERS_OBJECT,
   (currentLevel, nextLevel) => ({
     currentLevel,
-    nextLevel
+    nextLevel,
   }),
 )
 export const dispatchUpdateNumbersObject = (...args) =>
@@ -131,7 +120,8 @@ export const dispatchUpdateNumbersObject = (...args) =>
 
 export const SET_EDITED_TASK = 'SET_EDITED_TASK'
 export const setEditedTask = createAction(SET_EDITED_TASK)
-export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))
+export const dispatchSetEditedTask = (...args) =>
+  dispatch(setEditedTask(...args))
 
 export const SET_ALL_TASKS = 'SET_ALL_TASKS'
 export const setAllTasks = createAction(SET_ALL_TASKS)
@@ -145,3 +135,12 @@ export const dispatchHandleDragTask = (...args) =>
 export const SET_INDEXINDB = 'SET_INDEXINDB'
 export const setIndexInDb = createAction(SET_INDEXINDB)
 export const dispatchSetIndexInDb = (...args) => dispatch(setIndexInDb(...args))
+
+// effects
+export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
+export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
+  _id,
+  value,
+}))
+export const dispatchHandleAddTodo = (...args) =>
+  dispatch(handleAddTodo(...args))

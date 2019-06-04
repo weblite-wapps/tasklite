@@ -1,9 +1,7 @@
 // modules
 import * as R from 'ramda'
 // local modules
-import {
-  getState
-} from '../../../setup/redux'
+import { getState } from '../../../setup/redux'
 // actions
 import {
   SET_API,
@@ -17,7 +15,6 @@ import {
   CHANGE_TODO_TEXT,
   TOGGLE_TODO,
   ADD_TODO,
-  RESTORE_TODO,
   DELETE_TODO,
   SET_SENT_TIME,
   LOAD_NUMBER_OF_TASKS,
@@ -27,9 +24,7 @@ import {
   SET_INDEXINDB,
 } from './Home.action'
 // helpers
-import {
-  getUpdatedNumbersObject
-} from './Home.helper'
+import { getUpdatedNumbersObject } from './Home.helper'
 
 // state
 const initialState = {
@@ -64,10 +59,7 @@ export const numbersObjectView = () =>
 
 // reducers
 const reducers = {
-  [SET_API]: (state, {
-    user,
-    creator
-  }) => ({
+  [SET_API]: (state, { user, creator }) => ({
     ...state,
     user,
     creator,
@@ -129,14 +121,10 @@ const reducers = {
     tasks: R.compose(
       R.adjust(0, R.assoc('todoText', '')),
       R.prepend(task),
-    )(state.tasks)
+    )(state.tasks),
   }),
 
-  [DELETE_TASK]: (state, {
-    task: {
-      _id
-    }
-  }) => ({
+  [DELETE_TASK]: (state, { task: { _id } }) => ({
     ...state,
     tasks: R.remove(
       R.findIndex(R.propEq('_id', _id))(state.tasks),
@@ -145,124 +133,96 @@ const reducers = {
     ),
   }),
 
-  [TOGGLE_TODO]: (state, {
-    _id,
-    todoId
-  }) => ({
+  [TOGGLE_TODO]: (state, { _id, todoId }) => ({
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.map(
-          todo =>
-          todo._id === todoId ?
-          R.set(completedLens, !todo.completed, todo) :
-          todo,
-          task.todos,
-        ),
-      } :
-      task,
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.map(
+                todo =>
+                  todo._id === todoId
+                    ? R.set(completedLens, !todo.completed, todo)
+                    : todo,
+                task.todos,
+              ),
+            }
+          : task,
       state.tasks,
     ),
   }),
 
-  [CHANGE_LEVEL]: (state, {
-    _id,
-    nextLevel
-  }) => ({
-    ...state,
-    tasks: R.map(
-      task => (task._id === _id ? {
-        ...task,
-        level: nextLevel
-      } : task),
-      state.tasks,
-    ),
-  }),
-
-  [CHANGE_TODO_TEXT]: (state, {
-    _id,
-    value
-  }) => ({
-    ...state,
-    tasks: R.map(
-      task => (task._id === _id ? {
-        ...task,
-        todoText: value
-      } : task),
-      state.tasks,
-    ),
-  }),
-
-  [ADD_TODO]: (state, {
-    _id,
-    value
-  }) => ({
+  [CHANGE_LEVEL]: (state, { _id, nextLevel }) => ({
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.prepend({
-            title: value,
-            completed: false,
-            _id: task.todos.length.toString(),
-          },
-          task.todos,
-        ),
-      } :
-      task,
+        task._id === _id
+          ? {
+              ...task,
+              level: nextLevel,
+            }
+          : task,
       state.tasks,
     ),
   }),
 
-  [RESTORE_TODO]: (state, {
-    _id,
-    todos
-  }) => ({
+  [CHANGE_TODO_TEXT]: (state, { _id, value }) => ({
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.adjust(0, R.assoc('_id', todos[0]._id), task.todos),
-      } :
-      task,
+        task._id === _id
+          ? {
+              ...task,
+              todoText: value,
+            }
+          : task,
       state.tasks,
     ),
   }),
 
-  [DELETE_TODO]: (state, {
-    _id,
-    todoId
-  }) => ({
+  [ADD_TODO]: (state, { _id, todos }) => ({
     ...state,
     tasks: R.map(
       task =>
-      task._id === _id ? {
-        ...task,
-        todos: R.remove(
-          R.findIndex(R.propEq('_id', todoId), task.todos),
-          1,
-          task.todos,
-        ),
-      } :
-      task,
+        task._id === _id
+          ? {
+              ...task,
+              todos,
+            }
+          : task,
       state.tasks,
     ),
   }),
 
-  [SET_SENT_TIME]: (state, {
-    _id,
-    time
-  }) => ({
+  [DELETE_TODO]: (state, { _id, todoId }) => ({
     ...state,
     tasks: R.map(
-      task => (task._id === _id ? {
-        ...task,
-        sentTime: time
-      } : task),
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              todos: R.remove(
+                R.findIndex(R.propEq('_id', todoId), task.todos),
+                1,
+                task.todos,
+              ),
+            }
+          : task,
+      state.tasks,
+    ),
+  }),
+
+  [SET_SENT_TIME]: (state, { _id, time }) => ({
+    ...state,
+    tasks: R.map(
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              sentTime: time,
+            }
+          : task,
       state.tasks,
     ),
   }),
@@ -270,10 +230,7 @@ const reducers = {
   [LOAD_NUMBER_OF_TASKS]: (state, value) =>
     R.set(numbersObjectLens, value, state),
 
-  [UPDATE_NUMBERS_OBJECT]: (state, {
-      currentLevel,
-      nextLevel
-    }) =>
+  [UPDATE_NUMBERS_OBJECT]: (state, { currentLevel, nextLevel }) =>
     R.set(
       numbersObjectLens,
       getUpdatedNumbersObject(currentLevel, nextLevel),
@@ -281,7 +238,10 @@ const reducers = {
     ),
   [SET_EDITED_TASK]: (state, newTask) => ({
     ...state,
-    tasks: R.map(task => (task._id === newTask._id ? newTask : task), state.tasks),
+    tasks: R.map(
+      task => (task._id === newTask._id ? newTask : task),
+      state.tasks,
+    ),
   }),
 
   [SET_ALL_TASKS]: (state, tasks) => ({
@@ -289,24 +249,20 @@ const reducers = {
     tasks,
   }),
 
-  [SET_INDEXINDB]: (state, {
-    _id,
-    indexInDb
-  }) => ({
+  [SET_INDEXINDB]: (state, { _id, indexInDb }) => ({
     ...state,
     tasks: R.map(
-      task => (task._id === _id ? {
-        ...task,
-        indexInDb
-      } : task),
+      task =>
+        task._id === _id
+          ? {
+              ...task,
+              indexInDb,
+            }
+          : task,
       state.tasks,
     ),
   }),
-
 }
 
-export default (state = initialState, {
-  type,
-  payload
-}) =>
-reducers[type] ? reducers[type](state, payload) : state
+export default (state = initialState, { type, payload }) =>
+  reducers[type] ? reducers[type](state, payload) : state

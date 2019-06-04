@@ -1,10 +1,15 @@
 // modules
 import * as R from 'ramda'
 // views
-import { tabIndexView } from '../../Home/Home.reducer'
+import {
+  tabIndexView
+} from '../../Home/Home.reducer'
 
 
-export const formatTitle = name => name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+export const formatTitle = (name, tabIndex, creator) => {
+  if (creator && tabIndex === 'EVALUATE') return name.length > 15 ? `${R.slice(0, 15, name)}...` : name
+  return name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+}
 
 export const formatTags = (tags) => {
   const joined = R.join(', ', tags)
@@ -20,13 +25,23 @@ export const getProgressBarPercent = todos =>
     R.filter(item => item.completed === true),
   )(todos)
 
-export const checkToShow = (info) => {
+export const checkToShow = (info, todos = []) => {
   const tabIndex = tabIndexView()
 
   switch (info) {
-    case 'deadline': return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
-    case 'sentTime': return tabIndex === 'EVALUATE'
-    case 'percent': return tabIndex === 'IN PROGRESS'
-    default: return false
+    case 'deadline':
+      return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
+    case 'sentTime':
+      return tabIndex === 'EVALUATE'
+    case 'percent':
+      return tabIndex === 'IN PROGRESS' && todos.length > 0
+    default:
+      return false
   }
+}
+
+export const priorityClasses = {
+  1: 'c--list_title-high',
+  2: 'c--list_title-middle',
+  3: 'c--list_title-low',
 }

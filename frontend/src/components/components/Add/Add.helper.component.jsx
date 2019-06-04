@@ -1,12 +1,10 @@
 // modules
 import React from "react";
 import PropTypes from "prop-types";
-import { endOfDay } from 'date-fns' 
 // components
 import CustomizedTextField from "../../../helper/components/TextField/TextField.presentational";
 import CustomizedSelectField from "../../../helper/components/SelectField/SelectField.presentational";
 import CustomizedDatePicker from "../../../helper/components/DatePicker/DatePicker.presentational";
-import CustomizedButton from "../../../helper/components/Button/Button.presentational";
 // styles
 import './Add.scss'
 
@@ -56,26 +54,3 @@ DatePicker.propTypes = {
 DatePicker.defaultProps = {
   isError: false,
 }
-
-
-export const Button = ({
-  title, assignee, selectedTags, priority, deadline, label, handleAddTask,
-}) => (
-  <div className="c--add_button">
-    <CustomizedButton
-      label={label}
-      componentName="Add"
-      onClick={() => handleAddTask(title, assignee, selectedTags, priority, endOfDay(deadline))}
-    />
-  </div>
-);
-
-Button.propTypes = {
-  title: PropTypes.string.isRequired,
-  assignee: PropTypes.shape({}).isRequired,
-  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  priority: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  deadline: PropTypes.shape({}).isRequired,
-  label: PropTypes.string.isRequired,
-  handleAddTask: PropTypes.func.isRequired
-};
