@@ -8,6 +8,7 @@ import {
   getRequest,
   postRequest,
 } from '../../../helper/functions/request.helper'
+import { pulse } from '../../../helper/functions/handleRealTime'
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {
@@ -146,6 +147,7 @@ const effectHandleAddTask = (action$, { dispatch }) =>
           [assignee.id],
         )
     })
+    .do(() => pulse())
     .ignoreElements()
 
 const closeAddEpic = action$ =>
