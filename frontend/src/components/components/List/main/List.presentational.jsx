@@ -67,13 +67,7 @@ class TaskList extends React.Component {
 
     return (
       <React.Fragment>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginLeft: '20px',
-          }}
-        >
+        <div className="c--task_header">
           <img src="drag2.png" {...provided.dragHandleProps} alt="drag icon" />
           <List disablePadding>
             <TitleAndLevelButtons {...this.props} />

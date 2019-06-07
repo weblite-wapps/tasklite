@@ -38,7 +38,7 @@ import {
   tabIndexView,
   tasksView,
 } from './Home.reducer'
-import { pulse } from '../../../helper/functions/handleRealTime';
+import { pulse } from '../../../helper/functions/handleRealTime'
 
 const usersEpic = action$ =>
   action$
@@ -99,7 +99,6 @@ const initialFetchEpic = action$ =>
         ),
     )
     .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
-    .do(({ body: { tasks } }) => console.log('received tasks ', tasks))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
     .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
     .do(({ body: { numberOfTasks } }) =>
@@ -210,8 +209,8 @@ const dragTaskEpic = action$ =>
           destinationIndex + 1 === R.length(allTasks)
             ? desIndexInDb - 100
             : !destinationIndex
-              ? desIndexInDb + 100
-              : R.prop(
+            ? desIndexInDb + 100
+            : R.prop(
                 'order',
                 R.nth(
                   destinationIndex > sourceIndex
@@ -243,7 +242,7 @@ const dragTaskEpic = action$ =>
           }),
         )
         .then(dispatchSetIsLoading(false))
-        .then(() => pulse())
+        .then(() => pulse()),
     )
     // .do(() => dispatchSetIsLoading(false))
     .ignoreElements()

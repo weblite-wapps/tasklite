@@ -22,7 +22,6 @@ import {
   SET_EDITED_TASK,
   SET_ALL_TASKS,
   SET_INDEXINDB,
-  SET_TODO_ORDER,
 } from './Home.action'
 // helpers
 import { getUpdatedNumbersObject } from './Home.helper'
@@ -230,9 +229,6 @@ const reducers = {
       state.tasks,
     ),
   }),
-
-  [SET_TODO_ORDER]: (state, { _id, todo_id, order }) =>
-    console.log(_id, todo_id, order),
 }
 
 export default (state = initialState, { type, payload }) =>
