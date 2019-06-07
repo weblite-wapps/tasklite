@@ -14,25 +14,27 @@ const Todo = ({
   todo: { completed, title },
   onCompletedChange,
   onDelete,
+  provided,
 }) => (
-    <div className="c--todo_container">
-      <Checkbox
-        disabled={level !== 'IN PROGRESS'}
-        checked={completed}
-        onChange={onCompletedChange}
-        style={{ height: '15px', width: '15px' }}
-      />
-      <Typography variant="caption" style={{ marginLeft: '5px' }} dir="auto">
-        {title}
-      </Typography>
-      <Button
-        label="DELETE"
-        onClick={onDelete}
-        componentName="Todo"
-        disabled={level === 'EVALUATE' || level === 'DONE' || isLoading}
-      />
-    </div>
-  )
+  <div className="c--todo_container">
+    <img src="drag2.png" {...provided.dragHandleProps} alt="drag icon" />
+    <Checkbox
+      disabled={level !== 'IN PROGRESS'}
+      checked={completed}
+      onChange={onCompletedChange}
+      style={{ height: '15px', width: '15px' }}
+    />
+    <Typography variant="caption" style={{ marginLeft: '5px' }} dir="auto">
+      {title}
+    </Typography>
+    <Button
+      label="DELETE"
+      onClick={onDelete}
+      componentName="Todo"
+      disabled={level === 'EVALUATE' || level === 'DONE' || isLoading}
+    />
+  </div>
+)
 
 Todo.propTypes = {
   level: PropTypes.string.isRequired,

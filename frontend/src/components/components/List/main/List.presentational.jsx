@@ -62,14 +62,24 @@ class TaskList extends React.Component {
       deleteTask,
       editTask,
       changePopoverId,
+      provided,
     } = this.props
 
     return (
       <React.Fragment>
-        <List disablePadding>
-          <TitleAndLevelButtons {...this.props} />
-          <BriefInfo {...this.props} />
-        </List>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            marginLeft: '20px',
+          }}
+        >
+          <img src="drag2.png" {...provided.dragHandleProps} alt="drag icon" />
+          <List disablePadding>
+            <TitleAndLevelButtons {...this.props} />
+            <BriefInfo {...this.props} />
+          </List>
+        </div>
 
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className="c--list_collapse">

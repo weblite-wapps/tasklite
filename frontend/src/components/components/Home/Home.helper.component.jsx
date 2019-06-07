@@ -31,12 +31,8 @@ class DroppableItemTask extends Component {
   render() {
     const { task, provided, forwardedRef } = this.props
     return (
-      <div
-        ref={forwardedRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-      >
-        <CustomizedTaskList task={task} />
+      <div ref={forwardedRef} {...provided.draggableProps}>
+        <CustomizedTaskList task={task} provided={provided} />
       </div>
     )
   }

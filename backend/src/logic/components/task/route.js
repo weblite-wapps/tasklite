@@ -165,17 +165,14 @@ app.post(
   },
 )
 
-app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) => {
+app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) =>
   // console.log(sourceId, destOrder, destSiblingOrder, sourceTaskId)
-  console.log(
-    updateTask(
-      {
-        _id: sourceTaskId,
-      },
-      { todos },
-      // { update: true },
-    )
-      .then(console.log)
-      .catch(console.log),
+  updateTask(
+    {
+      _id: sourceTaskId,
+    },
+    { todos },
   )
-})
+    .then(() => res.send('Dragged succesfully'))
+    .catch(console.log),
+)

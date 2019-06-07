@@ -58,13 +58,13 @@ const SubInfo = ({
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          {...provided.dragHandleProps}
                         >
                           <Todo
                             key={todo._id}
                             level={level}
                             _id={_id}
                             todo={todo}
+                            provided={provided}
                           />
                         </div>
                       )}
