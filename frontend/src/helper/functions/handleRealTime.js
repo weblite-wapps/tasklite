@@ -1,12 +1,13 @@
-// import { dispatchFetchInitialData } from "../../components/components/Home/Home.action";
+import { dispatchFetchInitialData } from "../../components/components/Home/Home.action";
 
-// const { W } = window
-// export const dispatch = qlite => W.share.dispatch([], qlite, [])
+const { W } = window
 
-// W.share.subscribe(() => console.log('new data received'))
-// W.share.subscribe(() => dispatchFetchInitialData())
+
+// W.share.subscribe((data) => console.log(data))
+W.share.subscribe(() => dispatchFetchInitialData())
 
 export const pulse = () => {
+  // console.log("W ", W)
   console.log('updated')
-  // dispatch('Data updated!')
+  W.share.dispatch([], ['__always', ["new data"]], "")
 }

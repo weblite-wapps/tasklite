@@ -5,6 +5,7 @@
   "instantiable": true,
   "creator": true,
   "userInfo": true,
+  "shareDB": true,
   "servIndexes": {
     "main": "index"
   }

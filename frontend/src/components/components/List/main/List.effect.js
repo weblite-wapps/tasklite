@@ -27,6 +27,7 @@ import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
+import { pulse } from '../../../../helper/functions/handleRealTime';
 
 const changeLevelEpic = action$ =>
   action$
@@ -211,8 +212,8 @@ const handleDragTodoEpic = action$ =>
         destination + 1 === R.length(todos)
           ? destOrder - 100
           : !destination
-          ? destOrder + 100
-          : R.prop(
+            ? destOrder + 100
+            : R.prop(
               'order',
               R.nth(
                 destination > source ? destination + 1 : destination - 1,
@@ -265,8 +266,10 @@ const handleDragTodoEpic = action$ =>
         //   }),
         // )
         .then(dispatchSetIsLoading(false))
+        .then(() => pulse())
     })
     .do(() => dispatchSetIsLoading(false))
+
     .ignoreElements()
 
 export default combineEpics(
