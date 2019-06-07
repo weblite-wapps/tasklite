@@ -16,8 +16,6 @@ import {
   dispatchAddTodo,
   dispatchUpdateNumbersObject,
   dispatchSetEditedTask,
-  dispatchSetIndexInDb,
-  dispatchSetTodoOrder,
 } from '../../Home/Home.action'
 import {
   dispatchChangeIsOpenDialog,
@@ -192,20 +190,21 @@ const handleDragTodoEpic = action$ =>
         })(),
     )
     .do(() => dispatchSetIsLoading(true))
+    // .do(console.log)
 
-    .map(({ e: { source, destination }, _id, todos, ...rest }) => ({
+    .map(({ e: { source, destination }, task_id, todos, ...rest }) => ({
       source: R.prop('index', source),
       destination: R.prop('index', destination),
-      sourceTask: R.find(R.propEq('_id', _id), tasksView()),
+      sourceTask: R.find(R.propEq('_id', task_id), tasksView()),
       sourceId: R.prop('_id', R.nth(R.prop('index', source), todos)),
       destOrder: R.prop('order', R.nth(R.prop('index', destination), todos)),
       todos,
       ...rest,
     }))
 
-    .do(({ source, destination, sourceTask }) => {
-      dispatchSetEditedTask(updateTodosInFront(source, destination, sourceTask))
-    })
+    // .do(({ source, destination, sourceTask }) => {
+    //   dispatchSetEditedTask(updateTodosInFront(source, destination, sourceTask))
+    // })
 
     .map(({ source, destination, destOrder, todos, ...rest }) => ({
       destSiblingOrder:
@@ -221,30 +220,52 @@ const handleDragTodoEpic = action$ =>
               ),
             ),
       destOrder,
+      source,
+      destination,
       ...rest,
     }))
-    .do(console.log)
-    // .do(({ sourceId, destOrder, destSiblingOrder, sourceTask }) =>
-    //   postRequest('/dragTodo')
-    //     .send({
-    //       sourceId,
-    //       destOrder,
-    //       destSiblingOrder,
-    //     })
-    //     .on('error', err => {
-    //       dispatchSetEditedTask(sourceTask)
-    //       err.status !== 304 &&
-    //         dispatchChangeSnackbarStage('Server disconnected!')
-    //     })
-    //     .then(({ body: { _id, order } }) =>
-    //       dispatchSetTodoOrder({
-    //         _id,
-    //         todo_id: sourceId,
-    //         order,
-    //       }),
-    //     )
-    //     .then(dispatchSetIsLoading(false)),
-    // )
+    .map(({ sourceId, sourceTask, destOrder, destSiblingOrder, ...rest }) => ({
+      sourceTaskId: R.prop('_id', sourceTask),
+      notChangedSourceTask: sourceTask,
+      sourceTask: {
+        ...sourceTask,
+        todos: R.map(
+          todo =>
+            todo._id === sourceId
+              ? { ...todo, order: (destOrder + destSiblingOrder) / 2 }
+              : todo,
+          sourceTask.todos,
+        ),
+      },
+      ...rest,
+    }))
+
+    .map(({ source, destination, sourceTask, ...rest }) => ({
+      sourceTask: updateTodosInFront(source, destination, sourceTask),
+      ...rest,
+    }))
+
+    .do(({ sourceTaskId, sourceTask, notChangedSourceTask }) => {
+      dispatchSetEditedTask(sourceTask)
+      postRequest('/dragTodo')
+        .send({
+          sourceTaskId,
+          todos: R.prop('todos', sourceTask),
+        })
+        .on('error', err => {
+          dispatchSetEditedTask(notChangedSourceTask)
+          err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!')
+        })
+        // .then(({ body: { _id, order } }) =>
+        //   dispatchSetTodoOrder({
+        //     _id,
+        //     todo_id: sourceId,
+        //     order,
+        //   }),
+        // )
+        .then(dispatchSetIsLoading(false))
+    })
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 

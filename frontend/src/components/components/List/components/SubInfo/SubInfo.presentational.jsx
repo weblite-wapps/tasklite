@@ -39,10 +39,7 @@ const SubInfo = ({
         <DragDropContext onDragEnd={e => onDragEnd({ e, todos, task_id: _id })}>
           <Droppable droppableId="droppable">
             {provided => (
-              <div
-                ref={provided.innerRef}
-                // style={getListStyle(snapshot.isDraggingOver)}
-              >
+              <div ref={provided.innerRef}>
                 {' '}
                 <FlipMove
                   typeName={null}
@@ -57,15 +54,11 @@ const SubInfo = ({
                       draggableId={todo._id}
                       index={index}
                     >
-                      {(provided, snapshot) => (
+                      {provided => (
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          // style={getItemStyle(
-                          //   snapshot.isDragging,
-                          //   provided.draggableProps.style,
-                          // )}
                         >
                           <Todo
                             key={todo._id}

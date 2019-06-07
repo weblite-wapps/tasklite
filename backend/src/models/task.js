@@ -1,7 +1,7 @@
 // module
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const { Schema } = mongoose;
+const { Schema } = mongoose
 
 const TaskSchema = new Schema({
   title: String,
@@ -12,19 +12,19 @@ const TaskSchema = new Schema({
   level: String,
   assignee: {
     name: String,
-    id: String
+    id: String,
   },
   todos: [
     {
       title: String,
       completed: Boolean,
-      order: Number
-    }
+      order: Number,
+    },
   ],
   order: Number,
   created_at: Date,
   userId: String,
-  wis: String
-});
+  wis: String,
+})
 
-export default mongoose.model("Task", TaskSchema);
+export default mongoose.model('Task', TaskSchema)

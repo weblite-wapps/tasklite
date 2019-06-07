@@ -58,6 +58,7 @@ export const updateTasksInFront = (source, destination) => {
 }
 
 export const updateTodosInFront = (source, destination, task) => {
+  // console.log(source, destination)
   const todos = R.prop('todos', task)
   return {
     ...task,

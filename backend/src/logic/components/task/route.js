@@ -1,87 +1,88 @@
 // modules
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 // components
-import app from "../../../setup/server";
+import app from '../../../setup/server'
 // db helpers
 import {
   loadMoreFetchTasks,
   fetchTasks,
   saveTask,
   updateTask,
-  deleteTask
-} from "./db";
+  deleteTask,
+} from './db'
 // helpers
-import { getToggledValue, calcNewIndexInDb } from "./helper";
+import { getToggledValue, calcNewIndexInDb } from './helper'
+import task from '../../../models/task'
 // const
-const logger = console.log;
+const logger = console.log
 
-app.post("/saveTask", (req, res) =>
+app.post('/saveTask', (req, res) =>
   saveTask(req.body)
     .then(task => res.send(task))
-    .catch(logger)
-);
+    .catch(logger),
+)
 
-app.post("/deleteTask", (req, res) =>
+app.post('/deleteTask', (req, res) =>
   deleteTask({
-    _id: mongoose.Types.ObjectId(req.query._id)
+    _id: mongoose.Types.ObjectId(req.query._id),
   })
-    .then(() => res.send("deleted successfully!"))
-    .catch(logger)
-);
+    .then(() => res.send('deleted successfully!'))
+    .catch(logger),
+)
 
-app.post("/changeLevel", ({ body }, res) =>
+app.post('/changeLevel', ({ body }, res) =>
   updateTask(
     {
-      _id: mongoose.Types.ObjectId(body._id)
+      _id: mongoose.Types.ObjectId(body._id),
     },
     {
       $set: {
-        level: body.nextLevel
-      }
+        level: body.nextLevel,
+      },
     },
-    {}
+    {},
   )
     .then(() => res.send(body))
-    .catch(logger)
-);
+    .catch(logger),
+)
 
-app.post("/setSentTime", ({ body: { _id, sentTime } }, res) =>
-  updateTask(
-    {
-      _id: mongoose.Types.ObjectId(_id)
-    },
-    {
-      $set: {
-        sentTime
-      }
-    },
-    {}
-  )
-    .then(() => res.send("sent time set!"))
-    .catch(logger)
-);
-
-app.post("/toggleTodo", ({ body: { _id, todoId, task } }, res) =>
+app.post('/setSentTime', ({ body: { _id, sentTime } }, res) =>
   updateTask(
     {
       _id: mongoose.Types.ObjectId(_id),
-      "todos._id": todoId
     },
     {
       $set: {
-        "todos.$.completed": getToggledValue(task, todoId)
-      }
+        sentTime,
+      },
     },
-    {}
+    {},
   )
-    .then(() => res.send("toggled successfully!"))
-    .catch(logger)
-);
+    .then(() => res.send('sent time set!'))
+    .catch(logger),
+)
 
-app.post("/addTodo", ({ body: { _id, value, order } }, res) =>
+app.post('/toggleTodo', ({ body: { _id, todoId, task } }, res) =>
   updateTask(
     {
-      _id: mongoose.Types.ObjectId(_id)
+      _id: mongoose.Types.ObjectId(_id),
+      'todos._id': todoId,
+    },
+    {
+      $set: {
+        'todos.$.completed': getToggledValue(task, todoId),
+      },
+    },
+    {},
+  )
+    .then(() => res.send('toggled successfully!'))
+    .catch(logger),
+)
+
+app.post('/addTodo', ({ body: { _id, value, order } }, res) =>
+  updateTask(
+    {
+      _id: mongoose.Types.ObjectId(_id),
     },
     {
       $push: {
@@ -90,76 +91,91 @@ app.post("/addTodo", ({ body: { _id, value, order } }, res) =>
             {
               title: value,
               order,
-              completed: false
-            }
+              completed: false,
+            },
           ],
-          $position: 0
-        }
-      }
+          $position: 0,
+        },
+      },
     },
-    {}
+    {},
   )
     .then(() =>
       fetchTasks({
-        _id: mongoose.Types.ObjectId(_id)
-      })
+        _id: mongoose.Types.ObjectId(_id),
+      }),
     )
     .then(task => res.send(task))
-    .catch(logger)
-);
+    .catch(logger),
+)
 
-app.post("/deleteTodo", ({ body: { _id, todoId } }, res) =>
+app.post('/deleteTodo', ({ body: { _id, todoId } }, res) =>
   updateTask(
     {
-      _id: mongoose.Types.ObjectId(_id)
+      _id: mongoose.Types.ObjectId(_id),
     },
     {
       $pull: {
         todos: {
-          _id: todoId
-        }
-      }
+          _id: todoId,
+        },
+      },
     },
-    {}
+    {},
   )
-    .then(() => res.send("deleted successfully!"))
-    .catch(logger)
-);
+    .then(() => res.send('deleted successfully!'))
+    .catch(logger),
+)
 
-app.get("/loadMore", ({ query }, res) =>
+app.get('/loadMore', ({ query }, res) =>
   loadMoreFetchTasks(query)
     .then(tasks => res.json(tasks))
-    .catch(logger)
-);
+    .catch(logger),
+)
 
-app.post("/editTask", ({ body, body: { _id } }, res) =>
+app.post('/editTask', ({ body, body: { _id } }, res) =>
   updateTask(
     {
-      _id
+      _id,
     },
     body,
-    {}
+    {},
   )
-    .then(() => res.send("edited successfully!"))
-    .catch(logger)
-);
+    .then(() => res.send('edited successfully!'))
+    .catch(logger),
+)
 
 app.post(
-  "/dragTask",
+  '/dragTask',
   ({ body: { sourceId, desIndexInDb, desSiblingIndexInDb } }, res) => {
-    console.log();
+    console.log()
     return updateTask(
       {
-        _id: sourceId
+        _id: sourceId,
       },
       {
-        order: calcNewIndexInDb(desIndexInDb, desSiblingIndexInDb)
+        order: calcNewIndexInDb(desIndexInDb, desSiblingIndexInDb),
       },
       {
-        new: true
-      }
+        new: true,
+      },
     )
       .then(data => res.send(data))
-      .catch(console.log);
-  }
-);
+      .catch(console.log)
+  },
+)
+
+app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) => {
+  // console.log(sourceId, destOrder, destSiblingOrder, sourceTaskId)
+  console.log(
+    updateTask(
+      {
+        _id: sourceTaskId,
+      },
+      { todos },
+      // { update: true },
+    )
+      .then(console.log)
+      .catch(console.log),
+  )
+})
