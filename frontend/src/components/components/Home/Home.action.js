@@ -127,6 +127,11 @@ export const fetchAllTasks = createAction(FETCH_ALL_TASKS)
 export const dispatchFetchAllTasks = (...args) =>
   dispatch(fetchAllTasks(...args))
 
+export const FETCH_ALL_USERS = 'FETCH_ALL_USERS'
+export const fetchAllUsers = createAction(FETCH_ALL_USERS)
+export const dispatchFetchAllUsers = (...args) =>
+  dispatch(fetchAllUsers(...args))
+
 // effects
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
 export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
