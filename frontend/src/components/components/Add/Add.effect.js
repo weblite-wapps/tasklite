@@ -148,7 +148,7 @@ const effectHandleAddTask = (action$, { dispatch }) =>
         )
     })
     // .do(() => console.log("going to add new task"))
-    .do(() => pulse())
+    .do(success => pulse(HANDLE_ADD_TASK, success[0].body._id))
     .ignoreElements()
 
 const closeAddEpic = action$ =>

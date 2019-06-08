@@ -122,6 +122,21 @@ export const SET_ORDER = 'SET_ORDER'
 export const setOrder = createAction(SET_ORDER)
 export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
+// effects
+export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
+export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
+  _id,
+  value,
+}))
+export const dispatchHandleAddTodo = (...args) =>
+  dispatch(handleAddTodo(...args))
+
+// Real time
+export const FETCH_SINGLE_TASK = 'FETCH_SINGLE_TASK'
+export const fetchSingleTask = createAction(FETCH_SINGLE_TASK)
+export const dispatchFetchSingleTask = (...args) =>
+  dispatch(fetchSingleTask(...args))
+
 export const FETCH_ALL_TASKS = 'FETCH_ALL_TASKS'
 export const fetchAllTasks = createAction(FETCH_ALL_TASKS)
 export const dispatchFetchAllTasks = (...args) =>
@@ -131,12 +146,3 @@ export const FETCH_ALL_USERS = 'FETCH_ALL_USERS'
 export const fetchAllUsers = createAction(FETCH_ALL_USERS)
 export const dispatchFetchAllUsers = (...args) =>
   dispatch(fetchAllUsers(...args))
-
-// effects
-export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
-export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
-  _id,
-  value,
-}))
-export const dispatchHandleAddTodo = (...args) =>
-  dispatch(handleAddTodo(...args))

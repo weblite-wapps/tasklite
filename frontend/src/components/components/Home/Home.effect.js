@@ -108,29 +108,6 @@ const initialFetchEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
-const fetchAllTasksEpic = action$ =>
-  action$
-    .ofType(FETCH_ALL_TASKS)
-    .do(() => dispatchSetIsLoading(true))
-    .mergeMap(() =>
-      getRequest('/initialFetch')
-        .query(getQuery())
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(({ body: { tasks } }) => dispatchSetAllTasks(tasks))
-    .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
-    .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
-    .do(({ body: { numberOfTasks } }) =>
-      dispatchLoadNumberOfTasks(numberOfTasks),
-    )
-    .do(() => dispatchSetIsLoading(false))
-    .ignoreElements()
-
 const deleteTaskEpic = action$ =>
   action$
     .ofType(DELETE_TASK)
@@ -275,5 +252,4 @@ export default combineEpics(
   deleteTaskEpic,
   loadMoreEpic,
   dragTaskEpic,
-  fetchAllTasksEpic,
 )

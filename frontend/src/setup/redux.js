@@ -1,18 +1,7 @@
 // modules
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-  compose
-} from 'redux'
-import {
-  createEpicMiddleware,
-  combineEpics
-} from 'redux-observable'
-import {
-  routerReducer,
-  routerMiddleware
-} from 'react-router-redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createEpicMiddleware, combineEpics } from 'redux-observable'
+import { routerReducer, routerMiddleware } from 'react-router-redux'
 import createHistory from 'history/createMemoryHistory'
 // reducers
 import AppReducer from '../components/Main/App.reducer'
@@ -25,6 +14,7 @@ import SnackbarReducer from '../components/components/Snackbar/Snackbar.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import HomeEpic from '../components/components/Home/Home.effect'
+import HomeSubscribeEpic from '../components/components/Home/Home.effect'
 import AddEpic from '../components/components/Add/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 import FilterEpic from '../components/components/Filter/Filter.effect'
@@ -40,7 +30,15 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 /* eslint-enable */
 
 // redux observable
-const rootEpic = combineEpics(AppEpic, HomeEpic, AddEpic, ListEpic, FilterEpic, EditEpic)
+const rootEpic = combineEpics(
+  AppEpic,
+  HomeEpic,
+  HomeSubscribeEpic,
+  AddEpic,
+  ListEpic,
+  FilterEpic,
+  EditEpic,
+)
 const epicMiddleware = createEpicMiddleware(rootEpic)
 
 const store = createStore(
@@ -57,8 +55,5 @@ const store = createStore(
   composeEnhancers(applyMiddleware(middleware, epicMiddleware)),
 )
 
-export const {
-  dispatch,
-  getState
-} = store
+export const { dispatch, getState } = store
 export default store
