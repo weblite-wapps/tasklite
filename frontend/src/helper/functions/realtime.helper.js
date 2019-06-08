@@ -8,13 +8,13 @@ import {
 
 const { W } = window
 
-W && W.share.subscribe(data => console.log(data))
-//   type === HANDLE_DRAG_TASK
-//     ? dispatchFetchAllTasks()
-//     : type === FETCH_ALL_USERS
-//     ? dispatchFetchAllUsers()
-//     : dispatchFetchSingleTask(type, data),
-// )
+W && W.share.subscribe(({ type, data }) =>
+  type === HANDLE_DRAG_TASK
+    ? dispatchFetchAllTasks()
+    : type === FETCH_ALL_USERS
+    ? dispatchFetchAllUsers()
+    : dispatchFetchSingleTask(type, data),
+)
 
 export const pulse = (type, data) => {
   W && W.share.dispatch([], ['__always', [{ type, data }]], {})

@@ -20,6 +20,7 @@ const addTaskSubscribe = action$ =>
   action$
     .ofType(FETCH_SINGLE_TASK)
     .pluck('payload')
+    .do(console.log)
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ data, type }) =>
       getRequest('/fetchSingleTask')
@@ -32,6 +33,7 @@ const addTaskSubscribe = action$ =>
         )
         .then(({ body }) => ({ ...body, type })),
     )
+    .do(console.log)
     .do(({ task, type }) => type === ADD_TASK && dispatchAddTask(task))
     .do(({ task, type }) => type === DELETE_TASK && dispatchDeleteTask(task))
     //   dispatchLoadNumberOfTasks(numberOfTasks),

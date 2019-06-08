@@ -12,6 +12,8 @@ export const loadMoreFetchTasks = async ({ query, skipLength }) =>
 
 export const fetchTasks = async query => Task.find(query).exec()
 
+export const fetchSingleTask = async query => Task.findOne(query).exec() 
+
 export const saveTask = async task => new Task(task).save()
 
 export const deleteTask = async query => Task.remove(query).exec()

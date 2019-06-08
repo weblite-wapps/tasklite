@@ -9,6 +9,7 @@ import {
   saveTask,
   updateTask,
   deleteTask,
+  fetchSingleTask,
 } from './db'
 // helpers
 import { getToggledValue, calcNewIndexInDb } from './helper'
@@ -175,4 +176,10 @@ app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) =>
   )
     .then(() => res.send('Dragged succesfully'))
     .catch(console.log),
+)
+
+app.get('/fetchSingleTask', ({ query }, res) =>
+  fetchSingleTask(query)
+    .then(task => res.json(task))
+    .catch(logger),
 )
