@@ -27,6 +27,7 @@ Collapse.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
+// TODO: WRITE DRAG COMPONENTS WITH HOC
 class DroppableItemTask extends Component {
   render() {
     const { task, provided, forwardedRef } = this.props

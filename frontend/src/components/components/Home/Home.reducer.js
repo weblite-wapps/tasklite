@@ -21,7 +21,7 @@ import {
   UPDATE_NUMBERS_OBJECT,
   SET_EDITED_TASK,
   SET_ALL_TASKS,
-  SET_INDEXINDB,
+  SET_ORDER,
 } from './Home.action'
 // helpers
 import { getUpdatedNumbersObject } from './Home.helper'
@@ -216,7 +216,7 @@ const reducers = {
     tasks,
   }),
 
-  [SET_INDEXINDB]: (state, { _id, order }) => ({
+  [SET_ORDER]: (state, { _id, order }) => ({
     ...state,
     tasks: R.map(
       task =>

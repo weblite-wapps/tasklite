@@ -118,9 +118,9 @@ export const handleDragTask = createAction(HANDLE_DRAG_TASK)
 export const dispatchHandleDragTask = (...args) =>
   dispatch(handleDragTask(...args))
 
-export const SET_INDEXINDB = 'SET_INDEXINDB'
-export const setIndexInDb = createAction(SET_INDEXINDB)
-export const dispatchSetIndexInDb = (...args) => dispatch(setIndexInDb(...args))
+export const SET_ORDER = 'SET_ORDER'
+export const setOrder = createAction(SET_ORDER)
+export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
 // effects
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
