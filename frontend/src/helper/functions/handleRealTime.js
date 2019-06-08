@@ -2,8 +2,8 @@ import { dispatchFetchInitialData } from '../../components/components/Home/Home.
 
 const { W } = window
 
-W.share.subscribe(() => dispatchFetchInitialData())
+window.W && window.W.share.subscribe(() => dispatchFetchInitialData())
 
 export const pulse = () => {
-  W.share.dispatch([], ['__always', ['new data']], '')
+  window.W && window.W.share.dispatch([], ['__always', ['new data']], '')
 }
