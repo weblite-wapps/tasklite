@@ -26,7 +26,8 @@ import {
   dispatchUpdateNumbersObject,
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
-  dispatchSetIndexInDb,
+  dispatchSetOrder,
+  FETCH_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -38,7 +39,7 @@ import {
   tabIndexView,
   tasksView,
 } from './Home.reducer'
-import { pulse } from '../../../helper/functions/handleRealTime'
+import { pulse } from '../../../helper/functions/realtime.helper'
 
 const usersEpic = action$ =>
   action$
@@ -107,6 +108,29 @@ const initialFetchEpic = action$ =>
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
+const fetchAllTasksEpic = action$ =>
+  action$
+    .ofType(FETCH_ALL_TASKS)
+    .do(() => dispatchSetIsLoading(true))
+    .mergeMap(() =>
+      getRequest('/initialFetch')
+        .query(getQuery())
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
+    )
+    .do(({ body: { tasks } }) => dispatchSetAllTasks(tasks))
+    .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
+    .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
+    .do(({ body: { numberOfTasks } }) =>
+      dispatchLoadNumberOfTasks(numberOfTasks),
+    )
+    .do(() => dispatchSetIsLoading(false))
+    .ignoreElements()
+
 const deleteTaskEpic = action$ =>
   action$
     .ofType(DELETE_TASK)
@@ -157,6 +181,7 @@ const loadMoreEpic = action$ =>
     .do(() => window.W && window.W.analytics('LOAD_MORE_CLICK'))
     .ignoreElements()
 
+//TODO: THIS EPIC AND IT'S HELPER FUNCTION SHOULD BE REFACTORED
 const dragTaskEpic = action$ =>
   action$
     .ofType(HANDLE_DRAG_TASK)
@@ -193,7 +218,7 @@ const dragTaskEpic = action$ =>
     })
     .map(({ sourceId, destinationId, allTasks }) => ({
       sourceId,
-      desIndexInDb: R.prop(
+      desOrder: R.prop(
         'order',
         R.find(R.propEq('_id', destinationId), allTasks),
       ),
@@ -202,33 +227,31 @@ const dragTaskEpic = action$ =>
       allTasks,
     }))
 
-    .map(
-      ({ sourceIndex, destinationIndex, allTasks, desIndexInDb, ...rest }) => ({
-        desIndexInDb,
-        desSiblingIndexInDb:
-          destinationIndex + 1 === R.length(allTasks)
-            ? desIndexInDb - 100
-            : !destinationIndex
-            ? desIndexInDb + 100
-            : R.prop(
-                'order',
-                R.nth(
-                  destinationIndex > sourceIndex
-                    ? destinationIndex + 1
-                    : destinationIndex - 1,
-                  allTasks,
-                ),
+    .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
+      desOrder,
+      desSiblingOrder:
+        destinationIndex + 1 === R.length(allTasks)
+          ? desOrder - 100
+          : !destinationIndex
+          ? desOrder + 100
+          : R.prop(
+              'order',
+              R.nth(
+                destinationIndex > sourceIndex
+                  ? destinationIndex + 1
+                  : destinationIndex - 1,
+                allTasks,
               ),
-        allTasks,
-        ...rest,
-      }),
-    )
-    .do(({ sourceId, desIndexInDb, desSiblingIndexInDb, allTasks }) =>
+            ),
+      allTasks,
+      ...rest,
+    }))
+    .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
       postRequest('/dragTask')
         .send({
           sourceId,
-          desIndexInDb,
-          desSiblingIndexInDb,
+          desOrder,
+          desSiblingOrder,
         })
         .on('error', err => {
           dispatchSetAllTasks(allTasks)
@@ -236,15 +259,14 @@ const dragTaskEpic = action$ =>
             dispatchChangeSnackbarStage('Server disconnected!')
         })
         .then(({ body: { _id, order } }) =>
-          dispatchSetIndexInDb({
+          dispatchSetOrder({
             _id,
             order,
           }),
-        )
-        .then(dispatchSetIsLoading(false))
-        .then(() => pulse()),
+        ),
     )
-    // .do(() => dispatchSetIsLoading(false))
+    .do(() => dispatchSetIsLoading(false))
+    .do(() => pulse())
     .ignoreElements()
 
 export default combineEpics(
@@ -253,4 +275,5 @@ export default combineEpics(
   deleteTaskEpic,
   loadMoreEpic,
   dragTaskEpic,
+  fetchAllTasksEpic,
 )

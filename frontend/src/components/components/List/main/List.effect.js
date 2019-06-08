@@ -27,7 +27,7 @@ import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
-import { pulse } from '../../../../helper/functions/handleRealTime';
+import { pulse } from '../../../../helper/functions/realtime.helper'
 
 const changeLevelEpic = action$ =>
   action$
@@ -178,6 +178,7 @@ const handleEditButtonEpic = action$ =>
     .do(() => dispatchChangeIsOpenDialog(true))
     .map(() => push('/Edit'))
 
+//TODO: THIS EPIC AND IT'S HELPER FUNCTION SHOULD BE REFACTORED
 const handleDragTodoEpic = action$ =>
   action$
     .ofType(HANDLE_DRAG_TODO)
@@ -191,8 +192,6 @@ const handleDragTodoEpic = action$ =>
         })(),
     )
     .do(() => dispatchSetIsLoading(true))
-    // .do(console.log)
-
     .map(({ e: { source, destination }, task_id, todos, ...rest }) => ({
       source: R.prop('index', source),
       destination: R.prop('index', destination),
@@ -202,18 +201,13 @@ const handleDragTodoEpic = action$ =>
       todos,
       ...rest,
     }))
-
-    // .do(({ source, destination, sourceTask }) => {
-    //   dispatchSetEditedTask(updateTodosInFront(source, destination, sourceTask))
-    // })
-
     .map(({ source, destination, destOrder, todos, ...rest }) => ({
       destSiblingOrder:
         destination + 1 === R.length(todos)
           ? destOrder - 100
           : !destination
-            ? destOrder + 100
-            : R.prop(
+          ? destOrder + 100
+          : R.prop(
               'order',
               R.nth(
                 destination > source ? destination + 1 : destination - 1,
@@ -245,9 +239,8 @@ const handleDragTodoEpic = action$ =>
       sourceTask: updateTodosInFront(source, destination, sourceTask),
       ...rest,
     }))
-
-    .do(({ sourceTaskId, sourceTask, notChangedSourceTask }) => {
-      dispatchSetEditedTask(sourceTask)
+    .do(({ sourceTask }) => dispatchSetEditedTask(sourceTask))
+    .mergeMap(({ sourceTaskId, sourceTask, notChangedSourceTask }) =>
       postRequest('/dragTodo')
         .send({
           sourceTaskId,
@@ -257,19 +250,10 @@ const handleDragTodoEpic = action$ =>
           dispatchSetEditedTask(notChangedSourceTask)
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')
-        })
-        // .then(({ body: { _id, order } }) =>
-        //   dispatchSetTodoOrder({
-        //     _id,
-        //     todo_id: sourceId,
-        //     order,
-        //   }),
-        // )
-        .then(dispatchSetIsLoading(false))
-        .then(() => pulse())
-    })
+        }),
+    )
     .do(() => dispatchSetIsLoading(false))
-
+    .do(() => pulse())
     .ignoreElements()
 
 export default combineEpics(

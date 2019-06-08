@@ -1,19 +1,12 @@
 // modules
-import * as R from "ramda";
-import { isNumber } from "util";
+import * as R from 'ramda'
 
 export const getToggledValue = (task, todoId) =>
   R.compose(
-    R.prop("completed"),
-    R.find(R.propEq("_id", todoId)),
-    R.prop("todos")
-  )(task);
+    R.prop('completed'),
+    R.find(R.propEq('_id', todoId)),
+    R.prop('todos'),
+  )(task)
 
-export const calcNewIndexInDb = (desIndexInDb, desSiblingIndexInDb) => {
-  if (
-    typeof desIndexInDb === "number" &&
-    typeof desSiblingIndexInDb === "number"
-  ) {
-    return (desIndexInDb + desSiblingIndexInDb) / 2;
-  }
-};
+export const calcNewIndexInDb = (desOrder, desSiblingOrder) =>
+  (desOrder + desSiblingOrder) / 2

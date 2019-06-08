@@ -8,7 +8,7 @@ import {
   getRequest,
   postRequest,
 } from '../../../helper/functions/request.helper'
-import { pulse } from '../../../helper/functions/handleRealTime'
+import { pulse } from '../../../helper/functions/realtime.helper'
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {

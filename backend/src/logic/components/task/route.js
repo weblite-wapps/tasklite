@@ -147,14 +147,14 @@ app.post('/editTask', ({ body, body: { _id } }, res) =>
 
 app.post(
   '/dragTask',
-  ({ body: { sourceId, desIndexInDb, desSiblingIndexInDb } }, res) => {
+  ({ body: { sourceId, desOrder, desSiblingOrder } }, res) => {
     console.log()
     return updateTask(
       {
         _id: sourceId,
       },
       {
-        order: calcNewIndexInDb(desIndexInDb, desSiblingIndexInDb),
+        order: calcNewIndexInDb(desOrder, desSiblingOrder),
       },
       {
         new: true,
