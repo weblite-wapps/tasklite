@@ -1,7 +1,6 @@
 // modules
 import * as R from 'ramda'
 
-
 export const getToggledValue = (task, todoId) =>
   R.compose(
     R.prop('completed'),
@@ -9,4 +8,5 @@ export const getToggledValue = (task, todoId) =>
     R.prop('todos'),
   )(task)
 
-export default null
+export const calcNewIndexInDb = (desOrder, desSiblingOrder) =>
+  (desOrder + desSiblingOrder) / 2

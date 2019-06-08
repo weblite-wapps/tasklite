@@ -1,11 +1,16 @@
+.c--task_header {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
 .c--list_text {
   display: flex;
   justify-content: space-between;
-  margin: -5px 30px 0px 30px;
+  margin: -5px 30px 0px 10px;
 }
 
 .c--list_title {
-
   &-high,
   &-middle,
   &-low {
@@ -13,14 +18,13 @@
     align-content: center;
     align-items: center;
   }
-
 }
 
 .c--list_title-high::before {
   display: flex;
   align-content: center;
   align-items: center;
-  content: "\2022";
+  content: '\2022';
   color: #da4445;
   font-size: 30px;
   display: inline-block;
@@ -30,7 +34,7 @@
   display: flex;
   align-content: center;
   align-items: center;
-  content: "\2022";
+  content: '\2022';
   color: #ffad00;
   font-size: 30px;
   display: inline-block;
@@ -40,7 +44,7 @@
   display: flex;
   align-content: center;
   align-items: center;
-  content: "\2022";
+  content: '\2022';
   color: #60c102;
   font-size: 30px;
   display: inline-block;

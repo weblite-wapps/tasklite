@@ -1,8 +1,5 @@
-import {
-  createMuiTheme
-} from '@material-ui/core/styles'
-import grey from '@material-ui/core/colors/grey';
-
+import { createMuiTheme } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey'
 
 export default createMuiTheme({
   palette: {
@@ -120,6 +117,7 @@ export default createMuiTheme({
     },
     MuiList: {
       root: {
+        width: '100%',
         margin: '5px 0px 0px 0px',
       },
     },

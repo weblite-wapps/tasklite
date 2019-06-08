@@ -26,7 +26,9 @@ import './List.scss'
 
 export const TitleAndLevelButtons = props => {
   const {
-    task: { title, priority }, tabIndex, creator,
+    task: { title, priority },
+    tabIndex,
+    creator,
   } = props
 
   const priorityClass = priorityClasses[priority]
@@ -36,19 +38,19 @@ export const TitleAndLevelButtons = props => {
   return (
     <div className="c--list_text">
       <div className={priorityClass}>
-        <Typography variant="subtitle1" style={{ marginLeft: "10px" }}>
+        <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
           {formattedTitle === title ? (
             <span>{formattedTitle}</span>
           ) : (
-              <Tooltip
-                title={title}
-                placement="bottom"
-                enterDelay={150}
-                leaveDelay={150}
-              >
-                <span>{formattedTitle}</span>
-              </Tooltip>
-            )}
+            <Tooltip
+              title={title}
+              placement="bottom"
+              enterDelay={150}
+              leaveDelay={150}
+            >
+              <span>{formattedTitle}</span>
+            </Tooltip>
+          )}
         </Typography>
       </div>
       <ActionButtons {...props} />
@@ -69,16 +71,16 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2">
-        <span>{(assignee && assignee.name) || "No assignee"}&nbsp;|&nbsp;</span>
+        <span>{(assignee && assignee.name) || 'No assignee'}&nbsp;|&nbsp;</span>
 
-        {checkToShow("deadline") && (
-          <span>{deadline ? getRemained(deadline) : "No deadline"}</span>
+        {checkToShow('deadline') && (
+          <span>{deadline ? getRemained(deadline) : 'No deadline'}</span>
         )}
-        {checkToShow("sentTime") && (
-          <span>{sentTime ? getPassedTime(sentTime) : "No sentTime "} ago</span>
+        {checkToShow('sentTime') && (
+          <span>{sentTime ? getPassedTime(sentTime) : 'No sentTime '} ago</span>
         )}
-        <span>&nbsp;|&nbsp;{formatTags(tags) || "No tags"}</span>
-        {checkToShow("percent", todos) && (
+        <span>&nbsp;|&nbsp;{formatTags(tags) || 'No tags'}</span>
+        {checkToShow('percent', todos) && (
           <span>&nbsp;|&nbsp;{`${getProgressBarPercent(todos)}%`}</span>
         )}
       </Typography>
@@ -111,23 +113,26 @@ ProgressPanel.propTypes = {
 }
 
 export const FurtherInfo = ({
-  task: { _id, tags, deadline, level, sentTime, assignee, todos }, isLoading,
+  task: { _id, tags, deadline, level, sentTime, assignee, todos },
+  isLoading,
+  onDragEnd,
 }) => (
-    <React.Fragment>
-      <SubInfo label="TAGS" tags={tags} />
-      <SubInfo label="DEADLINE" deadline={deadline} />
-      {(level === 'EVALUATE' || level === 'DONE') && (
-        <SubInfo label="SENT TIME" sentTime={sentTime} />
-      )}
-      <SubInfo label="ASSIGNEE" assignee={assignee} />
-      <SubInfo
-        label="SUBWORKS"
-        todos={todos}
-        _id={_id}
-        level={level}
-      />
-    </React.Fragment>
-  )
+  <React.Fragment>
+    <SubInfo label="TAGS" tags={tags} />
+    <SubInfo label="DEADLINE" deadline={deadline} />
+    {(level === 'EVALUATE' || level === 'DONE') && (
+      <SubInfo label="SENT TIME" sentTime={sentTime} />
+    )}
+    <SubInfo label="ASSIGNEE" assignee={assignee} />
+    <SubInfo
+      label="SUBWORKS"
+      todos={todos}
+      _id={_id}
+      level={level}
+      onDragEnd={onDragEnd}
+    />
+  </React.Fragment>
+)
 
 FurtherInfo.propTypes = {
   task: PropTypes.shape({}).isRequired,

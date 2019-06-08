@@ -1,10 +1,6 @@
 // modules
-import {
-  createAction
-} from 'redux-actions'
-import {
-  dispatch
-} from '../../../setup/redux'
+import { createAction } from 'redux-actions'
+import { dispatch } from '../../../setup/redux'
 
 // actions
 export const SET_API = 'SET_API'
@@ -43,7 +39,7 @@ export const dispatchAddTask = (...args) => dispatch(addTask(...args))
 
 export const DELETE_TASK = 'DELETE_TASK'
 export const deleteTask = createAction(DELETE_TASK, task => ({
-  task
+  task,
 }))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
@@ -102,7 +98,7 @@ export const updateNumbersObject = createAction(
   UPDATE_NUMBERS_OBJECT,
   (currentLevel, nextLevel) => ({
     currentLevel,
-    nextLevel
+    nextLevel,
   }),
 )
 export const dispatchUpdateNumbersObject = (...args) =>
@@ -110,17 +106,27 @@ export const dispatchUpdateNumbersObject = (...args) =>
 
 export const SET_EDITED_TASK = 'SET_EDITED_TASK'
 export const setEditedTask = createAction(SET_EDITED_TASK)
-export const dispatchSetEditedTask = (...args) => dispatch(setEditedTask(...args))
+export const dispatchSetEditedTask = (...args) =>
+  dispatch(setEditedTask(...args))
 
+export const SET_ALL_TASKS = 'SET_ALL_TASKS'
+export const setAllTasks = createAction(SET_ALL_TASKS)
+export const dispatchSetAllTasks = (...args) => dispatch(setAllTasks(...args))
+
+export const HANDLE_DRAG_TASK = 'HANDLE_DRAG_TASK'
+export const handleDragTask = createAction(HANDLE_DRAG_TASK)
+export const dispatchHandleDragTask = (...args) =>
+  dispatch(handleDragTask(...args))
+
+export const SET_ORDER = 'SET_ORDER'
+export const setOrder = createAction(SET_ORDER)
+export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
 // effects
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
-export const handleAddTodo = createAction(
-  HANDLE_ADD_TODO,
-  (_id, value) => ({
-    _id,
-    value
-  }),
-)
+export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
+  _id,
+  value,
+}))
 export const dispatchHandleAddTodo = (...args) =>
   dispatch(handleAddTodo(...args))

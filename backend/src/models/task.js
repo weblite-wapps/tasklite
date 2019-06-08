@@ -1,7 +1,6 @@
 // module
 import mongoose from 'mongoose'
 
-
 const { Schema } = mongoose
 
 const TaskSchema = new Schema({
@@ -15,10 +14,14 @@ const TaskSchema = new Schema({
     name: String,
     id: String,
   },
-  todos: [{
-    title: String,
-    completed: Boolean,
-  }],
+  todos: [
+    {
+      title: String,
+      completed: Boolean,
+      order: Number,
+    },
+  ],
+  order: Number,
   created_at: Date,
   userId: String,
   wis: String,

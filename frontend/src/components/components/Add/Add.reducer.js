@@ -1,10 +1,8 @@
 // modules
 import * as R from 'ramda'
-import jMoment from "moment-jalaali"
+import jMoment from 'moment-jalaali'
 // local modules
-import {
-  getState
-} from '../../../setup/redux'
+import { getState } from '../../../setup/redux'
 // actions
 import {
   CHANGE_DEADLINE,
@@ -33,7 +31,7 @@ const initialState = {
   isError: {
     assignee: false,
     title: false,
-    deadline: false
+    deadline: false,
   },
   isOpenAddDialog: false,
 }
@@ -50,7 +48,8 @@ export const titleView = () => R.path(['Add', 'title'])(getState())
 export const priorityView = () => R.path(['Add', 'priority'])(getState())
 export const deadlineView = () => R.path(['Add', 'deadline'])(getState())
 export const queryTagView = () => R.path(['Add', 'queryTag'])(getState())
-export const selectedTagsView = () => R.path(['Add', 'selectedTags'])(getState())
+export const selectedTagsView = () =>
+  R.path(['Add', 'selectedTags'])(getState())
 export const assigneeView = () => R.path(['Add', 'assignee'])(getState())
 export const tagsView = () => R.path(['Add', 'tags'])(getState())
 export const isErrorView = () => R.path(['Add', 'isError'])(getState())
@@ -65,69 +64,76 @@ const reducers = {
 
   [CHANGE_PRIORITY]: (state, value) => R.set(priorityLens, value, state),
 
-  [LOAD_TAGS_DATA_IN_ADD]: (state, {
-    tags
-  }) => ({
+  [LOAD_TAGS_DATA_IN_ADD]: (state, { tags }) => ({
     ...state,
     tags: R.map(tag => R.assoc('isSelected', false, tag), tags),
   }),
 
-  [SET_QUERY_TAG_IN_ADD]: (state, queryTag) => R.set(queryTagLens, queryTag)(state),
+  [SET_QUERY_TAG_IN_ADD]: (state, queryTag) =>
+    R.set(queryTagLens, queryTag)(state),
 
-  [FETCH_TAGS_IN_ADD]: (state, {
-    tags
-  }) => R.set(suggestionsLens, tags, state),
+  [FETCH_TAGS_IN_ADD]: (state, { tags }) => R.set(suggestionsLens, tags, state),
 
   [ADD_TAG_IN_ADD]: state => ({
     ...state,
     selectedTags: R.append(R.toLower(state.queryTag), state.selectedTags),
-    tags: R.append({
+    tags: R.append(
+      {
         label: R.toLower(state.queryTag),
         _id: state.tags.length,
-        isSelected: true
+        isSelected: true,
       },
-      state.tags),
+      state.tags,
+    ),
     queryTag: '',
   }),
 
   [CHANGE_SELECTED_TAGS_IN_ADD]: (state, tag) => ({
     ...state,
-    selectedTags: tag.isSelected ?
-      R.remove(R.indexOf(tag.label, state.selectedTags), 1, state.selectedTags) : R.append(tag.label, state.selectedTags),
-    tags: R.map(eachTag => (eachTag._id === tag._id) ? {
-      ...eachTag,
-      isSelected: !eachTag.isSelected
-    } : eachTag, state.tags),
+    selectedTags: tag.isSelected
+      ? R.remove(
+          R.indexOf(tag.label, state.selectedTags),
+          1,
+          state.selectedTags,
+        )
+      : R.append(tag.label, state.selectedTags),
+    tags: R.map(
+      eachTag =>
+        eachTag._id === tag._id
+          ? {
+              ...eachTag,
+              isSelected: !eachTag.isSelected,
+            }
+          : eachTag,
+      state.tags,
+    ),
   }),
 
-  [CHANGE_ASSIGNEE_IN_ADD]: (state, {
-    id,
-    name
-  }) => ({
+  [CHANGE_ASSIGNEE_IN_ADD]: (state, { id, name }) => ({
     ...state,
-    assignee: state.assignee.id === id ? {} : {
-      id,
-      name
-    },
+    assignee:
+      state.assignee.id === id
+        ? {}
+        : {
+            id,
+            name,
+          },
   }),
 
-  [RESET_INPUTS]: state =>
-    ({
-      ...state,
-      title: '',
-      priority: 1,
-      deadline: jMoment(),
-      selectedTags: [],
-      assignee: {
-        name: '',
-        id: ''
-      },
-      queryTag: '',
-    }),
+  [RESET_INPUTS]: state => ({
+    ...state,
+    title: '',
+    priority: '',
+    deadline: jMoment(),
+    selectedTags: [],
+    assignee: {
+      name: '',
+      id: '',
+    },
+    queryTag: '',
+  }),
 
-  [CHANGE_IS_ERROR]: (state, {
-    value
-  }) => R.set(isErrorLens, value, state),
+  [CHANGE_IS_ERROR]: (state, { value }) => R.set(isErrorLens, value, state),
 
   [CHANGE_IS_OPEN_ADD_DIALOG]: (state, value) => ({
     ...state,
@@ -135,9 +141,5 @@ const reducers = {
   }),
 }
 
-
-export default (state = initialState, {
-  type,
-  payload
-}) =>
-reducers[type] ? reducers[type](state, payload) : state
+export default (state = initialState, { type, payload }) =>
+  reducers[type] ? reducers[type](state, payload) : state

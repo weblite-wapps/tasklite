@@ -1,10 +1,11 @@
 {
-  "name": "tasklite",
-  "id": "5c7cd580cb652f5fc9380c4e",
+  "name": "__test_tasklite",
+  "id": "5cf51ce152d6985a4256bee1",
   "searchable": true,
   "instantiable": true,
   "creator": true,
   "userInfo": true,
+  "shareDB": true,
   "servIndexes": {
     "main": "index"
   }

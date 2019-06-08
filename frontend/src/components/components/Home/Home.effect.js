@@ -3,8 +3,11 @@ import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 // helpers
-import { getQuery, mapToUsername } from './Home.helper'
-import { getRequest, postRequest } from '../../../helper/functions/request.helper'
+import { getQuery, mapToUsername, updateTasksInFront } from './Home.helper'
+import {
+  getRequest,
+  postRequest,
+} from '../../../helper/functions/request.helper'
 // actions
 import {
   dispatchLoadTagsDataInAdd,
@@ -12,10 +15,7 @@ import {
   dispatchChangeAssigneeInAdd,
 } from '../Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../Filter/Filter.action'
-import {
-  LOAD_MORE,
-  dispatchChangePopoverId,
-} from '../List/main/List.action'
+import { LOAD_MORE, dispatchChangePopoverId } from '../List/main/List.action'
 import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
@@ -24,6 +24,9 @@ import {
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
   dispatchUpdateNumbersObject,
+  HANDLE_DRAG_TASK,
+  dispatchSetAllTasks,
+  dispatchSetOrder,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -32,42 +35,51 @@ import {
   userView,
   userIdView,
   userNameView,
+  tabIndexView,
+  tasksView,
 } from './Home.reducer'
-
+import { pulse } from '../../../helper/functions/realtime.helper'
 
 const usersEpic = action$ =>
   action$
     .ofType(FETCH_INITIAL_DATA)
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(() =>
-      postRequest('/saveUser').send({
-        wis: wisView(),
-        userId: userIdView(),
-        username: userNameView(),
-      })
-      .on(
-        'error',
-        err =>
-          err.status !== 304 &&
-          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-      ),
+      postRequest('/saveUser')
+        .send({
+          wis: wisView(),
+          userId: userIdView(),
+          username: userNameView(),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
     )
     .do(() => dispatchChangeAssigneeInAdd(userView()))
-    .mergeMap(() => getRequest('/fetchUsers')
-      .query({ wis: wisView() })
-      .on(
-        'error',
-        err =>
-          err.status !== 304 &&
-          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-      ),
+    .mergeMap(() =>
+      getRequest('/fetchUsers')
+        .query({
+          wis: wisView(),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
     )
-    .do(({ body }) =>
-      window.W && window.W.getUsersInfo(mapToUsername(body)).then(info => {
-        const users = R.values(info)
-        dispatchLoadUsersDataInAdd(users) 
-        dispatchLoadUsersData(users)
-      }))
+    .do(
+      ({ body }) =>
+        window.W &&
+        window.W.getUsersInfo(mapToUsername(body)).then(info => {
+          const users = R.values(info)
+          dispatchLoadUsersDataInAdd(users)
+          dispatchLoadUsersData(users)
+        }),
+    )
     .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
@@ -76,35 +88,20 @@ const initialFetchEpic = action$ =>
     .ofType(FETCH_INITIAL_DATA)
     .do(() => window.W && window.W.start())
     .do(() => dispatchSetIsLoading(true))
-    .mergeMap(
-      () => getRequest('/initialFetch').query(getQuery())
-      .on(
-        'error',
-        err =>
-          err.status !== 304 &&
-          dispatchChangeSnackbarStage({ message: 'Server disconnected!' }),
-      ),
+    .mergeMap(() =>
+      getRequest('/initialFetch')
+        .query(getQuery())
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
     )
-    .do(({
-      body: {
-        tasks
-      }
-    }) => dispatchLoadTasksData(tasks))
-    .do(({
-      body: {
-        tags
-      }
-    }) => dispatchLoadTagsDataInAdd(tags))
-    .do(({
-      body: {
-        tags
-      }
-    }) => dispatchLoadTagsDataInFilter(tags))
-    .do(({
-        body: {
-          numberOfTasks
-        }
-      }) =>
+    .do(({ body: { tasks } }) => dispatchLoadTasksData(tasks))
+    .do(({ body: { tags } }) => dispatchLoadTagsDataInAdd(tags))
+    .do(({ body: { tags } }) => dispatchLoadTagsDataInFilter(tags))
+    .do(({ body: { numberOfTasks } }) =>
       dispatchLoadNumberOfTasks(numberOfTasks),
     )
     .do(() => dispatchSetIsLoading(false))
@@ -160,9 +157,98 @@ const loadMoreEpic = action$ =>
     .do(() => window.W && window.W.analytics('LOAD_MORE_CLICK'))
     .ignoreElements()
 
+//TODO: THIS EPIC AND IT'S HELPER FUNCTION SHOULD BE REFACTORED
+const dragTaskEpic = action$ =>
+  action$
+    .ofType(HANDLE_DRAG_TASK)
+    .pluck('payload')
+    .filter(
+      ({ destination }) =>
+        (destination && destination.index > -1) ||
+        (() => {
+          dispatchChangeSnackbarStage('Destination must be in task list zone')
+          return false
+        })(),
+    )
+    .do(() => dispatchSetIsLoading(true))
+    .map(payload => ({
+      ...payload,
+      pageTasks: R.filter(
+        task => R.prop('level', task) === tabIndexView(),
+        tasksView(),
+      ),
+    }))
+    .map(({ source, destination, pageTasks }) => ({
+      source,
+      destination,
+      sourceId: R.prop('_id', R.nth(R.prop('index', source), pageTasks)),
+      destinationId: R.prop(
+        '_id',
+        R.nth(R.prop('index', destination), pageTasks),
+      ),
+      allTasks: tasksView(),
+    }))
+
+    .do(({ source, destination }) => {
+      dispatchSetAllTasks(updateTasksInFront(source, destination))
+    })
+    .map(({ sourceId, destinationId, allTasks }) => ({
+      sourceId,
+      desOrder: R.prop(
+        'order',
+        R.find(R.propEq('_id', destinationId), allTasks),
+      ),
+      sourceIndex: R.findIndex(R.propEq('_id', sourceId), allTasks),
+      destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
+      allTasks,
+    }))
+
+    .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
+      desOrder,
+      desSiblingOrder:
+        destinationIndex + 1 === R.length(allTasks)
+          ? desOrder - 100
+          : !destinationIndex
+          ? desOrder + 100
+          : R.prop(
+              'order',
+              R.nth(
+                destinationIndex > sourceIndex
+                  ? destinationIndex + 1
+                  : destinationIndex - 1,
+                allTasks,
+              ),
+            ),
+      allTasks,
+      ...rest,
+    }))
+    .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
+      postRequest('/dragTask')
+        .send({
+          sourceId,
+          desOrder,
+          desSiblingOrder,
+        })
+        .on('error', err => {
+          dispatchSetAllTasks(allTasks)
+          err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!')
+        })
+        .then(({ body: { _id, order } }) =>
+          dispatchSetOrder({
+            _id,
+            order,
+          }),
+        ),
+    )
+    .do(() => dispatchSetIsLoading(false))
+    .do(() => pulse())
+    .ignoreElements()
+
 export default combineEpics(
   usersEpic,
   initialFetchEpic,
   deleteTaskEpic,
   loadMoreEpic,
+  dragTaskEpic,
 )

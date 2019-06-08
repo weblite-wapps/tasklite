@@ -14,6 +14,7 @@
     "ramda": "^0.26.0",
     "react": "^16.8.6",
     "react-autocomplete": "^1.7.2",
+    "react-beautiful-dnd": "^11.0.3",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-flip-move": "^3.0.1",
     "react-hot-loader": "^4.8.8",
