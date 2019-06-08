@@ -130,3 +130,19 @@ export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
 }))
 export const dispatchHandleAddTodo = (...args) =>
   dispatch(handleAddTodo(...args))
+
+// Real time
+export const FETCH_SINGLE_TASK = 'FETCH_SINGLE_TASK'
+export const fetchSingleTask = createAction(FETCH_SINGLE_TASK)
+export const dispatchFetchSingleTask = (...args) =>
+  dispatch(fetchSingleTask(...args))
+
+export const FETCH_ALL_TASKS = 'FETCH_ALL_TASKS'
+export const fetchAllTasks = createAction(FETCH_ALL_TASKS)
+export const dispatchFetchAllTasks = (...args) =>
+  dispatch(fetchAllTasks(...args))
+
+export const FETCH_ALL_USERS = 'FETCH_ALL_USERS'
+export const fetchAllUsers = createAction(FETCH_ALL_USERS)
+export const dispatchFetchAllUsers = (...args) =>
+  dispatch(fetchAllUsers(...args))

@@ -1,9 +1,21 @@
-import { dispatchFetchInitialData } from '../../components/components/Home/Home.action'
+import {
+  HANDLE_DRAG_TASK,
+  dispatchFetchAllTasks,
+  FETCH_ALL_USERS,
+  dispatchFetchAllUsers,
+  dispatchFetchSingleTask,
+} from '../../components/components/Home/Home.action'
 
 const { W } = window
 
-W && W.share.subscribe(() => dispatchFetchInitialData())
+W && W.share.subscribe(({ type, data }) =>
+  type === HANDLE_DRAG_TASK
+    ? dispatchFetchAllTasks()
+    : type === FETCH_ALL_USERS
+    ? dispatchFetchAllUsers()
+    : dispatchFetchSingleTask(type, data),
+)
 
-export const pulse = () => {
-  W && W.share.dispatch([], ['__always', ['new data']], '')
+export const pulse = (type, data) => {
+  W && W.share.dispatch([], ['__always', [{ type, data }]], {})
 }

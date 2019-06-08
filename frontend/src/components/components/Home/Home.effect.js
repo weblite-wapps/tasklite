@@ -27,6 +27,7 @@ import {
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
   dispatchSetOrder,
+  FETCH_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views

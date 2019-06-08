@@ -17,7 +17,12 @@ const Todo = ({
   provided,
 }) => (
   <div className="c--todo_container">
-    <img src="drag2.png" {...provided.dragHandleProps} alt="drag icon" />
+    <img
+      {...provided.dragHandleProps}
+      className="c--todo_img"
+      src="drag2.png"
+      alt="drag icon"
+    />
     <Checkbox
       disabled={level !== 'IN PROGRESS'}
       checked={completed}

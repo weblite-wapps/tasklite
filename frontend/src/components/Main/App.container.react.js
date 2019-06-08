@@ -1,17 +1,10 @@
 // modules
-import {
-  connect
-} from 'react-redux'
+import { connect } from 'react-redux'
 // components
 import App from './App.presentational'
 // views
-import {
-  isLoadingView
-} from '../components/Home/Home.reducer'
-import {
-  expandModeView,
-  aboutModeView,
-} from './App.reducer'
+import { isLoadingView } from '../components/Home/Home.reducer'
+import { expandModeView, aboutModeView } from './App.reducer'
 // actions
 import {
   dispatchChangeExpandMode,
@@ -20,9 +13,8 @@ import {
 } from './App.action'
 import {
   dispatchSetApi,
-  dispatchFetchInitialData
+  dispatchFetchInitialData,
 } from '../components/Home/Home.action'
-
 
 const mapStateToProps = () => ({
   isLoading: isLoadingView(),
@@ -34,13 +26,17 @@ const mapDispatchToProps = () => ({
   setAPI: dispatchSetApi,
   fetchInitialData: dispatchFetchInitialData,
   addButtonClick: dispatchAddButtonClick,
-  changeExpandMode: (mode) => {
+  changeExpandMode: mode => {
     dispatchChangeExpandMode(mode)
-    if (window.W) window.W.analytics('CHANGE_MODE', {
-      mode
-    })
+    if (window.W)
+      window.W.analytics('CHANGE_MODE', {
+        mode,
+      })
   },
   setAboutMode: dispatchSetAboutMode,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App)
