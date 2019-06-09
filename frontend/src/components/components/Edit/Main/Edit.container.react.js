@@ -23,7 +23,8 @@ import {
   popoverIdView,
   isOpenDialogView,
 } from './Edit.reducer'
-import { usersView } from '../../Home/Home.reducer';
+import { usersView, isLoadingView } from '../../Home/Home.reducer'
+
 
 const mapStateToProps = () => ({
   users: usersView(),
@@ -36,6 +37,7 @@ const mapStateToProps = () => ({
   anchorEl: anchorElView(),
   popoverId: popoverIdView(),
   isOpen: isOpenDialogView(),
+  isLoading: isLoadingView(),
 })
 
 const mapDispatchToProps = () => ({

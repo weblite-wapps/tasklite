@@ -10,7 +10,8 @@ import Add from './Add.presentational.react'
 // views
 import {
   usersView,
-  creatorView
+  creatorView,
+  isLoadingView
 } from '../Home/Home.reducer'
 import {
   titleView,
@@ -58,6 +59,7 @@ const mapStateToProps = state => ({
   isError: isErrorView(),
   creator: creatorView(),
   isOpen: isOpenAddDialogView(),
+  isLoading: isLoadingView(),
 })
 
 const mapDispatchToProps = () => ({

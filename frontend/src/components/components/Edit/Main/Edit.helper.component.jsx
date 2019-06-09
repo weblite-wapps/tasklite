@@ -24,16 +24,16 @@ import './Edit.scss'
 import { default as style } from './Edit.style'
 
 
-const AppBar = ({ label, close, submit, classes }) => (
+const AppBar = ({ isLoading, label, close, submit, classes }) => (
   <MuiAppBar style={{ position: 'fixed' }}>
     <Toolbar>
-      <IconButton className="icon" onClick={close}>
+      <IconButton className="icon" onClick={close} disabled={isLoading}>
         <CloseButton classes={{ root: classes.svgIcon }} />
       </IconButton>
       <Typography variant="h6" style={{ color: 'white' }}>
         {label}
       </Typography>
-      <IconButton className="icon" onClick={submit}>
+      <IconButton className="icon" onClick={submit} disabled={isLoading} >
         <Done classes={{ root: classes.svgIcon }} />
       </IconButton>
     </Toolbar>
@@ -41,6 +41,7 @@ const AppBar = ({ label, close, submit, classes }) => (
 )
 
 AppBar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   submit: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,

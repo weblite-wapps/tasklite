@@ -114,7 +114,6 @@ ProgressPanel.propTypes = {
 
 export const FurtherInfo = ({
   task: { _id, tags, deadline, level, sentTime, assignee, todos },
-  isLoading,
   onDragEnd,
 }) => (
   <React.Fragment>
@@ -125,7 +124,7 @@ export const FurtherInfo = ({
     )}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo
-      label="SUBWORKS"
+      label="TODOS"
       todos={todos}
       _id={_id}
       level={level}

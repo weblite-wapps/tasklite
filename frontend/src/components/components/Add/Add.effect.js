@@ -13,7 +13,6 @@ import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {
   ADD_TASK,
-  dispatchAddTask,
   dispatchChangeTab,
   dispatchSetIsLoading,
 } from '../Home/Home.action'
