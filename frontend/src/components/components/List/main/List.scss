@@ -1,8 +1,11 @@
+@import '../../../../helper/style/_mixin.scss';
+
 .c--task_header {
   display: flex;
   flex-direction: row;
   margin-left: 20px;
   background-color: white;
+  @include user-select-none();
 }
 
 .c--list_text {
@@ -16,6 +19,15 @@
   width: 260px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 400px) {
+  .c--list_brief-info {
+    white-space: nowrap;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .c--list_title {
@@ -62,6 +74,7 @@
   display: flex;
   flex-direction: column;
   margin: 10px 30px;
+  @include user-select-none();
 }
 
 .c--list_progress_panel {

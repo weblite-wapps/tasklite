@@ -32,7 +32,7 @@ export const checkToShow = (info, todos = []) => {
     case 'deadline':
       return tabIndex === 'ICE BOX' || tabIndex === 'IN PROGRESS'
     case 'sentTime':
-      return tabIndex === 'EVALUATE'
+      return tabIndex === 'EVALUATE' || tabIndex === 'DONE'
     case 'percent':
       return tabIndex === 'IN PROGRESS' && todos.length > 0
     default:
