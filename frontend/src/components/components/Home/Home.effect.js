@@ -13,14 +13,14 @@ import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
   HANDLE_DELETE_TASK,
-  FETCH_ALL_USERS,
   dispatchLoadTasksData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
-  dispatchSetOrder,
   LOAD_USERS,
+  SET_ORDER,
+  SET_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -187,10 +187,7 @@ const dragTaskEpic = action$ =>
       ),
       allTasks: tasksView(),
     }))
-
-    .do(({ source, destination }) => {
-      dispatchSetAllTasks(updateTasksInFront(source, destination))
-    })
+    .do(({ source, destination }) => pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)))
     .map(({ sourceId, destinationId, allTasks }) => ({
       sourceId,
       desOrder: R.prop(
@@ -201,7 +198,6 @@ const dragTaskEpic = action$ =>
       destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
       allTasks,
     }))
-
     .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
       desOrder,
       desSiblingOrder:
@@ -233,15 +229,15 @@ const dragTaskEpic = action$ =>
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')
         })
-        .then(({ body: { _id, order } }) =>
-          dispatchSetOrder({
-            _id,
-            order,
-          }),
-        ),
+        .then(({ body: { _id, order } }) => ({ _id , order })),
+          // dispatchSetOrder({
+          //   _id,
+          //   order,
+          // }),
+        // ),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(() => pulse())
+    .do(({ _id, order }) => pulse(SET_ORDER, { _id,order }))
     .ignoreElements()
 
 export default combineEpics(

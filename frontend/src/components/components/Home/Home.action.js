@@ -104,6 +104,11 @@ export const setOrder = createAction(SET_ORDER)
 export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
 // effects
+export const LOAD_USERS = 'LOAD_USERS'
+export const loadUsers= createAction(LOAD_USERS)
+export const dispatchLoadUsers= (...args) => dispatch(loadUsers(...args))
+
+
 export const HANDLE_CHANGE_LEVEL = 'HANDLE_CHANGE_LEVEL'
 export const handleChangeLevel = createAction(
   HANDLE_CHANGE_LEVEL,
@@ -148,23 +153,9 @@ export const HANDLE_DRAG_TASK = 'HANDLE_DRAG_TASK'
 export const handleDragTask = createAction(HANDLE_DRAG_TASK)
 export const dispatchHandleDragTask = (...args) =>
   dispatch(handleDragTask(...args))
+
 // Real time
-export const FETCH_SINGLE_TASK = 'FETCH_SINGLE_TASK'
-export const fetchSingleTask = createAction(FETCH_SINGLE_TASK)
-export const dispatchFetchSingleTask = (...args) =>
-  dispatch(fetchSingleTask(...args))
-
-export const FETCH_NOTING = 'FETCH_NOTING'
-export const fetchNoting = createAction(FETCH_NOTING)
-export const dispatchFetchNoting = (...args) =>
-  dispatch(fetchNoting(...args))
-
-export const FETCH_ALL_TASKS = 'FETCH_ALL_TASKS'
-export const fetchAllTasks = createAction(FETCH_ALL_TASKS)
-export const dispatchFetchAllTasks = (...args) =>
-  dispatch(fetchAllTasks(...args))
-
-export const LOAD_USERS = 'LOAD_USERS'
-export const loadUsers = createAction(LOAD_USERS)
-export const dispatchLoadUsers = (...args) =>
-  dispatch(loadUsers(...args))
+export const HANDLE_REAL_TIME = 'HANDLE_REAL_TIME'
+export const handleRealTime = createAction(HANDLE_REAL_TIME)
+export const dispatchHandleRealTime = (...args) =>
+  dispatch(handleRealTime(...args))
