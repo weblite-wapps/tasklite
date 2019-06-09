@@ -1,13 +1,13 @@
 export const getLimit = (level) => {
   switch (level) {
     case 'ICE BOX':
-      return 10
+      return 20
     case 'IN PROGRESS':
-      return 5
+      return 20
     case 'EVALUTE':
-      return 5
+      return 20
     case 'DONE':
-      return 5
+      return 20
     default:
       return 0
   }
