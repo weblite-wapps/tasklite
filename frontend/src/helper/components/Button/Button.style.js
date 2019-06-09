@@ -12,7 +12,7 @@ export default ({
     color: 'white',
     borderRadius: '0px',
     margin: '0px',
-    padding: '2px 10px',
+    padding: '5px 15px;',
     minWidth: '5px',
     minHeight: '25px',
     textTransform: 'capitalize',
