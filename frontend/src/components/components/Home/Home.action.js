@@ -43,18 +43,6 @@ export const deleteTask = createAction(DELETE_TASK, task => ({
 }))
 export const dispatchDeleteTask = (...args) => dispatch(deleteTask(...args))
 
-export const CHANGE_LEVEL = 'CHANGE_LEVEL'
-export const changeLevel = createAction(
-  CHANGE_LEVEL,
-  (_id, currentLevel, nextLevel, title) => ({
-    _id,
-    currentLevel,
-    nextLevel,
-    title,
-  }),
-)
-export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
-
 export const CHANGE_TODO_TEXT = 'CHANGE_TODO_TEXT'
 export const changeTodoText = createAction(CHANGE_TODO_TEXT, (_id, value) => ({
   _id,
@@ -64,10 +52,7 @@ export const dispatchChangeTodoText = (...args) =>
   dispatch(changeTodoText(...args))
 
 export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const toggleTodo = createAction(TOGGLE_TODO, (_id, todoId) => ({
-  _id,
-  todoId,
-}))
+export const toggleTodo = createAction(TOGGLE_TODO)
 export const dispatchToggleTodo = (...args) => dispatch(toggleTodo(...args))
 
 export const ADD_TODO = 'ADD_TODO'
@@ -77,6 +62,10 @@ export const dispatchAddTodo = (...args) => dispatch(addTodo(...args))
 export const DELETE_TODO = 'DELETE_TODO'
 export const deleteTodo = createAction(DELETE_TODO)
 export const dispatchDeleteTodo = (...args) => dispatch(deleteTodo(...args))
+
+export const CHANGE_LEVEL = 'CHANGE_LEVEL'
+export const changeLevel = createAction(CHANGE_LEVEL)
+export const dispatchChangeLevel = (...args) => dispatch(changeLevel(...args))
 
 export const SET_SENT_TIME = 'SET_SENT_TIME'
 export const setSentTime = createAction(SET_SENT_TIME, (_id, time) => ({
@@ -115,6 +104,18 @@ export const setOrder = createAction(SET_ORDER)
 export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
 // effects
+export const HANDLE_CHANGE_LEVEL = 'HANDLE_CHANGE_LEVEL'
+export const handleChangeLevel = createAction(
+  HANDLE_CHANGE_LEVEL,
+  (_id, currentLevel, nextLevel, title) => ({
+    _id,
+    currentLevel,
+    nextLevel,
+    title,
+  }),
+)
+export const dispatchHandleChangeLevel = (...args) => dispatch(handleChangeLevel(...args))
+
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
 export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
   _id,
@@ -122,6 +123,13 @@ export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
 }))
 export const dispatchHandleAddTodo = (...args) =>
   dispatch(handleAddTodo(...args))
+
+export const HANDLE_TOGGLE_TODO = 'HANDLE_TOGGLE_TODO'
+export const handleToggleTodo = createAction(HANDLE_TOGGLE_TODO, (_id, todoId) => ({
+  _id,
+  todoId,
+}))
+export const dispatchHandleToggleTodo = (...args) => dispatch(handleToggleTodo(...args))
 
 export const HANDLE_DELETE_TASK = 'HANDLE_DELETE_TASK'
 export const handleDeleteTask = createAction(HANDLE_DELETE_TASK, task => ({
@@ -156,7 +164,7 @@ export const fetchAllTasks = createAction(FETCH_ALL_TASKS)
 export const dispatchFetchAllTasks = (...args) =>
   dispatch(fetchAllTasks(...args))
 
-export const FETCH_ALL_USERS = 'FETCH_ALL_USERS'
-export const fetchAllUsers = createAction(FETCH_ALL_USERS)
-export const dispatchFetchAllUsers = (...args) =>
-  dispatch(fetchAllUsers(...args))
+export const LOAD_USERS = 'LOAD_USERS'
+export const loadUsers = createAction(LOAD_USERS)
+export const dispatchLoadUsers = (...args) =>
+  dispatch(loadUsers(...args))

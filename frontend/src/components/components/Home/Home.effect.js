@@ -2,12 +2,6 @@
 import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
-// helpers
-import { getQuery, updateTasksInFront } from './Home.helper'
-import {
-  getRequest,
-  postRequest,
-} from '../../../helper/functions/request.helper'
 // actions
 import {
   dispatchLoadTagsDataInAdd,
@@ -26,6 +20,7 @@ import {
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
   dispatchSetOrder,
+  LOAD_USERS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -37,7 +32,13 @@ import {
   tabIndexView,
   tasksView,
 } from './Home.reducer'
+// helpers
 import { pulse } from '../../../helper/functions/realTime.helper'
+import { getQuery, updateTasksInFront, mapToUsername } from './Home.helper'
+import {
+  getRequest,
+  postRequest,
+} from '../../../helper/functions/request.helper'
 
 const usersEpic = action$ =>
   action$
@@ -58,7 +59,27 @@ const usersEpic = action$ =>
         ),
     )
     .do(() => dispatchChangeAssigneeInAdd(userView()))
-    .do(() => pulse(FETCH_ALL_USERS))
+    .mergeMap(() =>
+      getRequest('/fetchUsers')
+        .query({
+          wis: wisView(),
+        })
+        .on(
+          'error',
+          err =>
+            err.status !== 304 &&
+            dispatchChangeSnackbarStage('Server disconnected!'),
+        ),
+    )
+    .do(
+      ({ body }) =>
+        window.W &&
+        window.W.getUsersInfo(mapToUsername(body)).then(info => {
+          const users = R.values(info)
+          pulse(LOAD_USERS, users)
+        }),
+    )
+    .do(() => dispatchSetIsLoading(false))
     .ignoreElements()
 
 const initialFetchEpic = action$ =>

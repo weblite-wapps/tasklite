@@ -1,14 +1,15 @@
 import {
   HANDLE_DRAG_TASK,
-  FETCH_ALL_USERS,
   ADD_TASK,
   DELETE_TASK,
   ADD_TODO,
   DELETE_TODO,
+  CHANGE_LEVEL,
   dispatchFetchAllTasks,
-  dispatchFetchAllUsers,
   dispatchFetchSingleTask,
   dispatchFetchNoting,
+  TOGGLE_TODO,
+  LOAD_USERS,
 } from '../../components/components/Home/Home.action'
 
 const { W } = window
@@ -16,9 +17,7 @@ const { W } = window
 W && W.share.subscribe(({ type, data }) =>
   type === HANDLE_DRAG_TASK
     ? dispatchFetchAllTasks()
-    : type === FETCH_ALL_USERS
-    ? dispatchFetchAllUsers()
-    : type === DELETE_TASK || type === DELETE_TODO || type === ADD_TASK || type === ADD_TODO
+    : type === DELETE_TASK || type === DELETE_TODO || type === ADD_TASK || type === ADD_TODO || type === CHANGE_LEVEL || type === TOGGLE_TODO || type === LOAD_USERS
     ? dispatchFetchNoting({ type, data })
     : dispatchFetchSingleTask({ type, data })
 )
