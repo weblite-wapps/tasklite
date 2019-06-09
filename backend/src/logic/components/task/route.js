@@ -177,9 +177,3 @@ app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) =>
     .then(() => res.send('Dragged succesfully'))
     .catch(console.log),
 )
-
-app.get('/fetchSingleTask', ({ query }, res) =>
-  fetchSingleTask(query)
-    .then(task => res.json(task))
-    .catch(logger),
-)

@@ -1,7 +1,11 @@
+@import '../../../../helper/style/_mixin.scss';
+
+
 .c--levelBar_container {
   margin-top: 65px;
   display: flex;
   justify-content: center;
+  @include user-select-none();
 }
 
 .c--levelBar_noMargin {

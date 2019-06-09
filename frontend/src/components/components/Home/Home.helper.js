@@ -3,7 +3,6 @@ import * as R from 'ramda'
 import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
 import {
-  wisView,
   numbersObjectView,
   tasksView,
   tabIndexView,
@@ -17,10 +16,6 @@ export const formatTime = time =>
     ),
     R.slice(0, 2, time),
   )
-
-export const getQuery = () => ({
-  wis: wisView(),
-})
 
 export const getUpdatedNumbersObject = (currentLevel, nextLevel) =>
   R.evolve(

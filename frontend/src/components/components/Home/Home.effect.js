@@ -34,7 +34,7 @@ import {
 } from './Home.reducer'
 // helpers
 import { pulse } from '../../../helper/functions/realTime.helper'
-import { getQuery, updateTasksInFront, mapToUsername } from './Home.helper'
+import { updateTasksInFront, mapToUsername } from './Home.helper'
 import {
   getRequest,
   postRequest,
@@ -89,7 +89,7 @@ const initialFetchEpic = action$ =>
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(() =>
       getRequest('/initialFetch')
-        .query(getQuery())
+        .query({ wis: wisView() })
         .on(
           'error',
           err =>
@@ -130,7 +130,7 @@ const deleteTaskEpic = action$ =>
     .do(() => window.W && window.W.analytics('DELETE_TASK'))
     .ignoreElements()
 
-const loadMoreEpic = action$ =>
+const loadMoreEpic = action$ => 
   action$
     .ofType(LOAD_MORE)
     .pluck('payload')
@@ -139,7 +139,7 @@ const loadMoreEpic = action$ =>
       getRequest('/loadMore')
         .query({
           query: {
-            ...getQuery(),
+            wis: wisView(),
             level: tabIndex,
           },
           skipLength,
