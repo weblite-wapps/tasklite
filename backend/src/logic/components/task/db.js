@@ -6,7 +6,7 @@ export const loadMoreFetchTasks = async ({ query, skipLength }) =>
     .sort({
       deadline: 1,
     })
-    .limit(5)
+    .limit(20)
     .skip(Number(skipLength))
     .exec()
 
