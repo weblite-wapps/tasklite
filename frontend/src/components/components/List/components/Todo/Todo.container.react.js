@@ -7,7 +7,7 @@ import Todo from './Todo.presentational'
 // actions
 import {
   dispatchToggleTodo,
-  dispatchDeleteTodo
+  dispatchHandleDeleteTodo,
 } from '../../../Home/Home.action'
 // views
 import {
@@ -23,7 +23,7 @@ const mapDispatchToProps = (_, {
   todo
 }) => ({
   onCompletedChange: () => dispatchToggleTodo(_id, todo._id),
-  onDelete: () => dispatchDeleteTodo(_id, todo._id),
+  onDelete: () => dispatchHandleDeleteTodo(_id, todo._id),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo)

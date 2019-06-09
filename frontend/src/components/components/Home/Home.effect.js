@@ -3,7 +3,7 @@ import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
 // helpers
-import { getQuery, mapToUsername, updateTasksInFront } from './Home.helper'
+import { getQuery, updateTasksInFront } from './Home.helper'
 import {
   getRequest,
   postRequest,
@@ -11,7 +11,6 @@ import {
 // actions
 import {
   dispatchLoadTagsDataInAdd,
-  dispatchLoadUsersDataInAdd,
   dispatchChangeAssigneeInAdd,
 } from '../Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../Filter/Filter.action'
@@ -19,15 +18,14 @@ import { LOAD_MORE, dispatchChangePopoverId } from '../List/main/List.action'
 import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
-  dispatchLoadUsersData,
+  HANDLE_DELETE_TASK,
+  FETCH_ALL_USERS,
   dispatchLoadTasksData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
-  dispatchUpdateNumbersObject,
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
   dispatchSetOrder,
-  FETCH_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -39,7 +37,7 @@ import {
   tabIndexView,
   tasksView,
 } from './Home.reducer'
-import { pulse } from '../../../helper/functions/realtime.helper'
+import { pulse } from '../../../helper/functions/realTime.helper'
 
 const usersEpic = action$ =>
   action$
@@ -60,28 +58,7 @@ const usersEpic = action$ =>
         ),
     )
     .do(() => dispatchChangeAssigneeInAdd(userView()))
-    .mergeMap(() =>
-      getRequest('/fetchUsers')
-        .query({
-          wis: wisView(),
-        })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
-    )
-    .do(
-      ({ body }) =>
-        window.W &&
-        window.W.getUsersInfo(mapToUsername(body)).then(info => {
-          const users = R.values(info)
-          dispatchLoadUsersDataInAdd(users)
-          dispatchLoadUsersData(users)
-        }),
-    )
-    .do(() => dispatchSetIsLoading(false))
+    .do(() => pulse(FETCH_ALL_USERS))
     .ignoreElements()
 
 const initialFetchEpic = action$ =>
@@ -110,9 +87,9 @@ const initialFetchEpic = action$ =>
 
 const deleteTaskEpic = action$ =>
   action$
-    .ofType(DELETE_TASK)
+    .ofType(HANDLE_DELETE_TASK)
     .pluck('payload')
-    .do(({ task }) => dispatchUpdateNumbersObject(task.level, 'kind'))
+    .do(({ task }) => pulse(DELETE_TASK, task))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ task: { _id } }) =>
       postRequest('/deleteTask')

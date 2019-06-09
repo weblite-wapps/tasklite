@@ -14,7 +14,7 @@ import SnackbarReducer from '../components/components/Snackbar/Snackbar.reducer'
 // epics
 import AppEpic from '../components/Main/App.effect'
 import HomeEpic from '../components/components/Home/Home.effect'
-import HomeSubscribeEpic from '../components/components/Home/Home.effect'
+import HomeSubscribeEpic from '../components/components/Home/Home.subscribe'
 import AddEpic from '../components/components/Add/Add.effect'
 import ListEpic from '../components/components/List/main/List.effect'
 import FilterEpic from '../components/components/Filter/Filter.effect'

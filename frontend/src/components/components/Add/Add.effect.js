@@ -8,10 +8,11 @@ import {
   getRequest,
   postRequest,
 } from '../../../helper/functions/request.helper'
-import { pulse } from '../../../helper/functions/realtime.helper'
+import { pulse } from '../../../helper/functions/realTime.helper'
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {
+  ADD_TASK,
   dispatchAddTask,
   dispatchChangeTab,
   dispatchSetIsLoading,
@@ -126,10 +127,8 @@ const effectHandleAddTask = (action$, { dispatch }) =>
           ),
       ]),
     )
-    .do(success => {
-      dispatchAddTask(success[0].body)
-      dispatchLoadTagsDataInAdd(success[1].body)
-    })
+    .do(success => pulse(ADD_TASK, success[0].body))
+    .do(success => dispatchLoadTagsDataInAdd(success[1].body))
     .do(() => dispatchChangeIsOpenAddDialog(false))
     .do(() => dispatch(push('/')))
     .do(() => dispatchChangeTab('ICE BOX'))
@@ -147,8 +146,6 @@ const effectHandleAddTask = (action$, { dispatch }) =>
           [assignee.id],
         )
     })
-    // .do(() => console.log("going to add new task"))
-    .do(success => pulse(HANDLE_ADD_TASK, success[0].body._id))
     .ignoreElements()
 
 const closeAddEpic = action$ =>

@@ -10,10 +10,11 @@ import {
   CHANGE_LEVEL,
   TOGGLE_TODO,
   HANDLE_ADD_TODO,
+  ADD_TODO,
+  HANDLE_DELETE_TODO,
   DELETE_TODO,
   dispatchSetSentTime,
   dispatchSetIsLoading,
-  dispatchAddTodo,
   dispatchUpdateNumbersObject,
   dispatchSetEditedTask,
 } from '../../Home/Home.action'
@@ -27,7 +28,7 @@ import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
-import { pulse } from '../../../../helper/functions/realtime.helper'
+import { pulse } from '../../../../helper/functions/realTime.helper'
 
 const changeLevelEpic = action$ =>
   action$
@@ -128,7 +129,6 @@ const addTodoEpic = action$ =>
       _id,
       ...rest,
     }))
-    // .do(console.log)
     .mergeMap(({ _id, value, order }) =>
       postRequest('/addTodo')
         .send({
@@ -144,13 +144,13 @@ const addTodoEpic = action$ =>
         ),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ body }) => dispatchAddTodo(body[0]))
+    .do(({ body }) => pulse(ADD_TODO, body[0]))
     .do(() => window.W && window.W.analytics('ADD_TODO'))
     .ignoreElements()
 
 const removeTodoEpic = action$ =>
   action$
-    .ofType(DELETE_TODO)
+    .ofType(HANDLE_DELETE_TODO)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, todoId }) =>
@@ -164,9 +164,10 @@ const removeTodoEpic = action$ =>
           err =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
+        ).then(() => ({ _id, todoId }))
     )
     .do(() => dispatchSetIsLoading(false))
+    .do(({ _id, todoId }) => pulse(DELETE_TODO, { _id, todoId }))
     .do(() => window.W && window.W.analytics('DELETE_TODO'))
     .ignoreElements()
 
