@@ -2,16 +2,9 @@
 import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
-// helpers
-import { getQuery, mapToUsername, updateTasksInFront } from './Home.helper'
-import {
-  getRequest,
-  postRequest,
-} from '../../../helper/functions/request.helper'
 // actions
 import {
   dispatchLoadTagsDataInAdd,
-  dispatchLoadUsersDataInAdd,
   dispatchChangeAssigneeInAdd,
 } from '../Add/Add.action'
 import { dispatchLoadTagsDataInFilter } from '../Filter/Filter.action'
@@ -19,15 +12,15 @@ import { LOAD_MORE, dispatchChangePopoverId } from '../List/main/List.action'
 import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
-  dispatchLoadUsersData,
+  HANDLE_DELETE_TASK,
   dispatchLoadTasksData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
-  dispatchUpdateNumbersObject,
   HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
-  dispatchSetOrder,
-  FETCH_ALL_TASKS,
+  LOAD_USERS,
+  SET_ORDER,
+  SET_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -39,7 +32,13 @@ import {
   tabIndexView,
   tasksView,
 } from './Home.reducer'
-import { pulse } from '../../../helper/functions/realtime.helper'
+// helpers
+import { pulse } from '../../../helper/functions/realTime.helper'
+import { getQuery, updateTasksInFront, mapToUsername } from './Home.helper'
+import {
+  getRequest,
+  postRequest,
+} from '../../../helper/functions/request.helper'
 
 const usersEpic = action$ =>
   action$
@@ -77,8 +76,7 @@ const usersEpic = action$ =>
         window.W &&
         window.W.getUsersInfo(mapToUsername(body)).then(info => {
           const users = R.values(info)
-          dispatchLoadUsersDataInAdd(users)
-          dispatchLoadUsersData(users)
+          pulse(LOAD_USERS, users)
         }),
     )
     .do(() => dispatchSetIsLoading(false))
@@ -110,9 +108,9 @@ const initialFetchEpic = action$ =>
 
 const deleteTaskEpic = action$ =>
   action$
-    .ofType(DELETE_TASK)
+    .ofType(HANDLE_DELETE_TASK)
     .pluck('payload')
-    .do(({ task }) => dispatchUpdateNumbersObject(task.level, 'kind'))
+    .do(({ task }) => pulse(DELETE_TASK, task))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ task: { _id } }) =>
       postRequest('/deleteTask')
@@ -189,10 +187,7 @@ const dragTaskEpic = action$ =>
       ),
       allTasks: tasksView(),
     }))
-
-    .do(({ source, destination }) => {
-      dispatchSetAllTasks(updateTasksInFront(source, destination))
-    })
+    .do(({ source, destination }) => pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)))
     .map(({ sourceId, destinationId, allTasks }) => ({
       sourceId,
       desOrder: R.prop(
@@ -203,7 +198,6 @@ const dragTaskEpic = action$ =>
       destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
       allTasks,
     }))
-
     .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
       desOrder,
       desSiblingOrder:
@@ -235,15 +229,15 @@ const dragTaskEpic = action$ =>
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')
         })
-        .then(({ body: { _id, order } }) =>
-          dispatchSetOrder({
-            _id,
-            order,
-          }),
-        ),
+        .then(({ body: { _id, order } }) => ({ _id , order })),
+          // dispatchSetOrder({
+          //   _id,
+          //   order,
+          // }),
+        // ),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(() => pulse())
+    .do(({ _id, order }) => pulse(SET_ORDER, { _id,order }))
     .ignoreElements()
 
 export default combineEpics(

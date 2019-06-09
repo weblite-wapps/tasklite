@@ -1,43 +1,67 @@
 // modules
-import * as R from 'ramda'
 import { combineEpics } from 'redux-observable'
 import 'rxjs'
+// actions
 import {
-  FETCH_ALL_TASKS,
-  dispatchSetIsLoading,
-  dispatchSetAllTasks,
   ADD_TASK,
-  FETCH_SINGLE_TASK,
-  dispatchAddTask,
   DELETE_TASK,
+  DELETE_TODO,
+  HANDLE_REAL_TIME,
+  LOAD_USERS,
+  ADD_TODO,
+  TOGGLE_TODO,
+  CHANGE_LEVEL,
+  SET_ORDER,
+  SET_ALL_TASKS,
+  dispatchAddTask,
   dispatchDeleteTask,
+  dispatchUpdateNumbersObject,
+  dispatchDeleteTodo,
+  dispatchLoadUsersData,
+  dispatchAddTodo,
+  dispatchSetSentTime,
+  dispatchToggleTodo,
+  dispatchChangeLevel,
+  dispatchSetOrder,
+  dispatchSetAllTasks,
+  SET_EDITED_TASK,
+  dispatchSetEditedTask,
 } from './Home.action'
-import { getRequest } from '../../../helper/functions/request.helper'
-import { getQuery } from './Home.helper'
-import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
+import { dispatchLoadUsersDataInAdd } from '../Add/Add.action'
 
-const addTaskSubscribe = action$ =>
+// TODO: refactor with helper
+const fetchNotingSubscribe = action$ =>
   action$
-    .ofType(FETCH_SINGLE_TASK)
+    .ofType(HANDLE_REAL_TIME)
     .pluck('payload')
-    .do(console.log)
-    .do(() => dispatchSetIsLoading(true))
-    .mergeMap(({ data, type }) =>
-      getRequest('/fetchSingleTask')
-        .query({ ...getQuery(), _id: data })
-        .on(
-          'error',
-          err =>
-            err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!'),
-        )
-        .then(({ body }) => ({ ...body, type })),
-    )
-    .do(console.log)
-    .do(({ task, type }) => type === ADD_TASK && dispatchAddTask(task))
-    .do(({ task, type }) => type === DELETE_TASK && dispatchDeleteTask(task))
-    //   dispatchLoadNumberOfTasks(numberOfTasks),
-    .do(() => dispatchSetIsLoading(false))
+    .do(({ data, type }) => type === SET_ALL_TASKS && dispatchSetAllTasks(data))
+    .do(({ data, type }) => type === SET_ORDER && dispatchSetOrder(data))
+    .do(({ data, type }) => type === ADD_TASK && dispatchAddTask(data))
+    .do(({ data, type }) => type === ADD_TODO && dispatchAddTodo(data))
+    .do(({ data, type }) => type === DELETE_TODO && dispatchDeleteTodo(data))
+    .do(({ data, type }) => type === TOGGLE_TODO && dispatchToggleTodo(data))
+    .do(({ data, type }) => type === SET_EDITED_TASK && dispatchSetEditedTask(data))
+    .do(({ data, type }) => {
+      if (type === DELETE_TASK) {
+        dispatchDeleteTask(data)
+        dispatchUpdateNumbersObject(data.level, 'kind')
+      }
+    })
+    .do(({ data, type }) => {
+      if (type === CHANGE_LEVEL) {
+        dispatchChangeLevel(data)
+        dispatchUpdateNumbersObject(data.currentLevel, data.nextLevel)
+        dispatchSetSentTime(data._id, new Date())
+      }
+    })
+    .do(({ data, type }) => {
+      if (type === LOAD_USERS) {
+        dispatchLoadUsersDataInAdd(data)
+        dispatchLoadUsersData(data)
+      }
+    })
     .ignoreElements()
 
-export default combineEpics(addTaskSubscribe)
+export default combineEpics(
+  fetchNotingSubscribe,
+) 

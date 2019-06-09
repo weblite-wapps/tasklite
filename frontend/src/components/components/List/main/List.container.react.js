@@ -13,7 +13,7 @@ import { expandingIdView, popoverIdView } from './List.reducer'
 import {
   dispatchChangeTodoText,
   dispatchHandleAddTodo,
-  dispatchDeleteTask,
+  dispatchHandleDeleteTask,
 } from '../../Home/Home.action'
 import {
   dispatchChangeExpandingId,
@@ -34,7 +34,7 @@ const mapDispatchToProps = (_, { task }) => ({
   onExpandClick: dispatchChangeExpandingId,
   onTodoTextChange: value => dispatchChangeTodoText(task._id, value),
   changePopoverId: dispatchChangePopoverId,
-  deleteTask: () => dispatchDeleteTask(task),
+  deleteTask: () => dispatchHandleDeleteTask(task),
   editTask: () => dispatchEditButtonClick(task),
   addTodo: value => {
     dispatchHandleAddTodo(task._id, value)

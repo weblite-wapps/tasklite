@@ -38,7 +38,10 @@ export const TitleAndLevelButtons = props => {
   return (
     <div className="c--list_text">
       <div className={priorityClass}>
-        <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
+        <Typography
+          variant="subtitle1" 
+          style={{ marginLeft: '10px' }}
+        >
           {formattedTitle === title ? (
             <span>{formattedTitle}</span>
           ) : (
@@ -60,8 +63,8 @@ export const TitleAndLevelButtons = props => {
 
 TitleAndLevelButtons.propTypes = {
   task: PropTypes.shape({}).isRequired,
-  expandingId: PropTypes.string.isRequired,
-  onExpandClick: PropTypes.func.isRequired,
+  tabIndex: PropTypes.string.isRequired,
+  creator: PropTypes.bool.isRequired,
 }
 
 export const BriefInfo = ({
@@ -70,7 +73,7 @@ export const BriefInfo = ({
 }) =>
   _id !== expandingId && (
     <div className="c--list_text">
-      <Typography variant="body2">
+      <Typography variant="body2" className="c--list_brief-info">
         <span>{(assignee && assignee.name) || 'No assignee'}&nbsp;|&nbsp;</span>
 
         {checkToShow('deadline') && (
@@ -114,7 +117,6 @@ ProgressPanel.propTypes = {
 
 export const FurtherInfo = ({
   task: { _id, tags, deadline, level, sentTime, assignee, todos },
-  isLoading,
   onDragEnd,
 }) => (
   <React.Fragment>
@@ -125,7 +127,7 @@ export const FurtherInfo = ({
     )}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo
-      label="SUBWORKS"
+      label="TODOS"
       todos={todos}
       _id={_id}
       level={level}
@@ -149,7 +151,7 @@ export const AddTodo = ({
       <TextField
         dir="auto"
         withButton
-        label="New Subtask"
+        label="New Todo"
         fullWidth={false}
         value={todoText}
         onKeyPress={ev => {

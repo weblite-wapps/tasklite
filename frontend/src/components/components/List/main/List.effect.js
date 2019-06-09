@@ -7,14 +7,15 @@ import { push } from 'react-router-redux'
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 // actions
 import {
+  HANDLE_CHANGE_LEVEL,
   CHANGE_LEVEL,
+  HANDLE_TOGGLE_TODO,
   TOGGLE_TODO,
   HANDLE_ADD_TODO,
+  ADD_TODO,
+  HANDLE_DELETE_TODO,
   DELETE_TODO,
-  dispatchSetSentTime,
   dispatchSetIsLoading,
-  dispatchAddTodo,
-  dispatchUpdateNumbersObject,
   dispatchSetEditedTask,
 } from '../../Home/Home.action'
 import {
@@ -27,15 +28,12 @@ import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
-import { pulse } from '../../../../helper/functions/realtime.helper'
+import { pulse } from '../../../../helper/functions/realTime.helper'
 
 const changeLevelEpic = action$ =>
   action$
-    .ofType(CHANGE_LEVEL)
+    .ofType(HANDLE_CHANGE_LEVEL)
     .pluck('payload')
-    .do(({ currentLevel, nextLevel }) =>
-      dispatchUpdateNumbersObject(currentLevel, nextLevel),
-    )
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, currentLevel, nextLevel, title }) =>
       postRequest('/changeLevel')
@@ -50,14 +48,14 @@ const changeLevelEpic = action$ =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
         )
-        .then(({ body }) => ({
+        .then(() => ({
           _id,
           currentLevel,
           nextLevel,
-          body,
           title,
         })),
     )
+    .do(({ _id, currentLevel, nextLevel }) => pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }))
     .do(({ nextLevel, title }) => {
       window.W &&
         window.W.sendNotificationToAll(
@@ -66,12 +64,11 @@ const changeLevelEpic = action$ =>
         )
     })
     .do(() => dispatchSetIsLoading(false))
-    .do(({ body }) =>
-      dispatchChangeSnackbarStage(`Dropped to ${body.nextLevel}`),
+    .do(({ nextLevel }) =>
+      dispatchChangeSnackbarStage(`Dropped to ${nextLevel}`),
     )
-    .filter(({ body }) => body.nextLevel === 'EVALUATE')
-    .do(({ body }) => dispatchSetSentTime(body._id, new Date()))
-    .mergeMap(({ body: { _id } }) =>
+    .filter(({ nextLevel }) => nextLevel === 'EVALUATE')
+    .mergeMap(({ _id }) =>
       postRequest('/setSentTime')
         .send({
           _id,
@@ -89,7 +86,7 @@ const changeLevelEpic = action$ =>
 
 const toggleTodoEpic = action$ =>
   action$
-    .ofType(TOGGLE_TODO)
+    .ofType(HANDLE_TOGGLE_TODO)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, todoId }) =>
@@ -104,9 +101,10 @@ const toggleTodoEpic = action$ =>
           err =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
+        ).then(() => ({ _id, todoId }))
     )
     .do(() => dispatchSetIsLoading(false))
+    .do(({ _id, todoId }) => pulse(TOGGLE_TODO, { _id, todoId }))
     .do(() => window.W && window.W.analytics('TOGGLE_TODO'))
     .ignoreElements()
 
@@ -128,7 +126,6 @@ const addTodoEpic = action$ =>
       _id,
       ...rest,
     }))
-    // .do(console.log)
     .mergeMap(({ _id, value, order }) =>
       postRequest('/addTodo')
         .send({
@@ -144,13 +141,13 @@ const addTodoEpic = action$ =>
         ),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ body }) => dispatchAddTodo(body[0]))
+    .do(({ body }) => pulse(ADD_TODO, body[0]))
     .do(() => window.W && window.W.analytics('ADD_TODO'))
     .ignoreElements()
 
 const removeTodoEpic = action$ =>
   action$
-    .ofType(DELETE_TODO)
+    .ofType(HANDLE_DELETE_TODO)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, todoId }) =>
@@ -164,9 +161,10 @@ const removeTodoEpic = action$ =>
           err =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
-        ),
+        ).then(() => ({ _id, todoId }))
     )
     .do(() => dispatchSetIsLoading(false))
+    .do(({ _id, todoId }) => pulse(DELETE_TODO, { _id, todoId }))
     .do(() => window.W && window.W.analytics('DELETE_TODO'))
     .ignoreElements()
 

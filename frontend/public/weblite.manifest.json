@@ -1,12 +1,17 @@
 {
-  "name": "__test_tasklite",
-  "id": "5cf51ce152d6985a4256bee1",
+  "name": "tasklite",
+  "id": "5c7cd580cb652f5fc9380c4e",
   "searchable": true,
   "instantiable": true,
   "creator": true,
   "userInfo": true,
   "shareDB": true,
+  "fullscreen": false,
+  "inline": false,
+  "width": false,
+  "height": false,
   "servIndexes": {
     "main": "index"
-  }
+  },
+  "version": "2.0.1" 
 }
