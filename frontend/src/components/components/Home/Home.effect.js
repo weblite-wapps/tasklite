@@ -13,14 +13,14 @@ import {
   FETCH_INITIAL_DATA,
   DELETE_TASK,
   HANDLE_DELETE_TASK,
+  HANDLE_DRAG_TASK,
+  LOAD_USERS,
+  SET_ALL_TASKS,
+  DRAG_TASK,
   dispatchLoadTasksData,
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
-  HANDLE_DRAG_TASK,
   dispatchSetAllTasks,
-  LOAD_USERS,
-  SET_ORDER,
-  SET_ALL_TASKS,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -237,7 +237,7 @@ const dragTaskEpic = action$ =>
         // ),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ _id, order }) => pulse(SET_ORDER, { _id,order }))
+    .do(({ _id, order }) => pulse(DRAG_TASK, { _id,order }))
     .ignoreElements()
 
 export default combineEpics(

@@ -159,3 +159,11 @@ export const HANDLE_REAL_TIME = 'HANDLE_REAL_TIME'
 export const handleRealTime = createAction(HANDLE_REAL_TIME)
 export const dispatchHandleRealTime = (...args) =>
   dispatch(handleRealTime(...args))
+
+export const DRAG_TASK = 'DRAG_TASK'
+export const dragTask = createAction(DRAG_TASK)
+export const dispatchDragTask = (...args) => dispatch(dragTask(...args))
+
+export const DRAG_TODO = 'DRAG_TODO'
+export const dragTodo = createAction(DRAG_TODO)
+export const dispatchDragTodo = (...args) => dispatch(dragTodo(...args))

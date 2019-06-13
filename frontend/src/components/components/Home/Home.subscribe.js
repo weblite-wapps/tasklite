@@ -11,8 +11,10 @@ import {
   ADD_TODO,
   TOGGLE_TODO,
   CHANGE_LEVEL,
-  SET_ORDER,
   SET_ALL_TASKS,
+  DRAG_TASK,
+  DRAG_TODO,
+  SET_EDITED_TASK,
   dispatchAddTask,
   dispatchDeleteTask,
   dispatchUpdateNumbersObject,
@@ -24,7 +26,6 @@ import {
   dispatchChangeLevel,
   dispatchSetOrder,
   dispatchSetAllTasks,
-  SET_EDITED_TASK,
   dispatchSetEditedTask,
 } from './Home.action'
 import { dispatchLoadUsersDataInAdd } from '../Add/Add.action'
@@ -35,11 +36,12 @@ const fetchNotingSubscribe = action$ =>
     .ofType(HANDLE_REAL_TIME)
     .pluck('payload')
     .do(({ data, type }) => type === SET_ALL_TASKS && dispatchSetAllTasks(data))
-    .do(({ data, type }) => type === SET_ORDER && dispatchSetOrder(data))
+    .do(({ data, type }) => type === DRAG_TASK && dispatchSetOrder(data))
     .do(({ data, type }) => type === ADD_TASK && dispatchAddTask(data))
     .do(({ data, type }) => type === ADD_TODO && dispatchAddTodo(data))
     .do(({ data, type }) => type === DELETE_TODO && dispatchDeleteTodo(data))
     .do(({ data, type }) => type === TOGGLE_TODO && dispatchToggleTodo(data))
+    .do(({ data, type }) => type === DRAG_TODO && dispatchSetEditedTask(data))
     .do(({ data, type }) => type === SET_EDITED_TASK && dispatchSetEditedTask(data))
     .do(({ data, type }) => {
       if (type === DELETE_TASK) {
