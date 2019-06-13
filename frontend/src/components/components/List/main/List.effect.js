@@ -15,6 +15,7 @@ import {
   ADD_TODO,
   HANDLE_DELETE_TODO,
   DELETE_TODO,
+  DRAG_TODO,
   dispatchSetIsLoading,
   dispatchSetEditedTask,
 } from '../../Home/Home.action'
@@ -237,7 +238,7 @@ const handleDragTodoEpic = action$ =>
       sourceTask: updateTodosInFront(source, destination, sourceTask),
       ...rest,
     }))
-    .do(({ sourceTask }) => dispatchSetEditedTask(sourceTask))
+    .do(({ sourceTask }) => pulse(DRAG_TODO, sourceTask)) 
     .mergeMap(({ sourceTaskId, sourceTask, notChangedSourceTask }) =>
       postRequest('/dragTodo')
         .send({
@@ -251,7 +252,6 @@ const handleDragTodoEpic = action$ =>
         }),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(() => pulse())
     .ignoreElements()
 
 export default combineEpics(
