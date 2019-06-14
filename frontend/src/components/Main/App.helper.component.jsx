@@ -85,7 +85,7 @@ TabBar.propTypes = {
   setAboutMode: PropTypes.func.isRequired,
 }
 
-const AdminButton = ({ expandMode, changeExpandMode, label, src, addButtonClick }) => (
+const AdminButton = ({ isFilterActive, expandMode, changeExpandMode, label, src, addButtonClick }) => (
   <Tooltip
     enterDelay={300}
     leaveDelay={300}
@@ -102,12 +102,17 @@ const AdminButton = ({ expandMode, changeExpandMode, label, src, addButtonClick 
       }}
       className="c--app_imageContainer"
     >
-      <img className="c--app_image" alt={label} src={src} />
+      <img
+        className={label === 'filter' && isFilterActive ? 'c--app_image-active' : 'c--app_image'}
+        alt={label}
+        src={src}
+      />
     </div>
   </Tooltip>
 )
 
 AdminButton.propTypes = {
+  isFilterActive: PropTypes.bool.isRequired,
   expandMode: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,

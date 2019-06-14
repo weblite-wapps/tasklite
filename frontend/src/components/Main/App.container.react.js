@@ -5,6 +5,7 @@ import App from './App.presentational'
 // views
 import { isLoadingView } from '../components/Home/Home.reducer'
 import { expandModeView, aboutModeView } from './App.reducer'
+import { assigneeView, selectedTagsView } from '../components/Filter/Filter.reducer';
 // actions
 import {
   dispatchChangeExpandMode,
@@ -20,6 +21,7 @@ const mapStateToProps = () => ({
   isLoading: isLoadingView(),
   expandMode: expandModeView(),
   aboutMode: aboutModeView(),
+  isFilterActive: !!assigneeView().name || !!selectedTagsView().length
 })
 
 const mapDispatchToProps = () => ({
