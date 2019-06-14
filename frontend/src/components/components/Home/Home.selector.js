@@ -1,12 +1,12 @@
 // modules
 import { createSelector } from 'reselect'
 import * as R from 'ramda'
+// selectors
+import { getFilteredTasks } from '../Filter/Filter.selector'
 
-
-const getTasks = state => state.Home.tasks
 
 export const getNumberOfTasksInEachLevel = createSelector(
-  [getTasks],
+  [getFilteredTasks],
   tasks => {
     const groupedTasks = R.compose(R.groupBy(R.prop('level')))(tasks)
     return {

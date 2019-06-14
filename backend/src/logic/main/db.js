@@ -9,7 +9,7 @@ export const fetchTasks = async query =>
     .sort({
       order: -1,
     })
-    .limit(getLimit(query.level))
+    // .limit(getLimit(query.level))
     .exec()
 
 export const fetchTags = async query =>
