@@ -1,7 +1,7 @@
 // modules
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import FlipMove from 'react-flip-move'
+// import FlipMove from 'react-flip-move'
 import MuiCollapse from '@material-ui/core/Collapse'
 import Divider from '@material-ui/core/Divider'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
@@ -49,32 +49,32 @@ class DroppableItem extends Component {
 
     return (
       <div ref={forwardedRef}>
-        <FlipMove
+        {/* <FlipMove
           typeName={null}
           duration={500}
           staggerDelayBy={150}
           enterAnimation="elevator"
           leaveAnimation={false}
-        >
-          {tasks
-            .filter(task => task.level === tabIndex)
-            .map((task, index) => (
-              <Draggable
-                key={task._id}
-                isDragDisabled={isLoading}
-                draggableId={task._id}
-                index={index}
-              >
-                {provided => (
-                  <ForwardedDroppableItemTask
-                    ref={provided.innerRef}
-                    task={task}
-                    provided={provided}
-                  />
-                )}
-              </Draggable>
-            ))}
-        </FlipMove>
+        > */}
+        {tasks
+          .filter(task => task.level === tabIndex)
+          .map((task, index) => (
+            <Draggable
+              key={task._id}
+              isDragDisabled={isLoading}
+              draggableId={task._id}
+              index={index}
+            >
+              {provided => (
+                <ForwardedDroppableItemTask
+                  ref={provided.innerRef}
+                  task={task}
+                  provided={provided}
+                />
+              )}
+            </Draggable>
+          ))}
+        {/* </FlipMove> */}
       </div>
     )
   }
