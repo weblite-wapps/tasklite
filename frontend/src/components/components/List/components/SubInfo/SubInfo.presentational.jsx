@@ -16,7 +16,6 @@ import {
 } from '../../../../../helper/functions/time.helper'
 
 const SubInfo = ({
-  // isLoading,
   label,
   tags,
   deadline,

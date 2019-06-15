@@ -130,10 +130,7 @@ export const dispatchHandleAddTodo = (...args) =>
   dispatch(handleAddTodo(...args))
 
 export const HANDLE_TOGGLE_TODO = 'HANDLE_TOGGLE_TODO'
-export const handleToggleTodo = createAction(HANDLE_TOGGLE_TODO, (_id, todoId) => ({
-  _id,
-  todoId,
-}))
+export const handleToggleTodo = createAction(HANDLE_TOGGLE_TODO)
 export const dispatchHandleToggleTodo = (...args) => dispatch(handleToggleTodo(...args))
 
 export const HANDLE_DELETE_TASK = 'HANDLE_DELETE_TASK'
@@ -143,10 +140,7 @@ export const handleDeleteTask = createAction(HANDLE_DELETE_TASK, task => ({
 export const dispatchHandleDeleteTask = (...args) => dispatch(handleDeleteTask(...args))
 
 export const HANDLE_DELETE_TODO = 'HANDLE_DELETE_TODO'
-export const handleDeleteTodo = createAction(HANDLE_DELETE_TODO, (_id, todoId) => ({
-  _id,
-  todoId,
-}))
+export const handleDeleteTodo = createAction(HANDLE_DELETE_TODO)
 export const dispatchHandleDeleteTodo = (...args) => dispatch(handleDeleteTodo(...args))
 
 export const HANDLE_DRAG_TASK = 'HANDLE_DRAG_TASK'

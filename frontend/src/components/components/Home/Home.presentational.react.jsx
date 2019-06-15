@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import LevelBar from '../LevelBar/main/LevelBar.container.react'
 import Filter from '../Filter/Filter.container.react'
 // helpers
-import { Collapse, TaskList, LoadMore } from './Home.helper.component'
+import { Collapse, TaskList } from './Home.helper.component'
 // styles
 import './Home.scss'
 
@@ -16,7 +16,7 @@ const Home = props => (
     </Collapse>
     <LevelBar noMargin={props.expandMode !== 'default'} />
     <TaskList {...props} />
-    <LoadMore {...props} />
+    {/* <LoadMore {...props} /> */}
   </div>
 )
 

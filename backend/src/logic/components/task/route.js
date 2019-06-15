@@ -12,7 +12,7 @@ import {
   fetchSingleTask,
 } from './db'
 // helpers
-import { getToggledValue, calcNewIndexInDb } from './helper'
+import { calcNewIndexInDb } from './helper'
 import task from '../../../models/task'
 // const
 const logger = console.log
@@ -63,7 +63,7 @@ app.post('/setSentTime', ({ body: { _id, sentTime } }, res) =>
     .catch(logger),
 )
 
-app.post('/toggleTodo', ({ body: { _id, todoId, task } }, res) =>
+app.post('/toggleTodo', ({ body: { _id, todoId, completed } }, res) =>
   updateTask(
     {
       _id: mongoose.Types.ObjectId(_id),
@@ -71,7 +71,7 @@ app.post('/toggleTodo', ({ body: { _id, todoId, task } }, res) =>
     },
     {
       $set: {
-        'todos.$.completed': getToggledValue(task, todoId),
+        'todos.$.completed': completed,
       },
     },
     {},

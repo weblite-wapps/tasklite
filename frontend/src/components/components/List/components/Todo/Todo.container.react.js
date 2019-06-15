@@ -20,10 +20,11 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = (_, {
   _id,
-  todo
+  todo,
 }) => ({
-  onCompletedChange: () => dispatchHandleToggleTodo(_id, todo._id),
-  onDelete: () => dispatchHandleDeleteTodo(_id, todo._id),
+  onCompletedChange: () =>
+    dispatchHandleToggleTodo({ _id, todoId: todo._id, completed: !todo.completed }),
+  onDelete: () => dispatchHandleDeleteTodo({ _id, todoId: todo._id }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todo)
