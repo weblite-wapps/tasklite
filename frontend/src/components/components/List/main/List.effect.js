@@ -90,12 +90,12 @@ const toggleTodoEpic = action$ =>
     .ofType(HANDLE_TOGGLE_TODO)
     .pluck('payload')
     .do(() => dispatchSetIsLoading(true))
-    .mergeMap(({ _id, todoId }) =>
+    .mergeMap(({ _id, todoId, completed }) =>
       postRequest('/toggleTodo')
         .send({
           _id,
           todoId,
-          task: R.find(R.propEq('_id', _id), tasksView()),
+          completed,
         })
         .on(
           'error',
