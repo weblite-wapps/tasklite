@@ -14,7 +14,7 @@ export default () => (
         align="middle"
       />
       <Typography variant="subtitle1" align="center" gutterBottom>
-        Version 1.0.0
+        Version 2.0.1
       </Typography>
       <Typography variant="subtitle1" align="center" gutterBottom>
         All right reserved

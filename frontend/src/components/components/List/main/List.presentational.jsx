@@ -70,7 +70,7 @@ class TaskList extends React.Component {
         <div className="c--task_header">
           <img
             className="c--list_img"
-            src="drag2.png"
+            src="icons/drag2.png"
             {...provided.dragHandleProps}
             alt="drag icon"
           />

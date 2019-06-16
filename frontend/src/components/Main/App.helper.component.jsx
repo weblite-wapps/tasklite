@@ -31,7 +31,7 @@ export const Logo = ({ isLoading, setAboutMode }) => (
         />
         <img
           alt="loglite logo"
-          src="toplogo.png"
+          src="images/toplogo.png"
           className="c--app_logo"
         />
       </div>
@@ -52,14 +52,14 @@ export const TabBar = props => {
 
   return (
     <div className="c--app_tabBar">
-      <img alt="loglite logo" src="typo.png" className="c--app_typo" />
+      <img alt="loglite logo" src="images/typo.png" className="c--app_typo" />
       <div className="c--app_iconsContainer">
         {!aboutMode && (
           <React.Fragment>
-            <AdminButton {...props} label="add" src="plus.png" />
+            <AdminButton {...props} label="add" src="icons/plus.png" />
 
             <span style={{ width: '15px' }} />
-            <AdminButton {...props} label="filter" src="filter.png" />
+            <AdminButton {...props} label="filter" src="icons/filter.png" />
           </React.Fragment>
         )}
 

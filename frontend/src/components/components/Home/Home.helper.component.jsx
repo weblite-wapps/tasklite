@@ -172,7 +172,9 @@ export const TagPanel = ({
     >
       Frequently used tags:
     </Typography>
+
     <TagList tags={tags} onTagClick={tag => onTagClick(tag)} />
+
     <div className="c--home_textField">
       <Autocomplete
         label="Tags"

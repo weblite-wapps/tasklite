@@ -20,7 +20,7 @@ const Todo = ({
     <img
       {...provided.dragHandleProps}
       className="c--todo_img"
-      src="drag2.png"
+      src="icons/drag2.png"
       alt="drag icon"
     />
     <Checkbox
