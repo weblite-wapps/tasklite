@@ -1,7 +1,7 @@
 // modules
 import React from 'react'
 import PropTypes from 'prop-types'
-import FlipMove from 'react-flip-move'
+// import FlipMove from 'react-flip-move'
 import * as R from 'ramda'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
@@ -40,13 +40,13 @@ const SubInfo = ({
             {provided => (
               <div ref={provided.innerRef}>
                 {' '}
-                <FlipMove
+                {/* <FlipMove
                   typeName={null}
                   duration={500}
                   staggerDelayBy={150}
                   enterAnimation="elevator"
                   leaveAnimation={false}
-                >
+                > */}
                   {todos.map((todo, index) => (
                     <Draggable
                       key={todo._id}
@@ -70,7 +70,7 @@ const SubInfo = ({
                     </Draggable>
                   ))}
                   {provided.placeholder}
-                </FlipMove>
+                {/* </FlipMove> */}
               </div>
             )}
           </Droppable>

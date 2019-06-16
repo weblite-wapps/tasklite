@@ -15,10 +15,10 @@ const LevelBar = ({ tabIndex, noMargin }) => (
         noMargin ? "c--levelBar_noMargin" : "c--levelBar_container"
       }
     >
-      <LevelIcon src="icebox.png" label="ICE BOX" />
-      <LevelIcon src="inp.png" label="IN PROGRESS" />
-      <LevelIcon src="evaluate.png" label="EVALUATE" />
-      <LevelIcon src="done.png" label="DONE" />
+      <LevelIcon src="icons/icebox.png" label="ICE BOX" />
+      <LevelIcon src="icons/inp.png" label="IN PROGRESS" />
+      <LevelIcon src="icons/evaluate.png" label="EVALUATE" />
+      <LevelIcon src="icons/done.png" label="DONE" />
     </div>
 
     <div className="c--levelBar_textContainer">
