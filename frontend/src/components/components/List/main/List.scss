@@ -21,6 +21,10 @@
   text-overflow: ellipsis;
 }
 
+.c--list_brief-info-assignee {
+  color: #505050;
+}
+
 @media screen and (max-width: 400px) {
   .c--list_brief-info {
     white-space: nowrap;

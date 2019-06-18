@@ -70,11 +70,15 @@ TitleAndLevelButtons.propTypes = {
 export const BriefInfo = ({
   task: { _id, assignee, tags, deadline, sentTime, todos },
   expandingId,
+  user,
 }) =>
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2" className="c--list_brief-info">
-        <span>{(assignee && assignee.name) || 'No assignee'}&nbsp;|&nbsp;</span>
+        <span className={user.name === assignee.name && "c--list_brief-info-assignee"}>
+          {(assignee && assignee.name) || 'No assignee'}
+        </span>
+        <span>&nbsp;|&nbsp;</span>
 
         {checkToShow('deadline') && (
           <span>{deadline ? getRemained(deadline) : 'No deadline'}</span>
