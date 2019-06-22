@@ -28,7 +28,7 @@ import { EDIT_BUTTON_CLICK, HANDLE_DRAG_TODO } from './List.action'
 // helpers
 import { postRequest } from '../../../../helper/functions/request.helper'
 // views
-import { tasksView, userNameView } from '../../Home/Home.reducer'
+import { tasksView, userNameView, tabIndexView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
 import { pulse } from '../../../../helper/functions/realTime.helper'
 
@@ -239,7 +239,8 @@ const handleDragTodoEpic = action$ =>
       sourceTask: updateTodosInFront(source, destination, sourceTask),
       ...rest,
     }))
-    .do(({ sourceTask }) => pulse(DRAG_TODO, sourceTask)) 
+    .do(({ sourceTask }) => pulse(DRAG_TODO, sourceTask))
+    .do(() => window.W && window.W.analytics('DRAG_AND_DROP_TODO', { stage: tabIndexView() }))
     .mergeMap(({ sourceTaskId, sourceTask, notChangedSourceTask }) =>
       postRequest('/dragTodo')
         .send({
