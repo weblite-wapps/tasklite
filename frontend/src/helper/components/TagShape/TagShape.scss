@@ -1,6 +1,7 @@
 @import '../../../helper/style/_mixin.scss';
 
 .c--tagShape_container {
+  @include user-select-none;
   display: flex;
   justify-content: center;
   margin-top: 15px;
@@ -8,7 +9,6 @@
   margin-left: 6px;
   cursor: pointer;
   outline: none;
-  @include user-select-none();
 }
 
 .c--tagShape_default {

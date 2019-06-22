@@ -5,7 +5,7 @@
   flex-direction: row;
   margin-left: 20px;
   background-color: white;
-  @include user-select-none();
+  @include user-select-none;
 }
 
 .c--list_text {
@@ -19,6 +19,10 @@
   width: 260px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.c--list_brief-info-assignee {
+  color: #505050;
 }
 
 @media screen and (max-width: 400px) {
@@ -74,7 +78,7 @@
   display: flex;
   flex-direction: column;
   margin: 10px 30px;
-  @include user-select-none();
+  @include user-select-none;
 }
 
 .c--list_progress_panel {

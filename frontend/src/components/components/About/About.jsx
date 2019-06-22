@@ -10,7 +10,7 @@ export default () => (
       <img
         className="c--about_img"
         alt="tasklite about"
-        src="about.jpg"
+        src="images/about.jpg"
         align="middle"
       />
       <Typography variant="subtitle1" align="center" gutterBottom>

@@ -7,6 +7,7 @@ import {
   tabIndexView,
   creatorView,
   isLoadingView,
+  userView,
 } from '../../Home/Home.reducer'
 import { expandingIdView, popoverIdView } from './List.reducer'
 // actions
@@ -27,6 +28,7 @@ const mapStateToProps = () => ({
   expandingId: expandingIdView(),
   popoverId: popoverIdView(),
   creator: creatorView(),
+  user: userView(),
   isLoading: isLoadingView(),
 })
 

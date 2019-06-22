@@ -19,7 +19,7 @@ const SubInfo = ({
   label,
   tags,
   deadline,
-  sentTime,
+  times,
   level,
   assignee,
   todos,
@@ -31,8 +31,8 @@ const SubInfo = ({
     <Typography variant="caption">
       {tags && R.join(', ', tags)}
       {deadline && `${formattedTime(deadline)} - ${getRemained(deadline)}`}
-      {sentTime &&
-        `${formattedTime(sentTime)} - ${isOnTime(sentTime, deadline)}`}
+      {times.sentTime &&
+        `${formattedTime(times.sentTime)} - ${isOnTime(times.sentTime, times.deadline)}`}
       {assignee && assignee.name}
       {todos && (
         <DragDropContext onDragEnd={e => onDragEnd({ e, todos, task_id: _id })}>
@@ -85,7 +85,7 @@ SubInfo.propTypes = {
   label: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
   deadline: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-  sentTime: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  times: PropTypes.shape({}),
   level: PropTypes.string,
   assignee: PropTypes.shape({}),
   todos: PropTypes.arrayOf(PropTypes.shape({})),
@@ -95,7 +95,7 @@ SubInfo.propTypes = {
 SubInfo.defaultProps = {
   tags: [],
   deadline: '',
-  sentTime: '',
+  times: {},
   level: '',
   assignee: { name: '', id: '' },
   todos: [],

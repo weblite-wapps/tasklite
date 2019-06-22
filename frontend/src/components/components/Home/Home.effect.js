@@ -230,14 +230,10 @@ const dragTaskEpic = action$ =>
             dispatchChangeSnackbarStage('Server disconnected!')
         })
         .then(({ body: { _id, order } }) => ({ _id , order })),
-          // dispatchSetOrder({
-          //   _id,
-          //   order,
-          // }),
-        // ),
     )
     .do(() => dispatchSetIsLoading(false))
     .do(({ _id, order }) => pulse(DRAG_TASK, { _id,order }))
+    .do(() => window.W && window.W.analytics('DRAG_AND_DROP_TASK', { stage: tabIndexView() }))
     .ignoreElements()
 
 export default combineEpics(
