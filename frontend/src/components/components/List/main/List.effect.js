@@ -3,6 +3,7 @@ import { combineEpics } from 'redux-observable'
 import * as R from 'ramda'
 import 'rxjs'
 import { push } from 'react-router-redux'
+import jMoment from 'moment-jalaali'
 // local modules
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 // actions
@@ -73,7 +74,7 @@ const changeLevelEpic = action$ =>
       postRequest('/setSentTime')
         .send({
           _id,
-          sentTime: new Date(),
+          sentTime: jMoment(), 
         })
         .on(
           'error',

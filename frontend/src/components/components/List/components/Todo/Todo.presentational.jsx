@@ -24,7 +24,7 @@ const Todo = ({
       alt="drag icon"
     />
     <Checkbox
-      disabled={level !== 'IN PROGRESS'}
+      disabled={level === 'ICE BOX'}
       checked={completed}
       onChange={onCompletedChange}
       style={{ height: '15px', width: '15px' }}
@@ -36,7 +36,7 @@ const Todo = ({
       label="DELETE"
       onClick={onDelete}
       componentName="Todo"
-      disabled={level === 'EVALUATE' || level === 'DONE' || isLoading}
+      disabled={level === 'DONE' || isLoading}
     />
   </div>
 )

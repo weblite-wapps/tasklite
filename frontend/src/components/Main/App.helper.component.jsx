@@ -48,6 +48,7 @@ export const TabBar = props => {
   const {
     aboutMode,
     setAboutMode,
+    isFilterActive,
   } = props
 
   return (
@@ -59,7 +60,11 @@ export const TabBar = props => {
             <AdminButton {...props} label="add" src="icons/plus.png" />
 
             <span style={{ width: '15px' }} />
-            <AdminButton {...props} label="filter" src="icons/filter.png" />
+            <AdminButton
+              {...props}
+              label="filter"
+              src={isFilterActive ? "icons/filtered.png" : "icons/filter.png"}
+            />
           </React.Fragment>
         )}
 
@@ -81,11 +86,12 @@ export const TabBar = props => {
 }
 
 TabBar.propTypes = {
+  isFilterActive: PropTypes.bool.isRequired,
   aboutMode: PropTypes.bool.isRequired,
   setAboutMode: PropTypes.func.isRequired,
 }
 
-const AdminButton = ({ isFilterActive, expandMode, changeExpandMode, label, src, addButtonClick }) => (
+const AdminButton = ({ expandMode, changeExpandMode, label, src, addButtonClick }) => (
   <Tooltip
     enterDelay={300}
     leaveDelay={300}
@@ -103,7 +109,7 @@ const AdminButton = ({ isFilterActive, expandMode, changeExpandMode, label, src,
       className="c--app_imageContainer"
     >
       <img
-        className={label === 'filter' && isFilterActive ? 'c--app_image-active' : 'c--app_image'}
+        className="c--app_image"
         alt={label}
         src={src}
       />
@@ -112,7 +118,6 @@ const AdminButton = ({ isFilterActive, expandMode, changeExpandMode, label, src,
 )
 
 AdminButton.propTypes = {
-  isFilterActive: PropTypes.bool.isRequired,
   expandMode: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,

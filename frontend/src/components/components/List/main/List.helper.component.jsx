@@ -75,7 +75,7 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2" className="c--list_brief-info">
-        <span className={user.name === assignee.name && "c--list_brief-info-assignee"}>
+        <span className={assignee && user.name === assignee.name && "c--list_brief-info-assignee"}>
           {(assignee && assignee.name) || 'No assignee'}
         </span>
         <span>&nbsp;|&nbsp;</span>
@@ -127,7 +127,7 @@ export const FurtherInfo = ({
     <SubInfo label="TAGS" tags={tags} />
     <SubInfo label="DEADLINE" deadline={deadline} />
     {(level === 'EVALUATE' || level === 'DONE') && (
-      <SubInfo label="SENT TIME" sentTime={sentTime} />
+      <SubInfo label="SENT TIME" times={{ sentTime, deadline }} />
     )}
     <SubInfo label="ASSIGNEE" assignee={assignee} />
     <SubInfo

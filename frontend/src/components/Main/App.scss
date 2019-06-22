@@ -65,7 +65,7 @@
   height: 50px;
   z-index: 100;
   background-color: #cfcfcf;
-  @include user-select-none();
+  @include user-select-none;
 }
 
 .c--app_typo {

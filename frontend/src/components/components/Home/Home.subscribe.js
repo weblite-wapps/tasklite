@@ -1,5 +1,6 @@
 // modules
 import { combineEpics } from 'redux-observable'
+import jMoment from 'moment-jalaali'
 import 'rxjs'
 // actions
 import {
@@ -53,7 +54,7 @@ const fetchNotingSubscribe = action$ =>
       if (type === CHANGE_LEVEL) {
         dispatchChangeLevel(data)
         dispatchUpdateNumbersObject(data.currentLevel, data.nextLevel)
-        dispatchSetSentTime(data._id, new Date())
+        dispatchSetSentTime(data._id, jMoment())
       }
     })
     .do(({ data, type }) => {

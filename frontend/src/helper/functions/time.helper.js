@@ -33,7 +33,7 @@ const convertNumbers2English = function (string) {
  
 export const formattedTime = time =>
   convertNumbers2English(jMoment(time).format('jYYYY/jM/jD'))
-  
+
 
 export const isOnTime = (sentTime, deadline) =>
   isAfter(sentTime, deadline) ? 'Delayed' : 'On Time'
