@@ -88,6 +88,7 @@ const effectHandleAddTask = (action$, { dispatch }) =>
     )
     .do(({ isError }) => dispatchChangeIsError(isError))
     .filter(({ permission }) => permission)
+    .do(({ selectedTags }) => !!selectedTags.length && window.W && window.W.analytics('ADD_TAG'))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ title, assignee, selectedTags, priority, deadline, order }) =>
       Promise.all([
