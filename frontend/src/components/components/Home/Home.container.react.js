@@ -13,6 +13,7 @@ import {
 import {
   expandModeView
 } from '../../Main/App.reducer'
+import { selectedTagsView, assigneeView } from '../Filter/Filter.reducer'
 // actions
 import {
   dispatchChangeTab,
@@ -29,6 +30,7 @@ import {
   getFilteredTasks
 } from '../Filter/Filter.selector'
 
+
 const mapStateToProps = state => ({
   tasks: getFilteredTasks(state),
   tabIndex: tabIndexView(),
@@ -36,6 +38,8 @@ const mapStateToProps = state => ({
   expandMode: expandModeView(),
   numbers: getNumberOfTasksInEachLevel(state),
   numbersObject: numbersObjectView(),
+  selectedTags: selectedTagsView(),
+  assignee: assigneeView(),
 })
 
 const mapDispatchToProps = () => ({

@@ -56,7 +56,8 @@ class TaskList extends React.Component {
     const {
       classes,
       creator,
-      task: { _id, todos },
+      user,
+      task: { _id, todos, assignee },
       popoverId,
       expandingId,
       deleteTask,
@@ -85,7 +86,7 @@ class TaskList extends React.Component {
             {todos.length > 0 && <ProgressPanel todos={todos} />}
             <FurtherInfo {...this.props} />
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
-            {creator && (
+            {(creator || assignee.name === user.name) && (
               <div className="c--list_button">
                 <MuiButton
                   ref={node => {
