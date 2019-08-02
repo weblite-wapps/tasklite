@@ -14,15 +14,15 @@ export const checkToShow = (level, assignee = { id: '', name: '' }) => {
     case 'ICE BOX':
       return (
         (creator && tabIndex === 'EVALUATE') ||
-        (assignee.name === userName && tabIndex === 'IN PROGRESS')
+        ((creator || assignee.name === userName) && tabIndex === 'IN PROGRESS')
       )
     case 'IN PROGRESS':
       return (
-        assignee.name === userName &&
+        (creator || assignee.name === userName) &&
         (tabIndex === 'ICE BOX' || tabIndex === 'EVALUATE')
       )
     case 'EVALUATE':
-      return assignee.name === userName && tabIndex === 'IN PROGRESS'
+      return (creator || assignee.name === userName) && tabIndex === 'IN PROGRESS'
     case 'DONE':
       return creator && tabIndex === 'EVALUATE'
     default:

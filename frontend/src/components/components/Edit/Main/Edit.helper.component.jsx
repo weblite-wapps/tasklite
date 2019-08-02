@@ -59,8 +59,8 @@ export const Content = props => {
         <Avatar {...other} />
         <TextField {...other} isError={isError.title} />
         {/* <TagPanel {...other} /> */}
-        {props.priority && <SelectField {...other} />}
-        {props.deadline && <DatePicker {...other} />}
+        <SelectField {...other} />
+        <DatePicker {...other} />
       </List>
     </div>
   )
