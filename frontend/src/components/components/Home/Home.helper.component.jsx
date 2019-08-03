@@ -45,7 +45,14 @@ const ForwardedDroppableItemTask = React.forwardRef((props, ref) => (
 
 class DroppableItem extends Component {
   render() {
-    const { tasks, tabIndex, isLoading, forwardedRef, assignee, selectedTags } = this.props
+    const {
+      tasks,
+      tabIndex,
+      isLoading,
+      forwardedRef,
+      assignee,
+      selectedTags,
+    } = this.props
 
     return (
       <div ref={forwardedRef}>
@@ -61,7 +68,9 @@ class DroppableItem extends Component {
           .map((task, index) => (
             <Draggable
               key={task._id}
-              isDragDisabled={isLoading || !!assignee.name || !!selectedTags.length}
+              isDragDisabled={
+                isLoading || !!assignee.name || !!selectedTags.length
+              }
               draggableId={task._id}
               index={index}
             >

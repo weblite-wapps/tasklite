@@ -76,7 +76,7 @@ class TaskList extends React.Component {
             alt="drag icon"
           />
           <List disablePadding>
-            <TitleAndLevelButtons {...this.props} />
+            <TitleAndLevelButtons {...{ ...this.props, expandingId }} />
             <BriefInfo {...this.props} />
           </List>
         </div>

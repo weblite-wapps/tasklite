@@ -33,7 +33,7 @@ import {
   tasksView,
 } from './Home.reducer'
 // helpers
-import { pulse } from '../../../helper/functions/realTime.helper'
+import { pulse } from '../../../helper/functions/realtime.helper'
 import { updateTasksInFront, mapToUsername } from './Home.helper'
 import {
   getRequest,
@@ -130,7 +130,7 @@ const deleteTaskEpic = action$ =>
     .do(() => window.W && window.W.analytics('DELETE_TASK'))
     .ignoreElements()
 
-const loadMoreEpic = action$ => 
+const loadMoreEpic = action$ =>
   action$
     .ofType(LOAD_MORE)
     .pluck('payload')
@@ -187,7 +187,9 @@ const dragTaskEpic = action$ =>
       ),
       allTasks: tasksView(),
     }))
-    .do(({ source, destination }) => pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)))
+    .do(({ source, destination }) =>
+      pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
+    )
     .map(({ sourceId, destinationId, allTasks }) => ({
       sourceId,
       desOrder: R.prop(
@@ -229,11 +231,15 @@ const dragTaskEpic = action$ =>
           err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!')
         })
-        .then(({ body: { _id, order } }) => ({ _id , order })),
+        .then(({ body: { _id, order } }) => ({ _id, order })),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ _id, order }) => pulse(DRAG_TASK, { _id,order }))
-    .do(() => window.W && window.W.analytics('DRAG_AND_DROP_TASK', { stage: tabIndexView() }))
+    .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order }))
+    .do(
+      () =>
+        window.W &&
+        window.W.analytics('DRAG_AND_DROP_TASK', { stage: tabIndexView() }),
+    )
     .ignoreElements()
 
 export default combineEpics(
