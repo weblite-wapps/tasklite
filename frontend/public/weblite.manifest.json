@@ -1,6 +1,6 @@
 {
-  "name": "tasklite",
-  "id": "5c7cd580cb652f5fc9380c4e",
+  "name": "tasklite-test",
+  "id": "5d4485a14d9a8b719813a931",
   "searchable": true,
   "instantiable": true,
   "creator": true,
@@ -13,5 +13,5 @@
   "servIndexes": {
     "main": "index"
   },
-  "version": "2.0.1" 
+  "version": "2.0.1"
 }
