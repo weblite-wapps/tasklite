@@ -26,21 +26,26 @@ import './List.scss'
 
 export const TitleAndLevelButtons = props => {
   const {
-    task: { title, priority },
+    task: { title, priority, _id },
     tabIndex,
     creator,
+    expandingId,
   } = props
 
   const priorityClass = priorityClasses[priority]
 
-  const formattedTitle = formatTitle(title, tabIndex, creator)
+  const formattedTitle = formatTitle(title, tabIndex, creator, expandingId, _id)
 
   return (
     <div className="c--list_text">
       <div className={priorityClass}>
         <Typography
-          variant="subtitle1" 
-          style={{ marginLeft: '10px' }}
+          variant="subtitle1"
+          style={{
+            marginLeft: '10px',
+            wordBreak: 'break-word',
+            // lineHeight: '18px',
+          }}
         >
           {formattedTitle === title ? (
             <span>{formattedTitle}</span>
@@ -75,7 +80,13 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2" className="c--list_brief-info">
-        <span className={assignee && user.name === assignee.name && "c--list_brief-info-assignee"}>
+        <span
+          className={
+            assignee &&
+            user.name === assignee.name &&
+            'c--list_brief-info-assignee'
+          }
+        >
           {(assignee && assignee.name) || 'No assignee'}
         </span>
         <span>&nbsp;|&nbsp;</span>

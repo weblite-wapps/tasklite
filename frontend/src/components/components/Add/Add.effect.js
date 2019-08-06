@@ -8,7 +8,7 @@ import {
   getRequest,
   postRequest,
 } from '../../../helper/functions/request.helper'
-import { pulse } from '../../../helper/functions/realTime.helper'
+import { pulse } from '../../../helper/functions/realtime.helper'
 import { checkBeforeAddTag, checkBeforeAddTask } from './Add.helper'
 // actions
 import {
@@ -88,7 +88,10 @@ const effectHandleAddTask = (action$, { dispatch }) =>
     )
     .do(({ isError }) => dispatchChangeIsError(isError))
     .filter(({ permission }) => permission)
-    .do(({ selectedTags }) => !!selectedTags.length && window.W && window.W.analytics('ADD_TAG'))
+    .do(
+      ({ selectedTags }) =>
+        !!selectedTags.length && window.W && window.W.analytics('ADD_TAG'),
+    )
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ title, assignee, selectedTags, priority, deadline, order }) =>
       Promise.all([

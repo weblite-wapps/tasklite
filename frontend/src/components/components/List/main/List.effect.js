@@ -30,7 +30,7 @@ import { postRequest } from '../../../../helper/functions/request.helper'
 // views
 import { tasksView, userNameView, tabIndexView } from '../../Home/Home.reducer'
 import { updateTodosInFront } from '../../Home/Home.helper'
-import { pulse } from '../../../../helper/functions/realTime.helper'
+import { pulse } from '../../../../helper/functions/realtime.helper'
 
 const changeLevelEpic = action$ =>
   action$
@@ -57,7 +57,9 @@ const changeLevelEpic = action$ =>
           title,
         })),
     )
-    .do(({ _id, currentLevel, nextLevel }) => pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }))
+    .do(({ _id, currentLevel, nextLevel }) =>
+      pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }),
+    )
     .do(({ nextLevel, title }) => {
       window.W &&
         window.W.sendNotificationToAll(
@@ -74,7 +76,7 @@ const changeLevelEpic = action$ =>
       postRequest('/setSentTime')
         .send({
           _id,
-          sentTime: jMoment(), 
+          sentTime: jMoment(),
         })
         .on(
           'error',
@@ -103,7 +105,8 @@ const toggleTodoEpic = action$ =>
           err =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
-        ).then(() => ({ _id, todoId }))
+        )
+        .then(() => ({ _id, todoId })),
     )
     .do(() => dispatchSetIsLoading(false))
     .do(({ _id, todoId }) => pulse(TOGGLE_TODO, { _id, todoId }))
@@ -163,7 +166,8 @@ const removeTodoEpic = action$ =>
           err =>
             err.status !== 304 &&
             dispatchChangeSnackbarStage('Server disconnected!'),
-        ).then(() => ({ _id, todoId }))
+        )
+        .then(() => ({ _id, todoId })),
     )
     .do(() => dispatchSetIsLoading(false))
     .do(({ _id, todoId }) => pulse(DELETE_TODO, { _id, todoId }))
@@ -240,7 +244,11 @@ const handleDragTodoEpic = action$ =>
       ...rest,
     }))
     .do(({ sourceTask }) => pulse(DRAG_TODO, sourceTask))
-    .do(() => window.W && window.W.analytics('DRAG_AND_DROP_TODO', { stage: tabIndexView() }))
+    .do(
+      () =>
+        window.W &&
+        window.W.analytics('DRAG_AND_DROP_TODO', { stage: tabIndexView() }),
+    )
     .mergeMap(({ sourceTaskId, sourceTask, notChangedSourceTask }) =>
       postRequest('/dragTodo')
         .send({
