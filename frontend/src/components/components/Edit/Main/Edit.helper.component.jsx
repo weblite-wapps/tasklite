@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography'
 import CloseButton from '@material-ui/icons/Close'
 import Done from '@material-ui/icons/Done'
 // components
-// import { TagPanel } from '../../../Main/App.helper.component'
+import { TagPanel } from '../../Home/Home.helper.component'
 import Avatar from '../../../../helper/components/Avatar/Avatar.presentational'
 import {
   TextField,
@@ -23,7 +23,6 @@ import {
 import './Edit.scss'
 import { default as style } from './Edit.style'
 
-
 const AppBar = ({ isLoading, label, close, submit, classes }) => (
   <MuiAppBar style={{ position: 'fixed' }}>
     <Toolbar>
@@ -33,7 +32,7 @@ const AppBar = ({ isLoading, label, close, submit, classes }) => (
       <Typography variant="h6" style={{ color: 'white' }}>
         {label}
       </Typography>
-      <IconButton className="icon" onClick={submit} disabled={isLoading} >
+      <IconButton className="icon" onClick={submit} disabled={isLoading}>
         <Done classes={{ root: classes.svgIcon }} />
       </IconButton>
     </Toolbar>
@@ -58,7 +57,7 @@ export const Content = props => {
       <List>
         <Avatar {...other} />
         <TextField {...other} isError={isError.title} />
-        {/* <TagPanel {...other} /> */}
+        <TagPanel {...other} />
         <SelectField {...other} />
         <DatePicker {...other} />
       </List>

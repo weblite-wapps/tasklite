@@ -10,6 +10,9 @@ import {
   dispatchChangeEditAssignee,
   dispatchChangeEditPriority,
   dispatchCloseEdit,
+  dispatchChangeSelectedTagsInEdit,
+  dispatchSetTagQueryInEdit,
+  dispatchHandleAddTagInEdit,
 } from './Edit.action'
 // views
 import {
@@ -22,9 +25,11 @@ import {
   anchorElView,
   popoverIdView,
   isOpenDialogView,
+  queryTagView,
+  selectedTagsView,
+  tagsView,
 } from './Edit.reducer'
 import { usersView, isLoadingView } from '../../Home/Home.reducer'
-
 
 const mapStateToProps = () => ({
   users: usersView(),
@@ -38,6 +43,10 @@ const mapStateToProps = () => ({
   popoverId: popoverIdView(),
   isOpen: isOpenDialogView(),
   isLoading: isLoadingView(),
+  queryTag: queryTagView(),
+  selectedTags: selectedTagsView(),
+  suggestions: [],
+  tags: tagsView(),
 })
 
 const mapDispatchToProps = () => ({
@@ -48,12 +57,16 @@ const mapDispatchToProps = () => ({
       deadline: deadlineView(),
       assignee: assigneeView(),
       priority: priorityView(),
+      tags: selectedTagsView(),
     }),
   onTitleChange: dispatchChangeEditTitle,
   onDeadlineChange: dispatchChangeEditDeadline,
   onAssigneeChange: dispatchChangeEditAssignee,
   onPriorityChange: dispatchChangeEditPriority,
-  close: dispatchCloseEdit,
+  close: e => dispatchCloseEdit(),
+  onQueryTagChange: dispatchSetTagQueryInEdit,
+  onTagClick: dispatchChangeSelectedTagsInEdit,
+  handleAddTag: e => dispatchHandleAddTagInEdit(),
 })
 
 export default connect(

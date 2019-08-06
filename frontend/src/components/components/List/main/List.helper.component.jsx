@@ -38,10 +38,7 @@ export const TitleAndLevelButtons = props => {
   return (
     <div className="c--list_text">
       <div className={priorityClass}>
-        <Typography
-          variant="subtitle1" 
-          style={{ marginLeft: '10px' }}
-        >
+        <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
           {formattedTitle === title ? (
             <span>{formattedTitle}</span>
           ) : (
@@ -75,7 +72,13 @@ export const BriefInfo = ({
   _id !== expandingId && (
     <div className="c--list_text">
       <Typography variant="body2" className="c--list_brief-info">
-        <span className={assignee && user.name === assignee.name && "c--list_brief-info-assignee"}>
+        <span
+          className={
+            assignee && user.name === assignee.name
+              ? 'c--list_brief-info-assignee'
+              : ''
+          }
+        >
           {(assignee && assignee.name) || 'No assignee'}
         </span>
         <span>&nbsp;|&nbsp;</span>

@@ -1,18 +1,10 @@
 // modules
-import {
-  connect
-} from 'react-redux'
-import {
-  endOfDay
-} from 'date-fns'
+import { connect } from 'react-redux'
+import { endOfDay } from 'date-fns'
 // components
 import Add from './Add.presentational.react'
 // views
-import {
-  usersView,
-  creatorView,
-  isLoadingView
-} from '../Home/Home.reducer'
+import { usersView, creatorView, isLoadingView } from '../Home/Home.reducer'
 import {
   titleView,
   priorityView,
@@ -22,12 +14,10 @@ import {
   queryTagView,
   tagsView,
   isErrorView,
-  isOpenAddDialogView
+  isOpenAddDialogView,
 } from './Add.reducer'
 // actions
-import {
-  dispatchChangeTab
-} from '../Home/Home.action'
+import { dispatchChangeTab } from '../Home/Home.action'
 import {
   dispatchChangeTitle,
   dispatchChangePriority,
@@ -41,10 +31,7 @@ import {
   dispatchCloseAdd,
 } from './Add.action'
 // selector
-import {
-  getFilteredSuggestions
-} from './Add.selector'
-
+import { getFilteredSuggestions } from './Add.selector'
 
 const mapStateToProps = state => ({
   title: titleView(),
@@ -71,9 +58,19 @@ const mapDispatchToProps = () => ({
   changeTab: dispatchChangeTab,
   onAssigneeChange: dispatchChangeAssigneeInAdd,
   changeIsError: dispatchChangeIsError,
-  close: dispatchCloseAdd,
-  submit: () => dispatchHandleAddTask(titleView(), assigneeView(), selectedTagsView(), priorityView(), endOfDay(deadlineView())),
+  close: e => dispatchCloseAdd(),
+  submit: () =>
+    dispatchHandleAddTask(
+      titleView(),
+      assigneeView(),
+      selectedTagsView(),
+      priorityView(),
+      endOfDay(deadlineView()),
+    ),
   handleAddTag: dispatchHandleAddTag,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Add)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Add)
