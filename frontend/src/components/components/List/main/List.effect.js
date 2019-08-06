@@ -23,6 +23,7 @@ import {
 import {
   dispatchChangeIsOpenDialog,
   dispatchInsertTask,
+  dispatchUpdateTagsDataInEdit,
 } from '../../Edit/Main/Edit.action'
 import { EDIT_BUTTON_CLICK, HANDLE_DRAG_TODO } from './List.action'
 // helpers
@@ -179,6 +180,8 @@ const handleEditButtonEpic = action$ =>
     .ofType(EDIT_BUTTON_CLICK)
     .pluck('payload')
     .do(dispatchInsertTask)
+    .pluck('tags')
+    .do(dispatchUpdateTagsDataInEdit)
     .do(() => dispatchChangeIsOpenDialog(true))
     .map(() => push('/Edit'))
 

@@ -8,12 +8,15 @@ import {
   CLOSE_EDIT,
   dispatchChangeTitleIsError,
   dispatchChangeIsOpenDialog,
+  dispatchLoadTagsDataInEdit,
 } from './Edit.action'
 import { dispatchSetIsLoading, SET_EDITED_TASK } from '../../Home/Home.action'
 import { dispatchChangeSnackbarStage } from '../../Snackbar/Snackbar.action'
 //helper
 import { postRequest } from '../../../../helper/functions/request.helper'
 import { pulse } from '../../../../helper/functions/realtime.helper'
+import { LOAD_TAGS_DATA_IN_ADD } from '../../Add/Add.action'
+import { userIdView, wisView } from '../../Home/Home.reducer'
 
 // epics
 const submitEditEpic = (action$, { dispatch }) =>
@@ -29,25 +32,40 @@ const submitEditEpic = (action$, { dispatch }) =>
           return false
         })(),
     )
-    .map(({ task, title, deadline, assignee, priority }) => ({
+    .map(({ task, title, deadline, assignee, priority, tags }) => ({
       ...task,
       title,
       deadline,
       assignee,
       priority,
+      tags,
     }))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(task =>
-      postRequest('/editTask')
-        .send(task)
-        .on('error', err => {
-          if (err.status !== 304) {
-            dispatchChangeSnackbarStage('Server disconnected!')
-          }
-        })
-        .then(() => task),
+      Promise.all([
+        postRequest('/editTask')
+          .send(task)
+          .on('error', err => {
+            if (err.status !== 304) {
+              dispatchChangeSnackbarStage('Server disconnected!')
+            }
+          })
+          .then(() => task),
+        postRequest('/saveTags')
+          .send({
+            tags: task.tags,
+            userId: userIdView(),
+            wis: wisView(),
+          })
+          .on(
+            'error',
+            err =>
+              err.status !== 304 &&
+              dispatchChangeSnackbarStage('Server disconnected!'),
+          ),
+      ]),
     )
-    .do(task => pulse(SET_EDITED_TASK, task))
+    .do(success => pulse(SET_EDITED_TASK, success[0]))
     .do(() => dispatchChangeIsOpenDialog(false))
     .do(() => dispatch(push('/')))
     .do(() => dispatchChangeSnackbarStage('Updated Successfully!'))
@@ -74,4 +92,12 @@ const closeEditEpic = action$ =>
     .delay(200)
     .map(() => push('/'))
 
-export default combineEpics(submitEditEpic, closeEditEpic)
+const loadTagsDataEpic = action$ =>
+  action$
+    .ofType(LOAD_TAGS_DATA_IN_ADD)
+    .pluck('payload')
+    .pluck('tags')
+    .do(dispatchLoadTagsDataInEdit)
+    .ignoreElements()
+
+export default combineEpics(submitEditEpic, closeEditEpic, loadTagsDataEpic)

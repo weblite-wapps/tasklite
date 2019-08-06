@@ -44,7 +44,6 @@ export const TitleAndLevelButtons = props => {
           style={{
             marginLeft: '10px',
             wordBreak: 'break-word',
-            // lineHeight: '18px',
           }}
         >
           {formattedTitle === title ? (
@@ -82,9 +81,9 @@ export const BriefInfo = ({
       <Typography variant="body2" className="c--list_brief-info">
         <span
           className={
-            assignee &&
-            user.name === assignee.name &&
-            'c--list_brief-info-assignee'
+            assignee && user.name === assignee.name
+              ? 'c--list_brief-info-assignee'
+              : ''
           }
         >
           {(assignee && assignee.name) || 'No assignee'}
