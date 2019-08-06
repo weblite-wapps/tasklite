@@ -64,19 +64,23 @@ class TaskList extends React.Component {
       editTask,
       changePopoverId,
       provided,
+      onDragStart,
     } = this.props
-
+    // console.log(this.props.provided.dragHandleProps)
     return (
       <React.Fragment>
         <div className="c--task_header">
-          <img
-            className="c--list_img"
-            src="icons/drag2.png"
-            {...provided.dragHandleProps}
-            alt="drag icon"
-          />
+          <div {...provided.dragHandleProps}>
+            <img
+              className="c--list_img"
+              src="icons/drag2.png"
+              alt="drag icon"
+              onMouseDown={onDragStart}
+            />
+          </div>
+
           <List disablePadding>
-            <TitleAndLevelButtons {...this.props} />
+            <TitleAndLevelButtons {...{ ...this.props, expandingId }} />
             <BriefInfo {...this.props} />
           </List>
         </div>

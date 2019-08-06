@@ -26,19 +26,26 @@ import './List.scss'
 
 export const TitleAndLevelButtons = props => {
   const {
-    task: { title, priority },
+    task: { title, priority, _id },
     tabIndex,
     creator,
+    expandingId,
   } = props
 
   const priorityClass = priorityClasses[priority]
 
-  const formattedTitle = formatTitle(title, tabIndex, creator)
+  const formattedTitle = formatTitle(title, tabIndex, creator, expandingId, _id)
 
   return (
     <div className="c--list_text">
       <div className={priorityClass}>
-        <Typography variant="subtitle1" style={{ marginLeft: '10px' }}>
+        <Typography
+          variant="subtitle1"
+          style={{
+            marginLeft: '10px',
+            wordBreak: 'break-word',
+          }}
+        >
           {formattedTitle === title ? (
             <span>{formattedTitle}</span>
           ) : (

@@ -1,17 +1,17 @@
 // modules
 import * as R from 'ramda'
 // views
-import {
-  tabIndexView
-} from '../../Home/Home.reducer'
+import { tabIndexView } from '../../Home/Home.reducer'
 
+export const formatTitle = (name, tabIndex, creator, expandingId, _id) => {
+  if (expandingId === _id) return name
 
-export const formatTitle = (name, tabIndex, creator) => {
-  if (creator && (tabIndex === 'EVALUATE' || tabIndex === 'IN PROGRESS')) return name.length > 15 ? `${R.slice(0, 15, name)}...` : name
+  if (creator && (tabIndex === 'EVALUATE' || tabIndex === 'IN PROGRESS'))
+    return name.length > 15 ? `${R.slice(0, 15, name)}...` : name
   return name.length > 20 ? `${R.slice(0, 20, name)}...` : name
 }
 
-export const formatTags = (tags) => {
+export const formatTags = tags => {
   const joined = R.join(', ', tags)
   return R.length(joined) > 25 ? `${R.slice(0, 25, joined)}...` : joined
 }
