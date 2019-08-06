@@ -29,3 +29,8 @@ export const HANDLE_DRAG_TODO = 'HANDLE_DRAG_TODO'
 export const handleDragTodo = createAction(HANDLE_DRAG_TODO)
 export const dispatchHandleDragTodo = (...args) =>
   dispatch(handleDragTodo(...args))
+
+export const CLOSE_ALL_EXPANDINGS = 'CLOSE_ALL_EXPANDINGS'
+export const closeAllExpandings = createAction(CLOSE_ALL_EXPANDINGS)
+export const dispatchCloseAllExpandings = (...args) =>
+  dispatch(closeAllExpandings(...args))

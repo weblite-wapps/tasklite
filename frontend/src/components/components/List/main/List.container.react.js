@@ -21,6 +21,7 @@ import {
   dispatchChangePopoverId,
   dispatchEditButtonClick,
   dispatchHandleDragTodo,
+  dispatchCloseAllExpandings,
 } from './List.action'
 
 const mapStateToProps = () => ({
@@ -43,6 +44,7 @@ const mapDispatchToProps = (_, { task }) => ({
     dispatchChangeTodoText(task._id, '')
   },
   onDragEnd: dispatchHandleDragTodo,
+  onDragStart: e => dispatchCloseAllExpandings(),
 })
 
 export default connect(
