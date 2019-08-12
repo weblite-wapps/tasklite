@@ -28,13 +28,13 @@ export const TitleAndLevelButtons = props => {
   const {
     task: { title, priority, _id },
     tabIndex,
-    creator,
+    // creator,
     expandingId,
   } = props
 
   const priorityClass = priorityClasses[priority]
 
-  const formattedTitle = formatTitle(title, tabIndex, creator, expandingId, _id)
+  const formattedTitle = formatTitle(title, tabIndex, expandingId, _id)
 
   return (
     <div className="c--list_text">
@@ -68,7 +68,7 @@ export const TitleAndLevelButtons = props => {
 TitleAndLevelButtons.propTypes = {
   task: PropTypes.shape({}).isRequired,
   tabIndex: PropTypes.string.isRequired,
-  creator: PropTypes.bool.isRequired,
+  // creator: PropTypes.bool.isRequired,
 }
 
 export const BriefInfo = ({

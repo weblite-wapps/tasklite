@@ -3,12 +3,13 @@ import * as R from 'ramda'
 // views
 import { tabIndexView } from '../../Home/Home.reducer'
 
-export const formatTitle = (name, tabIndex, creator, expandingId, _id) => {
+export const formatTitle = (name, tabIndex, expandingId, _id) => {
   if (expandingId === _id) return name
-
-  if (creator && (tabIndex === 'EVALUATE' || tabIndex === 'IN PROGRESS'))
+  else if (tabIndex === 'EVALUATE' || tabIndex === 'IN PROGRESS')
     return name.length > 15 ? `${R.slice(0, 15, name)}...` : name
-  return name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+  else if (tabIndex === 'ICE BOX')
+    return name.length > 20 ? `${R.slice(0, 20, name)}...` : name
+  return name.length > 25 ? `${R.slice(0, 25, name)}...` : name
 }
 
 export const formatTags = tags => {

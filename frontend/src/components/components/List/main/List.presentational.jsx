@@ -55,7 +55,7 @@ class TaskList extends React.Component {
   render() {
     const {
       classes,
-      creator,
+      // creator,
       user,
       task: { _id, todos, assignee },
       popoverId,
@@ -88,37 +88,40 @@ class TaskList extends React.Component {
         <Collapse in={expandingId === _id} timeout="auto" unmountOnExit>
           <div className="c--list_collapse">
             {todos.length > 0 && <ProgressPanel todos={todos} />}
+
             <FurtherInfo {...this.props} />
+
             <AddTodo {...this.props} handleAddTodo={this.handleAddTodo} />
-            {(creator || assignee.name === user.name) && (
-              <div className="c--list_button">
-                <MuiButton
-                  ref={node => {
-                    this.button = node
-                  }}
-                  onClick={this.handleOpenPopover}
-                  classes={{ contained: classes.Button }}
-                  variant="contained"
-                >
-                  Delete
-                </MuiButton>
-                <Popover
-                  popoverIsOpen={_id === popoverId}
-                  anchorEl={this.state.anchorEl}
-                  onClose={() => changePopoverId('')}
-                  onYep={deleteTask}
-                  onNop={() => changePopoverId('')}
-                />
-                <MuiButton
-                  variant="contained"
-                  onClick={editTask}
-                  classes={{ contained: classes.Button }}
-                  style={{ marginLeft: '10px' }}
-                >
-                  Edit
-                </MuiButton>
-              </div>
-            )}
+
+            <div className="c--list_button">
+              <MuiButton
+                ref={node => {
+                  this.button = node
+                }}
+                onClick={this.handleOpenPopover}
+                classes={{ contained: classes.Button }}
+                variant="contained"
+              >
+                Delete
+              </MuiButton>
+
+              <Popover
+                popoverIsOpen={_id === popoverId}
+                anchorEl={this.state.anchorEl}
+                onClose={() => changePopoverId('')}
+                onYep={deleteTask}
+                onNop={() => changePopoverId('')}
+              />
+
+              <MuiButton
+                variant="contained"
+                onClick={editTask}
+                classes={{ contained: classes.Button }}
+                style={{ marginLeft: '10px' }}
+              >
+                Edit
+              </MuiButton>
+            </div>
           </div>
         </Collapse>
         <Divider style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} />
@@ -129,7 +132,7 @@ class TaskList extends React.Component {
 
 TaskList.propTypes = {
   classes: PropTypes.shape({}).isRequired,
-  creator: PropTypes.bool.isRequired,
+  // creator: PropTypes.bool.isRequired,
   task: PropTypes.shape({}).isRequired,
   expandingId: PropTypes.string.isRequired,
   popoverId: PropTypes.string.isRequired,
