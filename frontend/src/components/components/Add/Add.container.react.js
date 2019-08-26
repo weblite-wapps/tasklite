@@ -65,7 +65,7 @@ const mapDispatchToProps = () => ({
       assigneeView(),
       selectedTagsView(),
       priorityView(),
-      endOfDay(deadlineView()),
+      deadlineView() ? endOfDay(deadlineView()) : deadlineView(),
     ),
   handleAddTag: dispatchHandleAddTag,
 })

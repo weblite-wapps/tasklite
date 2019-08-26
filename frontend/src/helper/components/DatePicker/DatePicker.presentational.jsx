@@ -1,25 +1,24 @@
-import React from "react"
-import PropTypes from 'prop-types' 
-import jMoment from "moment-jalaali"
-import JalaliUtils from "@date-io/jalaali"
+import React from 'react'
+import PropTypes from 'prop-types'
+import jMoment from 'moment-jalaali'
+import JalaliUtils from '@date-io/jalaali'
 import {
   DatePicker as MuiDatePicker,
   MuiPickersUtilsProvider,
-} from "material-ui-pickers" 
+} from 'material-ui-pickers'
 // helpers
 import './DatePicker.scss'
 
+jMoment.loadPersian({ dialect: 'persian-modern', usePersianDigits: true })
 
-jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true })
-
-const DatePicker = ({ value, onChange }) => ( 
-  <div className="c--datePicker_textField"> 
+const DatePicker = ({ value, onChange }) => (
+  <div className="c--datePicker_textField">
     <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
       <MuiDatePicker
         autoOk
         label="Deadline"
         disablePast
-        labelFunc={date => (date ? date.format("jYYYY/jM/jD") : "")}
+        labelFunc={date => (date ? date.format('jYYYY/jM/jD') : '')}
         value={value}
         onChange={onChange}
         animateYearScrolling={false}
@@ -27,7 +26,6 @@ const DatePicker = ({ value, onChange }) => (
     </MuiPickersUtilsProvider>
   </div>
 )
-
 
 DatePicker.propTypes = {
   value: PropTypes.shape({}),

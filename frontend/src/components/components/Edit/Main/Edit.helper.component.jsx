@@ -51,7 +51,6 @@ export const AppBarWithStyle = withStyles(style)(AppBar)
 
 export const Content = props => {
   const { isError, ...other } = props
-
   return (
     <div style={{ marginTop: '60px' }}>
       <List>

@@ -16,7 +16,6 @@ const Home = props => (
     </Collapse>
     <LevelBar noMargin={props.expandMode !== 'default'} />
     <TaskList {...props} />
-    {/* <LoadMore {...props} /> */}
   </div>
 )
 
