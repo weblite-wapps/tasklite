@@ -124,7 +124,7 @@ const reducers = {
     ...state,
     title: '',
     priority: '',
-    deadline: jMoment(),
+    deadline: null,
     selectedTags: [],
     assignee: {
       name: '',
