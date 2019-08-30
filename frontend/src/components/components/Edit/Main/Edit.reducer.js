@@ -24,7 +24,7 @@ import {
 const initialState = {
   task: {},
   title: '',
-  deadline: jMoment(),
+  deadline: null,
   assignee: '',
   priority: '',
   isError: { title: false },
@@ -66,7 +66,9 @@ const reducers = {
     assignee: R.prop('assignee', task),
     selectedTags: R.prop('tags', task),
     priority: R.prop('priority', task),
-    deadline: jMoment(R.prop('deadline', task)),
+    deadline: R.prop('deadline', task)
+      ? jMoment(R.prop('deadline', task))
+      : null,
   }),
 
   [CHANGE_EDIT_TITLE]: (state, title) => ({

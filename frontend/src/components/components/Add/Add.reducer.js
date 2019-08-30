@@ -22,7 +22,7 @@ import {
 const initialState = {
   title: '',
   priority: '',
-  deadline: jMoment(),
+  deadline: null,
   queryTag: '',
   suggestions: [],
   selectedTags: [],
@@ -124,7 +124,7 @@ const reducers = {
     ...state,
     title: '',
     priority: '',
-    deadline: jMoment(),
+    deadline: null,
     selectedTags: [],
     assignee: {
       name: '',
