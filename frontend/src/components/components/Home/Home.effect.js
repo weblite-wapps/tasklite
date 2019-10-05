@@ -21,6 +21,9 @@ import {
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
   dispatchSetAllTasks,
+  dispatchSetWappMode,
+  dispatchChangeLevel,
+  dispatchHandleChangeLevel,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -34,7 +37,7 @@ import {
 } from './Home.reducer'
 // helpers
 import { pulse } from '../../../helper/functions/realtime.helper'
-import { updateTasksInFront, mapToUsername } from './Home.helper'
+import { updateTasksInFront, mapToUsername, getLevel } from './Home.helper'
 import {
   getRequest,
   postRequest,
@@ -85,7 +88,16 @@ const usersEpic = action$ =>
 const initialFetchEpic = action$ =>
   action$
     .ofType(FETCH_INITIAL_DATA)
-    .do(() => window.W && window.W.start())
+    .do(
+      () =>
+        window.W &&
+        window.W.setHooks({
+          wappWillStart(start, err, { mode }) {
+            dispatchSetWappMode(mode)
+            start()
+          },
+        }),
+    )
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(() =>
       getRequest('/initialFetch')
@@ -161,6 +173,7 @@ const dragTaskEpic = action$ =>
   action$
     .ofType(HANDLE_DRAG_TASK)
     .pluck('payload')
+    .do(console.log)
     .filter(
       ({ destination }) =>
         (destination && destination.index > -1) ||
@@ -172,25 +185,38 @@ const dragTaskEpic = action$ =>
     .do(() => dispatchSetIsLoading(true))
     .map(payload => ({
       ...payload,
-      pageTasks: R.filter(
-        task => R.prop('level', task) === tabIndexView(),
+      destTasks: R.filter(
+        task =>
+          R.prop('level', task) === R.prop('droppableId', payload.destination),
+        tasksView(),
+      ),
+      sourceTasks: R.filter(
+        task => R.prop('level', task) === R.prop('droppableId', payload.source),
         tasksView(),
       ),
     }))
-    .map(({ source, destination, pageTasks }) => ({
+    .do(console.log)
+
+    .map(({ source, destination, destTasks, sourceTasks }) => ({
       source,
       destination,
-      sourceId: R.prop('_id', R.nth(R.prop('index', source), pageTasks)),
+      sourceId: R.prop('_id', R.nth(R.prop('index', source), sourceTasks)),
+      Task: R.prop('title', R.nth(R.prop('index', source), sourceTasks)),
       destinationId: R.prop(
         '_id',
-        R.nth(R.prop('index', destination), pageTasks),
+        R.nth(R.prop('index', destination), destTasks),
       ),
       allTasks: tasksView(),
     }))
+    .do(console.log)
+
+    // .do(({ source, destination }) =>
+    //   pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
+    // )
     .do(({ source, destination }) =>
-      pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
+      dispatchSetAllTasks(updateTasksInFront(source, destination)),
     )
-    .map(({ sourceId, destinationId, allTasks }) => ({
+    .map(({ sourceId, destinationId, destination, allTasks }) => ({
       sourceId,
       desOrder: R.prop(
         'order',
@@ -199,7 +225,10 @@ const dragTaskEpic = action$ =>
       sourceIndex: R.findIndex(R.propEq('_id', sourceId), allTasks),
       destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
       allTasks,
+      destination,
     }))
+    .do(console.log)
+
     .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
       desOrder,
       desSiblingOrder:
@@ -219,6 +248,15 @@ const dragTaskEpic = action$ =>
       allTasks,
       ...rest,
     }))
+    .do(console.log)
+    .do(({ sourceId, destination, task }) =>
+      dispatchHandleChangeLevel(
+        sourceId,
+        getLevel(sourceId),
+        R.prop('droppableId', destination),
+        R.prop('title', task),
+      ),
+    )
     .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
       postRequest('/dragTask')
         .send({

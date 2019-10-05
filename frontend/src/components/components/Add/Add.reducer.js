@@ -1,6 +1,5 @@
 // modules
 import * as R from 'ramda'
-import jMoment from 'moment-jalaali'
 // local modules
 import { getState } from '../../../setup/redux'
 // actions

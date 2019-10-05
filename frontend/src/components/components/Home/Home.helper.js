@@ -2,11 +2,7 @@
 import * as R from 'ramda'
 import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
-import {
-  numbersObjectView,
-  tasksView,
-  tabIndexView,
-} from './Home.reducer'
+import { numbersObjectView, tasksView, tabIndexView } from './Home.reducer'
 
 export const formatTime = time =>
   setHours(
@@ -38,15 +34,19 @@ export const updateTasksInFront = (source, destination) => {
   const allTasks = tasksView()
   const srcInPage = R.prop('index', source)
   const destInPage = R.prop('index', destination)
-  const pageTasks = R.filter(
-    task => R.prop('level', task) === tabIndexView(),
+  const sourceTasks = R.filter(
+    task => R.prop('level', task) === R.prop('droppableId', source),
     tasksView(),
   )
+  const destTasks = R.filter(
+    task => R.prop('level', task) === R.prop('droppableId', destination),
+  )
   const srcInList = R.findIndex(
-    R.propEq('_id', R.prop('_id', R.nth(srcInPage, pageTasks))),
+    R.propEq('_id', R.prop('_id', R.nth(srcInPage, sourceTasks))),
   )(allTasks)
+
   const destInList = R.findIndex(
-    R.propEq('_id', R.prop('_id', R.nth(destInPage, pageTasks))),
+    R.propEq('_id', R.prop('_id', R.nth(destInPage, destTasks))),
     allTasks,
   )
   return R.move(srcInList, destInList, allTasks)

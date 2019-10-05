@@ -1,18 +1,20 @@
 // views
-import {
-  tabIndexView,
-  // userNameView,
-  // creatorView,
-} from '../../../../Home/Home.reducer'
+import // tabIndexView,
+// userNameView,
+// creatorView,
+'../../../../Home/Home.reducer'
 
-export const checkToShow = (level, assignee = { id: '', name: '' }) => {
-  const tabIndex = tabIndexView()
+export const checkToShow = (
+  level,
+  assignee = { id: '', name: '' },
+  tabIndex,
+) => {
   // const userName = userNameView()
   // const creator = creatorView()
-
+  // console.log('tabIndex ', tabIndex)
   switch (level) {
     case 'ICE BOX':
-      return (tabIndex === 'EVALUATE') || (tabIndex === 'IN PROGRESS')
+      return tabIndex === 'EVALUATE' || tabIndex === 'IN PROGRESS'
     case 'IN PROGRESS':
       return tabIndex === 'ICE BOX' || tabIndex === 'EVALUATE'
     case 'EVALUATE':
@@ -25,7 +27,6 @@ export const checkToShow = (level, assignee = { id: '', name: '' }) => {
 }
 
 export const nothing = null
-
 
 // case 'ICE BOX':
 //       return (

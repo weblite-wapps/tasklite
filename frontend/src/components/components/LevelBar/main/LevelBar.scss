@@ -1,6 +1,5 @@
 @import '../../../../helper/style/_mixin.scss';
 
-
 .c--levelBar_container {
   margin-top: 65px;
   display: flex;
@@ -16,4 +15,5 @@
 .c--levelBar_textContainer {
   text-align: center;
   margin-bottom: 10px;
+  min-width: 300px;
 }

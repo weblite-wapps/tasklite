@@ -22,6 +22,7 @@ import {
   SET_EDITED_TASK,
   SET_ALL_TASKS,
   SET_ORDER,
+  SET_WAPP_MODE,
 } from './Home.action'
 // helpers
 import { getUpdatedNumbersObject } from './Home.helper'
@@ -36,6 +37,7 @@ const initialState = {
   creator: false,
   tasks: [],
   numbersObject: {},
+  wappMode: 'fullscreen',
 }
 
 // lens
@@ -56,6 +58,7 @@ export const tabIndexView = () => R.path(['Home', 'tabIndex'])(getState())
 export const tasksView = () => R.path(['Home', 'tasks'])(getState())
 export const numbersObjectView = () =>
   R.path(['Home', 'numbersObject'])(getState())
+export const wappModeView = () => R.path(['Home', 'wappMode'])(getState())
 
 // reducers
 const reducers = {
@@ -228,6 +231,11 @@ const reducers = {
           : task,
       state.tasks,
     ),
+  }),
+
+  [SET_WAPP_MODE]: (state, value) => ({
+    ...state,
+    wappMode: value,
   }),
 }
 

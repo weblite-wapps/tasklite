@@ -19,6 +19,7 @@ const ActionButtons = ({
   expandingId,
   task: { _id, assignee, title },
   onExpandClick,
+  tabIndex,
 }) => (
   <div className="c--actionButtons_actions">
     <IconButton
@@ -32,16 +33,16 @@ const ActionButtons = ({
       )}
     </IconButton>
 
-    {checkToShow('ICE BOX', assignee) && (
+    {checkToShow('ICE BOX', assignee, tabIndex) && (
       <Icon src="icons/icebox.png" label="ICE BOX" _id={_id} title={title} />
     )}
-    {checkToShow('IN PROGRESS', assignee) && (
+    {checkToShow('IN PROGRESS', assignee, tabIndex) && (
       <Icon src="icons/inp.png" label="IN PROGRESS" _id={_id} title={title} />
     )}
-    {checkToShow('EVALUATE', assignee) && (
+    {checkToShow('EVALUATE', assignee, tabIndex) && (
       <Icon src="icons/evaluate.png" label="EVALUATE" _id={_id} title={title} />
     )}
-    {checkToShow('DONE', assignee) && (
+    {checkToShow('DONE', assignee, tabIndex) && (
       <Icon src="icons/done.png" label="DONE" _id={_id} title={title} />
     )}
   </div>

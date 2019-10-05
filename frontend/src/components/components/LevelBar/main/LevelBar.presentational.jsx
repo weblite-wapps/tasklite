@@ -8,24 +8,32 @@ import LevelIcon from '../components/LevelIcon/LevelIcon.container.react'
 // styles
 import './LevelBar.scss'
 
-const LevelBar = ({ tabIndex, noMargin }) => (
+const LevelBar = ({ tabIndex, noMargin, wappMode }) => (
   <React.Fragment>
-    <div
-      className={
-        noMargin ? "c--levelBar_noMargin" : "c--levelBar_container"
-      }
-    >
-      <LevelIcon src="icons/icebox.png" label="ICE BOX" />
-      <LevelIcon src="icons/inp.png" label="IN PROGRESS" />
-      <LevelIcon src="icons/evaluate.png" label="EVALUATE" />
-      <LevelIcon src="icons/done.png" label="DONE" />
-    </div>
+    {wappMode === 'main' ? (
+      <div>
+        <div
+          className={
+            noMargin ? 'c--levelBar_noMargin' : 'c--levelBar_container'
+          }
+        >
+          <LevelIcon src="icons/icebox.png" label="ICE BOX" />
+          <LevelIcon src="icons/inp.png" label="IN PROGRESS" />
+          <LevelIcon src="icons/evaluate.png" label="EVALUATE" />
+          <LevelIcon src="icons/done.png" label="DONE" />
+        </div>
 
-    <div className="c--levelBar_textContainer">
-      <Divider />
-      <Typography variant="h6">{tabIndex}</Typography>
-      <Divider />
-    </div>
+        <div className="c--levelBar_textContainer">
+          <Divider />
+          <Typography variant="h6">{tabIndex}</Typography>
+          <Divider />
+        </div>
+      </div>
+    ) : (
+      <div
+        className={noMargin ? 'c--levelBar_noMargin' : 'c--levelBar_container'}
+      ></div>
+    )}
   </React.Fragment>
 )
 

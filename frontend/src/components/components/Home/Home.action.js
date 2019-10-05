@@ -103,11 +103,14 @@ export const SET_ORDER = 'SET_ORDER'
 export const setOrder = createAction(SET_ORDER)
 export const dispatchSetOrder = (...args) => dispatch(setOrder(...args))
 
+export const SET_WAPP_MODE = 'SET_WAPP_MODE'
+export const setWappMode = createAction(SET_WAPP_MODE)
+export const dispatchSetWappMode = (...args) => dispatch(setWappMode(...args))
+
 // effects
 export const LOAD_USERS = 'LOAD_USERS'
-export const loadUsers= createAction(LOAD_USERS)
-export const dispatchLoadUsers= (...args) => dispatch(loadUsers(...args))
-
+export const loadUsers = createAction(LOAD_USERS)
+export const dispatchLoadUsers = (...args) => dispatch(loadUsers(...args))
 
 export const HANDLE_CHANGE_LEVEL = 'HANDLE_CHANGE_LEVEL'
 export const handleChangeLevel = createAction(
@@ -119,7 +122,8 @@ export const handleChangeLevel = createAction(
     title,
   }),
 )
-export const dispatchHandleChangeLevel = (...args) => dispatch(handleChangeLevel(...args))
+export const dispatchHandleChangeLevel = (...args) =>
+  dispatch(handleChangeLevel(...args))
 
 export const HANDLE_ADD_TODO = 'HANDLE_ADD_TODO'
 export const handleAddTodo = createAction(HANDLE_ADD_TODO, (_id, value) => ({
@@ -131,17 +135,20 @@ export const dispatchHandleAddTodo = (...args) =>
 
 export const HANDLE_TOGGLE_TODO = 'HANDLE_TOGGLE_TODO'
 export const handleToggleTodo = createAction(HANDLE_TOGGLE_TODO)
-export const dispatchHandleToggleTodo = (...args) => dispatch(handleToggleTodo(...args))
+export const dispatchHandleToggleTodo = (...args) =>
+  dispatch(handleToggleTodo(...args))
 
 export const HANDLE_DELETE_TASK = 'HANDLE_DELETE_TASK'
 export const handleDeleteTask = createAction(HANDLE_DELETE_TASK, task => ({
   task,
 }))
-export const dispatchHandleDeleteTask = (...args) => dispatch(handleDeleteTask(...args))
+export const dispatchHandleDeleteTask = (...args) =>
+  dispatch(handleDeleteTask(...args))
 
 export const HANDLE_DELETE_TODO = 'HANDLE_DELETE_TODO'
 export const handleDeleteTodo = createAction(HANDLE_DELETE_TODO)
-export const dispatchHandleDeleteTodo = (...args) => dispatch(handleDeleteTodo(...args))
+export const dispatchHandleDeleteTodo = (...args) =>
+  dispatch(handleDeleteTodo(...args))
 
 export const HANDLE_DRAG_TASK = 'HANDLE_DRAG_TASK'
 export const handleDragTask = createAction(HANDLE_DRAG_TASK)

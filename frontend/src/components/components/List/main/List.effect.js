@@ -37,6 +37,7 @@ const changeLevelEpic = action$ =>
   action$
     .ofType(HANDLE_CHANGE_LEVEL)
     .pluck('payload')
+    .do(console.log)
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, currentLevel, nextLevel, title }) =>
       postRequest('/changeLevel')
