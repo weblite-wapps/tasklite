@@ -34,7 +34,11 @@ class DroppableItemTask extends Component {
   render() {
     const { task, provided, forwardedRef, tabIndex } = this.props
     return (
-      <div ref={forwardedRef} {...provided.draggableProps}>
+      <div
+        style={{ width: '100%', height: '100%' }}
+        ref={forwardedRef}
+        {...provided.draggableProps}
+      >
         <CustomizedTaskList
           task={task}
           provided={provided}
@@ -62,7 +66,7 @@ class DroppableItem extends Component {
     } = this.props
 
     return (
-      <div ref={forwardedRef}>
+      <div style={{ width: '100%', height: '100%' }} ref={forwardedRef}>
         {/* <FlipMove
           typeName={null}
           duration={500}
@@ -130,10 +134,22 @@ export class TaskList extends Component {
     return (
       <>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              height: '100vh',
+            }}
+          >
             <Droppable droppableId={'ICE BOX'}>
               {provided => (
-                <div style={{}}>
+                <div
+                  style={{
+                    width: wappModeView() === 'fullscreen' ? '25%' : '100%',
+                    height: '100%',
+                  }}
+                >
                   <ForwardedDroppableItem
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
@@ -149,50 +165,58 @@ export class TaskList extends Component {
               )}
             </Droppable>
             {wappModeView() === 'fullscreen' && (
-              <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div
+                style={{ width: '100%', display: 'flex', flexDirection: 'row' }}
+              >
                 <Droppable droppableId="IN PROGRESS">
                   {provided => (
-                    <ForwardedDroppableItem
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      {...props}
-                      tabIndex={
-                        wappModeView() === 'fullscreen'
-                          ? 'IN PROGRESS'
-                          : this.props.tabIndex
-                      }
-                      ref={provided.innerRef}
-                    />
+                    <div style={{ width: '33%', height: '100%' }}>
+                      <ForwardedDroppableItem
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        {...props}
+                        tabIndex={
+                          wappModeView() === 'fullscreen'
+                            ? 'IN PROGRESS'
+                            : this.props.tabIndex
+                        }
+                        ref={provided.innerRef}
+                      />
+                    </div>
                   )}
                 </Droppable>
                 <Droppable droppableId="EVALUATE">
                   {provided => (
-                    <ForwardedDroppableItem
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      {...props}
-                      tabIndex={
-                        wappModeView() === 'fullscreen'
-                          ? 'EVALUATE'
-                          : this.props.tabIndex
-                      }
-                      ref={provided.innerRef}
-                    />
+                    <div style={{ width: '33%', height: '100%' }}>
+                      <ForwardedDroppableItem
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        {...props}
+                        tabIndex={
+                          wappModeView() === 'fullscreen'
+                            ? 'EVALUATE'
+                            : this.props.tabIndex
+                        }
+                        ref={provided.innerRef}
+                      />
+                    </div>
                   )}
                 </Droppable>
                 <Droppable droppableId="DONE">
                   {provided => (
-                    <ForwardedDroppableItem
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      {...props}
-                      tabIndex={
-                        wappModeView() === 'fullscreen'
-                          ? 'DONE'
-                          : this.props.tabIndex
-                      }
-                      ref={provided.innerRef}
-                    />
+                    <div style={{ width: '33%', height: '100%' }}>
+                      <ForwardedDroppableItem
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        {...props}
+                        tabIndex={
+                          wappModeView() === 'fullscreen'
+                            ? 'DONE'
+                            : this.props.tabIndex
+                        }
+                        ref={provided.innerRef}
+                      />
+                    </div>
                   )}
                 </Droppable>
               </div>

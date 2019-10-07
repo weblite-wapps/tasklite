@@ -24,6 +24,7 @@ import {
   dispatchSetWappMode,
   dispatchChangeLevel,
   dispatchHandleChangeLevel,
+  dispatchSetOrder,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -201,7 +202,7 @@ const dragTaskEpic = action$ =>
       source,
       destination,
       sourceId: R.prop('_id', R.nth(R.prop('index', source), sourceTasks)),
-      Task: R.prop('title', R.nth(R.prop('index', source), sourceTasks)),
+      title: R.prop('title', R.nth(R.prop('index', source), sourceTasks)),
       destinationId: R.prop(
         '_id',
         R.nth(R.prop('index', destination), destTasks),
@@ -213,10 +214,8 @@ const dragTaskEpic = action$ =>
     // .do(({ source, destination }) =>
     //   pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
     // )
-    .do(({ source, destination }) =>
-      dispatchSetAllTasks(updateTasksInFront(source, destination)),
-    )
-    .map(({ sourceId, destinationId, destination, allTasks }) => ({
+
+    .map(({ sourceId, destinationId, destination, allTasks, ...rest }) => ({
       sourceId,
       desOrder: R.prop(
         'order',
@@ -226,35 +225,52 @@ const dragTaskEpic = action$ =>
       destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
       allTasks,
       destination,
-    }))
-    .do(console.log)
-
-    .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
-      desOrder,
-      desSiblingOrder:
-        destinationIndex + 1 === R.length(allTasks)
-          ? desOrder - 100
-          : !destinationIndex
-          ? desOrder + 100
-          : R.prop(
-              'order',
-              R.nth(
-                destinationIndex > sourceIndex
-                  ? destinationIndex + 1
-                  : destinationIndex - 1,
-                allTasks,
-              ),
-            ),
-      allTasks,
       ...rest,
     }))
     .do(console.log)
-    .do(({ sourceId, destination, task }) =>
+
+    .map(
+      ({
+        sourceId,
+        sourceIndex,
+        destinationIndex,
+        allTasks,
+        desOrder,
+        ...rest
+      }) => ({
+        desOrder,
+        desSiblingOrder:
+          destinationIndex + 1 === R.length(allTasks)
+            ? desOrder - 100
+            : !destinationIndex
+            ? desOrder + 100
+            : R.prop(
+                'order',
+                R.nth(
+                  destinationIndex > sourceIndex
+                    ? destinationIndex + 1
+                    : destinationIndex - 1,
+                  allTasks,
+                ),
+              ),
+        allTasks,
+        sourceId,
+        prevLevel: getLevel(sourceId),
+        ...rest,
+      }),
+    )
+    .do(({ source, destination, desOrder, desSiblingOrder }) => {
+      dispatchSetAllTasks(
+        updateTasksInFront(source, destination, desOrder, desSiblingOrder),
+      )
+    })
+    .do(console.log)
+    .do(({ sourceId, destination, title, prevLevel }) =>
       dispatchHandleChangeLevel(
         sourceId,
-        getLevel(sourceId),
+        prevLevel,
         R.prop('droppableId', destination),
-        R.prop('title', task),
+        title,
       ),
     )
     .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
@@ -272,7 +288,8 @@ const dragTaskEpic = action$ =>
         .then(({ body: { _id, order } }) => ({ _id, order })),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order }))
+    // .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order })) // For production test
+    // .do(({ _id, order }) => dispatchSetOrder({ _id, order })) // For development test
     .do(
       () =>
         window.W &&

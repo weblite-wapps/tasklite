@@ -30,7 +30,12 @@ export const getLevel = _id =>
 
 export const mapToUsername = users => R.map(user => user.name, users)
 
-export const updateTasksInFront = (source, destination) => {
+export const updateTasksInFront = (
+  source,
+  destination,
+  desOrder,
+  desSiblingOrder,
+) => {
   const allTasks = tasksView()
   const srcInPage = R.prop('index', source)
   const destInPage = R.prop('index', destination)
@@ -40,6 +45,7 @@ export const updateTasksInFront = (source, destination) => {
   )
   const destTasks = R.filter(
     task => R.prop('level', task) === R.prop('droppableId', destination),
+    tasksView(),
   )
   const srcInList = R.findIndex(
     R.propEq('_id', R.prop('_id', R.nth(srcInPage, sourceTasks))),
@@ -49,7 +55,21 @@ export const updateTasksInFront = (source, destination) => {
     R.propEq('_id', R.prop('_id', R.nth(destInPage, destTasks))),
     allTasks,
   )
-  return R.move(srcInList, destInList, allTasks)
+  console.log('alltasks ', allTasks)
+  console.log(srcInList, destInList, destTasks)
+
+  return R.move(
+    srcInList,
+    destInList,
+    R.adjust(
+      srcInList,
+      R.compose(
+        R.assoc('level', R.prop('droppableId', destination)),
+        R.assoc('order', (desOrder + desSiblingOrder) / 2),
+      ),
+      allTasks,
+    ),
+  )
 }
 
 export const updateTodosInFront = (source, destination, task) => {
