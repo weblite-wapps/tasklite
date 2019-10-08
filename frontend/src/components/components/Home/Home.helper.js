@@ -3,6 +3,7 @@ import * as R from 'ramda'
 import { setHours, setMinutes, setSeconds } from 'date-fns'
 // views
 import { numbersObjectView, tasksView, tabIndexView } from './Home.reducer'
+import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 
 export const formatTime = time =>
   setHours(
@@ -34,7 +35,6 @@ export const updateTasksInFront = (
   source,
   destination,
   desOrder,
-  desSiblingOrder,
   initialOrder,
 ) => {
   const allTasks = tasksView()
@@ -59,21 +59,7 @@ export const updateTasksInFront = (
   // console.log('alltasks ', allTasks)
   // console.log(srcInList, destInList, destTasks)
 
-  return R.move(
-    srcInList,
-    destInList,
-    R.adjust(
-      srcInList,
-      R.compose(
-        R.assoc('level', R.prop('droppableId', destination)),
-        R.assoc(
-          'order',
-          desOrder ? (desOrder + desSiblingOrder) / 2 : initialOrder,
-        ),
-      ),
-      allTasks,
-    ),
-  )
+  return
 }
 
 export const updateTodosInFront = (source, destination, task) => {
@@ -95,52 +81,57 @@ export const mapToDragDatas = ({ source, destination }) => {
   )
 
   // console.log
-
-  const sourceId = R.prop('_id', R.nth(R.prop('index', source), sourceTasks))
   const task = R.nth(R.prop('index', source), sourceTasks)
+  const sourceId = R.prop('_id', task)
+
   const destinationId = R.prop(
     '_id',
     R.nth(R.prop('index', destination), destTasks),
   )
-  const allTasks = tasksView()
-  // .do(console.log)
+  console.log('destinationId ', destinationId)
 
-  let desOrder = R.prop(
-    'order',
-    R.find(R.propEq('_id', destinationId), allTasks),
-  )
-  const sourceIndex = R.findIndex(R.propEq('_id', sourceId), allTasks)
-  const destinationIndex = R.findIndex(R.propEq('_id', destinationId), allTasks)
+  const destRowIndex = R.prop('index', destination)
 
+  let desOrder =
+    destRowIndex === R.length(destTasks) && destTasks.length
+      ? R.prop('order', R.nth(destRowIndex, destTasks)) - 1024
+      : !destRowIndex && destTasks.length
+      ? R.prop('order', R.nth(destRowIndex, destTasks)) + 1024
+      : !destTasks.length
+      ? R.prop('order', task)
+      : (R.prop('order', R.nth(destRowIndex, destTasks)) +
+          R.prop('order', R.nth(destRowIndex, destTasks) - 1)) /
+        2
+  console.log('desOrder ', desOrder)
   // .do(console.log)
-  let desSiblingOrder =
-    destinationIndex + 1 === R.length(allTasks)
-      ? desOrder - 100
-      : !destinationIndex
-      ? desOrder + 100
-      : R.prop(
-          'order',
-          R.nth(
-            destinationIndex > sourceIndex
-              ? destinationIndex + 1
-              : destinationIndex - 1,
-            allTasks,
-          ),
-        )
   const prevLevel = getLevel(sourceId)
 
-  // console.log
-
-  desOrder = desOrder || R.prop('order', task)
-  desSiblingOrder = desOrder ? desSiblingOrder : R.prop('order', task)
   return {
     source,
     destination,
     desOrder,
-    desSiblingOrder,
     task,
     sourceId,
     prevLevel,
-    allTasks,
+    allTasks: tasksView(),
+    orderedTasks: R.move(
+      srcInList,
+      destInList,
+      R.adjust(
+        srcInList,
+        R.compose(
+          R.assoc('level', R.prop('droppableId', destination)),
+          R.assoc('order', desOrder ? desOrder : initialOrder),
+        ),
+        allTasks,
+      ),
+    ),
   }
 }
+
+export const checkBeforeDragTask = ({ destination }) =>
+  (destination && destination.index > -1) ||
+  (() => {
+    dispatchChangeSnackbarStage('Destination must be in task list zone')
+    return false
+  })()

@@ -43,6 +43,7 @@ import {
   mapToUsername,
   getLevel,
   mapToDragDatas,
+  checkBeforeDragTask,
 } from './Home.helper'
 import {
   getRequest,
@@ -180,24 +181,17 @@ const dragTaskEpic = action$ =>
     .ofType(HANDLE_DRAG_TASK)
     .pluck('payload')
     // .do(console.log)
-    .filter(
-      ({ destination }) =>
-        (destination && destination.index > -1) ||
-        (() => {
-          dispatchChangeSnackbarStage('Destination must be in task list zone')
-          return false
-        })(),
-    )
+
+    .filter(checkBeforeDragTask)
     .do(() => dispatchSetIsLoading(true))
     .map(mapToDragDatas)
     .do(console.log)
-    .do(({ source, destination, desOrder, desSiblingOrder, task }) => {
+    .do(({ source, destination, desOrder, task }) => {
       dispatchSetAllTasks(
         updateTasksInFront(
           source,
           destination,
           desOrder,
-          desSiblingOrder,
           R.prop('order', task),
         ),
       )
