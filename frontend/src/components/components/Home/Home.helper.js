@@ -35,6 +35,7 @@ export const updateTasksInFront = (
   destination,
   desOrder,
   desSiblingOrder,
+  initialOrder,
 ) => {
   const allTasks = tasksView()
   const srcInPage = R.prop('index', source)
@@ -55,8 +56,8 @@ export const updateTasksInFront = (
     R.propEq('_id', R.prop('_id', R.nth(destInPage, destTasks))),
     allTasks,
   )
-  console.log('alltasks ', allTasks)
-  console.log(srcInList, destInList, destTasks)
+  // console.log('alltasks ', allTasks)
+  // console.log(srcInList, destInList, destTasks)
 
   return R.move(
     srcInList,
@@ -65,7 +66,10 @@ export const updateTasksInFront = (
       srcInList,
       R.compose(
         R.assoc('level', R.prop('droppableId', destination)),
-        R.assoc('order', (desOrder + desSiblingOrder) / 2),
+        R.assoc(
+          'order',
+          desOrder ? (desOrder + desSiblingOrder) / 2 : initialOrder,
+        ),
       ),
       allTasks,
     ),
@@ -77,5 +81,66 @@ export const updateTodosInFront = (source, destination, task) => {
   return {
     ...task,
     todos: R.move(source, destination, todos),
+  }
+}
+
+export const mapToDragDatas = ({ source, destination }) => {
+  const destTasks = R.filter(
+    task => R.prop('level', task) === R.prop('droppableId', destination),
+    tasksView(),
+  )
+  const sourceTasks = R.filter(
+    task => R.prop('level', task) === R.prop('droppableId', source),
+    tasksView(),
+  )
+
+  // console.log
+
+  const sourceId = R.prop('_id', R.nth(R.prop('index', source), sourceTasks))
+  const task = R.nth(R.prop('index', source), sourceTasks)
+  const destinationId = R.prop(
+    '_id',
+    R.nth(R.prop('index', destination), destTasks),
+  )
+  const allTasks = tasksView()
+  // .do(console.log)
+
+  let desOrder = R.prop(
+    'order',
+    R.find(R.propEq('_id', destinationId), allTasks),
+  )
+  const sourceIndex = R.findIndex(R.propEq('_id', sourceId), allTasks)
+  const destinationIndex = R.findIndex(R.propEq('_id', destinationId), allTasks)
+
+  // .do(console.log)
+  let desSiblingOrder =
+    destinationIndex + 1 === R.length(allTasks)
+      ? desOrder - 100
+      : !destinationIndex
+      ? desOrder + 100
+      : R.prop(
+          'order',
+          R.nth(
+            destinationIndex > sourceIndex
+              ? destinationIndex + 1
+              : destinationIndex - 1,
+            allTasks,
+          ),
+        )
+  const prevLevel = getLevel(sourceId)
+
+  // console.log
+
+  desOrder = desOrder || R.prop('order', task)
+  desSiblingOrder = desOrder ? desSiblingOrder : R.prop('order', task)
+  return {
+    source,
+    destination,
+    desOrder,
+    desSiblingOrder,
+    task,
+    sourceId,
+    prevLevel,
+    allTasks,
   }
 }

@@ -38,7 +38,12 @@ import {
 } from './Home.reducer'
 // helpers
 import { pulse } from '../../../helper/functions/realtime.helper'
-import { updateTasksInFront, mapToUsername, getLevel } from './Home.helper'
+import {
+  updateTasksInFront,
+  mapToUsername,
+  getLevel,
+  mapToDragDatas,
+} from './Home.helper'
 import {
   getRequest,
   postRequest,
@@ -174,7 +179,7 @@ const dragTaskEpic = action$ =>
   action$
     .ofType(HANDLE_DRAG_TASK)
     .pluck('payload')
-    .do(console.log)
+    // .do(console.log)
     .filter(
       ({ destination }) =>
         (destination && destination.index > -1) ||
@@ -184,109 +189,41 @@ const dragTaskEpic = action$ =>
         })(),
     )
     .do(() => dispatchSetIsLoading(true))
-    .map(payload => ({
-      ...payload,
-      destTasks: R.filter(
-        task =>
-          R.prop('level', task) === R.prop('droppableId', payload.destination),
-        tasksView(),
-      ),
-      sourceTasks: R.filter(
-        task => R.prop('level', task) === R.prop('droppableId', payload.source),
-        tasksView(),
-      ),
-    }))
+    .map(mapToDragDatas)
     .do(console.log)
-
-    .map(({ source, destination, destTasks, sourceTasks }) => ({
-      source,
-      destination,
-      sourceId: R.prop('_id', R.nth(R.prop('index', source), sourceTasks)),
-      title: R.prop('title', R.nth(R.prop('index', source), sourceTasks)),
-      destinationId: R.prop(
-        '_id',
-        R.nth(R.prop('index', destination), destTasks),
-      ),
-      allTasks: tasksView(),
-    }))
-    .do(console.log)
-
-    // .do(({ source, destination }) =>
-    //   pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
-    // )
-
-    .map(({ sourceId, destinationId, destination, allTasks, ...rest }) => ({
-      sourceId,
-      desOrder: R.prop(
-        'order',
-        R.find(R.propEq('_id', destinationId), allTasks),
-      ),
-      sourceIndex: R.findIndex(R.propEq('_id', sourceId), allTasks),
-      destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
-      allTasks,
-      destination,
-      ...rest,
-    }))
-    .do(console.log)
-
-    .map(
-      ({
-        sourceId,
-        sourceIndex,
-        destinationIndex,
-        allTasks,
-        desOrder,
-        ...rest
-      }) => ({
-        desOrder,
-        desSiblingOrder:
-          destinationIndex + 1 === R.length(allTasks)
-            ? desOrder - 100
-            : !destinationIndex
-            ? desOrder + 100
-            : R.prop(
-                'order',
-                R.nth(
-                  destinationIndex > sourceIndex
-                    ? destinationIndex + 1
-                    : destinationIndex - 1,
-                  allTasks,
-                ),
-              ),
-        allTasks,
-        sourceId,
-        prevLevel: getLevel(sourceId),
-        ...rest,
-      }),
-    )
-    .do(({ source, destination, desOrder, desSiblingOrder }) => {
+    .do(({ source, destination, desOrder, desSiblingOrder, task }) => {
       dispatchSetAllTasks(
-        updateTasksInFront(source, destination, desOrder, desSiblingOrder),
-      )
-    })
-    .do(console.log)
-    .do(({ sourceId, destination, title, prevLevel }) =>
-      dispatchHandleChangeLevel(
-        sourceId,
-        prevLevel,
-        R.prop('droppableId', destination),
-        title,
-      ),
-    )
-    .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
-      postRequest('/dragTask')
-        .send({
-          sourceId,
+        updateTasksInFront(
+          source,
+          destination,
           desOrder,
           desSiblingOrder,
-        })
-        .on('error', err => {
-          dispatchSetAllTasks(allTasks)
-          err.status !== 304 &&
-            dispatchChangeSnackbarStage('Server disconnected!')
-        })
-        .then(({ body: { _id, order } }) => ({ _id, order })),
-    )
+          R.prop('order', task),
+        ),
+      )
+    })
+    // .do(({ sourceId, destination, task, prevLevel }) =>
+    //   dispatchHandleChangeLevel(
+    //     sourceId,
+    //     prevLevel,
+    //     R.prop('droppableId', destination),
+    //     R.prop('title', task),
+    //   ),
+    // )
+    // .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
+    //   postRequest('/dragTask')
+    //     .send({
+    //       sourceId,
+    //       desOrder,
+    //       desSiblingOrder,
+    //     })
+    //     .on('error', err => {
+    //       dispatchSetAllTasks(allTasks)
+    //       err.status !== 304 &&
+    //         dispatchChangeSnackbarStage('Server disconnected!')
+    //     })
+    //     .then(({ body: { _id, order } }) => ({ _id, order })),
+    // )
     .do(() => dispatchSetIsLoading(false))
     // .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order })) // For production test
     // .do(({ _id, order }) => dispatchSetOrder({ _id, order })) // For development test
