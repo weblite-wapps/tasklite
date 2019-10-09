@@ -78,9 +78,11 @@ const effectHandleAddTask = (action$, { dispatch }) =>
     .map(payload => ({
       ...payload,
       ...checkBeforeAddTask(),
-      order: R.length(tasksView())
-        ? R.prop('order', R.head(tasksView())) + 100
-        : 100,
+      order:
+        R.prop(
+          'order',
+          R.nth(0, R.filter(R.propEq('level', 'ICE BOX'), tasksView())),
+        ) + 1024 || 1024,
     }))
     .do(
       ({ permission, message }) =>

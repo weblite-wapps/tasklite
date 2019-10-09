@@ -13,8 +13,7 @@ import CustomizedButton from '../../../helper/components/Button/Button.presentat
 import TagList from '../../../helper/components/TagList/TagList.presentational'
 // styles
 import './Home.scss'
-import { wappModeView, tabIndexView } from './Home.reducer'
-import LevelIcon from '../LevelBar/components/LevelIcon/LevelIcon.presentational'
+import { wappModeView } from './Home.reducer'
 
 export const Collapse = ({ expandMode, label, children }) => (
   <MuiCollapse in={expandMode === label} timeout="auto" unmountOnExit>
@@ -64,7 +63,7 @@ class DroppableItem extends Component {
       selectedTags,
       wappMode,
     } = this.props
-
+    console.log('tasks ', tasks)
     return (
       <div style={{ width: '100%', height: '100%' }} ref={forwardedRef}>
         {/* <FlipMove
@@ -75,7 +74,7 @@ class DroppableItem extends Component {
           leaveAnimation={false}
         > */}
         {/* <LevelIcon src="icons/icebox.png" label="ICE BOX" /> */}
-        {wappMode === 'fullscreen' && tasks.length && (
+        {wappMode === 'fullscreen' && (
           <div className="c--levelBar_textContainer">
             <Divider />
             <Typography variant="h6">{tabIndex}</Typography>
@@ -166,7 +165,7 @@ export class TaskList extends Component {
             </Droppable>
             {wappModeView() === 'fullscreen' && (
               <div
-                style={{ width: '100%', display: 'flex', flexDirection: 'row' }}
+                style={{ width: '75%', display: 'flex', flexDirection: 'row' }}
               >
                 <Droppable droppableId="IN PROGRESS">
                   {provided => (

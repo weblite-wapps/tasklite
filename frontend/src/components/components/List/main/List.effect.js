@@ -40,7 +40,6 @@ const changeLevelEpic = action$ =>
   action$
     .ofType(HANDLE_CHANGE_LEVEL)
     .pluck('payload')
-    .do(a => console.log('11 ', a))
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(({ _id, currentLevel, nextLevel, title }) =>
       postRequest('/changeLevel')
@@ -62,15 +61,15 @@ const changeLevelEpic = action$ =>
           title,
         })),
     )
-    // .do(({ _id, currentLevel, nextLevel }) =>
-    //   pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }),
-    // ) // in production mode
+    .do(({ _id, currentLevel, nextLevel }) =>
+      pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }),
+    ) // in production mode
 
-    .do(({ _id, currentLevel, nextLevel }) => {
-      dispatchChangeLevel({ _id, currentLevel, nextLevel })
-      dispatchUpdateNumbersObject(currentLevel, nextLevel)
-      dispatchSetSentTime(_id, jMoment())
-    }) // in development mode
+    // .do(({ _id, currentLevel, nextLevel }) => {
+    //   dispatchChangeLevel({ _id, currentLevel, nextLevel })
+    //   dispatchUpdateNumbersObject(currentLevel, nextLevel)
+    //   dispatchSetSentTime(_id, jMoment())
+    // }) // in development mode
 
     .do(({ nextLevel, title }) => {
       window.W &&
