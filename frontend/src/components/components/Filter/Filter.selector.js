@@ -26,8 +26,8 @@ export const getFilteredTasks = createSelector(
       R.filter(task => filteredTags(selectedTags, task.tags)),
       R.filter(task => {
         if (!assignee.name) return true
-        else if (assignee.name && !task.assignee) return true
-        return task.assignee.name === assignee.name
+        else if (assignee.name === 'no assignee' && !task.assignee) return true
+        return task.assignee && task.assignee.name === assignee.name
       }),
     )(tasks),
 )

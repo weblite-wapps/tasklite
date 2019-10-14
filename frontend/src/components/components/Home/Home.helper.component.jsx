@@ -63,7 +63,6 @@ class DroppableItem extends Component {
       selectedTags,
       wappMode,
     } = this.props
-    console.log('tasks ', tasks)
     return (
       <div style={{ width: '100%', height: '100%' }} ref={forwardedRef}>
         {/* <FlipMove
