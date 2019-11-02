@@ -31,7 +31,7 @@
     "history": "^4.7.2",
     "json2csv": "^3.11.5",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.13.9",
+    "mongoose": "^5.7.5",
     "ramda": "^0.25.0"
   }
 }
