@@ -31,7 +31,6 @@ export const TitleAndLevelButtons = props => {
     // creator,
     expandingId,
   } = props
-
   const priorityClass = priorityClasses[priority]
 
   const formattedTitle = formatTitle(title, tabIndex, expandingId, _id)

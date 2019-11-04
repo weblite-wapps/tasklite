@@ -19,6 +19,9 @@ import {
   DRAG_TODO,
   dispatchSetIsLoading,
   dispatchSetEditedTask,
+  dispatchChangeLevel,
+  dispatchUpdateNumbersObject,
+  dispatchSetSentTime,
 } from '../../Home/Home.action'
 import {
   dispatchChangeIsOpenDialog,
@@ -60,7 +63,14 @@ const changeLevelEpic = action$ =>
     )
     .do(({ _id, currentLevel, nextLevel }) =>
       pulse(CHANGE_LEVEL, { _id, currentLevel, nextLevel }),
-    )
+    ) // in production mode
+
+    // .do(({ _id, currentLevel, nextLevel }) => {
+    //   dispatchChangeLevel({ _id, currentLevel, nextLevel })
+    //   dispatchUpdateNumbersObject(currentLevel, nextLevel)
+    //   dispatchSetSentTime(_id, jMoment())
+    // }) // in development mode
+
     .do(({ nextLevel, title }) => {
       window.W &&
         window.W.sendNotificationToAll(

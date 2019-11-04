@@ -3,12 +3,7 @@ import { connect } from 'react-redux'
 // components
 import List from './List.presentational'
 // views
-import {
-  tabIndexView,
-  creatorView,
-  isLoadingView,
-  userView,
-} from '../../Home/Home.reducer'
+import { creatorView, isLoadingView, userView } from '../../Home/Home.reducer'
 import { expandingIdView, popoverIdView } from './List.reducer'
 // actions
 import {
@@ -25,7 +20,6 @@ import {
 } from './List.action'
 
 const mapStateToProps = () => ({
-  tabIndex: tabIndexView(),
   expandingId: expandingIdView(),
   popoverId: popoverIdView(),
   creator: creatorView(),

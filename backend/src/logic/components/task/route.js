@@ -12,7 +12,6 @@ import {
   fetchSingleTask,
 } from './db'
 // helpers
-import { calcNewIndexInDb } from './helper'
 import task from '../../../models/task'
 // const
 const logger = console.log
@@ -146,25 +145,21 @@ app.post('/editTask', ({ body, body: { _id } }, res) =>
     .catch(logger),
 )
 
-app.post(
-  '/dragTask',
-  ({ body: { sourceId, desOrder, desSiblingOrder } }, res) => {
-    console.log()
-    return updateTask(
-      {
-        _id: sourceId,
-      },
-      {
-        order: calcNewIndexInDb(desOrder, desSiblingOrder),
-      },
-      {
-        new: true,
-      },
-    )
-      .then(data => res.send(data))
-      .catch(console.log)
-  },
-)
+app.post('/dragTask', ({ body: { sourceId, desOrder } }, res) => {
+  return updateTask(
+    {
+      _id: sourceId,
+    },
+    {
+      order: desOrder,
+    },
+    {
+      new: true,
+    },
+  )
+    .then(data => res.send(data))
+    .catch(console.log)
+})
 
 app.post('/dragTodo', ({ body: { sourceTaskId, todos } }, res) =>
   // console.log(sourceId, destOrder, destSiblingOrder, sourceTaskId)

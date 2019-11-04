@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Logo, TabBar } from './App.helper.component'
 // styles
 import './App.scss'
-import styles from './App.style' 
+import styles from './App.style'
 
 const App = class extends React.Component {
   constructor(props) {

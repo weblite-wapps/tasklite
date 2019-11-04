@@ -56,8 +56,7 @@ class TaskList extends React.Component {
     const {
       classes,
       // creator,
-      user,
-      task: { _id, todos, assignee },
+      task: { _id, todos },
       popoverId,
       expandingId,
       deleteTask,

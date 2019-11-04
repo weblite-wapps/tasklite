@@ -21,6 +21,10 @@ import {
   dispatchSetIsLoading,
   dispatchLoadNumberOfTasks,
   dispatchSetAllTasks,
+  dispatchSetWappMode,
+  dispatchChangeLevel,
+  dispatchHandleChangeLevel,
+  dispatchSetOrder,
 } from './Home.action'
 import { dispatchChangeSnackbarStage } from '../Snackbar/Snackbar.action'
 // views
@@ -34,7 +38,13 @@ import {
 } from './Home.reducer'
 // helpers
 import { pulse } from '../../../helper/functions/realtime.helper'
-import { updateTasksInFront, mapToUsername } from './Home.helper'
+import {
+  updateTasksInFront,
+  mapToUsername,
+  getLevel,
+  mapToDragDatas,
+  checkBeforeDragTask,
+} from './Home.helper'
 import {
   getRequest,
   postRequest,
@@ -85,7 +95,16 @@ const usersEpic = action$ =>
 const initialFetchEpic = action$ =>
   action$
     .ofType(FETCH_INITIAL_DATA)
-    .do(() => window.W && window.W.start())
+    .do(
+      () =>
+        window.W &&
+        window.W.setHooks({
+          wappWillStart(start, err, { mode }) {
+            dispatchSetWappMode(mode)
+            start()
+          },
+        }),
+    )
     .do(() => dispatchSetIsLoading(true))
     .mergeMap(() =>
       getRequest('/initialFetch')
@@ -156,75 +175,30 @@ const loadMoreEpic = action$ =>
     .do(() => window.W && window.W.analytics('LOAD_MORE_CLICK'))
     .ignoreElements()
 
-//TODO: THIS EPIC AND IT'S HELPER FUNCTION SHOULD BE REFACTORED
+//TODO: THIS EPIC AND ITS HELPER FUNCTION SHOULD BE REFACTORED
 const dragTaskEpic = action$ =>
   action$
     .ofType(HANDLE_DRAG_TASK)
     .pluck('payload')
-    .filter(
-      ({ destination }) =>
-        (destination && destination.index > -1) ||
-        (() => {
-          dispatchChangeSnackbarStage('Destination must be in task list zone')
-          return false
-        })(),
-    )
+    // .do(console.log)
+    .filter(checkBeforeDragTask)
     .do(() => dispatchSetIsLoading(true))
-    .map(payload => ({
-      ...payload,
-      pageTasks: R.filter(
-        task => R.prop('level', task) === tabIndexView(),
-        tasksView(),
+    .map(mapToDragDatas)
+    .do(({ orderedTasks }) => dispatchSetAllTasks(orderedTasks)) // For dev mode
+    // .do(({ orderedTasks }) => pulse(SET_ALL_TASKS, orderedTasks)) // For prod mode
+    .do(({ sourceId, destination, task, prevLevel }) =>
+      dispatchHandleChangeLevel(
+        sourceId,
+        prevLevel,
+        R.prop('droppableId', destination),
+        R.prop('title', task),
       ),
-    }))
-    .map(({ source, destination, pageTasks }) => ({
-      source,
-      destination,
-      sourceId: R.prop('_id', R.nth(R.prop('index', source), pageTasks)),
-      destinationId: R.prop(
-        '_id',
-        R.nth(R.prop('index', destination), pageTasks),
-      ),
-      allTasks: tasksView(),
-    }))
-    .do(({ source, destination }) =>
-      pulse(SET_ALL_TASKS, updateTasksInFront(source, destination)),
     )
-    .map(({ sourceId, destinationId, allTasks }) => ({
-      sourceId,
-      desOrder: R.prop(
-        'order',
-        R.find(R.propEq('_id', destinationId), allTasks),
-      ),
-      sourceIndex: R.findIndex(R.propEq('_id', sourceId), allTasks),
-      destinationIndex: R.findIndex(R.propEq('_id', destinationId), allTasks),
-      allTasks,
-    }))
-    .map(({ sourceIndex, destinationIndex, allTasks, desOrder, ...rest }) => ({
-      desOrder,
-      desSiblingOrder:
-        destinationIndex + 1 === R.length(allTasks)
-          ? desOrder - 100
-          : !destinationIndex
-          ? desOrder + 100
-          : R.prop(
-              'order',
-              R.nth(
-                destinationIndex > sourceIndex
-                  ? destinationIndex + 1
-                  : destinationIndex - 1,
-                allTasks,
-              ),
-            ),
-      allTasks,
-      ...rest,
-    }))
-    .mergeMap(({ sourceId, desOrder, desSiblingOrder, allTasks }) =>
+    .mergeMap(({ sourceId, desOrder, allTasks }) =>
       postRequest('/dragTask')
         .send({
           sourceId,
           desOrder,
-          desSiblingOrder,
         })
         .on('error', err => {
           dispatchSetAllTasks(allTasks)
@@ -234,7 +208,8 @@ const dragTaskEpic = action$ =>
         .then(({ body: { _id, order } }) => ({ _id, order })),
     )
     .do(() => dispatchSetIsLoading(false))
-    .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order }))
+    // .do(({ _id, order }) => pulse(DRAG_TASK, { _id, order })) // For production test
+    // .do(({ _id, order }) => dispatchSetOrder({ _id, order })) // For development test
     .do(
       () =>
         window.W &&

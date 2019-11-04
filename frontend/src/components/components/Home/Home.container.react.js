@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 // components
 import Home from './Home.presentational.react'
 // views
-import { tabIndexView, numbersObjectView, isLoadingView } from './Home.reducer'
+import {
+  tabIndexView,
+  numbersObjectView,
+  isLoadingView,
+  wappModeView,
+} from './Home.reducer'
 import { expandModeView } from '../../Main/App.reducer'
 import { selectedTagsView, assigneeView } from '../Filter/Filter.reducer'
 // actions
@@ -22,6 +27,7 @@ const mapStateToProps = state => ({
   numbersObject: numbersObjectView(),
   selectedTags: selectedTagsView(),
   assignee: assigneeView(),
+  wappMode: wappModeView(),
 })
 
 const mapDispatchToProps = () => ({
